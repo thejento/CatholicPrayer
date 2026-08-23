@@ -1,0 +1,19 @@
+{
+  "@@locale": "en",
+  "appTitle": "Catholic Rosary Companion",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "beginRosary": "Begin Rosary",
+  "@beginRosary": {
+    "description": "Button label to start praying the rosary"
+  },
+  "prayerLibrary": "Prayer Library",
+  "@prayerLibrary": {
+    "description": "Button label and screen title for the list of prayers"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Label and tooltip for the settings icon"
+  }
+}
