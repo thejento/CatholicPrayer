@@ -1,14 +1,28 @@
+# Updates are grouped so each ecosystem opens at most one PR per run (ADR-019).
 version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    groups:
+      github-actions:
+        patterns: ['*']
+
   - package-ecosystem: pub
     directory: /
     schedule:
       interval: weekly
+    groups:
+      pub:
+        patterns: ['*']
+
+  # Gradle wrapper, Android Gradle Plugin and Kotlin must move together
+  # (e.g. AGP 9.4 needs Gradle >= 9.6), so they always share one PR.
   - package-ecosystem: gradle
     directory: /android
     schedule:
       interval: monthly
+    groups:
+      android-build:
+        patterns: ['*']
