@@ -29,6 +29,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] O-07 Default branch `main`, protected: the 3 CI checks are required (ADR-014)
 - [x] O-08 Pages enabled (source: GitHub Actions) → https://thejento.github.io/CatholicPrayer/
 - [x] O-13 Obsolete `claude/new-session-sjsf1m` branch deleted
+- [x] O-15 First Dependabot batch (9 updates) combined into one PR; updates grouped from now on (ADR-019)
 - [x] O-09 Upload keystore created and the 4 `ANDROID_*` secrets set (ADR-018); signature verified
 - [ ] O-14 **Owner:** back up `~/.config/catholicprayer-signing/` offline
 - [x] F-06 Resume an interrupted Rosary (persist session index + mysteries)

@@ -167,3 +167,13 @@ Template:
 - Consequences: The owner must back that folder up offline (password manager or
   encrypted drive). Enrol in Play App Signing at first upload, so a lost upload key can
   be reset by Google.
+
+## ADR-019: Grouped Dependabot updates
+- Date: 2026-10-14 · Status: Accepted
+- Context: The first Dependabot run opened 9 separate PRs. `main` requires PRs to be up
+  to date, so each merge forced the others to rebase and re-run CI. One AGP bump
+  also failed on its own because it needed the Gradle bump from another PR.
+- Decision: Group updates per ecosystem (GitHub Actions, pub, Android/Gradle). Each
+  group opens at most one PR per run. Android build tooling always moves in one PR.
+- Consequences: At most 3 dependency PRs per cycle. When a group PR fails, the whole
+  group waits, so a failing update can be split out manually.
