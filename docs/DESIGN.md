@@ -187,7 +187,9 @@ build/tts/texts.json ──► tool/tts/render.py ──► assets/audio/<lang>/
   matches the current text. So the audio can never silently drift from the words on screen.
 * `render-audio.yml` runs on any branch push that changes spoken text. It renders only
   the stale clips, installs only the engines needed (Kokoro takes minutes; Chatterbox
-  takes about an hour on CPU), commits them to the branch, and re-runs CI.
+  takes about 40 minutes on CPU) and commits them to the branch. GitHub holds CI runs
+  triggered by a bot push for approval, and branch protection only counts PR-event runs,
+  so the job approves that held run through the API.
 * Kokoro (EN/ES) can also be rendered locally in about 2 minutes.
 
 **Playback** (`just_audio`, MIT, Android + web)

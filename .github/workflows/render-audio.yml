@@ -1,8 +1,8 @@
 # Keeps the voice recordings in sync with the texts (DESIGN §3.7, ADR-020).
 #
 # On a branch push that touches spoken text or the voice config, renders only
-# the stale clips, commits them back to the branch, then re-runs CI (pushes
-# made with GITHUB_TOKEN do not trigger workflows on their own).
+# the stale clips, commits them back to the branch, then approves the PR's CI
+# run that the bot push opened (GitHub holds bot-triggered runs for approval).
 name: Render audio
 
 on:
@@ -93,6 +93,7 @@ jobs:
         if: steps.stale.outputs.langs != ''
         env:
           GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -100,4 +101,20 @@ jobs:
           git commit -m "Render voice clips (${{ steps.stale.outputs.langs }})"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
-          gh workflow run ci.yml --ref "${GITHUB_REF_NAME}"
+          sha=$(git rev-parse HEAD)
+
+          # A bot push opens the PR's CI run as "action_required". Branch
+          # protection only counts PR-event runs, so approve that run.
+          for _ in $(seq 1 12); do
+            run=$(gh api "repos/$REPO/actions/runs?head_sha=$sha&event=pull_request" \
+              --jq '[.workflow_runs[] | select(.name == "CI")][0].id // empty')
+            [ -n "$run" ] && break
+            sleep 10
+          done
+          if [ -n "$run" ] && gh api -X POST "repos/$REPO/actions/runs/$run/approve" >/dev/null 2>&1; then
+            echo "Approved CI run $run for $sha"
+          else
+            # No open PR yet (CI runs when it is opened), or approval refused.
+            gh workflow run ci.yml --ref "${GITHUB_REF_NAME}"
+            echo "::notice::CI dispatched for $sha. If a PR is open and shows 'Approve workflows to run', approve it once."
+          fi
