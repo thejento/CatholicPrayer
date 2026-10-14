@@ -64,4 +64,32 @@ void main() {
       expect(store.values.containsKey(SettingsController.localeKey), isFalse);
     });
   });
+
+  group('voice settings', () {
+    test('default to off, normal speed, 2 s pause, guidance read aloud', () async {
+      final settings = SettingsController(InMemoryPreferencesStore());
+      await settings.load();
+      expect(settings.voiceEnabled, isFalse);
+      expect(settings.voiceSpeed, 1.0);
+      expect(settings.autoAdvance, isFalse);
+      expect(settings.pauseSeconds, 2);
+      expect(settings.readGuidanceAloud, isTrue);
+    });
+
+    test('persist and clamp out-of-range values', () async {
+      final store = InMemoryPreferencesStore();
+      final settings = SettingsController(store);
+      await settings.setVoiceSpeed(3);
+      await settings.setPauseSeconds(0);
+      expect(settings.voiceSpeed, SettingsController.maxSpeed);
+      expect(settings.pauseSeconds, SettingsController.minPause);
+
+      store.values[SettingsController.voiceSpeedKey] = '0.1';
+      store.values[SettingsController.pauseKey] = 'junk';
+      final reloaded = SettingsController(store);
+      await reloaded.load();
+      expect(reloaded.voiceSpeed, SettingsController.minSpeed);
+      expect(reloaded.pauseSeconds, 2);
+    });
+  });
 }

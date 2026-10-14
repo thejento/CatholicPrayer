@@ -179,7 +179,7 @@ Template:
   group waits, so a failing update can be split out manually.
 
 ## ADR-020: Natural voice through pre-rendered open-source neural TTS
-- Date: 2026-10-14 · Status: **Proposed**. The voice is chosen by ear from samples.
+- Date: 2026-10-14 · Status: Accepted
 - Context: The owner wants a smooth, non-robotic, open-source voice. Spoken texts are
   fixed and known in advance. Targets include Android TV and the web, where on-device voices
   vary widely.
@@ -195,7 +195,10 @@ Template:
   - Coqui XTTS-v2, Fish Audio, Voxtral: non-commercial licences. Rejected.
   - On-device `flutter_tts`: inconsistent quality, especially on TV and web. Rejected as
     the main voice; it may serve as a fallback for user-added text later.
-- Decision (pending owner's choice): render at build time with the chosen model. Ship
-  MP3 clips with a hash manifest, and play them with `just_audio`.
+- Decision: render at build time and ship MP3 clips with a hash manifest, played with
+  `just_audio`. After two rounds of blind listening (13 samples, then Bella blends), the owner chose
+  **EN: Kokoro Bella**, **ES: Kokoro Dora** and **FR: Chatterbox built-in voice**. Bella was
+  preferred overall, but blending her into ES/FR kept an English accent.
+  Users can adjust playback speed (0.75×–1.25×) without a re-render.
 - Consequences: About 8 MB of audio for 3 languages. Any text edit requires a re-render,
   which CI enforces. Attribution for CC BY voices goes on a credits screen.

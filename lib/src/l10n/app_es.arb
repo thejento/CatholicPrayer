@@ -49,5 +49,18 @@
   "showGuidance": "Mostrar la guía",
   "showGuidanceSubtitle": "Explica qué hacer en cada cuenta",
   "beadSemantics": "Rosario, cuenta {current} de {total}",
-  "continueRosary": "Continuar donde lo dejaste"
+  "continueRosary": "Continuar donde lo dejaste",
+  "readAloud": "Leer en voz alta",
+  "stopReadingAloud": "Dejar de leer en voz alta",
+  "voiceSection": "Voz",
+  "voiceSpeed": "Velocidad",
+  "slower": "Más lento",
+  "faster": "Más rápido",
+  "autoAdvance": "Avance automático",
+  "autoAdvanceSubtitle": "Pasar a la siguiente oración cuando termine la voz",
+  "readGuidanceAloud": "Leer la guía en voz alta",
+  "readGuidanceAloudSubtitle": "Decir qué hacer antes de cada oración",
+  "pauseLabel": "Pausa antes de la siguiente oración: {seconds} s",
+  "voiceUnavailable": "Todavía no hay voz disponible en este idioma",
+  "aboutAndCredits": "Acerca de y créditos"
 }

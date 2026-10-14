@@ -15,11 +15,12 @@ const List<String> contentLanguages = ['en', 'es', 'fr'];
 /// Content is stored as one JSON file per language (see ADR-005) and merged
 /// here into [LocalizedText] values.
 class ContentRepository {
-  ContentRepository._(this._prayers, this._setTitles, this._mysteries);
+  ContentRepository._(this._prayers, this._setTitles, this._mysteries, this._ordinals);
 
   final Map<String, Prayer> _prayers;
   final Map<MysterySet, LocalizedText> _setTitles;
   final Map<MysterySet, List<Mystery>> _mysteries;
+  final List<LocalizedText> _ordinals;
 
   static Future<ContentRepository> load(AssetBundle bundle) async {
     final prayerFiles = <String, Map<String, dynamic>>{};
@@ -90,7 +91,15 @@ class ContentRepository {
           ),
       ];
     }
-    return ContentRepository._(prayerMap, setTitles, mysteryList);
+    final ordinals = [
+      for (var i = 0; i < mysteriesPerSet; i++)
+        LocalizedText({
+          for (final MapEntry(key: lang, value: json) in mysteries.entries)
+            if ((json['ordinals'] as List?)?.length case final n? when n > i)
+              lang: (json['ordinals'] as List)[i] as String,
+        }),
+    ];
+    return ContentRepository._(prayerMap, setTitles, mysteryList, ordinals);
   }
 
   static Future<Map<String, dynamic>> _readJson(AssetBundle bundle, String path) async =>
@@ -104,6 +113,9 @@ class ContentRepository {
   LocalizedText mysterySetTitle(MysterySet set) => _setTitles[set]!;
 
   List<Mystery> mysteriesOf(MysterySet set) => _mysteries[set]!;
+
+  /// Spoken ordinal for [decade] (1-5), e.g. "First mystery".
+  LocalizedText ordinal(int decade) => _ordinals[decade - 1];
 
   /// The mystery for [decade] (1-5) of [set].
   Mystery mystery(MysterySet set, int decade) => _mysteries[set]![decade - 1];

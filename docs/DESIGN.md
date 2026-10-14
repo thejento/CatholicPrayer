@@ -136,7 +136,7 @@ Content uses **traditional, public-domain** wordings (ADR-013). Examples are the
 translations. Tests check that every prayer the Rosary needs exists in every
 supported language.
 
-### 3.7 Voice (read aloud): *Proposed*, see ADR-020
+### 3.7 Voice (read aloud), see ADR-020
 
 **Goal:** a calm, natural voice that prays along with the user. It must not sound
 robotic, must work offline, and must sound the same on phone, TV and web.
@@ -151,32 +151,56 @@ as small compressed audio files. The app only *plays* audio.
 | Voice quality | Best available open model, same everywhere | Depends on device; often robotic on TV/web |
 | Offline | Yes | Usually; web voices may need network |
 | Device cost | Playback only | Engine + voice data per device |
-| Size | ≈ 2–3 MB per language | 0 |
+| Size | ≈ 1.8 MB per language (≈ 5 min of speech, MP3 48 kbps) | 0 |
 | Text changes | Re-render (automated) | Instant |
 
-**What is spoken** (per language):
+**Voices** (chosen by ear in a blind listening test, see ADR-020):
+
+| Language | Engine | Voice |
+|---|---|---|
+| English | Kokoro-82M | Bella (`af_bella`), speed 0.9 |
+| Spanish | Kokoro-82M | Dora (`ef_dora`), speed 0.9 |
+| French | Chatterbox Multilingual | built-in voice, seed 42 |
+
+The mapping lives in `tool/tts/voices.json`. Changing an entry re-renders that language.
+
+**What is spoken** (44 clips per language):
 
 * every prayer (8 clips)
 * each mystery announcement, composed as
   `"{Set}. {Ordinal} mystery: {Title}."`, e.g. *"Joyful Mysteries. First mystery: The
   Annunciation."* (20 clips)
-* optionally, the guidance line of each step (about 20 clips), with a setting to turn it off
+* the guidance line of each of the 16 kinds of step, with a setting to turn it off
 
 **Pipeline**
 
 ```
-assets/data/**.json + app_*.arb ──► tool/tts/render.py ──► assets/audio/<lang>/<clip>.mp3
-                                    (open model, CPU)      assets/audio/manifest.json
-                                                           (clip → sha256(text+voice), duration)
+assets/data/**.json + app_*.arb
+   │  flutter test tool/tts/export_texts_test.dart   (texts come from the app's own code)
+   ▼
+build/tts/texts.json ──► tool/tts/render.py ──► assets/audio/<lang>/<clip>.mp3
+                         (only stale clips)     assets/audio/manifest.json
+                                                (voice id; clip → sha256(text), duration)
 ```
 
 * A content test fails CI when a clip is **missing or stale**, meaning its text hash no longer
   matches the current text. So the audio can never silently drift from the words on screen.
-* The `render-audio.yml` workflow (manual or path-triggered) re-renders and commits the clips.
+* `render-audio.yml` runs on any branch push that changes spoken text. It renders only
+  the stale clips, installs only the engines needed (Kokoro takes minutes; Chatterbox
+  takes about an hour on CPU), commits them to the branch, and re-runs CI.
+* Kokoro (EN/ES) can also be rendered locally in about 2 minutes.
 
 **Playback** (`just_audio`, MIT, Android + web)
 
 * A speaker toggle in the Rosary app bar starts and stops the voice. The choice is persisted.
+  On a TV remote or keyboard, the **play/pause** key does the same.
+* While the voice is on, a bar under the prayer offers **speed** (− / + in steps of
+  0.75×, 0.85×, 1.0×, 1.15×, 1.25×) and an **auto-advance** chip. The speed changes playback
+  only, with pitch preserved by ExoPlayer and the browser, so no re-render is needed.
+* Settings → Voice: read aloud, read the guidance aloud, auto-advance, and the pause
+  before the next prayer (1–5 s). *About and credits* opens the licence page, which carries
+  the required voice attributions.
+* A language without recordings shows no speaker button, and Settings explains why.
 * **Next** or a D-pad move stops the current clip and plays the new step's clip.
 * **Auto-advance** (off by default): when a clip ends, wait for the pause (1–5 s, default
   2 s), then go to the next step. The person can then simply listen and pray along.

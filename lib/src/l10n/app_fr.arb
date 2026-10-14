@@ -49,5 +49,18 @@
   "showGuidance": "Afficher le guide",
   "showGuidanceSubtitle": "Explique quoi faire sur chaque grain",
   "beadSemantics": "Chapelet, grain {current} sur {total}",
-  "continueRosary": "Reprendre où vous en étiez"
+  "continueRosary": "Reprendre où vous en étiez",
+  "readAloud": "Lire à voix haute",
+  "stopReadingAloud": "Arrêter la lecture à voix haute",
+  "voiceSection": "Voix",
+  "voiceSpeed": "Vitesse",
+  "slower": "Plus lent",
+  "faster": "Plus rapide",
+  "autoAdvance": "Avance automatique",
+  "autoAdvanceSubtitle": "Passer à la prière suivante quand la voix a fini",
+  "readGuidanceAloud": "Lire le guide à voix haute",
+  "readGuidanceAloudSubtitle": "Dire quoi faire avant chaque prière",
+  "pauseLabel": "Pause avant la prière suivante : {seconds} s",
+  "voiceUnavailable": "Aucune voix n'est encore disponible dans cette langue",
+  "aboutAndCredits": "À propos et crédits"
 }

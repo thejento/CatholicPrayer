@@ -18,6 +18,7 @@ Runs on **Android phones and tablets**, **Android TV** (D-pad remote) and the
 - A "what to do" guidance line on every step (can be turned off)
 - Today's mysteries suggested automatically, with any set selectable
 - Mystery announcements with a Scripture reference and the fruit of the mystery
+- A natural voice reads the Rosary aloud (open-source Kokoro / Chatterbox, pre-recorded), with adjustable speed and auto-advance
 - Resume an unfinished Rosary from the home screen
 - Prayer library
 - English, Spanish and French, with traditional public-domain texts
@@ -59,6 +60,7 @@ files and the language code to `contentLanguages`.
 |---|---|---|
 | `ci.yml` | PR, push to `main` | format, analyze, tests + goldens, coverage ≥ 90 %, web and APK builds |
 | `deploy-web.yml` | push to `main` | publishes the web app to GitHub Pages |
+| `render-audio.yml` | branch push changing spoken text | re-records stale voice clips, commits them, re-runs CI |
 | `release.yml` | tag `vX.Y.Z` | signed AAB + APK + web zip on a GitHub Release |
 
 To release: `git tag v1.0.0 && git push origin v1.0.0`.

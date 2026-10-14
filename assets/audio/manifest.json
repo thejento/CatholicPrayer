@@ -1,0 +1,454 @@
+{
+  "languages": {
+    "en": {
+      "voice": "kokoro-v1.0/af_bella/speed-0.9",
+      "clips": {
+        "guide_announce": {
+          "file": "guide_announce.mp3",
+          "sha256": "eb609bac0c364862307761a4e3f821e97739a96c9f008bbacebce7619e4f29a2",
+          "ms": 4736
+        },
+        "guide_closingPrayer": {
+          "file": "guide_closingPrayer.mp3",
+          "sha256": "5e184c5aa9718a711179a190da91255f4433a1b6f308feb64833b88bbd41da2b",
+          "ms": 1408
+        },
+        "guide_creed": {
+          "file": "guide_creed.mp3",
+          "sha256": "b1b01f07c32424cca6f9bee2fcb62bff46f97d57722c96cfebf8c6733b334428",
+          "ms": 3328
+        },
+        "guide_fatima": {
+          "file": "guide_fatima.mp3",
+          "sha256": "96a474978b85f238b024d16719458456bfdcdda992752146130d4164af0eec76",
+          "ms": 1515
+        },
+        "guide_gloryBeDecade": {
+          "file": "guide_gloryBeDecade.mp3",
+          "sha256": "c4e1bbe213db854e00cc7d29f1c117085c62e167dcc5c777d36f7ce8fd2a0242",
+          "ms": 4331
+        },
+        "guide_gloryBeIntro": {
+          "file": "guide_gloryBeIntro.mp3",
+          "sha256": "eb8a74d2d44e84339ea87a5785b814092bc91116edcd952a94237c0eb98096aa",
+          "ms": 3456
+        },
+        "guide_gloryBeLastDecade": {
+          "file": "guide_gloryBeLastDecade.mp3",
+          "sha256": "9a876d903cda90410661f87bb6a177611944ce1ccd6c80300aac0a2ff09446ff",
+          "ms": 4459
+        },
+        "guide_hailHolyQueen": {
+          "file": "guide_hailHolyQueen.mp3",
+          "sha256": "4afde65afe8bff82633e655a35f1df6453469528e088f7f6d3def4893bd232ba",
+          "ms": 2731
+        },
+        "guide_hailMaryCharity": {
+          "file": "guide_hailMaryCharity.mp3",
+          "sha256": "2567f764b78ac63930013e44d1715b07f5cbe3064d5ae11c1525252fc7aec4a2",
+          "ms": 3989
+        },
+        "guide_hailMaryDecade": {
+          "file": "guide_hailMaryDecade.mp3",
+          "sha256": "4d33f602684530e1228feaca8b345ce9289b4d65b90ec88c0ab3c07498daa100",
+          "ms": 4757
+        },
+        "guide_hailMaryFaith": {
+          "file": "guide_hailMaryFaith.mp3",
+          "sha256": "7ec1c3f0922f8fa7cf97e5a78c3d05fe5ec06472017df55eff840c5f6c1d7df5",
+          "ms": 3819
+        },
+        "guide_hailMaryHope": {
+          "file": "guide_hailMaryHope.mp3",
+          "sha256": "7d1d83356e5eb81e3bdd8a72599681315cc7b18409ac7c3d8ef84dbabfd4e059",
+          "ms": 3627
+        },
+        "guide_ourFatherDecade": {
+          "file": "guide_ourFatherDecade.mp3",
+          "sha256": "33c4b7c6e7d0fdca4658cf09a9f3992046e60a4f45c2320426bc1ff08828f8e2",
+          "ms": 2667
+        },
+        "guide_ourFatherIntro": {
+          "file": "guide_ourFatherIntro.mp3",
+          "sha256": "33a9efc99299bbca5665ece1156b9a199f525d88290fd569fb1503535b6dbdee",
+          "ms": 3456
+        },
+        "guide_signOfCrossEnd": {
+          "file": "guide_signOfCrossEnd.mp3",
+          "sha256": "32d481631213764f27a50ce845b19f3ce829d0626aa399d46195d9a3724e9892",
+          "ms": 3648
+        },
+        "guide_signOfCrossStart": {
+          "file": "guide_signOfCrossStart.mp3",
+          "sha256": "b7cc9a461c806b5474d1fd57c95fea1bb7fc4fd1bd9bd702dd6a49f2df702d0e",
+          "ms": 2923
+        },
+        "mystery_glorious_1": {
+          "file": "mystery_glorious_1.mp3",
+          "sha256": "78c7a520f98b7fc4480cc60301853c974bb4a4e1d952ba47954f32c17e1c6281",
+          "ms": 3520
+        },
+        "mystery_glorious_2": {
+          "file": "mystery_glorious_2.mp3",
+          "sha256": "cade01d01f072f8a66f8822d1dd57924b92c5c8b0ee7b2bd4c8bfea3aff5045c",
+          "ms": 3499
+        },
+        "mystery_glorious_3": {
+          "file": "mystery_glorious_3.mp3",
+          "sha256": "a6f7eec48164b0e2558dd4980f48f1428837c0fb3b7bde0a15e0abf9bbe71e4d",
+          "ms": 4480
+        },
+        "mystery_glorious_4": {
+          "file": "mystery_glorious_4.mp3",
+          "sha256": "eb1d5553ad3a6e80fbd9f4d01ead3371eb65066469d0f4a06501a99dfa0aabc3",
+          "ms": 3904
+        },
+        "mystery_glorious_5": {
+          "file": "mystery_glorious_5.mp3",
+          "sha256": "e0b5cbbd05df94ad14e54597de7659337e871ec6d5dca203c13b070e9e94bd84",
+          "ms": 4139
+        },
+        "mystery_joyful_1": {
+          "file": "mystery_joyful_1.mp3",
+          "sha256": "7396e44c80b2080272012da8b229938a202f65ec1b7d28d416f3018559fdec99",
+          "ms": 3669
+        },
+        "mystery_joyful_2": {
+          "file": "mystery_joyful_2.mp3",
+          "sha256": "cc7d414daaf4fd5230b9b51c95d75f66b65fb20985fe83cbe9ed27f3a015b245",
+          "ms": 3563
+        },
+        "mystery_joyful_3": {
+          "file": "mystery_joyful_3.mp3",
+          "sha256": "483c23140b643e042660eb93091bb65311d2281d8753067b4c367095f5b6db42",
+          "ms": 3264
+        },
+        "mystery_joyful_4": {
+          "file": "mystery_joyful_4.mp3",
+          "sha256": "d2002c4e408aa04c69fe889fe8d7c040ff36b6a999060e8060d9c2fe6606c495",
+          "ms": 4501
+        },
+        "mystery_joyful_5": {
+          "file": "mystery_joyful_5.mp3",
+          "sha256": "ab86f1654020274b2da649eaac072fbb7e959785f28a077cc2c6be412c5cf6ed",
+          "ms": 4779
+        },
+        "mystery_luminous_1": {
+          "file": "mystery_luminous_1.mp3",
+          "sha256": "3c957263f35ccbe444f210955c57baaa37af11e521384bada39909b282446f1a",
+          "ms": 4181
+        },
+        "mystery_luminous_2": {
+          "file": "mystery_luminous_2.mp3",
+          "sha256": "202f1969a9b5da072fe9727bd12859fa69f1b6edc64a74d20ae9cee2717a0a93",
+          "ms": 3712
+        },
+        "mystery_luminous_3": {
+          "file": "mystery_luminous_3.mp3",
+          "sha256": "9f6a6ad8deb41ec436b64def886bfe2beace5377aa062d97ca8f98b7b2e03557",
+          "ms": 4437
+        },
+        "mystery_luminous_4": {
+          "file": "mystery_luminous_4.mp3",
+          "sha256": "79586f2224021f017fc7be31188e88880c9ae872991b9165defd46a36fdf2082",
+          "ms": 3947
+        },
+        "mystery_luminous_5": {
+          "file": "mystery_luminous_5.mp3",
+          "sha256": "a188650bbd0c8e3d6b939987b2d679b650846218426601ed84c2c48dc927cccf",
+          "ms": 4672
+        },
+        "mystery_sorrowful_1": {
+          "file": "mystery_sorrowful_1.mp3",
+          "sha256": "ec1ae38de645dea3117c3a0e6fee320500ae9cb3ca05e01e6201ef2bfc80f8a1",
+          "ms": 4224
+        },
+        "mystery_sorrowful_2": {
+          "file": "mystery_sorrowful_2.mp3",
+          "sha256": "3408879af92a6cb5c56ab1ff5b1e0b3db5ad3efee8758f1d340496837a817464",
+          "ms": 4267
+        },
+        "mystery_sorrowful_3": {
+          "file": "mystery_sorrowful_3.mp3",
+          "sha256": "0ed55e3b103fb83509362616e71c42812702770618d886007c509ac34df68973",
+          "ms": 4053
+        },
+        "mystery_sorrowful_4": {
+          "file": "mystery_sorrowful_4.mp3",
+          "sha256": "191e3dfedb6bf1b051f132fd23a95c4843c498d183fd713f232c41ce56c317c6",
+          "ms": 4096
+        },
+        "mystery_sorrowful_5": {
+          "file": "mystery_sorrowful_5.mp3",
+          "sha256": "41a83a6d8bb766e976314a2eb6d6b3abf08e54210f05aaa9e24510869134f3a5",
+          "ms": 3691
+        },
+        "prayer_apostles_creed": {
+          "file": "prayer_apostles_creed.mp3",
+          "sha256": "e37189cae362028b5983acefd8d924572041aa3ba64e1807f151ba6a61f5a4d9",
+          "ms": 40826
+        },
+        "prayer_fatima_prayer": {
+          "file": "prayer_fatima_prayer.mp3",
+          "sha256": "8b93b0a4e63db6798c9c97bbdcdd7dc6500598068e292b0cfc60a5a987340a93",
+          "ms": 9579
+        },
+        "prayer_glory_be": {
+          "file": "prayer_glory_be.mp3",
+          "sha256": "ef25b9e29bba89b86445ebc49eef9933bf2d4b03dc8260832aaf4fc6435da627",
+          "ms": 10005
+        },
+        "prayer_hail_holy_queen": {
+          "file": "prayer_hail_holy_queen.mp3",
+          "sha256": "1249eff74b59958bcc373c24289cdf1fcca18a70dda742e51f1eea8437fd09ad",
+          "ms": 33167
+        },
+        "prayer_hail_mary": {
+          "file": "prayer_hail_mary.mp3",
+          "sha256": "e7750c9c77263ea151b9c3ca00d3ce305fc49cf22bd21bd2ff3c56145d415263",
+          "ms": 14379
+        },
+        "prayer_our_father": {
+          "file": "prayer_our_father.mp3",
+          "sha256": "69a83dd25deae2b66ca5138570fa71cdf131d6d13ae933ab9754ce17f7497a17",
+          "ms": 19371
+        },
+        "prayer_rosary_closing_prayer": {
+          "file": "prayer_rosary_closing_prayer.mp3",
+          "sha256": "fc37717d70c1d6937562e255a81d41626e34b41e0c75babff9a8a1a68e637fd1",
+          "ms": 23893
+        },
+        "prayer_sign_of_the_cross": {
+          "file": "prayer_sign_of_the_cross.mp3",
+          "sha256": "4acafb408bdcfc950a6a53d62273068ada8d338f1cc982fc0a70240d6d385f65",
+          "ms": 4501
+        }
+      }
+    },
+    "es": {
+      "voice": "kokoro-v1.0/ef_dora/speed-0.9",
+      "clips": {
+        "guide_announce": {
+          "file": "guide_announce.mp3",
+          "sha256": "35e2df3fb4a1cc5870b35538d3d8b7caed5abd29d088ae5f1952ec9dc9ecea8e",
+          "ms": 4160
+        },
+        "guide_closingPrayer": {
+          "file": "guide_closingPrayer.mp3",
+          "sha256": "07b07a8f3b34e50ad488905982b2f37c59e9996d33abdef144a321110135bb44",
+          "ms": 1600
+        },
+        "guide_creed": {
+          "file": "guide_creed.mp3",
+          "sha256": "3e18c0351534d801bfcfda566f7adead60999a076649c13289b64f4aaa4ff144",
+          "ms": 2603
+        },
+        "guide_fatima": {
+          "file": "guide_fatima.mp3",
+          "sha256": "6467a9c0794553cbd5a78559f8d530ced6e26b2e1ecc633a2203bbf716de48f7",
+          "ms": 2240
+        },
+        "guide_gloryBeDecade": {
+          "file": "guide_gloryBeDecade.mp3",
+          "sha256": "94d3afd0b34c4819c641bb03ecc98500beeba1f4e27a9842cd58546bedc07de8",
+          "ms": 4288
+        },
+        "guide_gloryBeIntro": {
+          "file": "guide_gloryBeIntro.mp3",
+          "sha256": "62b5ed126436265b5255aa2fd02200bea30f325304f4b8a1d62aaa38e4e91677",
+          "ms": 3093
+        },
+        "guide_gloryBeLastDecade": {
+          "file": "guide_gloryBeLastDecade.mp3",
+          "sha256": "cad118eafe556d5d3da9e2af0fb522f7aebdd87223cd0a7f3bbee0e8c1239d26",
+          "ms": 4288
+        },
+        "guide_hailHolyQueen": {
+          "file": "guide_hailHolyQueen.mp3",
+          "sha256": "300e1127e613d453708b3f373eba139490990737370ce3c0f88e25df9c17cfd6",
+          "ms": 2496
+        },
+        "guide_hailMaryCharity": {
+          "file": "guide_hailMaryCharity.mp3",
+          "sha256": "2352c5efb6d064eee5b1a40b8086dc2e00d168d80ef204e1d2d23edf8724d826",
+          "ms": 4053
+        },
+        "guide_hailMaryDecade": {
+          "file": "guide_hailMaryDecade.mp3",
+          "sha256": "6cc35585850fdd4aaa43b0c5bac9cf628496f8f388972780ecd3d5e8025a2ada",
+          "ms": 4715
+        },
+        "guide_hailMaryFaith": {
+          "file": "guide_hailMaryFaith.mp3",
+          "sha256": "4d68ce4ad10c41adeaee3dd56c52b6d8cc71f4d9ab930520d4f67c2d93514c53",
+          "ms": 3776
+        },
+        "guide_hailMaryHope": {
+          "file": "guide_hailMaryHope.mp3",
+          "sha256": "81a0de7a545ea6caf9c6c0dd142b80b44a19bd58d7c7f690d40afa61e8f26043",
+          "ms": 4160
+        },
+        "guide_ourFatherDecade": {
+          "file": "guide_ourFatherDecade.mp3",
+          "sha256": "8c83f53b6b9e8c5ebe0478f6cb67a551c396a00203f71045c0412b9a919c3e92",
+          "ms": 3093
+        },
+        "guide_ourFatherIntro": {
+          "file": "guide_ourFatherIntro.mp3",
+          "sha256": "fe35639568073935bd55214843f7816c69051ec553695143227a8794af3ecbd4",
+          "ms": 3541
+        },
+        "guide_signOfCrossEnd": {
+          "file": "guide_signOfCrossEnd.mp3",
+          "sha256": "7a3e0f0cf2df4bf70a6974cfab0f6967000a2222143f3ca4c715a30e18a0d19c",
+          "ms": 3392
+        },
+        "guide_signOfCrossStart": {
+          "file": "guide_signOfCrossStart.mp3",
+          "sha256": "c1d1875ef1d8b5c7190dd4d20812f5498b9cd2fca92f7bd2c24b1b8858f7c2ca",
+          "ms": 2859
+        },
+        "mystery_glorious_1": {
+          "file": "mystery_glorious_1.mp3",
+          "sha256": "ea3e3d7936a1464ded79de76f749b951e1c3d15e18d4c1582d2cfa4c63eae169",
+          "ms": 3413
+        },
+        "mystery_glorious_2": {
+          "file": "mystery_glorious_2.mp3",
+          "sha256": "fad8f57bddd1ba20ad7a2f7a84b13a70b276136d7c489ecb8a6740c6904003d9",
+          "ms": 3328
+        },
+        "mystery_glorious_3": {
+          "file": "mystery_glorious_3.mp3",
+          "sha256": "5c8bdbc912252cab616efad1bf686028818a26db7660029e3bcc08ec1513f340",
+          "ms": 4288
+        },
+        "mystery_glorious_4": {
+          "file": "mystery_glorious_4.mp3",
+          "sha256": "8109b30a7b1c13f0f2bd46d3ba68bba84a3e0ae6537410cdf63aca7845ef080d",
+          "ms": 3691
+        },
+        "mystery_glorious_5": {
+          "file": "mystery_glorious_5.mp3",
+          "sha256": "228237ed11a148f26f1f7d5b0a45b17ae04513bfaa7b1906a1e55b04a01a3f96",
+          "ms": 3819
+        },
+        "mystery_joyful_1": {
+          "file": "mystery_joyful_1.mp3",
+          "sha256": "cd1a619b7e40e68922b9e3f3457fbe89c4e8a6f02f870a487344238907b21ad9",
+          "ms": 3328
+        },
+        "mystery_joyful_2": {
+          "file": "mystery_joyful_2.mp3",
+          "sha256": "fa5fae36a86a9d3e09b56bd631472eeaf8be8079b763ee4e9241a88360920f67",
+          "ms": 3456
+        },
+        "mystery_joyful_3": {
+          "file": "mystery_joyful_3.mp3",
+          "sha256": "c5980d37ad03aa96c019e05506eccddad8d29c3eb7968c01ab7591da2664daab",
+          "ms": 3819
+        },
+        "mystery_joyful_4": {
+          "file": "mystery_joyful_4.mp3",
+          "sha256": "47dc10defba944428820b1d1b2090e379e38307dcb82fd118e38b4b21073e498",
+          "ms": 4117
+        },
+        "mystery_joyful_5": {
+          "file": "mystery_joyful_5.mp3",
+          "sha256": "65f009741ab60494ae1b9790f3ae10351d789328738bf633833e77754d35b998",
+          "ms": 4565
+        },
+        "mystery_luminous_1": {
+          "file": "mystery_luminous_1.mp3",
+          "sha256": "67bdb50c0cda6ca98824794ec4eb65b3262b7361298c05b20a442987379a8041",
+          "ms": 3883
+        },
+        "mystery_luminous_2": {
+          "file": "mystery_luminous_2.mp3",
+          "sha256": "410a0c508d993667c271336d2362d09702107c4368081a21d6495ca38fe65f1c",
+          "ms": 3648
+        },
+        "mystery_luminous_3": {
+          "file": "mystery_luminous_3.mp3",
+          "sha256": "69e1e089af5a8d0629a0f92728bd5c055733da3af0c486f222cdd7b82b5956a9",
+          "ms": 3776
+        },
+        "mystery_luminous_4": {
+          "file": "mystery_luminous_4.mp3",
+          "sha256": "24229162f18187406657385d555b46713fda1976648b5fc38c3a1721307e862c",
+          "ms": 3648
+        },
+        "mystery_luminous_5": {
+          "file": "mystery_luminous_5.mp3",
+          "sha256": "d4df4370e04c632c88ff958875b429244fa02aa0a98b6ca12e03dec4ea603ce2",
+          "ms": 4288
+        },
+        "mystery_sorrowful_1": {
+          "file": "mystery_sorrowful_1.mp3",
+          "sha256": "94ba65c4aba77a57ffa12518732b7a9ad4a57313f946e50d405022147d1c1081",
+          "ms": 3840
+        },
+        "mystery_sorrowful_2": {
+          "file": "mystery_sorrowful_2.mp3",
+          "sha256": "5be43b4e4121d024f2347736ee541d82f9c24d3940a856bd355b54ed6b05340e",
+          "ms": 3499
+        },
+        "mystery_sorrowful_3": {
+          "file": "mystery_sorrowful_3.mp3",
+          "sha256": "1b301da3342f6a2460821b8a9d8b9e3256202e15b84cf3cc6e2b65e6161ae5f4",
+          "ms": 4011
+        },
+        "mystery_sorrowful_4": {
+          "file": "mystery_sorrowful_4.mp3",
+          "sha256": "940f8069317ec829a9bd8f8281fb400e387fedd17947af495a5fe2e5960226a4",
+          "ms": 4224
+        },
+        "mystery_sorrowful_5": {
+          "file": "mystery_sorrowful_5.mp3",
+          "sha256": "654c95fd85bc34faa1fe6079512738a9ac4e6a54f7f953e321ef072b7f87eac9",
+          "ms": 3456
+        },
+        "prayer_apostles_creed": {
+          "file": "prayer_apostles_creed.mp3",
+          "sha256": "b796149f9970d6718724955ee644e7b088980d9a3e6927afc92902aa3a291f0b",
+          "ms": 36239
+        },
+        "prayer_fatima_prayer": {
+          "file": "prayer_fatima_prayer.mp3",
+          "sha256": "f96953a484580bcb38078eb11b35d635eb7804d6dab1d1eeda3394a349d4c19e",
+          "ms": 9941
+        },
+        "prayer_glory_be": {
+          "file": "prayer_glory_be.mp3",
+          "sha256": "c6168df6db8d44bbe0a2afda9ceca6b62cb46b007a917851f5460b333a0d0dd0",
+          "ms": 7616
+        },
+        "prayer_hail_holy_queen": {
+          "file": "prayer_hail_holy_queen.mp3",
+          "sha256": "79f5e748081dee5c48a90c251a11d47b1136e0b098a3fb073b6a14c384f3e68a",
+          "ms": 32719
+        },
+        "prayer_hail_mary": {
+          "file": "prayer_hail_mary.mp3",
+          "sha256": "113607373fa8161b6a3bfffb8d71fc08aaf82082b6dedcf958c0467d6c09dbae",
+          "ms": 15552
+        },
+        "prayer_our_father": {
+          "file": "prayer_our_father.mp3",
+          "sha256": "1534d0e22855a26c84f41f6277929f2e5a6371942643e8dc550a0973fc3dbb46",
+          "ms": 18517
+        },
+        "prayer_rosary_closing_prayer": {
+          "file": "prayer_rosary_closing_prayer.mp3",
+          "sha256": "45e422416ea1bc506bc046493eb065100c82dc2718c0bf6123bd065f0344c76f",
+          "ms": 18965
+        },
+        "prayer_sign_of_the_cross": {
+          "file": "prayer_sign_of_the_cross.mp3",
+          "sha256": "e0797705bcbd06019bcac7787b8b254ac94a67b0a7b35d762410c1fb7ea8ec61",
+          "ms": 3755
+        }
+      }
+    }
+  }
+}

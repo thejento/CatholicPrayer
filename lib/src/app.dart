@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'audio/audio_catalog.dart';
+import 'audio/clip_player.dart';
 import 'data/content_repository.dart';
 import 'data/device_profile.dart';
 import 'domain/clock.dart';
@@ -20,6 +22,8 @@ class CatholicPrayerApp extends StatelessWidget {
     required this.settings,
     required this.savedSession,
     this.device = const DeviceProfile(),
+    this.audio = const AudioCatalog.empty(),
+    this.playerFactory = JustAudioClipPlayer.new,
     this.clock = const Clock(),
   });
 
@@ -28,6 +32,10 @@ class CatholicPrayerApp extends StatelessWidget {
   final SettingsController settings;
   final SavedSessionController savedSession;
   final DeviceProfile device;
+  final AudioCatalog audio;
+
+  /// Creates the audio player for a Rosary; tests pass a fake.
+  final ClipPlayer Function() playerFactory;
   final Clock clock;
 
   @override
@@ -37,6 +45,8 @@ class CatholicPrayerApp extends StatelessWidget {
         Provider.value(value: content),
         Provider.value(value: clock),
         Provider.value(value: device),
+        Provider.value(value: audio),
+        Provider<ClipPlayer Function()>.value(value: playerFactory),
         ChangeNotifierProvider.value(value: themeManager),
         ChangeNotifierProvider.value(value: settings),
         ChangeNotifierProvider.value(value: savedSession),

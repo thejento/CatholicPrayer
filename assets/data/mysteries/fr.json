@@ -1,44 +1,131 @@
 {
   "language": "fr",
+  "ordinals": [
+    "Premier mystère",
+    "Deuxième mystère",
+    "Troisième mystère",
+    "Quatrième mystère",
+    "Cinquième mystère"
+  ],
   "sets": {
     "joyful": {
       "title": "Mystères joyeux",
       "mysteries": [
-        { "title": "L'Annonciation", "scripture": "Luc 1,26-38", "fruit": "L'humilité" },
-        { "title": "La Visitation", "scripture": "Luc 1,39-56", "fruit": "La charité envers le prochain" },
-        { "title": "La Nativité", "scripture": "Luc 2,1-20", "fruit": "L'esprit de pauvreté" },
-        { "title": "La Présentation au Temple", "scripture": "Luc 2,22-38", "fruit": "L'obéissance" },
-        { "title": "Le Recouvrement de Jésus au Temple", "scripture": "Luc 2,41-52", "fruit": "La joie de trouver Jésus" }
+        {
+          "title": "L'Annonciation",
+          "scripture": "Luc 1,26-38",
+          "fruit": "L'humilité"
+        },
+        {
+          "title": "La Visitation",
+          "scripture": "Luc 1,39-56",
+          "fruit": "La charité envers le prochain"
+        },
+        {
+          "title": "La Nativité",
+          "scripture": "Luc 2,1-20",
+          "fruit": "L'esprit de pauvreté"
+        },
+        {
+          "title": "La Présentation au Temple",
+          "scripture": "Luc 2,22-38",
+          "fruit": "L'obéissance"
+        },
+        {
+          "title": "Le Recouvrement de Jésus au Temple",
+          "scripture": "Luc 2,41-52",
+          "fruit": "La joie de trouver Jésus"
+        }
       ]
     },
     "luminous": {
       "title": "Mystères lumineux",
       "mysteries": [
-        { "title": "Le Baptême du Seigneur", "scripture": "Matthieu 3,13-17", "fruit": "L'ouverture à l'Esprit Saint" },
-        { "title": "Les Noces de Cana", "scripture": "Jean 2,1-12", "fruit": "À Jésus par Marie" },
-        { "title": "L'Annonce du Royaume", "scripture": "Marc 1,14-15", "fruit": "La conversion et la confiance en Dieu" },
-        { "title": "La Transfiguration", "scripture": "Matthieu 17,1-8", "fruit": "Le désir de sainteté" },
-        { "title": "L'Institution de l'Eucharistie", "scripture": "Matthieu 26,26-28", "fruit": "L'adoration" }
+        {
+          "title": "Le Baptême du Seigneur",
+          "scripture": "Matthieu 3,13-17",
+          "fruit": "L'ouverture à l'Esprit Saint"
+        },
+        {
+          "title": "Les Noces de Cana",
+          "scripture": "Jean 2,1-12",
+          "fruit": "À Jésus par Marie"
+        },
+        {
+          "title": "L'Annonce du Royaume",
+          "scripture": "Marc 1,14-15",
+          "fruit": "La conversion et la confiance en Dieu"
+        },
+        {
+          "title": "La Transfiguration",
+          "scripture": "Matthieu 17,1-8",
+          "fruit": "Le désir de sainteté"
+        },
+        {
+          "title": "L'Institution de l'Eucharistie",
+          "scripture": "Matthieu 26,26-28",
+          "fruit": "L'adoration"
+        }
       ]
     },
     "sorrowful": {
       "title": "Mystères douloureux",
       "mysteries": [
-        { "title": "L'Agonie au jardin", "scripture": "Matthieu 26,36-46", "fruit": "La contrition" },
-        { "title": "La Flagellation", "scripture": "Matthieu 27,26", "fruit": "La pureté" },
-        { "title": "Le Couronnement d'épines", "scripture": "Matthieu 27,27-31", "fruit": "Le courage" },
-        { "title": "Le Portement de la Croix", "scripture": "Luc 23,26-32", "fruit": "La patience" },
-        { "title": "La Crucifixion", "scripture": "Luc 23,33-46", "fruit": "La persévérance" }
+        {
+          "title": "L'Agonie au jardin",
+          "scripture": "Matthieu 26,36-46",
+          "fruit": "La contrition"
+        },
+        {
+          "title": "La Flagellation",
+          "scripture": "Matthieu 27,26",
+          "fruit": "La pureté"
+        },
+        {
+          "title": "Le Couronnement d'épines",
+          "scripture": "Matthieu 27,27-31",
+          "fruit": "Le courage"
+        },
+        {
+          "title": "Le Portement de la Croix",
+          "scripture": "Luc 23,26-32",
+          "fruit": "La patience"
+        },
+        {
+          "title": "La Crucifixion",
+          "scripture": "Luc 23,33-46",
+          "fruit": "La persévérance"
+        }
       ]
     },
     "glorious": {
       "title": "Mystères glorieux",
       "mysteries": [
-        { "title": "La Résurrection", "scripture": "Marc 16,1-7", "fruit": "La foi" },
-        { "title": "L'Ascension", "scripture": "Luc 24,46-53", "fruit": "L'espérance" },
-        { "title": "La Pentecôte", "scripture": "Actes 2,1-13", "fruit": "L'amour de Dieu" },
-        { "title": "L'Assomption de Marie", "scripture": "Tradition ; cf. Apocalypse 12,1", "fruit": "La grâce d'une bonne mort" },
-        { "title": "Le Couronnement de Marie", "scripture": "Apocalypse 12,1", "fruit": "La confiance en l'intercession de Marie" }
+        {
+          "title": "La Résurrection",
+          "scripture": "Marc 16,1-7",
+          "fruit": "La foi"
+        },
+        {
+          "title": "L'Ascension",
+          "scripture": "Luc 24,46-53",
+          "fruit": "L'espérance"
+        },
+        {
+          "title": "La Pentecôte",
+          "scripture": "Actes 2,1-13",
+          "fruit": "L'amour de Dieu"
+        },
+        {
+          "title": "L'Assomption de Marie",
+          "scripture": "Tradition ; cf. Apocalypse 12,1",
+          "fruit": "La grâce d'une bonne mort"
+        },
+        {
+          "title": "Le Couronnement de Marie",
+          "scripture": "Apocalypse 12,1",
+          "fruit": "La confiance en l'intercession de Marie"
+        }
       ]
     }
   }

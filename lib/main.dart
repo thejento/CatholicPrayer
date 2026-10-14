@@ -2,6 +2,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import 'src/app.dart';
+import 'src/audio/audio_catalog.dart';
+import 'src/audio/voice_licenses.dart';
 import 'src/data/content_repository.dart';
 import 'src/data/device_profile.dart';
 import 'src/data/preferences_store.dart';
@@ -11,12 +13,14 @@ import 'src/providers/theme_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  registerVoiceLicenses();
   final store = SharedPreferencesStore();
   final themeManager = ThemeManager(store);
   final settings = SettingsController(store);
   final savedSession = SavedSessionController(store);
-  final (content, device, _, _, _) = await (
+  final (content, audio, device, _, _, _) = await (
     ContentRepository.load(rootBundle),
+    AudioCatalog.load(rootBundle),
     DeviceProfile.detect(),
     themeManager.load(),
     settings.load(),
@@ -29,6 +33,7 @@ Future<void> main() async {
       settings: settings,
       savedSession: savedSession,
       device: device,
+      audio: audio,
     ),
   );
 }
