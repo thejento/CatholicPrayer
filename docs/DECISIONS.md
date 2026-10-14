@@ -120,3 +120,14 @@ Template:
   The owner can later replace any text with a version they hold rights to.
 - Consequences: The wording is older in places. A parish or native-speaker review is
   tracked as C-02. Smaller files also make content review diffs easier.
+
+## ADR-014: Public repository
+- Date: 2026-10-14 · Status: Accepted
+- Context: On the free GitHub plan, a private repository gets neither GitHub Pages
+  (ADR-011) nor branch protection (ADR-010).
+- Decision: Make `thejento/CatholicPrayer` public. History was scanned first and
+  contained no secrets. `main` requires the three CI checks (strict, up to date),
+  with no force-push or deletion. Pages publishes from GitHub Actions.
+- Consequences: Code, content and commit author emails are public. Secrets must stay
+  in GitHub Actions secrets and never be committed (`key.properties` and `*.jks` are
+  git-ignored).

@@ -26,8 +26,9 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 
 ## 🔜 Iteration 1: Make it ready to share
 
-- [ ] O-07 **Manual:** set GitHub default branch to `main` and protect it (require CI)
-- [ ] O-08 **Manual:** enable Pages (Settings → Pages → Source: GitHub Actions)
+- [x] O-07 Default branch `main`, protected: the 3 CI checks are required (ADR-014)
+- [x] O-08 Pages enabled (source: GitHub Actions) → https://thejento.github.io/CatholicPrayer/
+- [ ] O-13 Delete the obsolete `claude/new-session-sjsf1m` branch once PR #1 is merged
 - [ ] O-09 **Manual:** create the upload keystore and add the 4 `ANDROID_*` secrets
 - [ ] F-06 Resume an interrupted Rosary (persist session index + mysteries)
 - [ ] F-07 Animated glow moving between beads (2.3.5 in the original spec)
