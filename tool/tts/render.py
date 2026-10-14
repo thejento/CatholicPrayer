@@ -73,18 +73,86 @@ class Kokoro:
         return audio, sr
 
 
+# Speaking-rate bounds (characters per second) for a plausible recording.
+# Outside them a clip was cut short, skipped words or trailed into noise.
+MIN_RATE, MAX_RATE = 8.0, 32.0
+CHATTERBOX_CAP_S = 39.5  # Chatterbox stops generating at about 40 s
+CHUNK_CHARS = 180
+GAP_S = 0.3  # pause between sentences joined into one clip
+
+
+def sentences(text: str, limit: int = CHUNK_CHARS) -> list[str]:
+    """Splits text at sentence ends (then at commas, for over-long sentences),
+    merging short pieces back together up to [limit] characters."""
+    import re
+
+    def merge(parts):
+        chunks, current = [], ""
+        for part in parts:
+            if current and len(current) + 1 + len(part) > limit:
+                chunks.append(current)
+                current = part
+            else:
+                current = f"{current} {part}".strip()
+        return chunks + ([current] if current else [])
+
+    pieces = []
+    for sentence in re.split(r"(?<=[.;:!?])\s+", text.strip()):
+        if len(sentence) > limit:
+            pieces += merge(re.split(r"(?<=,)\s+", sentence))
+        elif sentence:
+            pieces.append(sentence)
+    return merge(pieces)
+
+
+def plausible(text: str, seconds: float) -> bool:
+    rate = len(text) / max(seconds, 0.01)
+    return MIN_RATE <= rate <= MAX_RATE and seconds < CHATTERBOX_CAP_S
+
+
+def trim(audio, sr, threshold=0.01, keep_s=0.08):
+    """Removes leading and trailing near-silence, keeping a short margin."""
+    import numpy as np
+
+    loud = np.flatnonzero(np.abs(audio) > threshold * max(float(np.max(np.abs(audio))), 1e-6))
+    if loud.size == 0:
+        return audio
+    keep = int(keep_s * sr)
+    return audio[max(loud[0] - keep, 0) : loud[-1] + keep]
+
+
 class Chatterbox:
+    """Chatterbox renders one sentence group at a time: long inputs hit its
+    ~40 s cap, and short ones sometimes trail into noise. Each piece is
+    checked for a plausible speaking rate and retried with another seed."""
+
+    ATTEMPTS = 4
+
     def __init__(self):
         from chatterbox.mtl_tts import ChatterboxMultilingualTTS
 
         self.model = ChatterboxMultilingualTTS.from_pretrained(device="cpu")
 
-    def render(self, text, voice):
+    def _piece(self, text, voice):
         import torch
 
-        torch.manual_seed(voice["seed"])  # same text + seed → same recording
-        wav = self.model.generate(text, language_id=voice["language_id"])
-        return wav.squeeze(0).numpy(), self.model.sr
+        for attempt in range(self.ATTEMPTS):
+            torch.manual_seed(voice["seed"] + attempt)  # deterministic per attempt
+            wav = self.model.generate(text, language_id=voice["language_id"])
+            audio = trim(wav.squeeze(0).numpy(), self.model.sr)
+            if plausible(text, len(audio) / self.model.sr):
+                return audio
+            print(f"  retry {attempt + 1}: implausible length for {text[:40]!r}", flush=True)
+        raise RuntimeError(f"no plausible recording after {self.ATTEMPTS} attempts: {text!r}")
+
+    def render(self, text, voice):
+        import numpy as np
+
+        gap = np.zeros(int(GAP_S * self.model.sr), dtype=np.float32)
+        pieces = []
+        for chunk in sentences(text):
+            pieces += [self._piece(chunk, voice), gap]
+        return np.concatenate(pieces[:-1]), self.model.sr
 
 
 def encode_mp3(audio, sr) -> bytes:
