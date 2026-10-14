@@ -1,12 +1,12 @@
 {
-    "name": "crc",
-    "short_name": "crc",
+    "name": "Rosary Companion",
+    "short_name": "Rosary",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#FFFFFF",
+    "theme_color": "#6B1E23",
+    "description": "Learn to pray the Catholic Rosary, one bead at a time.",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {

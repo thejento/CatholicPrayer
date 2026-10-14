@@ -1,0 +1,46 @@
+{
+  "language": "fr",
+  "source": "Formes traditionnelles françaises (domaine public)",
+  "prayers": [
+    {
+      "id": "sign_of_the_cross",
+      "title": "Signe de croix",
+      "text": "Au nom du Père, et du Fils, et du Saint-Esprit. Amen."
+    },
+    {
+      "id": "apostles_creed",
+      "title": "Symbole des Apôtres",
+      "text": "Je crois en Dieu, le Père tout-puissant, Créateur du ciel et de la terre. Et en Jésus-Christ, son Fils unique, notre Seigneur, qui a été conçu du Saint-Esprit, est né de la Vierge Marie, a souffert sous Ponce Pilate, a été crucifié, est mort et a été enseveli, est descendu aux enfers, le troisième jour est ressuscité des morts, est monté aux cieux, est assis à la droite de Dieu le Père tout-puissant, d'où il viendra juger les vivants et les morts. Je crois au Saint-Esprit, à la sainte Église catholique, à la communion des saints, à la rémission des péchés, à la résurrection de la chair, à la vie éternelle. Amen."
+    },
+    {
+      "id": "our_father",
+      "title": "Notre Père",
+      "text": "Notre Père, qui êtes aux cieux, que votre nom soit sanctifié, que votre règne arrive, que votre volonté soit faite sur la terre comme au ciel. Donnez-nous aujourd'hui notre pain de chaque jour. Pardonnez-nous nos offenses, comme nous pardonnons à ceux qui nous ont offensés. Et ne nous laissez pas succomber à la tentation, mais délivrez-nous du mal. Amen."
+    },
+    {
+      "id": "hail_mary",
+      "title": "Je vous salue, Marie",
+      "text": "Je vous salue, Marie, pleine de grâce, le Seigneur est avec vous. Vous êtes bénie entre toutes les femmes, et Jésus, le fruit de vos entrailles, est béni. Sainte Marie, Mère de Dieu, priez pour nous, pauvres pécheurs, maintenant et à l'heure de notre mort. Amen."
+    },
+    {
+      "id": "glory_be",
+      "title": "Gloire au Père",
+      "text": "Gloire au Père, et au Fils, et au Saint-Esprit, comme il était au commencement, maintenant et toujours, et dans les siècles des siècles. Amen."
+    },
+    {
+      "id": "fatima_prayer",
+      "title": "Prière de Fatima",
+      "text": "Ô mon Jésus, pardonnez-nous nos péchés, préservez-nous du feu de l'enfer, et conduisez au ciel toutes les âmes, surtout celles qui ont le plus besoin de votre miséricorde."
+    },
+    {
+      "id": "hail_holy_queen",
+      "title": "Salve Regina",
+      "text": "Salut, ô Reine, Mère de miséricorde, notre vie, notre douceur et notre espérance, salut ! Enfants d'Ève, exilés, nous crions vers vous ; vers vous nous soupirons, gémissant et pleurant dans cette vallée de larmes. Ô vous, notre avocate, tournez vers nous vos regards miséricordieux. Et, après cet exil, montrez-nous Jésus, le fruit béni de vos entrailles. Ô clémente, ô miséricordieuse, ô douce Vierge Marie.\n\nV. Priez pour nous, sainte Mère de Dieu.\nR. Afin que nous devenions dignes des promesses du Christ."
+    },
+    {
+      "id": "rosary_closing_prayer",
+      "title": "Prière finale",
+      "text": "Prions. Ô Dieu, dont le Fils unique, par sa vie, sa mort et sa résurrection, nous a acquis les récompenses du salut éternel, accordez-nous, nous vous en prions, qu'en méditant ces mystères du très saint Rosaire de la bienheureuse Vierge Marie, nous imitions ce qu'ils contiennent et obtenions ce qu'ils promettent. Par le même Jésus-Christ notre Seigneur. Amen."
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "language": "en",
+  "sets": {
+    "joyful": {
+      "title": "Joyful Mysteries",
+      "mysteries": [
+        { "title": "The Annunciation", "scripture": "Luke 1:26-38", "fruit": "Humility" },
+        { "title": "The Visitation", "scripture": "Luke 1:39-56", "fruit": "Love of neighbour" },
+        { "title": "The Nativity", "scripture": "Luke 2:1-20", "fruit": "Poverty of spirit" },
+        { "title": "The Presentation in the Temple", "scripture": "Luke 2:22-38", "fruit": "Obedience" },
+        { "title": "The Finding of Jesus in the Temple", "scripture": "Luke 2:41-52", "fruit": "Joy in finding Jesus" }
+      ]
+    },
+    "luminous": {
+      "title": "Luminous Mysteries",
+      "mysteries": [
+        { "title": "The Baptism of the Lord", "scripture": "Matthew 3:13-17", "fruit": "Openness to the Holy Spirit" },
+        { "title": "The Wedding at Cana", "scripture": "John 2:1-12", "fruit": "To Jesus through Mary" },
+        { "title": "The Proclamation of the Kingdom", "scripture": "Mark 1:14-15", "fruit": "Repentance and trust in God" },
+        { "title": "The Transfiguration", "scripture": "Matthew 17:1-8", "fruit": "Desire for holiness" },
+        { "title": "The Institution of the Eucharist", "scripture": "Matthew 26:26-28", "fruit": "Adoration" }
+      ]
+    },
+    "sorrowful": {
+      "title": "Sorrowful Mysteries",
+      "mysteries": [
+        { "title": "The Agony in the Garden", "scripture": "Matthew 26:36-46", "fruit": "Sorrow for sin" },
+        { "title": "The Scourging at the Pillar", "scripture": "Matthew 27:26", "fruit": "Purity" },
+        { "title": "The Crowning with Thorns", "scripture": "Matthew 27:27-31", "fruit": "Courage" },
+        { "title": "The Carrying of the Cross", "scripture": "Luke 23:26-32", "fruit": "Patience" },
+        { "title": "The Crucifixion", "scripture": "Luke 23:33-46", "fruit": "Perseverance" }
+      ]
+    },
+    "glorious": {
+      "title": "Glorious Mysteries",
+      "mysteries": [
+        { "title": "The Resurrection", "scripture": "Mark 16:1-7", "fruit": "Faith" },
+        { "title": "The Ascension", "scripture": "Luke 24:46-53", "fruit": "Hope" },
+        { "title": "The Descent of the Holy Spirit", "scripture": "Acts 2:1-13", "fruit": "Love of God" },
+        { "title": "The Assumption of Mary", "scripture": "Tradition; cf. Revelation 12:1", "fruit": "Grace of a happy death" },
+        { "title": "The Coronation of Mary", "scripture": "Revelation 12:1", "fruit": "Trust in Mary's intercession" }
+      ]
+    }
+  }
+}

@@ -1,26 +1,26 @@
 import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/preferences_store.dart';
 import '../theme/app_theme.dart';
 
 /// Manages the active [AppThemeMode] and persists the user's choice locally
 /// so it survives app restarts, without requiring any account or sign-in.
 class ThemeManager extends ChangeNotifier {
-  static const _prefsKey = 'app_theme_mode';
+  ThemeManager(this._store);
 
-  ThemeManager({SharedPreferencesAsync? preferences})
-      : _preferences = preferences ?? SharedPreferencesAsync();
+  static const prefsKey = 'app_theme_mode';
 
-  final SharedPreferencesAsync _preferences;
+  final PreferencesStore _store;
 
   AppThemeMode _mode = AppThemeMode.classic;
   AppThemeMode get mode => _mode;
 
   /// Loads the previously saved theme, if any. Safe to call once at startup.
   Future<void> load() async {
-    final saved = await _preferences.getString(_prefsKey);
-    if (saved == AppThemeMode.kidFriendly.name) {
-      _mode = AppThemeMode.kidFriendly;
+    final saved = await _store.getString(prefsKey);
+    final match = AppThemeMode.values.where((m) => m.name == saved);
+    if (match.isNotEmpty && match.first != _mode) {
+      _mode = match.first;
       notifyListeners();
     }
   }
@@ -29,6 +29,6 @@ class ThemeManager extends ChangeNotifier {
     if (mode == _mode) return;
     _mode = mode;
     notifyListeners();
-    await _preferences.setString(_prefsKey, mode.name);
+    await _store.setString(prefsKey, mode.name);
   }
 }
