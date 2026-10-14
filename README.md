@@ -1,17 +1,63 @@
-# crc
+# Rosary Companion
 
-A new Flutter project.
+A gentle guide for **people who are new to the Catholic Rosary**. It shows you
+which bead you are on, which prayer to say and what to do next, one step at a time.
 
-## Getting Started
+Runs on **Android phones and tablets**, **Android TV** (D-pad remote) and the
+**web**, all from a single Flutter codebase. Fully offline, no account, no tracking.
 
-This project is a starting point for a Flutter application.
+| | |
+|---|---|
+| Design | [docs/DESIGN.md](docs/DESIGN.md) |
+| Decision log | [docs/DECISIONS.md](docs/DECISIONS.md) |
+| Backlog | [BACKLOG.md](BACKLOG.md) |
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- Guided 80-step Rosary with a drawing of the rosary and the current bead highlighted
+- A "what to do" guidance line on every step (can be turned off)
+- Today's mysteries suggested automatically, with any set selectable
+- Mystery announcements with a Scripture reference and the fruit of the mystery
+- Prayer library
+- English, Spanish and French, with traditional public-domain texts
+- Classic and Kid-friendly themes
+- Keyboard and TV remote: `←`/`→` to move, `Enter`/Select for Next
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Develop
+
+The Flutter version is pinned in `pubspec.yaml` (`environment.flutter`).
+
+```bash
+flutter pub get
+flutter run -d chrome                # web
+flutter run -d <android-device>      # phone or TV emulator
+```
+
+Run the same checks as CI before pushing:
+
+```bash
+dart format --output=none --set-exit-if-changed lib test
+flutter analyze --fatal-infos
+flutter test --coverage && scripts/check_coverage.sh 80
+```
+
+## Content
+
+Prayers and mysteries live in `assets/data/{prayers,mysteries}/<lang>.json`.
+UI text lives in `lib/src/l10n/app_<lang>.arb`. Tests fail when a language is
+missing a prayer, a mystery or a UI string. To add a language, add the three
+files and the language code to `contentLanguages`.
+
+## CI/CD
+
+| Workflow | Trigger | What it does |
+|---|---|---|
+| `ci.yml` | PR, push to `main` | format, analyze, tests, coverage ≥ 80 %, web and APK builds |
+| `deploy-web.yml` | push to `main` | publishes the web app to GitHub Pages |
+| `release.yml` | tag `vX.Y.Z` | signed AAB + APK + web zip on a GitHub Release |
+
+To release: `git tag v1.0.0 && git push origin v1.0.0`.
+
+Release signing uses the repository secrets `ANDROID_KEYSTORE_BASE64`,
+`ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` and `ANDROID_KEY_PASSWORD`.
+Without them, the release is debug-signed and marked as a pre-release.

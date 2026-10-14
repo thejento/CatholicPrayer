@@ -1,11 +1,13 @@
 name: crc
-description: "Catholic Rosary Companion - an interactive app to learn how to pray with the rosary."
+description: "Rosary Companion - guides newcomers through praying the Catholic Rosary on Android, Android TV and the web."
 publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
   sdk: ^3.13.1
+  # Pinned toolchain; CI reads it via flutter-version-file (ADR-009).
+  flutter: 3.47.7
 
 dependencies:
   flutter:
@@ -13,7 +15,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
   provider: ^6.1.2
   shared_preferences: ^2.3.3
   intl: any
@@ -29,4 +30,5 @@ flutter:
   generate: true
 
   assets:
-    - assets/data/
+    - assets/data/prayers/
+    - assets/data/mysteries/
