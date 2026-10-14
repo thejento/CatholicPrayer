@@ -48,5 +48,6 @@
   "languageSystem": "Idioma del dispositivo",
   "showGuidance": "Mostrar la guía",
   "showGuidanceSubtitle": "Explica qué hacer en cada cuenta",
-  "beadSemantics": "Rosario, cuenta {current} de {total}"
+  "beadSemantics": "Rosario, cuenta {current} de {total}",
+  "continueRosary": "Continuar donde lo dejaste"
 }

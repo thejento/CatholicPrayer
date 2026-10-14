@@ -4,10 +4,13 @@ import 'package:provider/provider.dart';
 import '../../data/content_repository.dart';
 import '../../domain/clock.dart';
 import '../../domain/mysteries.dart';
+import '../../domain/rosary_sequence.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../../providers/saved_session_controller.dart';
 import '../step_text.dart';
 import 'mystery_picker_screen.dart';
 import 'prayer_library_screen.dart';
+import 'rosary_screen.dart';
 import 'settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,7 +22,9 @@ class HomeScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final lang = contentLanguage(context);
     final suggested = suggestedMysterySet(context.read<Clock>().now());
-    final setTitle = context.read<ContentRepository>().mysterySetTitle(suggested).of(lang);
+    final content = context.read<ContentRepository>();
+    final setTitle = content.mysterySetTitle(suggested).of(lang);
+    final saved = context.watch<SavedSessionController>().saved;
 
     return Scaffold(
       appBar: AppBar(
@@ -57,9 +62,31 @@ class HomeScreen extends StatelessWidget {
                     subtitle: Text(setTitle, style: theme.textTheme.titleMedium),
                   ),
                 ),
+                if (saved != null) ...[
+                  const SizedBox(height: 12),
+                  Card(
+                    color: theme.colorScheme.secondaryContainer,
+                    child: ListTile(
+                      key: const Key('continue-rosary'),
+                      leading: const Icon(Icons.history),
+                      title: Text(l10n.continueRosary),
+                      subtitle: Text(
+                        '${content.mysterySetTitle(saved.mysterySet).of(lang)} · '
+                        '${l10n.stepCounter(saved.index + 1, buildRosarySequence().length)}',
+                      ),
+                      trailing: const Icon(Icons.play_arrow_rounded),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) =>
+                              RosaryScreen(mysterySet: saved.mysterySet, startIndex: saved.index),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 24),
                 FilledButton.icon(
-                  autofocus: true,
+                  autofocus: saved == null,
                   icon: const Icon(Icons.play_arrow_rounded),
                   label: Text(l10n.beginRosary),
                   style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(64)),

@@ -1,7 +1,9 @@
 {
   "@@locale": "en",
   "appTitle": "Rosary Companion",
-  "@appTitle": { "description": "The title of the application" },
+  "@appTitle": {
+    "description": "The title of the application"
+  },
   "homeWelcome": "New to the Rosary? We will guide you, one bead at a time.",
   "beginRosary": "Pray the Rosary",
   "prayerLibrary": "Prayer Library",
@@ -14,18 +16,54 @@
   "next": "Next",
   "previous": "Back",
   "stepCounter": "Step {current} of {total}",
-  "@stepCounter": { "placeholders": { "current": { "type": "int" }, "total": { "type": "int" } } },
+  "@stepCounter": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "partIntroduction": "Introduction",
   "partClosing": "Closing prayers",
   "decadeLabel": "Decade {number} of 5",
-  "@decadeLabel": { "placeholders": { "number": { "type": "int" } } },
+  "@decadeLabel": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
   "hailMaryCount": "{current} of {total}",
-  "@hailMaryCount": { "placeholders": { "current": { "type": "int" }, "total": { "type": "int" } } },
+  "@hailMaryCount": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "announceMystery": "Announce the mystery",
   "scriptureLabel": "Scripture: {reference}",
-  "@scriptureLabel": { "placeholders": { "reference": { "type": "String" } } },
+  "@scriptureLabel": {
+    "placeholders": {
+      "reference": {
+        "type": "String"
+      }
+    }
+  },
   "fruitLabel": "Fruit of the mystery: {fruit}",
-  "@fruitLabel": { "placeholders": { "fruit": { "type": "String" } } },
+  "@fruitLabel": {
+    "placeholders": {
+      "fruit": {
+        "type": "String"
+      }
+    }
+  },
   "meditateHint": "Take a moment to picture this scene from the life of Jesus and Mary.",
   "guideSignOfCrossStart": "Hold the crucifix and make the Sign of the Cross.",
   "guideCreed": "Still holding the crucifix, pray the Apostles' Creed.",
@@ -55,5 +93,15 @@
   "showGuidance": "Show guidance",
   "showGuidanceSubtitle": "Explain what to do on each bead",
   "beadSemantics": "Rosary, bead {current} of {total}",
-  "@beadSemantics": { "placeholders": { "current": { "type": "int" }, "total": { "type": "int" } } }
+  "@beadSemantics": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "continueRosary": "Continue where you left off"
 }

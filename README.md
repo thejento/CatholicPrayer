@@ -18,6 +18,7 @@ Runs on **Android phones and tablets**, **Android TV** (D-pad remote) and the
 - A "what to do" guidance line on every step (can be turned off)
 - Today's mysteries suggested automatically, with any set selectable
 - Mystery announcements with a Scripture reference and the fruit of the mystery
+- Resume an unfinished Rosary from the home screen
 - Prayer library
 - English, Spanish and French, with traditional public-domain texts
 - Classic and Kid-friendly themes
@@ -38,8 +39,12 @@ Run the same checks as CI before pushing:
 ```bash
 dart format --output=none --set-exit-if-changed lib test
 flutter analyze --fatal-infos
-flutter test --coverage && scripts/check_coverage.sh 80
+flutter test --coverage && scripts/check_coverage.sh 90
 ```
+
+After an intentional UI change, refresh the golden screenshots:
+`flutter test --update-goldens test/goldens`. Icons and store graphics are drawn
+in code: `flutter test tool/render_icons_test.dart`.
 
 ## Content
 
@@ -52,7 +57,7 @@ files and the language code to `contentLanguages`.
 
 | Workflow | Trigger | What it does |
 |---|---|---|
-| `ci.yml` | PR, push to `main` | format, analyze, tests, coverage ≥ 80 %, web and APK builds |
+| `ci.yml` | PR, push to `main` | format, analyze, tests + goldens, coverage ≥ 90 %, web and APK builds |
 | `deploy-web.yml` | push to `main` | publishes the web app to GitHub Pages |
 | `release.yml` | tag `vX.Y.Z` | signed AAB + APK + web zip on a GitHub Release |
 

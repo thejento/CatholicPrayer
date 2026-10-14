@@ -3,30 +3,56 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/content_repository.dart';
+import '../../data/device_profile.dart';
 import '../../domain/mysteries.dart';
 import '../../domain/rosary_sequence.dart';
 import '../../domain/rosary_session.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../../providers/saved_session_controller.dart';
 import '../../providers/settings_controller.dart';
 import '../step_text.dart';
 import '../widgets/rosary_beads.dart';
 
 /// The guided Rosary: bead drawing, prayer text and newcomer guidance.
 class RosaryScreen extends StatefulWidget {
-  const RosaryScreen({super.key, required this.mysterySet});
+  const RosaryScreen({super.key, required this.mysterySet, this.startIndex = 0});
 
   final MysterySet mysterySet;
+
+  /// Step to start on, when resuming an unfinished Rosary.
+  final int startIndex;
 
   @override
   State<RosaryScreen> createState() => _RosaryScreenState();
 }
 
 class _RosaryScreenState extends State<RosaryScreen> {
-  late final RosarySession _session = RosarySession(mysterySet: widget.mysterySet);
+  late final RosarySession _session = RosarySession(
+    mysterySet: widget.mysterySet,
+    startIndex: widget.startIndex,
+  );
+  late final SavedSessionController _saved = context.read<SavedSessionController>();
+
+  @override
+  void initState() {
+    super.initState();
+    _session.addListener(_persist);
+  }
+
+  /// Remembers progress so the Rosary can be resumed later (F-06).
+  void _persist() {
+    if (_session.isFinished) {
+      _saved.clear();
+    } else {
+      _saved.save(SavedSession(mysterySet: widget.mysterySet, index: _session.index));
+    }
+  }
 
   @override
   void dispose() {
-    _session.dispose();
+    _session
+      ..removeListener(_persist)
+      ..dispose();
     super.dispose();
   }
 
@@ -89,7 +115,7 @@ class _StepLayout extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth < 600) {
+        if (constraints.maxWidth < 600 && !context.read<DeviceProfile>().isTelevision) {
           return Column(
             children: [
               SizedBox(height: constraints.maxHeight * 0.32, child: beads),
@@ -98,7 +124,8 @@ class _StepLayout extends StatelessWidget {
             ],
           );
         }
-        final large = constraints.maxWidth >= 1200;
+        // 10-foot UI on TV (T-04) and on very wide windows.
+        final large = constraints.maxWidth >= 1200 || context.read<DeviceProfile>().isTelevision;
         return MediaQuery(
           data: large
               ? MediaQuery.of(context).copyWith(

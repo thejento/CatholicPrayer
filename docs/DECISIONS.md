@@ -131,3 +131,39 @@ Template:
 - Consequences: Code, content and commit author emails are public. Secrets must stay
   in GitHub Actions secrets and never be committed (`key.properties` and `*.jks` are
   git-ignored).
+
+## ADR-015: Golden tests with the test font and a small tolerance
+- Date: 2026-10-14 · Status: Accepted
+- Context: Pixel tests are fragile across machines. Real fonts render differently per OS.
+- Decision: Goldens use Flutter's default test font (glyphs drawn as boxes), so they
+  check layout and colour, not typography. A comparator accepts up to 0.5 % differing
+  pixels. Coverage: Home and the Rosary screen × 2 themes × phone/tablet/TV. CI
+  uploads `failures/` diffs as an artifact.
+- Consequences: An intentional UI change needs `flutter test --update-goldens test/goldens`
+  in the same PR. They already caught the crucifix being clipped on TV.
+
+## ADR-016: Android TV detection through a platform channel
+- Date: 2026-10-14 · Status: Accepted
+- Context: A TV reports about 960×540 dp, the same as a small tablet, so size alone can't
+  trigger the 10-foot UI.
+- Decision: `MainActivity` exposes `crc/device#isTelevision` (UI mode television, or the
+  Leanback feature). Dart reads it once at startup into `DeviceProfile`, provided
+  through `provider`. Any failure, and the web, means "not a TV".
+- Consequences: No plugin dependency. Behaviour is unit-tested with a mocked channel.
+
+## ADR-017: Brand assets generated from code
+- Date: 2026-10-14 · Status: Accepted
+- Decision: Icons, the TV banner and store graphics are rendered by a Dart script
+  (`tool/render_icons_test.dart`) instead of being hand-made binaries.
+- Consequences: The artwork is reviewable and reproducible. A designer can still
+  replace the PNGs later; the script is then retired.
+
+## ADR-018: Release signing key custody
+- Date: 2026-10-14 · Status: Accepted
+- Decision: A 4096-bit RSA upload key (alias `upload`, PKCS12, valid about 27 years) was
+  generated on the owner's workstation in `~/.config/catholicprayer-signing/` (mode
+  700/600, outside the repo). It was loaded into the four `ANDROID_*` Actions secrets.
+  Certificate SHA-256: `00:C8:6F:F2:81:63:4D:A7:6C:A0:EA:5B:14:0F:8A:CC:43:C2:96:0D:C6:C4:8F:63:5E:B0:AF:50:9F:18:F1:94`.
+- Consequences: The owner must back that folder up offline (password manager or
+  encrypted drive). Enrol in Play App Signing at first upload, so a lost upload key can
+  be reset by Google.
