@@ -136,6 +136,52 @@ Content uses **traditional, public-domain** wordings (ADR-013). Examples are the
 translations. Tests check that every prayer the Rosary needs exists in every
 supported language.
 
+### 3.7 Voice (read aloud): *Proposed*, see ADR-020
+
+**Goal:** a calm, natural voice that prays along with the user. It must not sound
+robotic, must work offline, and must sound the same on phone, TV and web.
+
+**Key idea: pre-recorded, not synthesised on the device.** Every spoken text is
+known in advance: the prayers, the mystery announcements and the guidance lines. They
+are rendered **once, at build time**, by an open-source neural TTS model and shipped
+as small compressed audio files. The app only *plays* audio.
+
+| | Pre-rendered (chosen) | On-device TTS (`flutter_tts`) |
+|---|---|---|
+| Voice quality | Best available open model, same everywhere | Depends on device; often robotic on TV/web |
+| Offline | Yes | Usually; web voices may need network |
+| Device cost | Playback only | Engine + voice data per device |
+| Size | ≈ 2–3 MB per language | 0 |
+| Text changes | Re-render (automated) | Instant |
+
+**What is spoken** (per language):
+
+* every prayer (8 clips)
+* each mystery announcement, composed as
+  `"{Set}. {Ordinal} mystery: {Title}."`, e.g. *"Joyful Mysteries. First mystery: The
+  Annunciation."* (20 clips)
+* optionally, the guidance line of each step (about 20 clips), with a setting to turn it off
+
+**Pipeline**
+
+```
+assets/data/**.json + app_*.arb ──► tool/tts/render.py ──► assets/audio/<lang>/<clip>.mp3
+                                    (open model, CPU)      assets/audio/manifest.json
+                                                           (clip → sha256(text+voice), duration)
+```
+
+* A content test fails CI when a clip is **missing or stale**, meaning its text hash no longer
+  matches the current text. So the audio can never silently drift from the words on screen.
+* The `render-audio.yml` workflow (manual or path-triggered) re-renders and commits the clips.
+
+**Playback** (`just_audio`, MIT, Android + web)
+
+* A speaker toggle in the Rosary app bar starts and stops the voice. The choice is persisted.
+* **Next** or a D-pad move stops the current clip and plays the new step's clip.
+* **Auto-advance** (off by default): when a clip ends, wait for the pause (1–5 s, default
+  2 s), then go to the next step. The person can then simply listen and pray along.
+* The Hail Mary is a single clip reused 53 times. Variants are a later idea.
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)

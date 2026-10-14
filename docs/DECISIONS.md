@@ -177,3 +177,25 @@ Template:
   group opens at most one PR per run. Android build tooling always moves in one PR.
 - Consequences: At most 3 dependency PRs per cycle. When a group PR fails, the whole
   group waits, so a failing update can be split out manually.
+
+## ADR-020: Natural voice through pre-rendered open-source neural TTS
+- Date: 2026-10-14 · Status: **Proposed**. The voice is chosen by ear from samples.
+- Context: The owner wants a smooth, non-robotic, open-source voice. Spoken texts are
+  fixed and known in advance. Targets include Android TV and the web, where on-device voices
+  vary widely.
+- Options considered:
+  - **Kokoro-82M** (Apache-2.0 weights; FR voice from SIWIS, CC BY 4.0 → credit
+    required). Native EN/ES/FR voices; best graded EN voices `af_heart` (A) and `af_bella` (A−).
+    Renders about 5× faster than real time on a laptop CPU, so the whole app renders in minutes.
+  - **Chatterbox Multilingual** (MIT, about 0.5B). 23 languages, expressive, with emotion and
+    pace controls. It needs PyTorch and around 3 GB of weights, and is much slower on CPU.
+  - Qwen3-TTS / VoxCPM2 (Apache-2.0): promising, not sampled yet.
+  - Piper: MIT engine, but each voice has its own dataset licence (some are research-only),
+    and it sounds less natural. Rejected.
+  - Coqui XTTS-v2, Fish Audio, Voxtral: non-commercial licences. Rejected.
+  - On-device `flutter_tts`: inconsistent quality, especially on TV and web. Rejected as
+    the main voice; it may serve as a fallback for user-added text later.
+- Decision (pending owner's choice): render at build time with the chosen model. Ship
+  MP3 clips with a hash manifest, and play them with `just_audio`.
+- Consequences: About 8 MB of audio for 3 languages. Any text edit requires a re-render,
+  which CI enforces. Attribution for CC BY voices goes on a credits screen.
