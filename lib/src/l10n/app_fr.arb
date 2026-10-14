@@ -48,5 +48,6 @@
   "languageSystem": "Langue de l'appareil",
   "showGuidance": "Afficher le guide",
   "showGuidanceSubtitle": "Explique quoi faire sur chaque grain",
-  "beadSemantics": "Chapelet, grain {current} sur {total}"
+  "beadSemantics": "Chapelet, grain {current} sur {total}",
+  "continueRosary": "Reprendre où vous en étiez"
 }

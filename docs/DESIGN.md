@@ -80,6 +80,16 @@ Every step of the Rosary carries three layers of information:
 Mystery announcements show the mystery title, a Scripture reference and its
 traditional *fruit* (e.g. "Humility"), so a newcomer has something to meditate on.
 
+When the step changes, a **glow travels** from the bead just prayed to the next
+one (about 0.5 s), so the eye follows the movement on the physical rosary.
+
+### 3.2.1 Resume
+
+Progress is saved on every step. If the person leaves mid-Rosary, Home shows a
+**"Continue where you left off"** card with the set and step. Finishing the
+Rosary or going back to step 1 clears it. A saved step that no longer exists is
+clamped to the sequence.
+
 ### 3.3 Interaction model
 
 | Action | Touch | Keyboard / Web | TV remote |
@@ -98,10 +108,11 @@ visible, which is a hard requirement for TV.
 |---|---|
 | `< 600` (phone) | Column: small rosary strip on top, text below |
 | `600–1199` (tablet/web) | Row: rosary left (40 %), text right |
-| `≥ 1200` | Row with a larger type scale (×1.3) |
+| `≥ 1200`, or Android TV | Row with a larger type scale (×1.3, the 10-foot UI) |
 
-An Android TV reports about 960×540 dp, so it gets the tablet layout today.
-Detecting TV to apply the 10-foot type scale is backlog item T-04.
+Android TV is detected through the `crc/device` platform channel (`MainActivity.kt`:
+UI mode *television* or the Leanback feature). The web and phones report `false`
+(ADR-016).
 
 ### 3.5 Themes
 
@@ -180,9 +191,11 @@ lib/
     models/prayer.dart      localized prayer value object
     data/content_repository.dart  merges assets/data/{prayers,mysteries}/<lang>.json
     data/preferences_store.dart   key/value interface (+ in-memory fake)
+    data/device_profile.dart      TV detection via platform channel
     providers/
       theme_manager.dart    theme, persisted
       settings_controller.dart  locale + guidance toggle, persisted
+      saved_session_controller.dart  unfinished Rosary, persisted
     ui/
       screens/              home, prayer_library, prayer_detail,
                             mystery_picker, rosary, settings
@@ -205,8 +218,9 @@ lib/
 | Unit (domain, models, data) | `flutter test` | required |
 | Widget (screens, keyboard/D-pad) | `flutter test` | required |
 | Content integrity (JSON/ARB parity) | `flutter test` | required |
-| Coverage | `scripts/check_coverage.sh`, generated code excluded | required (≥ 80 %) |
+| Coverage | `scripts/check_coverage.sh`, generated code excluded | required (≥ 90 %) |
 | Builds | `flutter build web`, `flutter build apk` | required |
+| Golden screenshots (2 themes × phone/tablet/TV) | `matchesGoldenFile`, 0.5 % tolerance | required |
 | Device/integration | `integration_test` on an emulator | backlog |
 
 ## 7. Delivery pipeline (CI/CD)
@@ -236,7 +250,14 @@ lib/
   and the release is labelled *pre-release*.
 * **Dependencies:** Dependabot opens weekly PRs for pub, Gradle and Actions.
 
-## 8. Privacy & accessibility
+## 8. Brand assets
+
+App icons (Android mipmaps, web, maskable, favicon), the Android TV banner and the
+Play Store icon and feature graphic are **drawn in code** by
+`tool/render_icons_test.dart`. The emblem is a gold rosary on a liturgical-maroon gradient.
+Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
+
+## 9. Privacy & accessibility
 
 * No network calls, no analytics and no permissions in v1. Notifications will add
   `POST_NOTIFICATIONS` later.

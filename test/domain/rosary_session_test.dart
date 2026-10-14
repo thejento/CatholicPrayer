@@ -81,4 +81,14 @@ void main() {
       throwsArgumentError,
     );
   });
+
+  test('can start on a saved step', () {
+    final resumed = RosarySession(mysterySet: MysterySet.joyful, startIndex: 10);
+    expect(resumed.index, 10);
+  });
+
+  test('clamps an out-of-range saved step', () {
+    expect(RosarySession(mysterySet: MysterySet.joyful, startIndex: 999).isLast, isTrue);
+    expect(RosarySession(mysterySet: MysterySet.joyful, startIndex: -4).isFirst, isTrue);
+  });
 }

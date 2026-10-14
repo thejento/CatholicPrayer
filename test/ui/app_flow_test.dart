@@ -1,5 +1,7 @@
+import 'package:crc/src/domain/rosary_sequence.dart';
 import 'package:crc/src/providers/theme_manager.dart';
 import 'package:crc/src/theme/app_theme.dart';
+import 'package:crc/src/ui/widgets/rosary_beads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -131,8 +133,7 @@ void main() {
     // On the first step the crucifix (lowest point of the drawing) glows.
     final paint = find.byWidgetPredicate((w) => w is CustomPaint && w.painter != null).first;
     final box = tester.getRect(paint);
-    // The crucifix is centred horizontally near the bottom of the drawing.
-    await tester.tapAt(Offset(box.center.dx, _crucifixY(box)));
+    await tester.tapAt(box.topLeft + beadPositions(box.size)[crucifixBead]);
     await tester.pumpAndSettle();
     expect(stepTitle(tester), "Apostles' Creed");
   });
@@ -204,11 +205,4 @@ void main() {
       }
     });
   }
-}
-
-/// Mirrors the pendant layout in `beadPositions`: the crucifix sits 6
-/// spacings below the medal, at the bottom of the loop.
-double _crucifixY(Rect box) {
-  final radius = box.width * 0.45 < box.height / 3.3 ? box.width * 0.45 : box.height / 3.3;
-  return box.top + radius * 1.05 + radius + 6 * radius * 0.2;
 }

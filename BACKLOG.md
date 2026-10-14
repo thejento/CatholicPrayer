@@ -28,16 +28,17 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 
 - [x] O-07 Default branch `main`, protected: the 3 CI checks are required (ADR-014)
 - [x] O-08 Pages enabled (source: GitHub Actions) → https://thejento.github.io/CatholicPrayer/
-- [ ] O-13 Delete the obsolete `claude/new-session-sjsf1m` branch once PR #1 is merged
-- [ ] O-09 **Manual:** create the upload keystore and add the 4 `ANDROID_*` secrets
-- [ ] F-06 Resume an interrupted Rosary (persist session index + mysteries)
-- [ ] F-07 Animated glow moving between beads (2.3.5 in the original spec)
-- [ ] Q-02 Golden tests for both themes × phone/tablet/TV sizes
-- [ ] Q-03 Raise the coverage gate to 90 %
-- [ ] T-04 Detect Android TV (platform channel) to apply the 10-foot type scale
-- [ ] C-02 Content review of ES/FR texts by a native speaker / parish
-- [ ] W-01 Proper PWA manifest (name, colours, icons) and favicon
-- [ ] T-03 Proper 320×180 TV banner artwork
+- [x] O-13 Obsolete `claude/new-session-sjsf1m` branch deleted
+- [x] O-09 Upload keystore created and the 4 `ANDROID_*` secrets set (ADR-018); signature verified
+- [ ] O-14 **Owner:** back up `~/.config/catholicprayer-signing/` offline
+- [x] F-06 Resume an interrupted Rosary (persist session index + mysteries)
+- [x] F-07 Animated glow moving between beads (2.3.5 in the original spec)
+- [x] Q-02 Golden tests for both themes × phone/tablet/TV sizes (ADR-015)
+- [x] Q-03 Raise the coverage gate to 90 %
+- [x] T-04 Detect Android TV (platform channel) to apply the 10-foot type scale (ADR-016)
+- [ ] C-02 **Owner:** content review of ES/FR texts by a native speaker / parish
+- [x] W-01 Proper PWA manifest (name, colours, icons) and favicon (ADR-017)
+- [x] T-03 Proper 320×180 TV banner artwork
 
 ## Iteration 2: Accessibility & audio
 
@@ -54,7 +55,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 
 ## Iteration 4: Distribution
 
-- [ ] O-10 Play Console listing (phone + TV), privacy policy page on Pages
+- [ ] O-10 Play Console listing (phone + TV), privacy policy page on Pages. The icon and feature graphic are ready in `store/`
 - [ ] O-11 Upload AAB to the Play internal track from `release.yml` (service account)
 - [ ] O-12 `integration_test` on an Android emulator in CI (nightly)
 - [ ] Q-04 Cross-browser smoke (Chrome, Firefox, Safari) via Playwright on the web build
