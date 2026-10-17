@@ -122,7 +122,10 @@ class _RosaryScreenState extends State<RosaryScreen> {
               ],
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(4),
-                child: LinearProgressIndicator(value: _session.progress),
+                child: LinearProgressIndicator(
+                  value: _session.progress,
+                  semanticsLabel: l10n.rosaryProgress,
+                ),
               ),
             ),
             body: SafeArea(
@@ -256,7 +259,12 @@ class _StepPanel extends StatelessWidget {
             style: theme.textTheme.labelLarge?.copyWith(color: theme.colorScheme.primary),
           ),
           const SizedBox(height: 8),
-          Text(title, key: const Key('step-title'), style: theme.textTheme.headlineMedium),
+          // A live region, so screen readers announce each new step.
+          Semantics(
+            header: true,
+            liveRegion: true,
+            child: Text(title, key: const Key('step-title'), style: theme.textTheme.headlineMedium),
+          ),
           if (showGuidance) ...[
             const SizedBox(height: 12),
             Container(
@@ -408,10 +416,14 @@ class _CompletionView extends StatelessWidget {
             children: [
               Icon(Icons.favorite, size: 72, color: theme.colorScheme.secondary),
               const SizedBox(height: 16),
-              Text(
-                l10n.completeTitle,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.headlineMedium,
+              Semantics(
+                header: true,
+                liveRegion: true,
+                child: Text(
+                  l10n.completeTitle,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.headlineMedium,
+                ),
               ),
               const SizedBox(height: 12),
               Text(

@@ -12,6 +12,7 @@
   "start": "Comenzar",
   "next": "Siguiente",
   "previous": "Atrás",
+  "rosaryProgress": "Progreso del rosario",
   "stepCounter": "Paso {current} de {total}",
   "partIntroduction": "Introducción",
   "partClosing": "Oraciones finales",

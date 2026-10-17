@@ -15,6 +15,7 @@
   "start": "Start",
   "next": "Next",
   "previous": "Back",
+  "rosaryProgress": "Rosary progress",
   "stepCounter": "Step {current} of {total}",
   "@stepCounter": {
     "placeholders": {

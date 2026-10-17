@@ -47,8 +47,9 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-09 Auto-advance after the voice finishes, with a 1–5 s pause
 - [x] F-16 Voice speed 0.75×–1.25× (pitch preserved), TV play/pause key, credits page
 - [ ] C-04 **Owner:** listen to every recording once (44 per language) and flag any mispronunciation — EN and ES approved 2026-10-17; FR to re-check after the Kyutai re-render
-- [ ] F-10 Semantics audit and TalkBack/screen-reader pass
-- [ ] F-11 Large-text mode check (text scale 200 %)
+- [x] F-10 Semantics audit, automated in CI (ADR-022): labelled beads, announced steps, labelled progress
+- [x] F-11 Large text: every screen lays out at 200 % on phone, sideways phone and TV
+- [ ] Q-05 Real-device TalkBack pass (reading order, wording) on a phone and a TV emulator
 
 ## Iteration 3: Habit & reminders
 

@@ -293,6 +293,7 @@ lib/
 | Coverage | `scripts/check_coverage.sh`, generated code excluded | required (≥ 90 %) |
 | Builds | `flutter build web`, `flutter build apk` | required |
 | Golden screenshots (2 themes × phone/tablet/TV) | `matchesGoldenFile`, 0.5 % tolerance | required |
+| Accessibility (every screen, both themes; 200 % text on phone, sideways phone, TV) | `meetsGuideline` tap-target, label, contrast; overflow check | required |
 | Device/integration | `integration_test` on an emulator | backlog |
 
 ## 7. Delivery pipeline (CI/CD)
@@ -333,5 +334,10 @@ Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
 
 * No network calls, no analytics and no permissions in v1. Notifications will add
   `POST_NOTIFICATIONS` later.
-* `Semantics` labels on the rosary drawing ("Bead 14 of 59, current"). The app respects
-  the system text scale, and every target is at least 48 dp.
+* Screen readers (TalkBack, browser readers): the rosary drawing is one labelled button
+  ("Rosary, bead 14 of 61") whose tap moves to the next step. The step title is a heading
+  and a live region, so each new step is announced without moving focus. The progress
+  bar is labelled "Rosary progress". Decorative icons are silent.
+* The app respects the system text scale with no cap; layouts are checked at 200 %.
+  Every tap target is at least 48 dp, and text meets WCAG AA contrast in both themes.
+* All of this is enforced by `test/ui/accessibility_test.dart` (ADR-022).

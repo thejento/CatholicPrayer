@@ -86,7 +86,11 @@ class _RosaryBeadsState extends State<RosaryBeads> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    // One node for screen readers: the label and the tap action. The
+    // gesture detector's own unlabelled node is excluded.
     return Semantics(
+      container: true,
+      excludeSemantics: true,
       label: widget.semanticLabel,
       button: widget.onCurrentBeadTap != null,
       onTap: widget.onCurrentBeadTap,
