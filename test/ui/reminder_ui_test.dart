@@ -87,4 +87,25 @@ void main() {
     expect(monday.body, "Aujourd'hui : les Mystères joyeux.");
     expect(app.reminders.channelName, 'Rappel quotidien');
   });
+
+  testWidgets('the reminder settings meet accessibility guidelines, also at 200 % text', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    final app = TestApp(isAndroid: true);
+    await openSettings(tester, app);
+    await tester.tap(reminderSwitch);
+    await tester.pumpAndSettle();
+    await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+    await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
+    await expectLater(tester, meetsGuideline(textContrastGuideline));
+    handle.dispose();
+
+    tester.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    tester.view.physicalSize = const Size(360, 640);
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.byKey(const Key('reminder-time')), 200);
+    expect(tester.takeException(), isNull);
+  });
 }
