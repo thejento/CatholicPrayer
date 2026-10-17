@@ -1,0 +1,130 @@
+import 'package:crc/src/audio/audio_catalog.dart';
+import 'package:crc/src/providers/settings_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import '../helpers/test_app.dart';
+import 'app_flow_test.dart' show pumpApp, startRosary, stepTitle;
+
+void main() {
+  testWidgets('the speaker button reads the step aloud and remembers it', (tester) async {
+    final app = TestApp();
+    await pumpApp(tester, app);
+    await startRosary(tester);
+    expect(app.player.played, isEmpty);
+
+    await tester.tap(find.byKey(const Key('voice-toggle')));
+    await tester.pumpAndSettle();
+    expect(app.player.last, [
+      'assets/audio/en/guide_signOfCrossStart.mp3',
+      'assets/audio/en/prayer_sign_of_the_cross.mp3',
+    ]);
+    expect(app.settings.voiceEnabled, isTrue);
+    expect(find.byTooltip('Stop reading aloud'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('voice-toggle')));
+    await tester.pumpAndSettle();
+    expect(app.player.isPlaying, isFalse);
+    expect(app.settings.voiceEnabled, isFalse);
+  });
+
+  testWidgets('speed can be slowed down and sped up a bit', (tester) async {
+    final app = TestApp();
+    await app.settings.setVoiceEnabled(true);
+    await pumpApp(tester, app);
+    await startRosary(tester);
+    String speed() => tester.widget<Text>(find.byKey(const Key('voice-speed'))).data!;
+    expect(speed(), '1.0×');
+
+    await tester.tap(find.byKey(const Key('voice-slower')));
+    await tester.pumpAndSettle();
+    expect(speed(), '0.85×');
+    await tester.tap(find.byKey(const Key('voice-slower')));
+    await tester.pumpAndSettle();
+    expect(speed(), '0.75×');
+    expect(
+      tester.widget<IconButton>(find.byKey(const Key('voice-slower'))).onPressed,
+      isNull,
+      reason: 'slowest speed reached',
+    );
+    expect(app.settings.voiceSpeed, 0.75);
+
+    for (var i = 0; i < 4; i++) {
+      await tester.tap(find.byKey(const Key('voice-faster')));
+      await tester.pumpAndSettle();
+    }
+    expect(speed(), '1.25×');
+    expect(app.player.speeds.last, 1.25);
+  });
+
+  testWidgets('auto-advance moves on after the voice finishes', (tester) async {
+    final app = TestApp();
+    await app.settings.setVoiceEnabled(true);
+    await app.settings.setPauseSeconds(1);
+    await pumpApp(tester, app);
+    await startRosary(tester);
+    await tester.tap(find.byKey(const Key('auto-advance')));
+    await tester.pumpAndSettle();
+    expect(app.settings.autoAdvance, isTrue);
+    // The guide was created before the chip was pressed; it follows the chip.
+    app.player.finish();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpAndSettle();
+    expect(stepTitle(tester), "Apostles' Creed");
+  });
+
+  testWidgets('the remote play/pause key toggles the voice', (tester) async {
+    final app = TestApp(isTelevision: true);
+    await pumpApp(tester, app, size: const Size(960, 540));
+    await startRosary(tester);
+    await tester.sendKeyEvent(LogicalKeyboardKey.mediaPlayPause);
+    await tester.pumpAndSettle();
+    expect(app.settings.voiceEnabled, isTrue);
+    expect(app.player.played, hasLength(1));
+  });
+
+  testWidgets('a language without recordings offers no voice', (tester) async {
+    final app = TestApp(audio: const AudioCatalog.empty());
+    await pumpApp(tester, app);
+    await startRosary(tester);
+    expect(find.byKey(const Key('voice-toggle')), findsNothing);
+
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Settings'));
+    await tester.pumpAndSettle();
+    expect(find.text('No voice is available in this language yet'), findsOneWidget);
+  });
+
+  testWidgets('voice settings are saved', (tester) async {
+    final app = TestApp();
+    await pumpApp(tester, app, size: const Size(400, 1200));
+    await tester.tap(find.byTooltip('Settings'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Read aloud'));
+    await tester.tap(find.text('Read the guidance aloud'));
+    await tester.tap(find.text('Auto-advance'));
+    await tester.pumpAndSettle();
+    await tester.drag(find.byKey(const Key('pause-slider')), const Offset(400, 0));
+    await tester.pumpAndSettle();
+
+    expect(app.settings.voiceEnabled, isTrue);
+    expect(app.settings.readGuidanceAloud, isFalse);
+    expect(app.settings.autoAdvance, isTrue);
+    expect(app.settings.pauseSeconds, SettingsController.maxPause);
+    expect(await app.store.getBool(SettingsController.autoAdvanceKey), isTrue);
+    expect(await app.store.getString(SettingsController.pauseKey), '5');
+  });
+
+  testWidgets('the credits page lists the voice licences', (tester) async {
+    final app = TestApp();
+    await pumpApp(tester, app, size: const Size(400, 1200));
+    await tester.tap(find.byTooltip('Settings'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('About and credits'));
+    await tester.pumpAndSettle();
+    expect(find.byType(LicensePage), findsOneWidget);
+  });
+}

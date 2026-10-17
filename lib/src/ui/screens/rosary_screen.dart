@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../audio/audio_catalog.dart';
+import '../../audio/clip_player.dart';
+import '../../audio/voice_guide.dart';
 import '../../data/content_repository.dart';
 import '../../data/device_profile.dart';
 import '../../domain/mysteries.dart';
@@ -32,11 +36,36 @@ class _RosaryScreenState extends State<RosaryScreen> {
     startIndex: widget.startIndex,
   );
   late final SavedSessionController _saved = context.read<SavedSessionController>();
+  late final SettingsController _settings = context.read<SettingsController>();
+  VoiceGuide? _voice;
 
   @override
   void initState() {
     super.initState();
     _session.addListener(_persist);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Created once the locale is known: the voice follows the app language.
+    _voice ??= VoiceGuide(
+      session: _session,
+      catalog: context.read<AudioCatalog>(),
+      player: context.read<ClipPlayer Function()>()(),
+      language: contentLanguage(context),
+      enabled: _settings.voiceEnabled,
+      speed: _settings.voiceSpeed,
+      autoAdvance: _settings.autoAdvance,
+      pause: Duration(seconds: _settings.pauseSeconds),
+      withGuidance: _settings.readGuidanceAloud,
+    );
+  }
+
+  void _toggleVoice() {
+    final voice = _voice!;
+    voice.toggle();
+    _settings.setVoiceEnabled(voice.enabled);
   }
 
   /// Remembers progress so the Rosary can be resumed later (F-06).
@@ -50,6 +79,7 @@ class _RosaryScreenState extends State<RosaryScreen> {
 
   @override
   void dispose() {
+    _voice?.dispose();
     _session
       ..removeListener(_persist)
       ..dispose();
@@ -65,10 +95,12 @@ class _RosaryScreenState extends State<RosaryScreen> {
       bindings: {
         const SingleActivator(LogicalKeyboardKey.arrowRight): _session.next,
         const SingleActivator(LogicalKeyboardKey.arrowLeft): _session.previous,
+        // TV remotes and keyboards: the play/pause key toggles the voice.
+        const SingleActivator(LogicalKeyboardKey.mediaPlayPause): _toggleVoice,
       },
       child: Focus(
         child: ListenableBuilder(
-          listenable: _session,
+          listenable: Listenable.merge([_session, _voice]),
           builder: (context, _) => Scaffold(
             appBar: AppBar(
               title: Text(
@@ -77,6 +109,17 @@ class _RosaryScreenState extends State<RosaryScreen> {
                     .mysterySetTitle(widget.mysterySet)
                     .of(contentLanguage(context)),
               ),
+              actions: [
+                if (_voice!.available)
+                  IconButton(
+                    key: const Key('voice-toggle'),
+                    isSelected: _voice!.enabled,
+                    icon: const Icon(Icons.volume_off_outlined),
+                    selectedIcon: const Icon(Icons.volume_up),
+                    tooltip: _voice!.enabled ? l10n.stopReadingAloud : l10n.readAloud,
+                    onPressed: _toggleVoice,
+                  ),
+              ],
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(4),
                 child: LinearProgressIndicator(value: _session.progress),
@@ -85,7 +128,7 @@ class _RosaryScreenState extends State<RosaryScreen> {
             body: SafeArea(
               child: _session.isFinished
                   ? _CompletionView(onPrayAgain: _session.restart, onBack: _session.previous)
-                  : _StepLayout(session: _session, l10n: l10n),
+                  : _StepLayout(session: _session, voice: _voice!, l10n: l10n),
             ),
           ),
         ),
@@ -95,9 +138,10 @@ class _RosaryScreenState extends State<RosaryScreen> {
 }
 
 class _StepLayout extends StatelessWidget {
-  const _StepLayout({required this.session, required this.l10n});
+  const _StepLayout({required this.session, required this.voice, required this.l10n});
 
   final RosarySession session;
+  final VoiceGuide voice;
   final AppLocalizations l10n;
 
   @override
@@ -111,7 +155,13 @@ class _StepLayout extends StatelessWidget {
       semanticLabel: l10n.beadSemantics(step.bead + 1, beadCount),
     );
     final panel = _StepPanel(session: session, l10n: l10n);
-    final controls = _Controls(session: session, l10n: l10n);
+    final controls = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (voice.enabled) _VoiceBar(voice: voice, l10n: l10n),
+        _Controls(session: session, l10n: l10n),
+      ],
+    );
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -271,6 +321,66 @@ class _Controls extends StatelessWidget {
               style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(56)),
               onPressed: session.next,
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Speed and auto-advance controls, shown while the voice is on.
+class _VoiceBar extends StatelessWidget {
+  const _VoiceBar({required this.voice, required this.l10n});
+
+  final VoiceGuide voice;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final settings = context.read<SettingsController>();
+    final speeds = VoiceGuide.speeds;
+    final i = speeds.indexWhere((s) => s >= voice.speed - 0.001).clamp(0, speeds.length - 1);
+    void setSpeed(double s) {
+      voice.setSpeed(s);
+      settings.setVoiceSpeed(s);
+    }
+
+    final speedText = '${NumberFormat('0.0#', contentLanguage(context)).format(voice.speed)}×';
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: 8,
+        children: [
+          IconButton(
+            key: const Key('voice-slower'),
+            icon: const Icon(Icons.remove),
+            tooltip: l10n.slower,
+            onPressed: i > 0 ? () => setSpeed(speeds[i - 1]) : null,
+          ),
+          Semantics(
+            label: l10n.voiceSpeed,
+            child: Text(
+              speedText,
+              key: const Key('voice-speed'),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          IconButton(
+            key: const Key('voice-faster'),
+            icon: const Icon(Icons.add),
+            tooltip: l10n.faster,
+            onPressed: i < speeds.length - 1 ? () => setSpeed(speeds[i + 1]) : null,
+          ),
+          FilterChip(
+            key: const Key('auto-advance'),
+            label: Text(l10n.autoAdvance),
+            selected: voice.autoAdvance,
+            onSelected: (v) {
+              voice.setAutoAdvance(v);
+              settings.setAutoAdvance(v);
+            },
           ),
         ],
       ),

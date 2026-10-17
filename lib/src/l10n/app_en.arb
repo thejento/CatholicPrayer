@@ -103,5 +103,25 @@
       }
     }
   },
-  "continueRosary": "Continue where you left off"
+  "continueRosary": "Continue where you left off",
+  "readAloud": "Read aloud",
+  "stopReadingAloud": "Stop reading aloud",
+  "voiceSection": "Voice",
+  "voiceSpeed": "Speed",
+  "slower": "Slower",
+  "faster": "Faster",
+  "autoAdvance": "Auto-advance",
+  "autoAdvanceSubtitle": "Go to the next prayer when the voice finishes",
+  "readGuidanceAloud": "Read the guidance aloud",
+  "readGuidanceAloudSubtitle": "Say what to do before each prayer",
+  "pauseLabel": "Pause before the next prayer: {seconds} s",
+  "voiceUnavailable": "No voice is available in this language yet",
+  "aboutAndCredits": "About and credits",
+  "@pauseLabel": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  }
 }

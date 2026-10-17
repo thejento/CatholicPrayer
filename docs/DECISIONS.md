@@ -177,3 +177,49 @@ Template:
   group opens at most one PR per run. Android build tooling always moves in one PR.
 - Consequences: At most 3 dependency PRs per cycle. When a group PR fails, the whole
   group waits, so a failing update can be split out manually.
+
+## ADR-020: Natural voice through pre-rendered open-source neural TTS
+- Date: 2026-10-14 · Status: Accepted
+- Context: The owner wants a smooth, non-robotic, open-source voice. Spoken texts are
+  fixed and known in advance. Targets include Android TV and the web, where on-device voices
+  vary widely.
+- Options considered:
+  - **Kokoro-82M** (Apache-2.0 weights; FR voice from SIWIS, CC BY 4.0 → credit
+    required). Native EN/ES/FR voices; best graded EN voices `af_heart` (A) and `af_bella` (A−).
+    Renders about 5× faster than real time on a laptop CPU, so the whole app renders in minutes.
+  - **Chatterbox Multilingual** (MIT, about 0.5B). 23 languages, expressive, with emotion and
+    pace controls. It needs PyTorch and around 3 GB of weights, and is much slower on CPU.
+  - Qwen3-TTS / VoxCPM2 (Apache-2.0): promising, not sampled yet.
+  - Piper: MIT engine, but each voice has its own dataset licence (some are research-only),
+    and it sounds less natural. Rejected.
+  - Coqui XTTS-v2, Fish Audio, Voxtral: non-commercial licences. Rejected.
+  - On-device `flutter_tts`: inconsistent quality, especially on TV and web. Rejected as
+    the main voice; it may serve as a fallback for user-added text later.
+- Decision: render at build time and ship MP3 clips with a hash manifest, played with
+  `just_audio`. After two rounds of blind listening (13 samples, then Bella blends), the owner chose
+  **EN: Kokoro Bella**, **ES: Kokoro Dora** and **FR: Chatterbox built-in voice**. Bella was
+  preferred overall, but blending her into ES/FR kept an English accent.
+  Users can adjust playback speed (0.75×–1.25×) without a re-render.
+  *French superseded by ADR-021.*
+- Consequences: About 8 MB of audio for 3 languages. Any text edit requires a re-render,
+  which CI enforces. Attribution for CC BY voices goes on a credits screen.
+
+## ADR-021: French voice from a native speaker (Kyutai TTS)
+- Date: 2026-10-17 · Status: Accepted · Supersedes the French part of ADR-020
+- Context: Reviewing all recordings (C-04), the owner found the Chatterbox built-in French
+  voice unusable: a strong English accent and frequent audio glitches. English and Spanish were fine.
+- Options considered (16 samples, Hail Mary + a guidance line + the Creed, all native
+  French speakers, each also transcribed by Whisper to catch dropped words or babble):
+  - **Kyutai TTS 1.6B en/fr** (weights CC BY 4.0, code MIT), 8 LibriVox readers from
+    CML-TTS (CC BY 4.0). Natural long-form speech; about 12× slower than real time on CPU.
+  - **Chatterbox cloning a native reader** (MIT): accent fixed by the reference voice,
+    glitch risk unchanged.
+  - **Piper** (siwis, tom, upmc): steady, native, but flatter.
+  - Kokoro Siwis had already been rejected in ADR-020's test.
+- Decision: **Kyutai TTS with reader K2** (`cml-tts/fr/7400_2928_000100-0001_enhanced`,
+  female), chosen by ear. Each clip is rendered whole, seeded (seed 42 + attempt) and retried
+  when its speaking rate is implausible. Chatterbox is removed from the pipeline.
+- Consequences: French renders take about an hour in CI, only when French text changes.
+  Credits name Kyutai and the CML-TTS reader (CC BY 4.0). The SIWIS credit is dropped
+  because no shipped recording uses it.
+

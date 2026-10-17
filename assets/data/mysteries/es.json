@@ -1,44 +1,131 @@
 {
   "language": "es",
+  "ordinals": [
+    "Primer misterio",
+    "Segundo misterio",
+    "Tercer misterio",
+    "Cuarto misterio",
+    "Quinto misterio"
+  ],
   "sets": {
     "joyful": {
       "title": "Misterios Gozosos",
       "mysteries": [
-        { "title": "La Anunciación", "scripture": "Lucas 1,26-38", "fruit": "Humildad" },
-        { "title": "La Visitación", "scripture": "Lucas 1,39-56", "fruit": "Amor al prójimo" },
-        { "title": "El Nacimiento de Jesús", "scripture": "Lucas 2,1-20", "fruit": "Pobreza de espíritu" },
-        { "title": "La Presentación en el Templo", "scripture": "Lucas 2,22-38", "fruit": "Obediencia" },
-        { "title": "El Niño Jesús hallado en el Templo", "scripture": "Lucas 2,41-52", "fruit": "Alegría de encontrar a Jesús" }
+        {
+          "title": "La Anunciación",
+          "scripture": "Lucas 1,26-38",
+          "fruit": "Humildad"
+        },
+        {
+          "title": "La Visitación",
+          "scripture": "Lucas 1,39-56",
+          "fruit": "Amor al prójimo"
+        },
+        {
+          "title": "El Nacimiento de Jesús",
+          "scripture": "Lucas 2,1-20",
+          "fruit": "Pobreza de espíritu"
+        },
+        {
+          "title": "La Presentación en el Templo",
+          "scripture": "Lucas 2,22-38",
+          "fruit": "Obediencia"
+        },
+        {
+          "title": "El Niño Jesús hallado en el Templo",
+          "scripture": "Lucas 2,41-52",
+          "fruit": "Alegría de encontrar a Jesús"
+        }
       ]
     },
     "luminous": {
       "title": "Misterios Luminosos",
       "mysteries": [
-        { "title": "El Bautismo del Señor", "scripture": "Mateo 3,13-17", "fruit": "Apertura al Espíritu Santo" },
-        { "title": "Las Bodas de Caná", "scripture": "Juan 2,1-12", "fruit": "A Jesús por María" },
-        { "title": "El Anuncio del Reino", "scripture": "Marcos 1,14-15", "fruit": "Conversión y confianza en Dios" },
-        { "title": "La Transfiguración", "scripture": "Mateo 17,1-8", "fruit": "Deseo de santidad" },
-        { "title": "La Institución de la Eucaristía", "scripture": "Mateo 26,26-28", "fruit": "Adoración" }
+        {
+          "title": "El Bautismo del Señor",
+          "scripture": "Mateo 3,13-17",
+          "fruit": "Apertura al Espíritu Santo"
+        },
+        {
+          "title": "Las Bodas de Caná",
+          "scripture": "Juan 2,1-12",
+          "fruit": "A Jesús por María"
+        },
+        {
+          "title": "El Anuncio del Reino",
+          "scripture": "Marcos 1,14-15",
+          "fruit": "Conversión y confianza en Dios"
+        },
+        {
+          "title": "La Transfiguración",
+          "scripture": "Mateo 17,1-8",
+          "fruit": "Deseo de santidad"
+        },
+        {
+          "title": "La Institución de la Eucaristía",
+          "scripture": "Mateo 26,26-28",
+          "fruit": "Adoración"
+        }
       ]
     },
     "sorrowful": {
       "title": "Misterios Dolorosos",
       "mysteries": [
-        { "title": "La Oración en el Huerto", "scripture": "Mateo 26,36-46", "fruit": "Dolor de los pecados" },
-        { "title": "La Flagelación", "scripture": "Mateo 27,26", "fruit": "Pureza" },
-        { "title": "La Coronación de Espinas", "scripture": "Mateo 27,27-31", "fruit": "Valentía" },
-        { "title": "Jesús con la Cruz a cuestas", "scripture": "Lucas 23,26-32", "fruit": "Paciencia" },
-        { "title": "La Crucifixión", "scripture": "Lucas 23,33-46", "fruit": "Perseverancia" }
+        {
+          "title": "La Oración en el Huerto",
+          "scripture": "Mateo 26,36-46",
+          "fruit": "Dolor de los pecados"
+        },
+        {
+          "title": "La Flagelación",
+          "scripture": "Mateo 27,26",
+          "fruit": "Pureza"
+        },
+        {
+          "title": "La Coronación de Espinas",
+          "scripture": "Mateo 27,27-31",
+          "fruit": "Valentía"
+        },
+        {
+          "title": "Jesús con la Cruz a cuestas",
+          "scripture": "Lucas 23,26-32",
+          "fruit": "Paciencia"
+        },
+        {
+          "title": "La Crucifixión",
+          "scripture": "Lucas 23,33-46",
+          "fruit": "Perseverancia"
+        }
       ]
     },
     "glorious": {
       "title": "Misterios Gloriosos",
       "mysteries": [
-        { "title": "La Resurrección", "scripture": "Marcos 16,1-7", "fruit": "Fe" },
-        { "title": "La Ascensión", "scripture": "Lucas 24,46-53", "fruit": "Esperanza" },
-        { "title": "La Venida del Espíritu Santo", "scripture": "Hechos 2,1-13", "fruit": "Amor a Dios" },
-        { "title": "La Asunción de María", "scripture": "Tradición; cf. Apocalipsis 12,1", "fruit": "Gracia de una buena muerte" },
-        { "title": "La Coronación de María", "scripture": "Apocalipsis 12,1", "fruit": "Confianza en la intercesión de María" }
+        {
+          "title": "La Resurrección",
+          "scripture": "Marcos 16,1-7",
+          "fruit": "Fe"
+        },
+        {
+          "title": "La Ascensión",
+          "scripture": "Lucas 24,46-53",
+          "fruit": "Esperanza"
+        },
+        {
+          "title": "La Venida del Espíritu Santo",
+          "scripture": "Hechos 2,1-13",
+          "fruit": "Amor a Dios"
+        },
+        {
+          "title": "La Asunción de María",
+          "scripture": "Tradición; cf. Apocalipsis 12,1",
+          "fruit": "Gracia de una buena muerte"
+        },
+        {
+          "title": "La Coronación de María",
+          "scripture": "Apocalipsis 12,1",
+          "fruit": "Confianza en la intercesión de María"
+        }
       ]
     }
   }

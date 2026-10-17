@@ -43,8 +43,10 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 
 ## Iteration 2: Accessibility & audio
 
-- [ ] F-08 Text-to-speech (`flutter_tts`) with language-matched voice
-- [ ] F-09 Auto-advance after TTS completion with configurable pause
+- [x] F-08 Natural voice: pre-rendered Kokoro (EN/ES) + Kyutai (FR, ADR-021), with a freshness check in CI (ADR-020)
+- [x] F-09 Auto-advance after the voice finishes, with a 1–5 s pause
+- [x] F-16 Voice speed 0.75×–1.25× (pitch preserved), TV play/pause key, credits page
+- [ ] C-04 **Owner:** listen to every recording once (44 per language) and flag any mispronunciation — EN and ES approved 2026-10-17; FR to re-check after the Kyutai re-render
 - [ ] F-10 Semantics audit and TalkBack/screen-reader pass
 - [ ] F-11 Large-text mode check (text scale 200 %)
 

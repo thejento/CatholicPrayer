@@ -1,0 +1,6 @@
+{
+  "_comment": "Voice per language (ADR-020). Changing an entry's id re-renders that language.",
+  "en": { "id": "kokoro-v1.0/af_bella/speed-0.9", "engine": "kokoro", "voice": "af_bella", "lang": "en-us", "speed": 0.9 },
+  "es": { "id": "kokoro-v1.0/ef_dora/speed-0.9", "engine": "kokoro", "voice": "ef_dora", "lang": "es", "speed": 0.9 },
+  "fr": { "id": "kyutai-tts-1.6b-en_fr/cml-tts-fr-7400_2928_000100-0001_enhanced/seed-42", "engine": "kyutai", "voice": "cml-tts/fr/7400_2928_000100-0001_enhanced.wav", "seed": 42 }
+}
