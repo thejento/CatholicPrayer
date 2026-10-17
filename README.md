@@ -18,7 +18,7 @@ Runs on **Android phones and tablets**, **Android TV** (D-pad remote) and the
 - A "what to do" guidance line on every step (can be turned off)
 - Today's mysteries suggested automatically, with any set selectable
 - Mystery announcements with a Scripture reference and the fruit of the mystery
-- A natural voice reads the Rosary aloud (open-source Kokoro / Chatterbox, pre-recorded), with adjustable speed and auto-advance
+- A natural voice reads the Rosary aloud (open-source Kokoro / Kyutai, pre-recorded), with adjustable speed and auto-advance
 - Resume an unfinished Rosary from the home screen
 - Prayer library
 - English, Spanish and French, with traditional public-domain texts

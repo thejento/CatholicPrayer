@@ -200,5 +200,26 @@ Template:
   **EN: Kokoro Bella**, **ES: Kokoro Dora** and **FR: Chatterbox built-in voice**. Bella was
   preferred overall, but blending her into ES/FR kept an English accent.
   Users can adjust playback speed (0.75×–1.25×) without a re-render.
+  *French superseded by ADR-021.*
 - Consequences: About 8 MB of audio for 3 languages. Any text edit requires a re-render,
   which CI enforces. Attribution for CC BY voices goes on a credits screen.
+
+## ADR-021: French voice from a native speaker (Kyutai TTS)
+- Date: 2026-10-17 · Status: Accepted · Supersedes the French part of ADR-020
+- Context: Reviewing all recordings (C-04), the owner found the Chatterbox built-in French
+  voice unusable: a strong English accent and frequent audio glitches. English and Spanish were fine.
+- Options considered (16 samples, Hail Mary + a guidance line + the Creed, all native
+  French speakers, each also transcribed by Whisper to catch dropped words or babble):
+  - **Kyutai TTS 1.6B en/fr** (weights CC BY 4.0, code MIT), 8 LibriVox readers from
+    CML-TTS (CC BY 4.0). Natural long-form speech; about 12× slower than real time on CPU.
+  - **Chatterbox cloning a native reader** (MIT): accent fixed by the reference voice,
+    glitch risk unchanged.
+  - **Piper** (siwis, tom, upmc): steady, native, but flatter.
+  - Kokoro Siwis had already been rejected in ADR-020's test.
+- Decision: **Kyutai TTS with reader K2** (`cml-tts/fr/7400_2928_000100-0001_enhanced`,
+  female), chosen by ear. Each clip is rendered whole, seeded (seed 42 + attempt) and retried
+  when its speaking rate is implausible. Chatterbox is removed from the pipeline.
+- Consequences: French renders take about an hour in CI, only when French text changes.
+  Credits name Kyutai and the CML-TTS reader (CC BY 4.0). The SIWIS credit is dropped
+  because no shipped recording uses it.
+

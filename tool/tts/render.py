@@ -11,8 +11,8 @@ one clip instead of a whole language.
   python tool/tts/render.py --langs en,es      # render stale clips of en and es
   python tool/tts/render.py                    # render every stale clip
 
-Engines are imported lazily: Kokoro needs `kokoro-onnx`, Chatterbox needs
-`chatterbox-tts` (PyTorch). Both need `lameenc`, `numpy` and `soundfile`.
+Engines are imported lazily: Kokoro needs `kokoro-onnx`, Kyutai needs
+`moshi` (PyTorch). Both need `lameenc`, `numpy` and `soundfile`.
 """
 import argparse
 import hashlib
@@ -76,38 +76,10 @@ class Kokoro:
 # Speaking-rate bounds (characters per second) for a plausible recording.
 # Outside them a clip was cut short, skipped words or trailed into noise.
 MIN_RATE, MAX_RATE = 8.0, 32.0
-CHATTERBOX_CAP_S = 39.5  # Chatterbox stops generating at about 40 s
-CHUNK_CHARS = 180
-GAP_S = 0.3  # pause between sentences joined into one clip
-
-
-def sentences(text: str, limit: int = CHUNK_CHARS) -> list[str]:
-    """Splits text at sentence ends (then at commas, for over-long sentences),
-    merging short pieces back together up to [limit] characters."""
-    import re
-
-    def merge(parts):
-        chunks, current = [], ""
-        for part in parts:
-            if current and len(current) + 1 + len(part) > limit:
-                chunks.append(current)
-                current = part
-            else:
-                current = f"{current} {part}".strip()
-        return chunks + ([current] if current else [])
-
-    pieces = []
-    for sentence in re.split(r"(?<=[.;:!?])\s+", text.strip()):
-        if len(sentence) > limit:
-            pieces += merge(re.split(r"(?<=,)\s+", sentence))
-        elif sentence:
-            pieces.append(sentence)
-    return merge(pieces)
 
 
 def plausible(text: str, seconds: float) -> bool:
-    rate = len(text) / max(seconds, 0.01)
-    return MIN_RATE <= rate <= MAX_RATE and seconds < CHATTERBOX_CAP_S
+    return MIN_RATE <= len(text) / max(seconds, 0.01) <= MAX_RATE
 
 
 def trim(audio, sr, threshold=0.01, keep_s=0.08):
@@ -121,38 +93,44 @@ def trim(audio, sr, threshold=0.01, keep_s=0.08):
     return audio[max(loud[0] - keep, 0) : loud[-1] + keep]
 
 
-class Chatterbox:
-    """Chatterbox renders one sentence group at a time: long inputs hit its
-    ~40 s cap, and short ones sometimes trail into noise. Each piece is
-    checked for a plausible speaking rate and retried with another seed."""
+class Kyutai:
+    """Kyutai TTS 1.6B (en/fr) on CPU, conditioned on a native speaker's voice
+    embedding. Sampling is seeded per attempt; an implausible take is retried."""
 
     ATTEMPTS = 4
 
     def __init__(self):
-        from chatterbox.mtl_tts import ChatterboxMultilingualTTS
+        import torch
+        from moshi.models.loaders import CheckpointInfo
+        from moshi.models.tts import TTSModel
 
-        self.model = ChatterboxMultilingualTTS.from_pretrained(device="cpu")
+        torch.set_num_threads(os.cpu_count() or 4)
+        self.model = TTSModel.from_checkpoint_info(
+            CheckpointInfo.from_hf_repo("kyutai/tts-1.6b-en_fr"), n_q=32, temp=0.6,
+            device="cpu", dtype=torch.float32)
 
-    def _piece(self, text, voice):
+    def _take(self, text, voice):
+        import numpy as np
         import torch
 
-        for attempt in range(self.ATTEMPTS):
-            torch.manual_seed(voice["seed"] + attempt)  # deterministic per attempt
-            wav = self.model.generate(text, language_id=voice["language_id"])
-            audio = trim(wav.squeeze(0).numpy(), self.model.sr)
-            if plausible(text, len(audio) / self.model.sr):
-                return audio
-            print(f"  retry {attempt + 1}: implausible length for {text[:40]!r}", flush=True)
-        raise RuntimeError(f"no plausible recording after {self.ATTEMPTS} attempts: {text!r}")
+        model = self.model
+        cond = model.make_condition_attributes([model.get_voice_path(voice["voice"])], cfg_coef=2.0)
+        result = model.generate([model.prepare_script([text], padding_between=1)], [cond])
+        with model.mimi.streaming(1), torch.no_grad():
+            frames = [model.mimi.decode(f[:, 1:, :]).cpu().numpy()[0, 0] for f in result.frames[model.delay_steps :]]
+        return trim(np.clip(np.concatenate(frames), -1, 1), model.mimi.sample_rate)
 
     def render(self, text, voice):
-        import numpy as np
+        import torch
 
-        gap = np.zeros(int(GAP_S * self.model.sr), dtype=np.float32)
-        pieces = []
-        for chunk in sentences(text):
-            pieces += [self._piece(chunk, voice), gap]
-        return np.concatenate(pieces[:-1]), self.model.sr
+        sr = self.model.mimi.sample_rate
+        for attempt in range(self.ATTEMPTS):
+            torch.manual_seed(voice["seed"] + attempt)  # deterministic per attempt
+            audio = self._take(text, voice)
+            if plausible(text, len(audio) / sr):
+                return audio, sr
+            print(f"  retry {attempt + 1}: implausible length for {text[:40]!r}", flush=True)
+        raise RuntimeError(f"no plausible recording after {self.ATTEMPTS} attempts: {text!r}")
 
 
 def encode_mp3(audio, sr) -> bytes:
@@ -203,7 +181,7 @@ def main():
 
         for i, clip_id in enumerate(stale[lang], 1):
             if voice["engine"] not in engines:
-                engines[voice["engine"]] = Kokoro(args.models) if voice["engine"] == "kokoro" else Chatterbox()
+                engines[voice["engine"]] = Kokoro(args.models) if voice["engine"] == "kokoro" else Kyutai()
             text = texts[lang][clip_id]
             audio, sr = engines[voice["engine"]].render(text, voice)
             (out_dir / f"{clip_id}.mp3").write_bytes(encode_mp3(audio, sr))

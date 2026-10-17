@@ -154,13 +154,13 @@ as small compressed audio files. The app only *plays* audio.
 | Size | ≈ 1.8 MB per language (≈ 5 min of speech, MP3 48 kbps) | 0 |
 | Text changes | Re-render (automated) | Instant |
 
-**Voices** (chosen by ear in a blind listening test, see ADR-020):
+**Voices** (chosen by ear in listening tests, see ADR-020 and ADR-021):
 
 | Language | Engine | Voice |
 |---|---|---|
 | English | Kokoro-82M | Bella (`af_bella`), speed 0.9 |
 | Spanish | Kokoro-82M | Dora (`ef_dora`), speed 0.9 |
-| French | Chatterbox Multilingual | built-in voice, seed 42 |
+| French | Kyutai TTS 1.6B (en/fr) | native reader `cml-tts/fr/7400_2928_000100-0001_enhanced`, seed 42 |
 
 The mapping lives in `tool/tts/voices.json`. Changing an entry re-renders that language.
 
@@ -186,8 +186,8 @@ build/tts/texts.json ──► tool/tts/render.py ──► assets/audio/<lang>/
 * A content test fails CI when a clip is **missing or stale**, meaning its text hash no longer
   matches the current text. So the audio can never silently drift from the words on screen.
 * `render-audio.yml` runs on any branch push that changes spoken text. It renders only
-  the stale clips, installs only the engines needed (Kokoro takes minutes; Chatterbox
-  takes about 40 minutes on CPU) and commits them to the branch. GitHub holds CI runs
+  the stale clips, installs only the engines needed (Kokoro takes minutes; Kyutai
+  takes about an hour for French on CPU) and commits them to the branch. GitHub holds CI runs
   triggered by a bot push for approval, and branch protection only counts PR-event runs,
   so the job approves that held run through the API.
 * Kokoro (EN/ES) can also be rendered locally in about 2 minutes.
