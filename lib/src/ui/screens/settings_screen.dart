@@ -5,6 +5,7 @@ import '../../audio/audio_catalog.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_controller.dart';
 import '../../providers/theme_manager.dart';
+import '../../reminders/reminder_controller.dart';
 import '../../theme/app_theme.dart';
 
 /// Native names, so a person can find their language whatever the UI language.
@@ -18,6 +19,7 @@ class SettingsScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final theme = context.watch<ThemeManager>();
     final settings = context.watch<SettingsController>();
+    final reminder = context.watch<ReminderController>();
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settings)),
@@ -98,6 +100,41 @@ class SettingsScreen extends StatelessWidget {
                   value: settings.pauseSeconds.toDouble(),
                   label: '${settings.pauseSeconds} s',
                   onChanged: (v) => settings.setPauseSeconds(v.round()),
+                ),
+              ],
+              if (reminder.available) ...[
+                const SizedBox(height: 16),
+                Text(l10n.reminderSection, style: Theme.of(context).textTheme.titleMedium),
+                SwitchListTile(
+                  key: const Key('reminder-switch'),
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(l10n.reminderSwitch),
+                  subtitle: Text(l10n.reminderSubtitle),
+                  value: reminder.enabled,
+                  onChanged: (on) async {
+                    final messenger = ScaffoldMessenger.of(context);
+                    if (!await reminder.setEnabled(on)) {
+                      messenger.showSnackBar(SnackBar(content: Text(l10n.reminderDenied)));
+                    }
+                  },
+                ),
+                ListTile(
+                  key: const Key('reminder-time'),
+                  contentPadding: EdgeInsets.zero,
+                  enabled: reminder.enabled,
+                  leading: const Icon(Icons.schedule),
+                  title: Text(l10n.reminderTime),
+                  trailing: Text(
+                    reminder.time.format(context),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  onTap: () async {
+                    final picked = await showTimePicker(
+                      context: context,
+                      initialTime: reminder.time,
+                    );
+                    if (picked != null) await reminder.setTime(picked);
+                  },
                 ),
               ],
               const Divider(height: 32),

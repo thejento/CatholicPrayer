@@ -36,4 +36,15 @@ void main() {
     expect((await DeviceProfile.detect(isAndroid: false)).isTelevision, isFalse);
     expect(asked, isFalse);
   });
+
+  test('offers reminders on Android phones only', () async {
+    mockChannel((call) async => false);
+    final phone = await DeviceProfile.detect(isAndroid: true);
+    expect(phone.isAndroid, isTrue);
+    expect(phone.supportsReminders, isTrue);
+
+    mockChannel((call) async => true);
+    expect((await DeviceProfile.detect(isAndroid: true)).supportsReminders, isFalse);
+    expect((await DeviceProfile.detect(isAndroid: false)).supportsReminders, isFalse);
+  });
 }

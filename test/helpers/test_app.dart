@@ -10,9 +10,11 @@ import 'package:crc/src/domain/clock.dart';
 import 'package:crc/src/providers/saved_session_controller.dart';
 import 'package:crc/src/providers/settings_controller.dart';
 import 'package:crc/src/providers/theme_manager.dart';
+import 'package:crc/src/reminders/reminder_controller.dart';
 import 'package:flutter/widgets.dart';
 
 import 'fake_clip_player.dart';
+import 'fake_reminder_scheduler.dart';
 
 Map<String, dynamic> _read(String path) =>
     jsonDecode(File(path).readAsStringSync()) as Map<String, dynamic>;
@@ -36,6 +38,7 @@ class TestApp {
     DateTime? now,
     PreferencesStore? store,
     this.isTelevision = false,
+    this.isAndroid = false,
     AudioCatalog? audio,
   }) : store = store ?? InMemoryPreferencesStore(),
        audio = audio ?? loadRealAudio(),
@@ -43,6 +46,11 @@ class TestApp {
     themeManager = ThemeManager(this.store);
     settings = SettingsController(this.store);
     savedSession = SavedSessionController(this.store);
+    reminder = ReminderController(
+      this.store,
+      reminders,
+      available: DeviceProfile(isTelevision: isTelevision, isAndroid: isAndroid).supportsReminders,
+    );
     if (locale != null) settings.setLocale(locale);
   }
 
@@ -51,7 +59,10 @@ class TestApp {
   late final ThemeManager themeManager;
   late final SettingsController settings;
   late final SavedSessionController savedSession;
+  late final ReminderController reminder;
+  final FakeReminderScheduler reminders = FakeReminderScheduler();
   final bool isTelevision;
+  final bool isAndroid;
   final AudioCatalog audio;
   final FakeClipPlayer player = FakeClipPlayer();
 
@@ -60,7 +71,8 @@ class TestApp {
     themeManager: themeManager,
     settings: settings,
     savedSession: savedSession,
-    device: DeviceProfile(isTelevision: isTelevision),
+    reminder: reminder,
+    device: DeviceProfile(isTelevision: isTelevision, isAndroid: isAndroid),
     audio: audio,
     playerFactory: () => player,
     clock: Clock.fixed(_now),

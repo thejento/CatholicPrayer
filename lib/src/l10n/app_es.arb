@@ -63,5 +63,13 @@
   "readGuidanceAloudSubtitle": "Decir qué hacer antes de cada oración",
   "pauseLabel": "Pausa antes de la siguiente oración: {seconds} s",
   "voiceUnavailable": "Todavía no hay voz disponible en este idioma",
-  "aboutAndCredits": "Acerca de y créditos"
+  "aboutAndCredits": "Acerca de y créditos",
+  "reminderSection": "Recordatorio diario",
+  "reminderSwitch": "Recordarme rezar",
+  "reminderSubtitle": "Una notificación cada día con los misterios del día",
+  "reminderTime": "Hora",
+  "reminderDenied": "Las notificaciones están desactivadas para esta aplicación. Permítelas en los ajustes de Android para recibir el recordatorio.",
+  "reminderTitle": "Es hora de rezar el Rosario",
+  "reminderBody": "Hoy: los {mysteries}.",
+  "reminderChannel": "Recordatorio diario"
 }

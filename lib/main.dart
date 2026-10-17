@@ -10,6 +10,8 @@ import 'src/data/preferences_store.dart';
 import 'src/providers/saved_session_controller.dart';
 import 'src/providers/settings_controller.dart';
 import 'src/providers/theme_manager.dart';
+import 'src/reminders/local_notifications_scheduler.dart';
+import 'src/reminders/reminder_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,12 +28,19 @@ Future<void> main() async {
     settings.load(),
     savedSession.load(),
   ).wait;
+  final reminder = ReminderController(
+    store,
+    device.supportsReminders ? LocalNotificationsScheduler() : const NoReminderScheduler(),
+    available: device.supportsReminders,
+  );
+  await reminder.load();
   runApp(
     CatholicPrayerApp(
       content: content,
       themeManager: themeManager,
       settings: settings,
       savedSession: savedSession,
+      reminder: reminder,
       device: device,
       audio: audio,
     ),

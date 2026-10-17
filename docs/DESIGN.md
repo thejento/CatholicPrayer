@@ -208,6 +208,26 @@ build/tts/texts.json ──► tool/tts/render.py ──► assets/audio/<lang>/
   2 s), then go to the next step. The person can then simply listen and pray along.
 * The Hail Mary is a single clip reused 53 times. Variants are a later idea.
 
+### 3.8 Daily reminder (F-12), see ADR-023
+
+A gentle nudge to build the habit, **Android phones and tablets only** (not TV, where
+notifications are not part of the experience, and not the web, where a page cannot
+notify once it is closed).
+
+* Settings → **Daily reminder**: a switch (off by default) and a time (default 20:00),
+  picked with the system time picker.
+* Turning it on asks for the notification permission (Android 13+). If the person refuses,
+  the switch stays off and a message explains how to allow notifications in Android settings.
+* The notification names that day's mysteries, so seven weekly reminders are scheduled,
+  one per weekday: *"Time to pray the Rosary"* / *"Today: the Sorrowful Mysteries."*
+* Texts follow the app language. Reminders are rescheduled at start-up and whenever the
+  language, time or switch changes, so they never go stale; Android restores them after a
+  reboot or app update.
+* Delivery is *inexact* (Android may shift it by a few minutes to save battery), so the app
+  needs no exact-alarm permission.
+* Tapping the notification opens the app on Home, where today's mysteries and any
+  unfinished Rosary are waiting.
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)
@@ -332,8 +352,12 @@ Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
 
 ## 9. Privacy & accessibility
 
-* No network calls, no analytics and no permissions in v1. Notifications will add
-  `POST_NOTIFICATIONS` later.
+* No network calls and no analytics. Android permissions, all normal (none grant access
+  to personal data):
+  * `POST_NOTIFICATIONS`: the optional daily reminder; asked for only when it is turned on.
+  * `RECEIVE_BOOT_COMPLETED`, `VIBRATE`: restore the reminder after a reboot, vibrate with it.
+  * `ACCESS_NETWORK_STATE`: added by the audio player library (ExoPlayer); the app plays
+    bundled files only.
 * Screen readers (TalkBack, browser readers): the rosary drawing is one labelled button
   ("Rosary, bead 14 of 61") whose tap moves to the next step. The step title is a heading
   and a live region, so each new step is announced without moving focus. The progress
