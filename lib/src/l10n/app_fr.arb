@@ -12,6 +12,7 @@
   "start": "Commencer",
   "next": "Suivant",
   "previous": "Retour",
+  "rosaryProgress": "Progression du chapelet",
   "stepCounter": "Étape {current} sur {total}",
   "partIntroduction": "Introduction",
   "partClosing": "Prières finales",

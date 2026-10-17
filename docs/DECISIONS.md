@@ -223,3 +223,18 @@ Template:
   Credits name Kyutai and the CML-TTS reader (CC BY 4.0). The SIWIS credit is dropped
   because no shipped recording uses it.
 
+## ADR-022: Accessibility checks run in CI on every screen
+- Date: 2026-10-17 · Status: Accepted
+- Context: Newcomers include older people and people who use screen readers or large
+  text. Manual audits drift as screens change.
+- Decision: A widget-test suite visits every screen the way a person would, in both themes,
+  and applies Flutter's Android tap-target (48 dp), labelled-tap-target and text-contrast
+  guidelines. It also lays every screen out at 200 % text on a small phone, a sideways
+  phone and a TV (where the 10-foot scale multiplies it to 260 %) and fails on any overflow.
+  A screen-reader test checks that steps are announced (live-region heading) and that the
+  bead drawing can be activated.
+- Findings fixed: the bead drawing exposed an unlabelled tap target next to its labelled
+  node (merged into one); step changes were not announced; the progress bar had no label.
+- Consequences: Regressions fail CI. Automated checks cannot judge reading order or
+  wording, so a real-device TalkBack pass stays a manual item (Q-05).
+
