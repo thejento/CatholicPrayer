@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-/// Runs on a device or emulator: `flutter test integration_test`.
+/// Runs on a device or emulator (`flutter test integration_test -d <device>`)
+/// or in Chrome (`flutter drive --driver=test_driver/integration_test.dart
+/// --target=integration_test/clip_player_test.dart -d web-server`).
 /// Plays a Rosary step's instruction then prayer through the real platform
 /// player and checks that both clips play, in order (regression for the
 /// voice repeating the instruction instead of reading the prayer).
@@ -16,8 +18,8 @@ void main() {
     const ids = ['guide_signOfCrossStart', 'prayer_sign_of_the_cross'];
     final assets = [for (final id in ids) catalog.asset('en', id)!];
     final player = JustAudioClipPlayer();
-    final indices = <int?>[];
-    final sub = player.currentIndexStream.listen(indices.add);
+    final started = <String>[];
+    final sub = player.clipStarted.listen((a) => started.add(a.split('/').last));
 
     final watch = Stopwatch()..start();
     await tester.runAsync(() => player.play(assets, speed: 1.0));
@@ -25,12 +27,10 @@ void main() {
     await sub.cancel();
     await tester.runAsync(player.dispose);
 
-    // ignore: avoid_print
-    print('indices=$indices elapsed=${watch.elapsedMilliseconds}ms');
-    expect(indices.where((i) => i != null).toSet(), {0, 1}, reason: 'both clips played');
-    expect(indices.lastWhere((i) => i != null), 1, reason: 'ended on the prayer');
-    // Both clips together last a few seconds; a cut-short playlist would be faster.
-    expect(watch.elapsedMilliseconds, greaterThan(4000));
+    expect(started, ['guide_signOfCrossStart.mp3', 'prayer_sign_of_the_cross.mp3']);
+    // Instruction (3.0 s) and prayer (4.6 s) both play to the end; the old
+    // player replayed the instruction and finished after about 6 s in Chrome.
+    expect(watch.elapsedMilliseconds, greaterThan(7000));
   });
 
   testWidgets('a new step interrupts the current one', (tester) async {
