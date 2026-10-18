@@ -63,5 +63,13 @@
   "readGuidanceAloudSubtitle": "Dire quoi faire avant chaque prière",
   "pauseLabel": "Pause avant la prière suivante : {seconds} s",
   "voiceUnavailable": "Aucune voix n'est encore disponible dans cette langue",
-  "aboutAndCredits": "À propos et crédits"
+  "aboutAndCredits": "À propos et crédits",
+  "reminderSection": "Rappel quotidien",
+  "reminderSwitch": "Me rappeler de prier",
+  "reminderSubtitle": "Une notification chaque jour, avec les mystères du jour",
+  "reminderTime": "Heure",
+  "reminderDenied": "Les notifications sont désactivées pour cette application. Autorisez-les dans les paramètres d'Android pour recevoir le rappel.",
+  "reminderTitle": "C'est l'heure du chapelet",
+  "reminderBody": "Aujourd'hui : les {mysteries}.",
+  "reminderChannel": "Rappel quotidien"
 }

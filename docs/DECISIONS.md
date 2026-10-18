@@ -238,3 +238,14 @@ Template:
 - Consequences: Regressions fail CI. Automated checks cannot judge reading order or
   wording, so a real-device TalkBack pass stays a manual item (Q-05).
 
+## ADR-023: Daily reminder with local, inexact weekly notifications
+- Date: 2026-10-17 · Status: Accepted
+- Context: F-12 asks for a daily nudge. The app has no server and no account, by design.
+- Options considered: push notifications (needs a server and Firebase, against the privacy
+  model; rejected); exact alarms (needs `SCHEDULE_EXACT_ALARM`, which Android 14 restricts
+  and Play reviews; not worth it for a prayer reminder); local inexact notifications.
+- Decision: `flutter_local_notifications` (BSD-3) with `timezone` and `flutter_timezone`.
+  Seven weekly notifications (weekday + time) so each names that day's mysteries. Android
+  phones only. Behind a `ReminderScheduler` interface so logic is unit-tested with a fake.
+- Consequences: Two permissions (`POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`); core-library
+  desugaring enabled in Gradle. Delivery can drift by a few minutes.

@@ -124,5 +124,21 @@
         "type": "int"
       }
     }
+  },
+  "reminderSection": "Daily reminder",
+  "reminderSwitch": "Remind me to pray",
+  "reminderSubtitle": "A notification each day, naming that day's mysteries",
+  "reminderTime": "Time",
+  "reminderDenied": "Notifications are turned off for this app. Allow them in Android settings to get the reminder.",
+  "reminderTitle": "Time to pray the Rosary",
+  "reminderBody": "Today: the {mysteries}.",
+  "reminderChannel": "Daily reminder",
+  "@reminderBody": {
+    "placeholders": {
+      "mysteries": {
+        "type": "String",
+        "example": "Joyful Mysteries"
+      }
+    }
   }
 }

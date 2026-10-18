@@ -53,7 +53,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 
 ## Iteration 3: Habit & reminders
 
-- [ ] F-12 Daily reminder notification (`flutter_local_notifications`, Android only)
+- [x] F-12 Daily reminder: weekly-per-day local notifications naming the day's mysteries, Android phones only (ADR-023)
 - [ ] F-13 Private, on-device prayer streak / journal
 - [ ] F-14 Liturgical-season mystery suggestion (Advent, Lent Sundays)
 

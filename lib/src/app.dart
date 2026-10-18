@@ -10,6 +10,8 @@ import 'l10n/generated/app_localizations.dart';
 import 'providers/saved_session_controller.dart';
 import 'providers/settings_controller.dart';
 import 'providers/theme_manager.dart';
+import 'reminders/reminder_controller.dart';
+import 'reminders/reminder_sync.dart';
 import 'theme/app_theme.dart';
 import 'ui/screens/home_screen.dart';
 
@@ -21,6 +23,7 @@ class CatholicPrayerApp extends StatelessWidget {
     required this.themeManager,
     required this.settings,
     required this.savedSession,
+    required this.reminder,
     this.device = const DeviceProfile(),
     this.audio = const AudioCatalog.empty(),
     this.playerFactory = JustAudioClipPlayer.new,
@@ -31,6 +34,7 @@ class CatholicPrayerApp extends StatelessWidget {
   final ThemeManager themeManager;
   final SettingsController settings;
   final SavedSessionController savedSession;
+  final ReminderController reminder;
   final DeviceProfile device;
   final AudioCatalog audio;
 
@@ -50,6 +54,7 @@ class CatholicPrayerApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: themeManager),
         ChangeNotifierProvider.value(value: settings),
         ChangeNotifierProvider.value(value: savedSession),
+        ChangeNotifierProvider.value(value: reminder),
       ],
       child: Consumer2<ThemeManager, SettingsController>(
         builder: (context, theme, settings, _) => MaterialApp(
@@ -59,6 +64,7 @@ class CatholicPrayerApp extends StatelessWidget {
           locale: settings.locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
+          builder: (context, child) => ReminderSync(child: child!),
           home: const HomeScreen(),
         ),
       ),
