@@ -138,5 +138,11 @@
   "readOnVaticanNews": "Lire la vie du saint du jour sur Vatican News",
   "vaticanNewsOnTv": "Pour lire la vie du saint du jour, rendez-vous sur un téléphone ou un ordinateur :",
   "linkOpenFailed": "Impossible d'ouvrir la page.",
-  "artworkSemantics": "Tableau : {title}, de {artist}"
+  "artworkSemantics": "Tableau : {title}, de {artist}",
+  "appVersion": "Version {version}",
+  "playStoreLink": "Android sur Google Play (bientôt)",
+  "reportIssueLink": "Signaler un problème sur GitHub",
+  "about": "À propos",
+  "playStoreGet": "Android sur Google Play",
+  "rateOnPlay": "Noter l'application sur Google Play"
 }

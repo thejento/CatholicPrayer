@@ -63,9 +63,9 @@ jobs:
       - name: Build
         run: |
           version="${GITHUB_REF_NAME#v}"
-          flutter build appbundle --release --build-name="$version" --build-number=${{ github.run_number }}
-          flutter build apk --release --build-name="$version" --build-number=${{ github.run_number }}
-          flutter build web --release --base-href /${{ github.event.repository.name }}/
+          flutter build appbundle --release --build-name="$version" --build-number=${{ github.run_number }} --dart-define=APP_VERSION="$version"
+          flutter build apk --release --build-name="$version" --build-number=${{ github.run_number }} --dart-define=APP_VERSION="$version"
+          flutter build web --release --base-href /${{ github.event.repository.name }}/ --dart-define=APP_VERSION="$version"
           mkdir -p dist
           cp build/app/outputs/bundle/release/app-release.aab "dist/rosary-companion-$version.aab"
           cp build/app/outputs/flutter-apk/app-release.apk "dist/rosary-companion-$version.apk"

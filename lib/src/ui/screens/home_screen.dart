@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/content_repository.dart';
+import '../../data/device_profile.dart';
 import '../../data/saints_repository.dart';
 import '../../domain/clock.dart';
 import '../../domain/liturgical_calendar.dart';
@@ -13,6 +14,7 @@ import '../../providers/saved_session_controller.dart';
 import '../liturgy_text.dart';
 import '../step_text.dart';
 import '../widgets/saint_sheet.dart';
+import '../widgets/web_footer.dart';
 import 'about_today_screen.dart';
 import 'mystery_picker_screen.dart';
 import 'prayer_library_screen.dart';
@@ -158,6 +160,7 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () => Navigator.of(context)
                       .push(MaterialPageRoute<void>(builder: (_) => const PrayerLibraryScreen())),
                 ),
+                if (!context.read<DeviceProfile>().isAndroid) const WebFooter(),
               ],
             ),
           ),

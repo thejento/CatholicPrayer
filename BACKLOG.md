@@ -65,11 +65,13 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [ ] F-23 Option to end the guided Rosary with the prayer to St Michael and/or the Holy Father's intentions (with recordings)
 - [x] F-24 About today (season, colour, why these mysteries, the four sets) and saint details with a Vatican News link (ADR-027)
 - [x] F-25 A public-domain painting on each mystery announcement, classic theme only (ADR-028)
+- [x] F-26 Web footer and Settings → About: version (with commit on deploys), GitHub Issues link, Google Play link (DESIGN §3.14)
+- [ ] F-27 "Send feedback" by email (prefilled with version, device and language) in Settings → About and the web footer. On hold: needs a dedicated address from the owner
 - [ ] F-21 National calendars (e.g. Canada, USA: Epiphany/Ascension on Sunday, national saints)
 
 ## Iteration 4: Distribution
 
-- [ ] O-10 Play Console listing (phone + TV), privacy policy page on Pages. The icon and feature graphic are ready in `store/`
+- [ ] O-10 Play Console listing (phone + TV), privacy policy page on Pages. The icon and feature graphic are ready in `store/`. When live, set `playStoreListed = true` in `lib/src/app_info.dart` (drops "(soon)", shows "Rate the app")
 - [ ] O-11 Upload AAB to the Play internal track from `release.yml` (service account)
 - [ ] O-12 `integration_test` on an Android emulator in CI (nightly); the first on-device test (voice playlist order) exists
 - [ ] Q-04 Cross-browser smoke (Chrome, Firefox, Safari) via Playwright on the web build
