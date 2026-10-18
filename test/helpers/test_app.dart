@@ -6,6 +6,7 @@ import 'package:crc/src/audio/audio_catalog.dart';
 import 'package:crc/src/data/content_repository.dart';
 import 'package:crc/src/data/device_profile.dart';
 import 'package:crc/src/data/preferences_store.dart';
+import 'package:crc/src/data/saints_repository.dart';
 import 'package:crc/src/data/scripture_repository.dart';
 import 'package:crc/src/domain/clock.dart';
 import 'package:crc/src/providers/saved_session_controller.dart';
@@ -30,6 +31,11 @@ ContentRepository loadRealContent() => ContentRepository.fromJson(
 /// The real Bible passages.
 ScriptureRepository loadRealScripture() => ScriptureRepository.fromJson({
   for (final l in contentLanguages) l: _read(ScriptureRepository.path(l)),
+});
+
+/// The real names of the saints.
+SaintsRepository loadRealSaints() => SaintsRepository.fromJson({
+  for (final l in contentLanguages) l: _read(SaintsRepository.path(l)),
 });
 
 /// The real voice manifest, so widget tests see the same languages as the app.
@@ -79,6 +85,7 @@ class TestApp {
     savedSession: savedSession,
     reminder: reminder,
     scripture: loadRealScripture(),
+    saints: loadRealSaints(),
     device: DeviceProfile(isTelevision: isTelevision, isAndroid: isAndroid),
     audio: audio,
     playerFactory: () => player,

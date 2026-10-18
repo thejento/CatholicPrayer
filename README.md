@@ -16,12 +16,12 @@ Runs on **Android phones and tablets**, **Android TV** (D-pad remote) and the
 
 - Guided 80-step Rosary with a drawing of the rosary and the current bead highlighted
 - A "what to do" guidance line on every step (can be turned off)
-- Today's mysteries suggested automatically (Sundays follow Advent and Lent), with the day of the Church year shown on Home
+- Today's mysteries suggested automatically (Sundays follow Advent and Lent), with the day of the Church year and the saint of the day shown on Home
 - Mystery announcements with the fruit of the mystery and its full Bible passage (Douay-Rheims, Torres Amat, néo-Crampon)
 - An optional daily reminder naming the day's mysteries (Android)
 - A natural voice reads the Rosary aloud (open-source Kokoro / Kyutai, pre-recorded), with adjustable speed and auto-advance
 - Resume an unfinished Rosary from the home screen
-- Prayer library
+- Prayer library: the prayers of the Rosary and other traditional prayers (Memorare, St Michael, Angelus, Regina Caeli…)
 - English, Spanish and French, with traditional public-domain texts
 - Classic and Kid-friendly themes
 - Keyboard and TV remote: `←`/`→` to move, `Enter`/Select for Next

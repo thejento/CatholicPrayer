@@ -37,7 +37,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] Q-02 Golden tests for both themes × phone/tablet/TV sizes (ADR-015)
 - [x] Q-03 Raise the coverage gate to 90 %
 - [x] T-04 Detect Android TV (platform channel) to apply the 10-foot type scale (ADR-016)
-- [ ] C-02 **Owner:** content review of ES/FR texts by a native speaker / parish, including the modernized Torres Amat passages
+- [ ] C-02 **Owner:** content review of ES/FR texts by a native speaker / parish, including the modernized Torres Amat passages and the saints' names
 - [x] W-01 Proper PWA manifest (name, colours, icons) and favicon (ADR-017)
 - [x] T-03 Proper 320×180 TV banner artwork
 
@@ -59,8 +59,10 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-12 Daily reminder: weekly-per-day local notifications naming the day's mysteries, Android phones only (ADR-023)
 - [ ] F-13 Private, on-device prayer streak / journal
 - [x] F-14 Liturgical season on Home (named day, colour) and seasonal Sunday mysteries (ADR-025)
-- [ ] F-19 Saint of the day on Home (General Roman Calendar)
-- [ ] F-20 More prayers: St Michael, Memorare, Angelus / Regina Caeli, Litany of Loreto, prayer for the Pope's intentions…
+- [x] F-19 Saint of the day on Home: General Roman Calendar, ranks, precedence and transfers (ADR-026)
+- [x] F-20 More prayers in the library: Memorare, St Michael, Come Holy Spirit, Guardian Angel, Act of Contrition, Angelus, Regina Caeli, Holy Father's intentions (public-domain wordings)
+- [ ] F-22 Litany of Loreto in the library
+- [ ] F-23 Option to end the guided Rosary with the prayer to St Michael and/or the Holy Father's intentions (with recordings)
 - [ ] F-21 National calendars (e.g. Canada, USA: Epiphany/Ascension on Sunday, national saints)
 
 ## Iteration 4: Distribution
@@ -76,5 +78,4 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - Divine Mercy Chaplet and other chaplets (the sequence engine is generic enough)
 - Human-voice recordings
 - Saint of the day
-- Optional prayers: St Michael, intentions for the Holy Father, Litany of Loreto
 - More languages (PT, IT, DE, TL, PL)

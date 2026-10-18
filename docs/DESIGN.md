@@ -284,6 +284,41 @@ the next time the app is opened.
 * Not yet: national calendars (for example Epiphany and Ascension moved to Sunday, as in
   Canada and the United States); the universal dates are used.
 
+### 3.11 Saint of the day (F-19), see ADR-026
+
+Under the liturgical day, Home names the celebration of the day and its rank:
+*"Saint Augustine, bishop and doctor of the Church · Memorial"*. When several optional
+memorials share a day they are listed together (*"… or Saint Ansgar, bishop"*).
+
+* Source: the General Roman Calendar (221 celebrations incl. later additions such as
+  Saints Martha, Mary and Lazarus, Gregory of Narek, Hildegard, Paul VI, Faustina, Our Lady of
+  Loreto), plus the four moveable ones after Pentecost (Mary Mother of the Church, Corpus
+  Christi, Sacred Heart, Immaculate Heart). Names in EN/ES/FR, in the style of each
+  language's liturgical books.
+* Precedence, simplified from the General Norms: nothing on days that are themselves the
+  celebration (Christmas, Holy Week, the Easter octave, Ash Wednesday, Pentecost…); Sundays of
+  Advent, Lent and Easter yield to nothing; other Sundays only to solemnities and feasts of the
+  Lord; a solemnity or feast replaces the memorials of its day.
+* Transfers: Saint Joseph and the Annunciation out of Holy Week, the Easter octave and Lenten
+  Sundays; the Immaculate Conception off an Advent Sunday; John the Baptist when the Sacred Heart
+  falls on 24 June.
+* Offline, no network. National calendars and patron saints are F-21.
+
+### 3.12 More prayers (F-20)
+
+The Prayer Library has two sections: **Prayers of the Rosary** (the eight prayers the guided
+Rosary uses) and **Other prayers**: the Memorare, the prayer to Saint Michael, Come Holy
+Spirit, the prayer to the Guardian Angel, an Act of Contrition, the Angelus, the Regina Caeli
+(said instead of the Angelus in Easter Time) and a note on praying for the Holy Father's
+intentions after the Rosary.
+
+* Traditional public-domain wordings only (ADR-013): the older "thee/thou" English forms, and
+  the older Spanish and French forms rather than current liturgical translations.
+* These prayers are read on screen, not aloud: only the prayers of the guided Rosary have
+  recordings.
+* Not yet: the Litany of Loreto (F-22), and adding Saint Michael or the Holy Father's
+  intentions at the end of the guided Rosary as an option (F-23).
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)

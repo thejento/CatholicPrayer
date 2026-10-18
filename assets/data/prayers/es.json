@@ -41,6 +41,46 @@
       "id": "rosary_closing_prayer",
       "title": "Oración final",
       "text": "Oremos. Oh Dios, cuyo Hijo unigénito, con su vida, muerte y resurrección, nos alcanzó el premio de la vida eterna; concédenos, te rogamos, que meditando estos misterios del santísimo Rosario de la Bienaventurada Virgen María, imitemos lo que contienen y alcancemos lo que prometen. Por el mismo Cristo nuestro Señor. Amén."
+    },
+    {
+      "id": "memorare",
+      "title": "Acordaos",
+      "text": "Acordaos, oh piadosísima Virgen María, que jamás se ha oído decir que ninguno de los que han acudido a vuestra protección, implorando vuestra asistencia y reclamando vuestro socorro, haya sido abandonado de vos. Animado por esta confianza, a vos también acudo, oh Madre, Virgen de las vírgenes, y aunque gimiendo bajo el peso de mis pecados, me atrevo a comparecer ante vuestra presencia soberana. No desechéis, oh Madre del Verbo encarnado, mis humildes súplicas; antes bien, escuchadlas y acogedlas benignamente. Amén."
+    },
+    {
+      "id": "saint_michael",
+      "title": "Oración a san Miguel Arcángel",
+      "text": "San Miguel Arcángel, defiéndenos en la lucha; sé nuestro amparo contra la perversidad y asechanzas del demonio. Reprímale Dios, pedimos suplicantes; y tú, Príncipe de la milicia celestial, arroja al infierno con el divino poder a Satanás y a los otros espíritus malignos que andan dispersos por el mundo para la perdición de las almas. Amén."
+    },
+    {
+      "id": "come_holy_spirit",
+      "title": "Ven, Espíritu Santo",
+      "text": "Ven, Espíritu Santo, llena los corazones de tus fieles y enciende en ellos el fuego de tu amor.\n\nV. Envía tu Espíritu y serán creadas todas las cosas.\nR. Y renovarás la faz de la tierra.\n\nOremos. Oh Dios, que instruiste los corazones de tus fieles con la luz del Espíritu Santo, concédenos, según el mismo Espíritu, conocer las cosas rectas y gozar siempre de sus divinos consuelos. Por Cristo nuestro Señor. Amén."
+    },
+    {
+      "id": "guardian_angel",
+      "title": "Ángel de la Guarda",
+      "text": "Ángel de mi guarda, dulce compañía, no me desampares ni de noche ni de día, no me dejes solo, que me perdería. Amén."
+    },
+    {
+      "id": "act_of_contrition",
+      "title": "Acto de contrición",
+      "text": "Señor mío Jesucristo, Dios y hombre verdadero, Creador, Padre y Redentor mío, por ser vos quien sois, bondad infinita, y porque os amo sobre todas las cosas, me pesa de todo corazón haberos ofendido; también me pesa porque podéis castigarme con las penas del infierno. Ayudado de vuestra divina gracia, propongo firmemente nunca más pecar, confesarme y cumplir la penitencia que me fuere impuesta. Amén."
+    },
+    {
+      "id": "angelus",
+      "title": "El Ángelus",
+      "text": "V. El Ángel del Señor anunció a María.\nR. Y concibió por obra y gracia del Espíritu Santo.\nDios te salve, María…\n\nV. He aquí la esclava del Señor.\nR. Hágase en mí según tu palabra.\nDios te salve, María…\n\nV. Y el Verbo se hizo carne.\nR. Y habitó entre nosotros.\nDios te salve, María…\n\nV. Ruega por nosotros, santa Madre de Dios.\nR. Para que seamos dignos de alcanzar las promesas de nuestro Señor Jesucristo.\n\nOremos. Te suplicamos, Señor, que derrames tu gracia en nuestras almas, para que los que, por el anuncio del Ángel, hemos conocido la encarnación de tu Hijo Jesucristo, por su pasión y su cruz seamos llevados a la gloria de la resurrección. Por el mismo Jesucristo nuestro Señor. Amén."
+    },
+    {
+      "id": "regina_caeli",
+      "title": "Regina Caeli (tiempo de Pascua)",
+      "text": "Reina del cielo, alégrate, aleluya.\nPorque el que mereciste llevar en tu seno, aleluya,\nha resucitado, según predijo, aleluya.\nRuega por nosotros a Dios, aleluya.\n\nV. Gózate y alégrate, Virgen María, aleluya.\nR. Porque en verdad ha resucitado el Señor, aleluya.\n\nOremos. Oh Dios, que por la resurrección de tu Hijo, nuestro Señor Jesucristo, te has dignado dar la alegría al mundo, concédenos que, por la intercesión de su Madre, la Virgen María, alcancemos los gozos de la vida eterna. Por el mismo Cristo nuestro Señor. Amén."
+    },
+    {
+      "id": "holy_father_intentions",
+      "title": "Por las intenciones del Santo Padre",
+      "text": "Al final del Rosario es costumbre rezar por las intenciones del Papa: un Padre nuestro, un Ave María y un Gloria."
     }
   ]
 }

@@ -41,6 +41,46 @@
       "id": "rosary_closing_prayer",
       "title": "Closing Prayer",
       "text": "Let us pray. O God, whose only-begotten Son, by His life, death, and resurrection, has purchased for us the rewards of eternal life; grant, we beseech Thee, that meditating upon these mysteries of the most holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise, through the same Christ our Lord. Amen."
+    },
+    {
+      "id": "memorare",
+      "title": "Memorare",
+      "text": "Remember, O most gracious Virgin Mary, that never was it known that anyone who fled to thy protection, implored thy help, or sought thine intercession was left unaided. Inspired by this confidence, I fly unto thee, O Virgin of virgins, my Mother. To thee do I come, before thee I stand, sinful and sorrowful. O Mother of the Word Incarnate, despise not my petitions, but in thy mercy hear and answer me. Amen."
+    },
+    {
+      "id": "saint_michael",
+      "title": "Prayer to Saint Michael the Archangel",
+      "text": "Saint Michael the Archangel, defend us in battle. Be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly host, by the power of God, cast into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen."
+    },
+    {
+      "id": "come_holy_spirit",
+      "title": "Come, Holy Spirit",
+      "text": "Come, Holy Spirit, fill the hearts of thy faithful and kindle in them the fire of thy love.\n\nV. Send forth thy Spirit, and they shall be created.\nR. And thou shalt renew the face of the earth.\n\nLet us pray. O God, who by the light of the Holy Spirit didst instruct the hearts of the faithful, grant that by the same Holy Spirit we may be truly wise and ever rejoice in his consolation. Through Christ our Lord. Amen."
+    },
+    {
+      "id": "guardian_angel",
+      "title": "Prayer to the Guardian Angel",
+      "text": "Angel of God, my guardian dear, to whom God's love commits me here, ever this day be at my side, to light and guard, to rule and guide. Amen."
+    },
+    {
+      "id": "act_of_contrition",
+      "title": "Act of Contrition",
+      "text": "O my God, I am heartily sorry for having offended thee, and I detest all my sins because of thy just punishments, but most of all because they offend thee, my God, who art all good and deserving of all my love. I firmly resolve, with the help of thy grace, to sin no more and to avoid the near occasion of sin. Amen."
+    },
+    {
+      "id": "angelus",
+      "title": "The Angelus",
+      "text": "V. The Angel of the Lord declared unto Mary.\nR. And she conceived of the Holy Spirit.\nHail Mary…\n\nV. Behold the handmaid of the Lord.\nR. Be it done unto me according to thy word.\nHail Mary…\n\nV. And the Word was made flesh.\nR. And dwelt among us.\nHail Mary…\n\nV. Pray for us, O holy Mother of God.\nR. That we may be made worthy of the promises of Christ.\n\nLet us pray. Pour forth, we beseech thee, O Lord, thy grace into our hearts; that we, to whom the Incarnation of Christ thy Son was made known by the message of an angel, may by his Passion and Cross be brought to the glory of his Resurrection. Through the same Christ our Lord. Amen."
+    },
+    {
+      "id": "regina_caeli",
+      "title": "Regina Caeli (Easter Time)",
+      "text": "Queen of Heaven, rejoice, alleluia.\nFor he whom thou didst merit to bear, alleluia,\nhas risen, as he said, alleluia.\nPray for us to God, alleluia.\n\nV. Rejoice and be glad, O Virgin Mary, alleluia.\nR. For the Lord has truly risen, alleluia.\n\nLet us pray. O God, who didst vouchsafe to give joy to the world through the resurrection of thy Son, our Lord Jesus Christ, grant, we beseech thee, that through his Mother, the Virgin Mary, we may obtain the joys of everlasting life. Through the same Christ our Lord. Amen."
+    },
+    {
+      "id": "holy_father_intentions",
+      "title": "For the Intentions of the Holy Father",
+      "text": "At the end of the Rosary, it is customary to pray for the intentions of the Pope: one Our Father, one Hail Mary and one Glory Be."
     }
   ]
 }
