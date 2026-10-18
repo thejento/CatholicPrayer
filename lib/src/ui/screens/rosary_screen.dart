@@ -16,6 +16,7 @@ import '../../providers/saved_session_controller.dart';
 import '../../providers/settings_controller.dart';
 import '../step_text.dart';
 import '../widgets/rosary_beads.dart';
+import 'scripture_screen.dart';
 
 /// The guided Rosary: bead drawing, prayer text and newcomer guidance.
 class RosaryScreen extends StatefulWidget {
@@ -229,6 +230,20 @@ class _StepPanel extends StatelessWidget {
       title = mystery.title.of(lang);
       body = [
         Text(l10n.scriptureLabel(mystery.scripture.of(lang)), style: theme.textTheme.titleMedium),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: TextButton.icon(
+            key: const Key('read-passage'),
+            icon: const Icon(Icons.menu_book_outlined),
+            label: Text(l10n.readPassage),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) =>
+                    ScriptureScreen(mysterySet: session.mysterySet, decade: step.decade!),
+              ),
+            ),
+          ),
+        ),
         const SizedBox(height: 8),
         Text(l10n.fruitLabel(mystery.fruit.of(lang)), style: theme.textTheme.titleMedium),
         const SizedBox(height: 16),

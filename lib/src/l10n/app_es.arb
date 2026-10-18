@@ -71,5 +71,6 @@
   "reminderDenied": "Las notificaciones están desactivadas para esta aplicación. Permítelas en los ajustes de Android para recibir el recordatorio.",
   "reminderTitle": "Es hora de rezar el Rosario",
   "reminderBody": "Hoy: los {mysteries}.",
-  "reminderChannel": "Recordatorio diario"
+  "reminderChannel": "Recordatorio diario",
+  "readPassage": "Leer el pasaje"
 }
