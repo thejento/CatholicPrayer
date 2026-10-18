@@ -210,5 +210,43 @@
     }
   },
   "rosaryPrayersSection": "Prayers of the Rosary",
-  "otherPrayersSection": "Other prayers"
+  "otherPrayersSection": "Other prayers",
+  "aboutToday": "About today",
+  "aboutSeasonSection": "The liturgical season",
+  "aboutColorSection": "The colour of the day",
+  "aboutMysteriesSection": "Mysteries of the day",
+  "aboutSetsSection": "The four sets of mysteries",
+  "aboutAdvent": "Advent opens the Church year. For about four weeks the Church prepares to celebrate the birth of Jesus at Christmas, and looks forward to his coming again at the end of time.",
+  "aboutChristmas": "Christmas Time celebrates the birth of Jesus, God made man. It runs from Christmas Day to the Baptism of the Lord, and includes the Holy Family, Mary Mother of God and the Epiphany.",
+  "aboutLent": "Lent is forty days of prayer, fasting and almsgiving that prepare for Easter. It begins on Ash Wednesday and ends with Holy Week, when the Church remembers the Passion and death of Jesus.",
+  "aboutEaster": "Easter Time is fifty days of joy at the Resurrection of Jesus, from Easter Sunday to Pentecost, when the Holy Spirit came down upon the Apostles.",
+  "aboutOrdinary": "Ordinary Time is the longest season. Its weeks are counted (ordinal), and Sunday after Sunday the Church follows the life and teaching of Jesus.",
+  "colorViolet": "Violet: waiting, penance and conversion, in Advent and Lent.",
+  "colorRose": "Rose: joy breaking through the waiting, on the third Sunday of Advent (Gaudete) and the fourth Sunday of Lent (Laetare).",
+  "colorWhite": "White: joy and light, for Christmas, Easter, the feasts of the Lord and of Mary, and saints who were not martyrs.",
+  "colorRed": "Red: the fire of the Holy Spirit and the blood of the martyrs, for Palm Sunday, Good Friday, Pentecost and the martyrs.",
+  "colorGreen": "Green: hope and growth, in Ordinary Time.",
+  "aboutMysteriesIntro": "The Rosary meditates on twenty mysteries from the lives of Jesus and Mary, in four sets of five. By custom, each day has its own set:",
+  "aboutSundayRule": "On the Sundays of Advent and Christmas Time the Joyful Mysteries are prayed, and on the Sundays of Lent the Sorrowful Mysteries.",
+  "aboutAnyDay": "This is a custom, not a rule: you can pray any set on any day.",
+  "aboutTodaySet": "Today: the {mysteries}.",
+  "aboutJoyful": "The coming of Jesus, from the Annunciation to the finding of the child Jesus in the Temple.",
+  "aboutLuminous": "The public life of Jesus, from his Baptism to the institution of the Eucharist. Added by Saint John Paul II in 2002.",
+  "aboutSorrowful": "The Passion of Jesus, from his agony in the garden to his death on the cross.",
+  "aboutGlorious": "From the Resurrection of Jesus to the crowning of Mary as Queen of Heaven.",
+  "saintOfTheDay": "Saint of the day",
+  "rankSolemnityAbout": "The highest rank, for the greatest mysteries of the faith and the most important saints.",
+  "rankFeastAbout": "An important celebration, such as an apostle or an event in the life of Jesus or Mary.",
+  "rankMemorialAbout": "A saint the whole Church remembers on this day.",
+  "rankOptionalMemorialAbout": "A saint the Church may remember today; each community chooses whether to celebrate it.",
+  "readOnVaticanNews": "Read about the saint of the day on Vatican News",
+  "vaticanNewsOnTv": "To read about the saint of the day, visit on a phone or computer:",
+  "linkOpenFailed": "Could not open the page.",
+  "@aboutTodaySet": {
+    "placeholders": {
+      "mysteries": {
+        "type": "String"
+      }
+    }
+  }
 }

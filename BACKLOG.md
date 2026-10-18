@@ -63,6 +63,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-20 More prayers in the library: Memorare, St Michael, Come Holy Spirit, Guardian Angel, Act of Contrition, Angelus, Regina Caeli, Holy Father's intentions (public-domain wordings)
 - [ ] F-22 Litany of Loreto in the library
 - [ ] F-23 Option to end the guided Rosary with the prayer to St Michael and/or the Holy Father's intentions (with recordings)
+- [x] F-24 About today (season, colour, why these mysteries, the four sets) and saint details with a Vatican News link (ADR-027)
 - [ ] F-21 National calendars (e.g. Canada, USA: Epiphany/Ascension on Sunday, national saints)
 
 ## Iteration 4: Distribution

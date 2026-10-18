@@ -12,6 +12,8 @@ import '../../l10n/generated/app_localizations.dart';
 import '../../providers/saved_session_controller.dart';
 import '../liturgy_text.dart';
 import '../step_text.dart';
+import '../widgets/saint_sheet.dart';
+import 'about_today_screen.dart';
 import 'mystery_picker_screen.dart';
 import 'prayer_library_screen.dart';
 import 'rosary_screen.dart';
@@ -31,6 +33,9 @@ class HomeScreen extends StatelessWidget {
     final note = sundayMysteriesNote(l10n, today, liturgy);
     final celebrations = celebrationsOn(today);
     final saints = context.read<SaintsRepository>();
+    void openAbout() =>
+        Navigator.of(context)
+            .push(MaterialPageRoute<void>(builder: (_) => AboutTodayScreen(date: today)));
     final content = context.read<ContentRepository>();
     final setTitle = content.mysterySetTitle(suggested).of(lang);
     final saved = context.watch<SavedSessionController>().saved;
@@ -69,16 +74,20 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       ListTile(
                         key: const Key('liturgical-day'),
-                        leading: _ColorDot(color: liturgicalColor(liturgy.color)),
+                        leading: ColorDot(color: liturgicalColor(liturgy.color)),
                         title: Text(
                           liturgicalDayName(l10n, liturgy, lang),
                           style: theme.textTheme.titleMedium,
                         ),
+                        trailing: const Icon(Icons.info_outline),
+                        onTap: () => openAbout(),
                       ),
                       if (celebrations.isNotEmpty)
                         ListTile(
                           key: const Key('saint-of-the-day'),
                           leading: const Icon(Icons.auto_awesome_outlined),
+                          trailing: const Icon(Icons.chevron_right),
+                          onTap: () => showSaintSheet(context, today, celebrations),
                           title: Text(saints.name(celebrations.first.id, lang)),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +100,10 @@ class HomeScreen extends StatelessWidget {
                         ),
                       const Divider(height: 1, indent: 16, endIndent: 16),
                       ListTile(
+                        key: const Key('suggested-today'),
                         leading: const Icon(Icons.today_outlined),
+                        trailing: const Icon(Icons.info_outline),
+                        onTap: () => openAbout(),
                         title: Text(l10n.suggestedToday),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,32 +160,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// The liturgical colour of the day; decorative, the name says it all.
-class _ColorDot extends StatelessWidget {
-  const _ColorDot({required this.color});
-
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 24,
-      height: 24,
-      child: Center(
-        child: Container(
-          width: 16,
-          height: 16,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-            border: Border.all(color: Theme.of(context).colorScheme.outline),
           ),
         ),
       ),
