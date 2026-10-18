@@ -95,6 +95,14 @@ class SettingsScreen extends StatelessWidget {
                   value: settings.autoAdvance,
                   onChanged: settings.setAutoAdvance,
                 ),
+                SwitchListTile(
+                  key: const Key('auto-scroll'),
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(l10n.autoScroll),
+                  subtitle: Text(l10n.autoScrollSubtitle),
+                  value: settings.autoScroll,
+                  onChanged: settings.setAutoScroll,
+                ),
                 Text(l10n.pauseLabel(settings.pauseSeconds)),
                 Slider(
                   key: const Key('pause-slider'),

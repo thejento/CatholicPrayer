@@ -8,6 +8,7 @@ import '../domain/rosary_sequence.dart';
 String prayerClip(String prayerId) => 'prayer_$prayerId';
 String mysteryClip(MysterySet set, int decade) => 'mystery_${set.name}_$decade';
 String guidanceClip(Guidance guidance) => 'guide_${guidance.name}';
+bool isGuidanceClip(String id) => id.startsWith('guide_');
 
 /// Clips to play, in order, for [step]: the instruction (when wanted), then
 /// the prayer or mystery announcement.

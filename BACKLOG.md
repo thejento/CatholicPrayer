@@ -67,6 +67,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-25 A public-domain painting on each mystery announcement, classic theme only (ADR-028)
 - [x] F-26 Web footer and Settings → About: version (with commit on deploys), GitHub Issues link, Google Play link (DESIGN §3.14)
 - [x] F-28 Auto-advance waits on mystery announcements; each step opens scrolled to the top (owner's first Rosary)
+- [x] F-29 Auto-scroll long prayers roughly at the voice's pace (Settings → Voice, on by default)
 - [ ] F-27 "Send feedback" by email (prefilled with version, device and language) in Settings → About and the web footer. On hold: needs a dedicated address from the owner
 - [ ] F-21 National calendars (e.g. Canada, USA: Epiphany/Ascension on Sunday, national saints)
 

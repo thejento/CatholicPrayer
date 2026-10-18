@@ -145,5 +145,7 @@
   "about": "Acerca de",
   "playStoreGet": "Android en Google Play",
   "rateOnPlay": "Valorar la app en Google Play",
-  "autoAdvanceWaits": "El avance automático espera aquí: pulse Siguiente cuando quiera."
+  "autoAdvanceWaits": "El avance automático espera aquí: pulse Siguiente cuando quiera.",
+  "autoScroll": "Desplazamiento con la voz",
+  "autoScrollSubtitle": "Las oraciones largas avanzan solas, más o menos al ritmo de la voz"
 }

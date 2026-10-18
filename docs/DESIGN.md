@@ -216,6 +216,11 @@ build/tts/texts.json ──► tool/tts/render.py ──► assets/audio/<lang>/
   2026-10-18). Tapping Next resumes it. When the passages are read aloud (F-18), this wait
   can be removed.
 * Each step opens scrolled to the top, even if the previous one was scrolled down.
+* **Auto-scroll with the voice** (Settings → Voice, on by default): when the step's text is
+  longer than the screen, it scrolls from top to bottom over the length of its clip (at the
+  current speed), starting when the prayer starts, after the instruction. It is approximate:
+  there are no word timings, and the voice slows at commas and line ends. Touching, dragging or
+  wheel-scrolling the text stops it for that step; stopping the voice stops it too.
 * The Hail Mary is a single clip reused 53 times. Variants are a later idea.
 
 ### 3.8 Daily reminder (F-12), see ADR-023

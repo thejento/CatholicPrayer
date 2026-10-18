@@ -131,6 +131,27 @@ void main() {
     });
   });
 
+  test('reports how long the prayer takes to read, not the instruction', () {
+    fakeAsync((async) {
+      final voice = guide();
+      async.flushMicrotasks();
+      player.start('a/guide1.mp3', const Duration(seconds: 4));
+      expect(voice.reading.value, isNull);
+      player.start('a/sign.mp3', const Duration(seconds: 6));
+      expect(voice.reading.value, const Duration(seconds: 6));
+
+      session.next();
+      expect(voice.reading.value, isNull); // a new step
+      async.flushMicrotasks();
+      voice.setSpeed(1.25);
+      player.start('a/creed.mp3', const Duration(seconds: 25));
+      expect(voice.reading.value, const Duration(seconds: 20));
+
+      voice.toggle();
+      expect(voice.reading.value, isNull); // voice off
+    });
+  });
+
   test('without auto-advance, finishing a clip waits for the person', () {
     fakeAsync((async) {
       guide();

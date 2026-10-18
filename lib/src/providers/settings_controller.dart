@@ -13,6 +13,7 @@ class SettingsController extends ChangeNotifier {
   static const autoAdvanceKey = 'auto_advance';
   static const pauseKey = 'auto_advance_pause_seconds';
   static const guidanceAloudKey = 'read_guidance_aloud';
+  static const autoScrollKey = 'auto_scroll';
 
   /// Allowed playback speeds and pauses (DESIGN §3.7).
   static const minSpeed = 0.75, maxSpeed = 1.25;
@@ -27,6 +28,7 @@ class SettingsController extends ChangeNotifier {
   bool _autoAdvance = false;
   int _pauseSeconds = 2;
   bool _readGuidanceAloud = true;
+  bool _autoScroll = true;
 
   /// The chosen app language, or `null` to follow the device.
   Locale? get locale => _locale;
@@ -49,6 +51,9 @@ class SettingsController extends ChangeNotifier {
   /// Whether the voice also reads the "what to do" line.
   bool get readGuidanceAloud => _readGuidanceAloud;
 
+  /// Whether a long prayer scrolls along while the voice reads it.
+  bool get autoScroll => _autoScroll;
+
   Future<void> load() async {
     final code = await _store.getString(localeKey);
     _locale = code == null ? null : Locale(code);
@@ -64,6 +69,7 @@ class SettingsController extends ChangeNotifier {
       maxPause,
     );
     _readGuidanceAloud = await _store.getBool(guidanceAloudKey) ?? true;
+    _autoScroll = await _store.getBool(autoScrollKey) ?? true;
     notifyListeners();
   }
 
@@ -75,6 +81,9 @@ class SettingsController extends ChangeNotifier {
 
   Future<void> setReadGuidanceAloud(bool value) =>
       _setBool(guidanceAloudKey, value, () => _readGuidanceAloud = value);
+
+  Future<void> setAutoScroll(bool value) =>
+      _setBool(autoScrollKey, value, () => _autoScroll = value);
 
   Future<void> setVoiceSpeed(double value) async {
     value = value.clamp(minSpeed, maxSpeed);

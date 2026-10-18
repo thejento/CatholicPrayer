@@ -273,5 +273,7 @@
   "about": "About",
   "playStoreGet": "Android app on Google Play",
   "rateOnPlay": "Rate the app on Google Play",
-  "autoAdvanceWaits": "Auto-advance waits here: tap Next when you are ready."
+  "autoAdvanceWaits": "Auto-advance waits here: tap Next when you are ready.",
+  "autoScroll": "Auto-scroll with the voice",
+  "autoScrollSubtitle": "Long prayers scroll along, roughly at the pace of the voice"
 }

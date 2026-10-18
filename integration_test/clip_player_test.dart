@@ -19,7 +19,11 @@ void main() {
     final assets = [for (final id in ids) catalog.asset('en', id)!];
     final player = JustAudioClipPlayer();
     final started = <String>[];
-    final sub = player.clipStarted.listen((a) => started.add(a.split('/').last));
+    final lengths = <Duration?>[];
+    final sub = player.started.listen((c) {
+      started.add(c.asset.split('/').last);
+      lengths.add(c.duration);
+    });
 
     final watch = Stopwatch()..start();
     await tester.runAsync(() => player.play(assets, speed: 1.0));
@@ -31,6 +35,8 @@ void main() {
     // Instruction (3.0 s) and prayer (4.6 s) both play to the end; the old
     // player replayed the instruction and finished after about 6 s in Chrome.
     expect(watch.elapsedMilliseconds, greaterThan(7000));
+    // Auto-scroll paces itself on the prayer's length, so the platform must report it.
+    expect(lengths.last?.inMilliseconds, inInclusiveRange(4000, 5500));
   });
 
   testWidgets('a new step interrupts the current one', (tester) async {

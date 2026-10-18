@@ -145,5 +145,7 @@
   "about": "À propos",
   "playStoreGet": "Android sur Google Play",
   "rateOnPlay": "Noter l'application sur Google Play",
-  "autoAdvanceWaits": "L'avance automatique attend ici : touchez Suivant quand vous le souhaitez."
+  "autoAdvanceWaits": "L'avance automatique attend ici : touchez Suivant quand vous le souhaitez.",
+  "autoScroll": "Défilement avec la voix",
+  "autoScrollSubtitle": "Les longues prières défilent, à peu près au rythme de la voix"
 }
