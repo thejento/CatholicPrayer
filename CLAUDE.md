@@ -85,12 +85,72 @@ Test tips:
   `scrollable:` to `scrollUntilVisible` when there are several scrollables, or `ensureVisible`.
 - For a bug fix, check that the new test fails without the fix.
 
-## Voice
+## Voice: how the recordings are made (the recipe that worked)
 
-- Pre-rendered clips: Kokoro for en/es, **Kyutai voice K2 for fr** (ADR-020/021). The owner has
-  approved all three languages. `tool/tts/render.py --check` lists stale clips; the
-  `render-audio.yml` workflow re-renders them on branch pushes that change spoken text.
-- Each step plays its instruction clip (`guide_*`) and then its prayer or mystery clip.
+Every spoken word is known in advance, so the voice is **pre-rendered at build time** to MP3
+clips and shipped in `assets/audio/<lang>/` with a hash manifest (ADR-020, ADR-021). Nothing is
+synthesised on the device. Finding usable voices took several rounds; keep this recipe.
+
+**Voices** (`tool/tts/voices.json`, the single source; changing an entry's `id` re-renders
+that whole language):
+
+| Lang | Engine | Voice | Settings |
+|---|---|---|---|
+| en | Kokoro v1.0 (`kokoro-onnx`, Apache-2.0) | `af_bella` | `lang: en-us`, speed 0.9 |
+| es | Kokoro v1.0 | `ef_dora` | `lang: es`, speed 0.9 |
+| fr | Kyutai TTS 1.6B en/fr (`moshi`, CC BY 4.0) | reader **K2** = `cml-tts/fr/7400_2928_000100-0001_enhanced.wav` (LibriVox, CC BY 4.0) | seed 42, `temp=0.6`, `cfg_coef=2.0`, `n_q=32`, CPU float32 |
+
+**What failed, so don't retry it:**
+- **Chatterbox** French built-in voice: strong English accent and frequent glitches.
+  Chatterbox cloning a native reader would fix the accent but not the glitch risk. Removed.
+- **Blending Bella into es/fr** (Kokoro voice mixing): kept an English accent.
+- **Kokoro French (Siwis):** rejected by ear. **Piper:** steady but flat, and some voices have
+  research-only dataset licences.
+- Non-commercial models (Coqui XTTS-v2, Fish Audio, Voxtral) can't be used.
+- On-device `flutter_tts`: quality varies too much (TV, web).
+
+**Pipeline:**
+1. Spoken texts come from the app's own code: `speakableTexts()` in `lib/src/audio/clips.dart`
+   (prayers with V./R. markers dropped, mystery announcements, guidance lines from the ARB
+   files). `flutter test tool/tts/export_texts_test.dart` writes `build/tts/texts.json`.
+2. `python tool/tts/render.py [--check] [--langs fr]` renders **only stale clips** (missing
+   file, changed text hash, or changed voice id). It writes `assets/audio/<lang>/<clip>.mp3`
+   and `assets/audio/manifest.json` (sha256 + ms per clip), saving after each language.
+3. Post-processing for every clip: trim leading/trailing silence (keep 80 ms), normalise the
+   peak to 0.9, mono MP3 at 48 kbps.
+4. **Kyutai safeguards:** render each clip **whole** (don't split it into sentences). Seed it
+   `seed + attempt`, and retry (up to 4 takes) when the speaking rate is implausible
+   (outside 8–32 characters per second: cut short, skipped words, or babble).
+5. A freshness test in CI (`test/data/audio_manifest_test.dart`) fails when a clip is stale. **`render-audio.yml`** does the rendering
+   on any branch push that changes spoken text (`assets/data/**`, ARB files, `clips.dart`,
+   `tool/tts/**`). It installs only the engines needed (Kokoro model files cached from the
+   kokoro-onnx GitHub release; `pip install moshi` with CPU-only PyTorch from
+   `download.pytorch.org/whl/cpu`, HF cache for weights). It commits the clips to the branch
+   and approves the bot-triggered CI run. Kokoro takes minutes; **French (Kyutai) takes about
+   an hour**, so expect the PR's first CI run to fail on the freshness check until the bot's
+   commit lands.
+
+**Running locally:** use a venv in the scratchpad: `pip install kokoro-onnx soundfile lameenc
+numpy` (Kokoro models in `build/tts/models/` or `$KOKORO_MODELS`); for French also `pip
+install moshi --extra-index-url https://download.pytorch.org/whl/cpu`. espeak-ng keeps its data
+path in a 160-byte buffer: if the venv path is long, symlink the data dir and set
+`ESPEAK_DATA_DIR`. Prefer letting CI render French.
+
+**Choosing or checking a voice:** Claude can't listen. For each candidate, render the Hail
+Mary, a short guidance line (where glitches showed) and the Creed (long text). Transcribe them
+with Whisper and compare to the text, which catches dropped words or babble but not accent.
+Then publish an audition page (artifact) for the owner to choose **by ear**. After any
+re-render, the owner listens once (that was C-04) before it's considered done.
+
+**Fixing a mispronunciation:** change the spelling sent to the voice (the spoken text, not the
+displayed text) and let the pipeline re-render just that clip.
+
+**Credits:** CC BY voices and models are credited on the licence page
+(`lib/src/audio/voice_licenses.dart`): Kokoro, Kyutai and the CML-TTS reader.
+
+**Playback:**
+- Each step plays its instruction clip (`guide_*`), then its prayer or mystery clip. Speed is
+  0.75–1.25× through the player, with pitch preserved, so changing speed needs no re-render.
 - **Web gotcha:** a just_audio player that has finished one clip can't start another in the
   browser (it replays the first). `JustAudioClipPlayer` uses a **fresh player per clip**.
   Don't "optimise" this back to one player or a playlist. `integration_test/clip_player_test.dart`
