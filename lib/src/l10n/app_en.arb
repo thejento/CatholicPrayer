@@ -196,5 +196,17 @@
   "dayChristTheKing": "Christ the King",
   "sundayNoteAdvent": "On the Sundays of Advent, the Joyful Mysteries are traditionally prayed.",
   "sundayNoteChristmas": "On the Sundays of Christmas Time, the Joyful Mysteries are traditionally prayed.",
-  "sundayNoteLent": "On the Sundays of Lent, the Sorrowful Mysteries are traditionally prayed."
+  "sundayNoteLent": "On the Sundays of Lent, the Sorrowful Mysteries are traditionally prayed.",
+  "rankSolemnity": "Solemnity",
+  "rankFeast": "Feast",
+  "rankMemorial": "Memorial",
+  "rankOptionalMemorial": "Optional memorial",
+  "orSaint": "or {name}",
+  "@orSaint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

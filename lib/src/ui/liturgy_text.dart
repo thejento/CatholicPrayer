@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../domain/liturgical_calendar.dart';
+import '../domain/sanctoral.dart';
 import '../l10n/generated/app_localizations.dart';
 
 const _englishOrdinals = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh'];
@@ -92,3 +93,10 @@ String? sundayMysteriesNote(AppLocalizations l10n, DateTime date, LiturgicalDay 
     _ => null,
   };
 }
+
+String rankName(AppLocalizations l10n, Rank rank) => switch (rank) {
+  Rank.solemnity => l10n.rankSolemnity,
+  Rank.feast => l10n.rankFeast,
+  Rank.memorial => l10n.rankMemorial,
+  Rank.optionalMemorial => l10n.rankOptionalMemorial,
+};

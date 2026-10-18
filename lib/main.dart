@@ -7,6 +7,7 @@ import 'src/audio/voice_licenses.dart';
 import 'src/data/content_repository.dart';
 import 'src/data/device_profile.dart';
 import 'src/data/preferences_store.dart';
+import 'src/data/saints_repository.dart';
 import 'src/data/scripture_repository.dart';
 import 'src/data/scripture_licenses.dart';
 import 'src/providers/saved_session_controller.dart';
@@ -23,9 +24,10 @@ Future<void> main() async {
   final themeManager = ThemeManager(store);
   final settings = SettingsController(store);
   final savedSession = SavedSessionController(store);
-  final (content, scripture, audio, device, _, _, _) = await (
+  final (content, scripture, saints, audio, device, _, _, _) = await (
     ContentRepository.load(rootBundle),
     ScriptureRepository.load(rootBundle),
+    SaintsRepository.load(rootBundle),
     AudioCatalog.load(rootBundle),
     DeviceProfile.detect(),
     themeManager.load(),
@@ -46,6 +48,7 @@ Future<void> main() async {
       savedSession: savedSession,
       reminder: reminder,
       scripture: scripture,
+      saints: saints,
       device: device,
       audio: audio,
     ),

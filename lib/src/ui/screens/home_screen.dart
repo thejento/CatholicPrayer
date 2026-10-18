@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/content_repository.dart';
+import '../../data/saints_repository.dart';
 import '../../domain/clock.dart';
 import '../../domain/liturgical_calendar.dart';
 import '../../domain/mysteries.dart';
+import '../../domain/sanctoral.dart';
 import '../../domain/rosary_sequence.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../providers/saved_session_controller.dart';
@@ -27,6 +29,8 @@ class HomeScreen extends StatelessWidget {
     final suggested = suggestedMysterySet(today);
     final liturgy = liturgicalDay(today);
     final note = sundayMysteriesNote(l10n, today, liturgy);
+    final celebrations = celebrationsOn(today);
+    final saints = context.read<SaintsRepository>();
     final content = context.read<ContentRepository>();
     final setTitle = content.mysterySetTitle(suggested).of(lang);
     final saved = context.watch<SavedSessionController>().saved;
@@ -71,6 +75,20 @@ class HomeScreen extends StatelessWidget {
                           style: theme.textTheme.titleMedium,
                         ),
                       ),
+                      if (celebrations.isNotEmpty)
+                        ListTile(
+                          key: const Key('saint-of-the-day'),
+                          leading: const Icon(Icons.auto_awesome_outlined),
+                          title: Text(saints.name(celebrations.first.id, lang)),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(rankName(l10n, celebrations.first.rank)),
+                              for (final other in celebrations.skip(1))
+                                Text(l10n.orSaint(saints.name(other.id, lang))),
+                            ],
+                          ),
+                        ),
                       const Divider(height: 1, indent: 16, endIndent: 16),
                       ListTile(
                         leading: const Icon(Icons.today_outlined),

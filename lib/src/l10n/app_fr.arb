@@ -99,5 +99,10 @@
   "dayChristTheKing": "Le Christ, Roi de l'univers",
   "sundayNoteAdvent": "Les dimanches de l'Avent, on prie traditionnellement les mystères joyeux.",
   "sundayNoteChristmas": "Les dimanches du temps de Noël, on prie traditionnellement les mystères joyeux.",
-  "sundayNoteLent": "Les dimanches de Carême, on prie traditionnellement les mystères douloureux."
+  "sundayNoteLent": "Les dimanches de Carême, on prie traditionnellement les mystères douloureux.",
+  "rankSolemnity": "Solennité",
+  "rankFeast": "Fête",
+  "rankMemorial": "Mémoire",
+  "rankOptionalMemorial": "Mémoire facultative",
+  "orSaint": "ou {name}"
 }
