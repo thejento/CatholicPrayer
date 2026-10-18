@@ -272,5 +272,6 @@
   "reportIssueLink": "Report a problem on GitHub",
   "about": "About",
   "playStoreGet": "Android app on Google Play",
-  "rateOnPlay": "Rate the app on Google Play"
+  "rateOnPlay": "Rate the app on Google Play",
+  "autoAdvanceWaits": "Auto-advance waits here: tap Next when you are ready."
 }

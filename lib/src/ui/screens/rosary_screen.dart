@@ -273,6 +273,8 @@ class _StepPanel extends StatelessWidget {
     }
 
     return SingleChildScrollView(
+      // A fresh scroll position for each step, so it always opens at the top.
+      key: ValueKey(session.index),
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -414,6 +416,13 @@ class _VoiceBar extends StatelessWidget {
               settings.setAutoAdvance(v);
             },
           ),
+          if (voice.waitsHere)
+            Text(
+              l10n.autoAdvanceWaits,
+              key: const Key('auto-advance-waits'),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
         ],
       ),
     );

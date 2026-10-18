@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+import '../domain/rosary_sequence.dart';
 import '../domain/rosary_session.dart';
 import 'audio_catalog.dart';
 import 'clip_player.dart';
@@ -11,7 +12,8 @@ import 'clips.dart';
 ///
 /// Follows [session]: each new step stops the current clip and plays the
 /// new one. With auto-advance on, it moves to the next step [pause] after a
-/// clip ends, so the person can simply listen and pray along.
+/// clip ends, so the person can simply listen and pray along. It waits on
+/// mystery announcements, where the Bible passage is read silently.
 class VoiceGuide extends ChangeNotifier {
   VoiceGuide({
     required this.session,
@@ -47,6 +49,10 @@ class VoiceGuide extends ChangeNotifier {
   Timer? _advance;
 
   bool get available => catalog.hasLanguage(language);
+
+  /// Auto-advance waits on mystery announcements: the passage is not read
+  /// aloud yet, and its clip is too short to read it (F-18 can lift this).
+  bool get waitsHere => _enabled && autoAdvance && session.current.kind == StepKind.announceMystery;
   bool get enabled => _enabled;
 
   void toggle() => setEnabled(!_enabled);
@@ -100,7 +106,7 @@ class VoiceGuide extends ChangeNotifier {
     if (turn != _turn) return;
     await player.play(assets, speed: speed);
     // Only the turn that is still current may auto-advance.
-    if (turn != _turn || !_enabled || !autoAdvance || session.isFinished) return;
+    if (turn != _turn || !_enabled || !autoAdvance || session.isFinished || waitsHere) return;
     _advance = Timer(pause, () {
       if (turn == _turn) session.next();
     });

@@ -2,6 +2,7 @@ import 'package:crc/src/audio/audio_catalog.dart';
 import 'package:crc/src/audio/clips.dart';
 import 'package:crc/src/audio/voice_guide.dart';
 import 'package:crc/src/domain/mysteries.dart';
+import 'package:crc/src/domain/rosary_sequence.dart';
 import 'package:crc/src/domain/rosary_session.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -106,6 +107,27 @@ void main() {
       expect(session.index, 1);
       async.flushMicrotasks();
       expect(player.last, ['a/guide2.mp3', 'a/creed.mp3']);
+    });
+  });
+
+  test('auto-advance waits on a mystery announcement, then resumes', () {
+    fakeAsync((async) {
+      final announce = session.steps.indexWhere((s) => s.kind == StepKind.announceMystery);
+      session = RosarySession(mysterySet: MysterySet.joyful, startIndex: announce);
+      final voice = guide(autoAdvance: true);
+      expect(voice.waitsHere, isTrue);
+      async.flushMicrotasks();
+      player.finish();
+      async.flushMicrotasks();
+      async.elapse(const Duration(seconds: 30));
+      expect(session.index, announce); // time to read the passage
+      session.next(); // the Our Father
+      expect(voice.waitsHere, isFalse);
+      async.flushMicrotasks();
+      player.finish();
+      async.flushMicrotasks();
+      async.elapse(const Duration(seconds: 3));
+      expect(session.index, announce + 2);
     });
   });
 

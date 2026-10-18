@@ -75,6 +75,27 @@ void main() {
     expect(stepTitle(tester), "Apostles' Creed");
   });
 
+  testWidgets('auto-advance waits on the mystery announcement and says so', (tester) async {
+    final app = TestApp();
+    await app.settings.setVoiceEnabled(true);
+    await app.settings.setAutoAdvance(true);
+    await app.settings.setPauseSeconds(1);
+    await pumpApp(tester, app);
+    await startRosary(tester);
+    while (find.byKey(const Key('read-passage')).evaluate().isEmpty) {
+      expect(find.byKey(const Key('auto-advance-waits')), findsNothing);
+      await tester.sendKeyEvent(LogicalKeyboardKey.arrowRight);
+      await tester.pumpAndSettle();
+    }
+    final announcement = stepTitle(tester);
+    expect(find.byKey(const Key('auto-advance-waits')), findsOneWidget);
+    app.player.finish();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 5));
+    await tester.pumpAndSettle();
+    expect(stepTitle(tester), announcement);
+  });
+
   testWidgets('the remote play/pause key toggles the voice', (tester) async {
     final app = TestApp(isTelevision: true);
     await pumpApp(tester, app, size: const Size(960, 540));
