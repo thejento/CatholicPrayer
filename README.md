@@ -21,7 +21,7 @@ Runs on **Android phones and tablets**, **Android TV** (D-pad remote) and the
 - An optional daily reminder naming the day's mysteries (Android)
 - A natural voice reads the Rosary aloud (open-source Kokoro / Kyutai, pre-recorded), with adjustable speed and auto-advance
 - Resume an unfinished Rosary from the home screen
-- Prayer library
+- Prayer library: the prayers of the Rosary and other traditional prayers (Memorare, St Michael, Angelus, Regina Caeli…)
 - English, Spanish and French, with traditional public-domain texts
 - Classic and Kid-friendly themes
 - Keyboard and TV remote: `←`/`→` to move, `Enter`/Select for Next

@@ -41,6 +41,46 @@
       "id": "rosary_closing_prayer",
       "title": "Prière finale",
       "text": "Prions. Ô Dieu, dont le Fils unique, par sa vie, sa mort et sa résurrection, nous a acquis les récompenses du salut éternel, accordez-nous, nous vous en prions, qu'en méditant ces mystères du très saint Rosaire de la bienheureuse Vierge Marie, nous imitions ce qu'ils contiennent et obtenions ce qu'ils promettent. Par le même Jésus-Christ notre Seigneur. Amen."
+    },
+    {
+      "id": "memorare",
+      "title": "Souvenez-vous",
+      "text": "Souvenez-vous, ô très miséricordieuse Vierge Marie, qu'on n'a jamais entendu dire qu'aucun de ceux qui ont eu recours à votre protection, imploré votre assistance ou réclamé vos suffrages, ait été abandonné. Animé d'une pareille confiance, ô Vierge des vierges, ô ma Mère, je cours vers vous, et gémissant sous le poids de mes péchés, je me prosterne à vos pieds. Ô Mère du Verbe incarné, ne méprisez pas mes prières, mais écoutez-les favorablement et daignez les exaucer. Amen."
+    },
+    {
+      "id": "saint_michael",
+      "title": "Prière à saint Michel Archange",
+      "text": "Saint Michel Archange, défendez-nous dans le combat ; soyez notre secours contre la malice et les embûches du démon. Que Dieu lui commande, nous vous en supplions ; et vous, Prince de la milice céleste, par la puissance divine, repoussez en enfer Satan et les autres esprits mauvais qui rôdent dans le monde pour la perte des âmes. Amen."
+    },
+    {
+      "id": "come_holy_spirit",
+      "title": "Venez, Esprit-Saint",
+      "text": "Venez, Esprit-Saint, remplissez les cœurs de vos fidèles, et allumez en eux le feu de votre amour.\n\nV. Envoyez votre Esprit et tout sera créé.\nR. Et vous renouvellerez la face de la terre.\n\nPrions. Ô Dieu, qui avez instruit les cœurs de vos fidèles par la lumière du Saint-Esprit, donnez-nous, par ce même Esprit, de goûter ce qui est bien et de jouir sans cesse de ses divines consolations. Par le Christ notre Seigneur. Amen."
+    },
+    {
+      "id": "guardian_angel",
+      "title": "Prière à l'ange gardien",
+      "text": "Ange de Dieu, qui êtes mon gardien, et à qui j'ai été confié par la bonté divine, éclairez-moi, protégez-moi, dirigez-moi et gouvernez-moi. Amen."
+    },
+    {
+      "id": "act_of_contrition",
+      "title": "Acte de contrition",
+      "text": "Mon Dieu, j'ai un très grand regret de vous avoir offensé, parce que vous êtes infiniment bon, infiniment aimable, et que le péché vous déplaît. Je prends la ferme résolution, avec le secours de votre sainte grâce, de ne plus vous offenser et de faire pénitence. Amen."
+    },
+    {
+      "id": "angelus",
+      "title": "L'Angélus",
+      "text": "V. L'ange du Seigneur annonça à Marie.\nR. Et elle conçut du Saint-Esprit.\nJe vous salue, Marie…\n\nV. Voici la servante du Seigneur.\nR. Qu'il me soit fait selon votre parole.\nJe vous salue, Marie…\n\nV. Et le Verbe s'est fait chair.\nR. Et il a habité parmi nous.\nJe vous salue, Marie…\n\nV. Priez pour nous, sainte Mère de Dieu.\nR. Afin que nous devenions dignes des promesses du Christ.\n\nPrions. Seigneur, nous vous en supplions, répandez votre grâce dans nos âmes, afin qu'ayant connu, par le message de l'ange, l'incarnation de Jésus-Christ, votre Fils, nous soyons conduits par sa passion et par sa croix à la gloire de sa résurrection. Par le même Jésus-Christ notre Seigneur. Amen."
+    },
+    {
+      "id": "regina_caeli",
+      "title": "Regina Caeli (temps pascal)",
+      "text": "Reine du ciel, réjouissez-vous, alléluia,\ncar celui que vous avez mérité de porter, alléluia,\nest ressuscité comme il l'avait dit, alléluia.\nPriez Dieu pour nous, alléluia.\n\nV. Soyez dans la joie et l'allégresse, Vierge Marie, alléluia.\nR. Car le Seigneur est vraiment ressuscité, alléluia.\n\nPrions. Ô Dieu, qui avez daigné réjouir le monde par la résurrection de votre Fils, notre Seigneur Jésus-Christ, accordez-nous, nous vous en prions, par la Vierge Marie, sa Mère, de goûter les joies de la vie éternelle. Par le même Christ notre Seigneur. Amen."
+    },
+    {
+      "id": "holy_father_intentions",
+      "title": "Aux intentions du Saint-Père",
+      "text": "À la fin du chapelet, il est d'usage de prier aux intentions du pape : un Notre Père, un Je vous salue Marie et un Gloire au Père."
     }
   ]
 }

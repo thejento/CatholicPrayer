@@ -104,5 +104,7 @@
   "rankFeast": "Fiesta",
   "rankMemorial": "Memoria",
   "rankOptionalMemorial": "Memoria libre",
-  "orSaint": "o {name}"
+  "orSaint": "o {name}",
+  "rosaryPrayersSection": "Oraciones del Rosario",
+  "otherPrayersSection": "Otras oraciones"
 }

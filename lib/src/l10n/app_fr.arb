@@ -104,5 +104,7 @@
   "rankFeast": "Fête",
   "rankMemorial": "Mémoire",
   "rankOptionalMemorial": "Mémoire facultative",
-  "orSaint": "ou {name}"
+  "orSaint": "ou {name}",
+  "rosaryPrayersSection": "Prières du chapelet",
+  "otherPrayersSection": "Autres prières"
 }

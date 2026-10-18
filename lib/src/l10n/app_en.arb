@@ -208,5 +208,7 @@
         "type": "String"
       }
     }
-  }
+  },
+  "rosaryPrayersSection": "Prayers of the Rosary",
+  "otherPrayersSection": "Other prayers"
 }
