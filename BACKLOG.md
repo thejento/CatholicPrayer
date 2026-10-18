@@ -71,7 +71,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 
 - [ ] O-10 Play Console listing (phone + TV), privacy policy page on Pages. The icon and feature graphic are ready in `store/`
 - [ ] O-11 Upload AAB to the Play internal track from `release.yml` (service account)
-- [ ] O-12 `integration_test` on an Android emulator in CI (nightly)
+- [ ] O-12 `integration_test` on an Android emulator in CI (nightly); the first on-device test (voice playlist order) exists
 - [ ] Q-04 Cross-browser smoke (Chrome, Firefox, Safari) via Playwright on the web build
 - [ ] W-02 URL routing (`go_router`) so web refresh/deep links keep the current screen
 
