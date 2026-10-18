@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 300
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - uses: subosito/flutter-action@v2
         with:
@@ -42,7 +42,7 @@ jobs:
           flutter pub get
           flutter test tool/tts/export_texts_test.dart
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
 
@@ -57,7 +57,7 @@ jobs:
 
       - name: Cache Kokoro model
         if: contains(steps.stale.outputs.engines, 'kokoro')
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: build/tts/models
           key: kokoro-v1.0
@@ -74,7 +74,7 @@ jobs:
 
       - name: Cache Kyutai model
         if: contains(steps.stale.outputs.engines, 'kyutai')
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/huggingface
           key: kyutai-tts-1.6b-en_fr
