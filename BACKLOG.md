@@ -58,7 +58,10 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 
 - [x] F-12 Daily reminder: weekly-per-day local notifications naming the day's mysteries, Android phones only (ADR-023)
 - [ ] F-13 Private, on-device prayer streak / journal
-- [ ] F-14 Liturgical-season mystery suggestion (Advent, Lent Sundays)
+- [x] F-14 Liturgical season on Home (named day, colour) and seasonal Sunday mysteries (ADR-025)
+- [ ] F-19 Saint of the day on Home (General Roman Calendar)
+- [ ] F-20 More prayers: St Michael, Memorare, Angelus / Regina Caeli, Litany of Loreto, prayer for the Pope's intentions…
+- [ ] F-21 National calendars (e.g. Canada, USA: Epiphany/Ascension on Sunday, national saints)
 
 ## Iteration 4: Distribution
 

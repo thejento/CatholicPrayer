@@ -266,3 +266,17 @@ Template:
   unmodified). The Spanish modernization fixes a few transcription errors and is listed
   word by word, so it can be reviewed; it is part of the native-speaker review (C-02).
 
+## ADR-025: Compute the liturgical calendar on the device
+- Date: 2026-10-17 · Status: Accepted
+- Context: F-14 asks the suggestion to follow the Church year, and the home screen should
+  say where the day falls in it. The app works offline and has no server.
+- Options considered: a bundled table of dates (needs yearly updates); an online calendar
+  API (network, privacy); computing it from Easter, which fixes every moveable date.
+- Decision: a pure-Dart `liturgicalDay(date)` for the General Roman Calendar (seasons,
+  numbered Sundays, named days, colours), checked against known dates and over a century.
+  Sundays of Advent and Christmas Time suggest the Joyful mysteries, Sundays of Lent the
+  Sorrowful ones. Spanish uses Roman numerals for Sundays, as its liturgical books do.
+- Consequences: Works for any year with no updates. National calendars (Epiphany and
+  Ascension on Sunday in Canada and the United States, national saints) are not covered
+  yet (F-21). The saint of the day (F-19) will build on the same engine.
+
