@@ -6,6 +6,7 @@ import 'package:crc/src/audio/audio_catalog.dart';
 import 'package:crc/src/data/content_repository.dart';
 import 'package:crc/src/data/device_profile.dart';
 import 'package:crc/src/data/preferences_store.dart';
+import 'package:crc/src/data/scripture_repository.dart';
 import 'package:crc/src/domain/clock.dart';
 import 'package:crc/src/providers/saved_session_controller.dart';
 import 'package:crc/src/providers/settings_controller.dart';
@@ -25,6 +26,11 @@ ContentRepository loadRealContent() => ContentRepository.fromJson(
   prayers: {for (final l in contentLanguages) l: _read('assets/data/prayers/$l.json')},
   mysteries: {for (final l in contentLanguages) l: _read('assets/data/mysteries/$l.json')},
 );
+
+/// The real Bible passages.
+ScriptureRepository loadRealScripture() => ScriptureRepository.fromJson({
+  for (final l in contentLanguages) l: _read(ScriptureRepository.path(l)),
+});
 
 /// The real voice manifest, so widget tests see the same languages as the app.
 AudioCatalog loadRealAudio() => AudioCatalog.fromManifest(_read(AudioCatalog.manifestPath));
@@ -72,6 +78,7 @@ class TestApp {
     settings: settings,
     savedSession: savedSession,
     reminder: reminder,
+    scripture: loadRealScripture(),
     device: DeviceProfile(isTelevision: isTelevision, isAndroid: isAndroid),
     audio: audio,
     playerFactory: () => player,

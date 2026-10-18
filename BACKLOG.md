@@ -37,7 +37,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] Q-02 Golden tests for both themes × phone/tablet/TV sizes (ADR-015)
 - [x] Q-03 Raise the coverage gate to 90 %
 - [x] T-04 Detect Android TV (platform channel) to apply the 10-foot type scale (ADR-016)
-- [ ] C-02 **Owner:** content review of ES/FR texts by a native speaker / parish
+- [ ] C-02 **Owner:** content review of ES/FR texts by a native speaker / parish, including the modernized Torres Amat passages
 - [x] W-01 Proper PWA manifest (name, colours, icons) and favicon (ADR-017)
 - [x] T-03 Proper 320×180 TV banner artwork
 
@@ -52,6 +52,9 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [ ] Q-05 Real-device TalkBack pass (reading order, wording) on a phone and a TV emulator
 
 ## Iteration 3: Habit & reminders
+
+- [x] F-17 Bible passage of each mystery: Douay-Rheims / Torres Amat (modernized) / néo-Crampon (ADR-024)
+- [ ] F-18 Read the passages aloud (about 20 more recordings per language)
 
 - [x] F-12 Daily reminder: weekly-per-day local notifications naming the day's mysteries, Android phones only (ADR-023)
 - [ ] F-13 Private, on-device prayer streak / journal

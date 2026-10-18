@@ -71,5 +71,6 @@
   "reminderDenied": "Les notifications sont désactivées pour cette application. Autorisez-les dans les paramètres d'Android pour recevoir le rappel.",
   "reminderTitle": "C'est l'heure du chapelet",
   "reminderBody": "Aujourd'hui : les {mysteries}.",
-  "reminderChannel": "Rappel quotidien"
+  "reminderChannel": "Rappel quotidien",
+  "readPassage": "Lire le passage"
 }

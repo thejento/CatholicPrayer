@@ -5,6 +5,7 @@ import 'audio/audio_catalog.dart';
 import 'audio/clip_player.dart';
 import 'data/content_repository.dart';
 import 'data/device_profile.dart';
+import 'data/scripture_repository.dart';
 import 'domain/clock.dart';
 import 'l10n/generated/app_localizations.dart';
 import 'providers/saved_session_controller.dart';
@@ -24,6 +25,7 @@ class CatholicPrayerApp extends StatelessWidget {
     required this.settings,
     required this.savedSession,
     required this.reminder,
+    required this.scripture,
     this.device = const DeviceProfile(),
     this.audio = const AudioCatalog.empty(),
     this.playerFactory = JustAudioClipPlayer.new,
@@ -35,6 +37,7 @@ class CatholicPrayerApp extends StatelessWidget {
   final SettingsController settings;
   final SavedSessionController savedSession;
   final ReminderController reminder;
+  final ScriptureRepository scripture;
   final DeviceProfile device;
   final AudioCatalog audio;
 
@@ -47,6 +50,7 @@ class CatholicPrayerApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider.value(value: content),
+        Provider.value(value: scripture),
         Provider.value(value: clock),
         Provider.value(value: device),
         Provider.value(value: audio),

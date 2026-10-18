@@ -38,6 +38,7 @@ flutter:
   assets:
     - assets/data/prayers/
     - assets/data/mysteries/
+    - assets/data/scripture/
     - assets/audio/
     - assets/audio/en/
     - assets/audio/es/

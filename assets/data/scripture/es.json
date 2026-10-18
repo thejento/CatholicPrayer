@@ -1,0 +1,819 @@
+{
+  "language": "es",
+  "source": "Sagrada Biblia, traducción de Félix Torres Amat (1836), ortografía modernizada",
+  "license": "Dominio público",
+  "passages": {
+    "joyful_1": {
+      "chapter": 1,
+      "verses": [
+        {
+          "v": 26,
+          "t": "Estando ya Isabel en su sexto mes, envió Dios al ángel Gabriel a Nazaret, ciudad de Galilea,"
+        },
+        {
+          "v": 27,
+          "t": "a una virgen desposada con cierto varón de la casa de David, llamado José, y el nombre de la virgen era María."
+        },
+        {
+          "v": 28,
+          "t": "Y habiendo entrado el ángel a donde ella estaba, le dijo: Dios te salve ¡oh llena de gracia! el Señor es contigo: bendita tú eres entre todas las mujeres."
+        },
+        {
+          "v": 29,
+          "t": "Al oír tales palabras la virgen se turbó, y púsose a considerar que significaría una tal salutación."
+        },
+        {
+          "v": 30,
+          "t": "Mas el ángel le dijo: ¡Oh María! no temas, porque has hallado gracia en los ojos de Dios."
+        },
+        {
+          "v": 31,
+          "t": "Sábete que has de concebir en tu seno, y parirás un hijo, a quien pondrás por nombre Jesús."
+        },
+        {
+          "v": 32,
+          "t": "Este será grande, y será llamado Hijo del Altísimo, al cual el Señor Dios dará el trono de su padre David; y reinará en la casa de Jacob eternamente,"
+        },
+        {
+          "v": 33,
+          "t": "y su reino no tendrá fin."
+        },
+        {
+          "v": 34,
+          "t": "Pero María dijo al ángel: ¿Cómo ha de ser eso? pues yo no conozco ni jamás conoceré varón alguno."
+        },
+        {
+          "v": 35,
+          "t": "El ángel en respuesta le dijo: El Espíritu Santo descenderá sobre ti, y la virtud del Altísimo te cubrirá con su sombra, o fecundará. Por cuya causa el fruto santo que de ti nacerá, será llamado Hijo de Dios."
+        },
+        {
+          "v": 36,
+          "t": "Y ahí tienes a tu parienta Isabel, que en su vejez ha concebido también un hijo; y la que se llamaba estéril, hoy cuenta ya el sexto mes:"
+        },
+        {
+          "v": 37,
+          "t": "porque para Dios nada es imposible."
+        },
+        {
+          "v": 38,
+          "t": "Entonces dijo María: He aquí la esclava del Señor, hágase en mí según tu palabra. Y en seguida el ángel desapareciendo se retiró de su presencia."
+        }
+      ]
+    },
+    "joyful_2": {
+      "chapter": 1,
+      "verses": [
+        {
+          "v": 39,
+          "t": "Por aquellos días partió María, y se fue apresuradamente a las montañas de Judea a una ciudad de la tribu de Judá;"
+        },
+        {
+          "v": 40,
+          "t": "y habiendo entrado en la casa de Zacarías, saludó a Isabel."
+        },
+        {
+          "v": 41,
+          "t": "Lo mismo fue oír Isabel la salutación de María que la criatura, o el niño Juan, dio saltos de placer en su vientre; y Isabel se sintió llena del Espíritu Santo;"
+        },
+        {
+          "v": 42,
+          "t": "y exclamando en alta voz, dijo a María: Bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre."
+        },
+        {
+          "v": 43,
+          "t": "Y ¿de dónde a mí tanto bien que venga la madre de mi Señor a visitarme?"
+        },
+        {
+          "v": 44,
+          "t": "Pues lo mismo fue penetrar la voz de tu salutación en mis oidos, que dar saltos de júbilo la criatura en mi vientre."
+        },
+        {
+          "v": 45,
+          "t": "¡Oh bienaventurada tú que has creído! porque se cumplirán sin falta las cosas que se te han dicho de parte del Señor."
+        },
+        {
+          "v": 46,
+          "t": "Entonces María dijo: Mi alma glorifica al Señor;"
+        },
+        {
+          "v": 47,
+          "t": "y mi espíritu está trasportado de gozo en el Dios salvador mío."
+        },
+        {
+          "v": 48,
+          "t": "Porque ha puesto los ojos en la bajeza de su esclava: por tanto ya desde ahora me llamarán bienaventurada todas las generaciones."
+        },
+        {
+          "v": 49,
+          "t": "Porque ha hecho en mí cosas grandes aquel que es todopoderoso, cuyo nombre es santo;"
+        },
+        {
+          "v": 50,
+          "t": "y cuya misericordia se derrama de generación en generación sobre los que le temen."
+        },
+        {
+          "v": 51,
+          "t": "Hizo alarde del poder de su brazo: deshizo las miras del corazón de los soberbios."
+        },
+        {
+          "v": 52,
+          "t": "Derribó del solio a los poderosos, y ensalzó a los humildes."
+        },
+        {
+          "v": 53,
+          "t": "Colmó de bienes a los hambrientos, y a los ricos los despidió sin nada."
+        },
+        {
+          "v": 54,
+          "t": "Acordándose de su misericordia, acogió a Israel su siervo;"
+        },
+        {
+          "v": 55,
+          "t": "según la promesa que hizo a nuestros padres, a Abraham y a su descendencia por los siglos de los siglos."
+        },
+        {
+          "v": 56,
+          "t": "Y detúvose María con Isabel cosa de tres meses; y después se volvió a su casa."
+        }
+      ]
+    },
+    "joyful_3": {
+      "chapter": 2,
+      "verses": [
+        {
+          "v": 1,
+          "t": "Por aquellos días se promulgó un edicto de César Augusto, mandando empadronar a todo el mundo."
+        },
+        {
+          "v": 2,
+          "t": "Este fue el primer empadronamiento hecho por Cirino, que después fue gobernador de la Siria;"
+        },
+        {
+          "v": 3,
+          "t": "y todos iban a empadronarse, cada cual a la ciudad de su estirpe."
+        },
+        {
+          "v": 4,
+          "t": "José pues, como era de la casa y familia de David, vino desde Nazaret ciudad de Galilea, a la ciudad de David llamada Belén, en Judea,"
+        },
+        {
+          "v": 5,
+          "t": "para empadronarse con María su esposa, la cual estaba encinta."
+        },
+        {
+          "v": 6,
+          "t": "Y sucedió que hallándose allí, le llegó la hora del parto."
+        },
+        {
+          "v": 7,
+          "t": "Y parió a su hijo primogénito, y envolvióle en pañales, y recostóle en un pesebre; porque no hubo lugar para ellos en el mesón."
+        },
+        {
+          "v": 8,
+          "t": "Estaban velando en aquellos contornos unos pastores, y haciendo centinela de noche sobre su grey"
+        },
+        {
+          "v": 9,
+          "t": "Cuando de improviso un ángel del Señor apareció junto a ellos, y cercólos con su resplandor una luz divina; lo cual los llenó de sumo temor."
+        },
+        {
+          "v": 10,
+          "t": "Díjoles entonces el ángel: No tenéis que temer; pues vengo a daros una nueva de grandísimo gozo para todo el pueblo;"
+        },
+        {
+          "v": 11,
+          "t": "y es, que hoy os ha nacido en la ciudad de David el Salvador, que es el Cristo o Mesías, el Señor nuestro."
+        },
+        {
+          "v": 12,
+          "t": "Y sírvaos de seña, que hallaréis al niño envuelto en pañales, y reclinado en un pesebre."
+        },
+        {
+          "v": 13,
+          "t": "Al punto mismo se dejó ver con el ángel un ejército numeroso de la milicia celestial, alabando a Dios, y diciendo:"
+        },
+        {
+          "v": 14,
+          "t": "Gloria a Dios en lo más alto de los cielos, y paz en la tierra a los hombres de buena voluntad."
+        },
+        {
+          "v": 15,
+          "t": "Luego que los ángeles se apartaron de ellos y volaron al cielo, los pastores se decían unos a otros: Vamos hasta Belén, y veamos este suceso prodigioso que acaba de suceder, y que el Señor nos ha manifestado."
+        },
+        {
+          "v": 16,
+          "t": "Vinieron pues a toda priesa; y hallaron a María y a José, y al niño reclinado en el pesebre."
+        },
+        {
+          "v": 17,
+          "t": "Y viéndole, se certificaron de cuanto se les había dicho de este niño."
+        },
+        {
+          "v": 18,
+          "t": "Y todos los que supieron el suceso, se maravillaron: igualmente de lo que los pastores les habían contado."
+        },
+        {
+          "v": 19,
+          "t": "María empero conservaba todas estas cosas dentro de sí, ponderándolas en su corazón."
+        },
+        {
+          "v": 20,
+          "t": "En fin los pastores se volvieron, no cesando de alabar y glorificar a Dios por todas las cosas que habían oido y visto, según se les había anunciado por el ángel."
+        }
+      ]
+    },
+    "joyful_4": {
+      "chapter": 2,
+      "verses": [
+        {
+          "v": 22,
+          "t": "Cumplido asimismo el tiempo de la purificación de la madre, según la ley de Moisés, llevaron al niño a Jerusalén, para presentarle al Señor,"
+        },
+        {
+          "v": 23,
+          "t": "como está escrito en la Ley del Señor: Todo varón que nazca el primero, será consagrado al Señor:"
+        },
+        {
+          "v": 24,
+          "t": "y para presentar la ofrenda de un par de tórtolas, o dos palominos, como está también ordenado en la Ley del Señor."
+        },
+        {
+          "v": 25,
+          "t": "Había a la sazón en Jerusalén un hombre justo, y temeroso de Dios, llamado Simeón, el cual esperaba de día en día la consolación de Israel o la venida del Mesías, y el Espíritu Santo moraba en él."
+        },
+        {
+          "v": 26,
+          "t": "El mismo Espíritu Santo le había revelado, que no había de morir antes de ver al Cristo o ungido del Señor."
+        },
+        {
+          "v": 27,
+          "t": "Así vino inspirado de él al Templo. Y al entrar con el niño Jesús sus padres, para practicar con él lo prescrito por la Ley;"
+        },
+        {
+          "v": 28,
+          "t": "tomándole Simeón en sus brazos, bendijo a Dios, diciendo:"
+        },
+        {
+          "v": 29,
+          "t": "Ahora, Señor, ahora sí que sacas en paz de este mundo a tu siervo, según tu promesa."
+        },
+        {
+          "v": 30,
+          "t": "Porque ya mis ojos han visto al Salvador que nos has dado;"
+        },
+        {
+          "v": 31,
+          "t": "al cual tienes destinado para que, expuesto a la vista de todos los pueblos,"
+        },
+        {
+          "v": 32,
+          "t": "sea luz brillante que ilumine a los gentiles, y la gloria de tu pueblo de Israel."
+        },
+        {
+          "v": 33,
+          "t": "Su padre y su madre escuchaban con admiración las cosas que de él se decían."
+        },
+        {
+          "v": 34,
+          "t": "Simeón bendijo a entrambos, y dijo a María su madre: Mira, este niño que ves, está destinado para ruina, y para resurrección de muchos en Israel; y para ser el blanco de la contradicción de los hombres:"
+        },
+        {
+          "v": 35,
+          "t": "lo que será para ti misma una espada que traspasará tu alma, a fin de que sean descubiertos los pensamientos ocultos en los corazones de muchos."
+        },
+        {
+          "v": 36,
+          "t": "Vivía entonces una profetisa llamada Ana, hija de Fanuel, de la tribu de Aser, que era ya de edad muy avanzada, y la cual, casada desde la flor de ella, vivió con su marido siete años."
+        },
+        {
+          "v": 37,
+          "t": "Y habíase mantenido viuda hasta los ochenta y cuatro de su edad, no saliendo del Templo, y sirviendo en él a Dios día y noche con ayunos y oraciones."
+        },
+        {
+          "v": 38,
+          "t": "Esta pues, sobreviniendo a la misma hora, alababa igualmente al Señor; y hablaba de él a todos los que esperaban la redención de Israel."
+        }
+      ]
+    },
+    "joyful_5": {
+      "chapter": 2,
+      "verses": [
+        {
+          "v": 41,
+          "t": "Iban sus padres todos los años a Jerusalén por la fiesta solemne de la Pascua."
+        },
+        {
+          "v": 42,
+          "t": "Y siendo el niño ya de doce años cumplidos, habiendo subido a Jerusalén, según solían en aquella solemnidad,"
+        },
+        {
+          "v": 43,
+          "t": "acabados aquellos días, cuando ya se volvían, se quedó el niño Jesús en Jerusalén, sin que sus padres lo advirtiesen."
+        },
+        {
+          "v": 44,
+          "t": "Antes bien persuadidos de que venía con alguno de los de su comitiva, anduvieron la jornada entera buscándole entre los parientes y conocidos."
+        },
+        {
+          "v": 45,
+          "t": "Mas como no le hallasen, retornaron a Jerusalén, en busca suya."
+        },
+        {
+          "v": 46,
+          "t": "Y al cabo de tres días de haberle perdido, le hallaron en el Templo, sentado en medio de los doctores, que ora los escuchaba, ora les preguntaba."
+        },
+        {
+          "v": 47,
+          "t": "Y cuantos le oían, quedaban pasmados de su sabiduría y de sus respuestas."
+        },
+        {
+          "v": 48,
+          "t": "Al verle pues sus padres, quedaron maravillados. Y su madre le dijo: Hijo, ¿por qué te has portado así con nosotros? Mira cómo tu padre, y yo llenos de aflicción te hemos andado buscando."
+        },
+        {
+          "v": 49,
+          "t": "Y él les respondió: ¿Cómo es que me buscabais? ¿No sabíais que yo debo emplearme en las cosas que miran al servicio de mi Padre?"
+        },
+        {
+          "v": 50,
+          "t": "Mas ellos por entonces no comprendieron el sentido de su respuesta."
+        },
+        {
+          "v": 51,
+          "t": "En seguida se fue con ellos, y vino a Nazaret; y les estaba sujeto. Y su madre conservaba todas estas cosas en su corazón."
+        },
+        {
+          "v": 52,
+          "t": "Jesús entre tanto crecía en sabiduría, en edad, y en gracia delante de Dios y de los hombres."
+        }
+      ]
+    },
+    "luminous_1": {
+      "chapter": 3,
+      "verses": [
+        {
+          "v": 13,
+          "t": "Por este tiempo vino Jesús de Galilea al Jordán en busca de Juan, para ser de él bautizado."
+        },
+        {
+          "v": 14,
+          "t": "Juan empero se resistía a ello, diciendo: ¿Yo debo ser bautizado de ti, y tú vienes a mí?"
+        },
+        {
+          "v": 15,
+          "t": "A lo cual respondió Jesús, diciendo: Déjame hacer ahora; que así es como conviene que nosotros cumplamos toda justicia. Juan entonces condescendió con él."
+        },
+        {
+          "v": 16,
+          "t": "Bautizado pues Jesús, al instante que salió del agua, se le abrieron los cielos, y vio bajar al Espíritu de Dios a manera de paloma, y posar sobre él."
+        },
+        {
+          "v": 17,
+          "t": "Y oyóse una voz del cielo que decía: Este es mi querido Hijo, en quien tengo puesta toda mi complacencia."
+        }
+      ]
+    },
+    "luminous_2": {
+      "chapter": 2,
+      "verses": [
+        {
+          "v": 1,
+          "t": "Tres días después se celebraron unas bodas en Caná de Galilea, donde se hallaba la madre de Jesús."
+        },
+        {
+          "v": 2,
+          "t": "Fue también convidado a las bodas Jesús con sus discípulos."
+        },
+        {
+          "v": 3,
+          "t": "Y como viniese a faltar el vino, dijo a Jesús su madre: No tienen vino."
+        },
+        {
+          "v": 4,
+          "t": "Respondióle Jesús: Mujer, ¿qué nos va a mí y a ti? aún no es llegada mi hora."
+        },
+        {
+          "v": 5,
+          "t": "Dijo entonces su madre a los sirvientes: Haced lo que él os dirá."
+        },
+        {
+          "v": 6,
+          "t": "Estaban allí seis hidrias de piedra, destinadas para las purificaciones de los judíos, en cada una de las cuales cabían dos o tres cántaras."
+        },
+        {
+          "v": 7,
+          "t": "Díjoles Jesús: Llenad de agua aquellas hidrias. Y llenáronlas hasta arriba."
+        },
+        {
+          "v": 8,
+          "t": "Díceles después Jesús: Sacad ahora en algún vaso, y llevadle al maestresala. Hiciéronlo así."
+        },
+        {
+          "v": 9,
+          "t": "Apenas probó el maestresala el agua convertida en vino, como él no sabía de dónde era, bien que lo sabían los sirvientes que la habían sacado; llamó al esposo,"
+        },
+        {
+          "v": 10,
+          "t": "y le dijo: Todos sirven al principio el vino mejor; y cuando los convidados han bebido ya a satisfacción, sacan el más flojo: tú al contrario has reservado el buen vino para lo último."
+        },
+        {
+          "v": 11,
+          "t": "Así en Caná de Galilea hizo Jesús el primero de sus milagros, con que manifestó su gloria, y sus discípulos creyeron más en él."
+        },
+        {
+          "v": 12,
+          "t": "Después de esto pasó a Cafarnaúm con su madre, sus hermanos, o parientes, y sus discípulos, en donde se detuvieron pocos días."
+        }
+      ]
+    },
+    "luminous_3": {
+      "chapter": 1,
+      "verses": [
+        {
+          "v": 14,
+          "t": "Pero después que Juan fue puesto en la cárcel, vino Jesús a la alta Galilea, predicando el Evangelio del reino de Dios,"
+        },
+        {
+          "v": 15,
+          "t": "y diciendo: Se ha cumplido ya el tiempo, y el reino de Dios está cerca: haced penitencia, y creed al Evangelio."
+        }
+      ]
+    },
+    "luminous_4": {
+      "chapter": 17,
+      "verses": [
+        {
+          "v": 1,
+          "t": "Seis días después tomó Jesús consigo a Pedro, y a Santiago, y a Juan su hermano, y subiendo con ellos solos a un alto monte,"
+        },
+        {
+          "v": 2,
+          "t": "se trasfiguró en su presencia. De modo que su rostro se puso resplandeciente como el sol, y sus vestidos blancos como la nieve."
+        },
+        {
+          "v": 3,
+          "t": "Y al mismo tiempo les aparecieron Moisés y Elías, conversando con él de lo que debía padecer en Jerusalén."
+        },
+        {
+          "v": 4,
+          "t": "Entonces Pedro tomando la palabra, dijo a Jesús: Señor, bueno es estarnos aquí: si te parece, formemos aquí tres pabellones, uno para ti, otro para Moisés, y otro para Elías."
+        },
+        {
+          "v": 5,
+          "t": "Todavía estaba Pedro hablando, cuando una nube resplandeciente vino a cubrirlos. Y al mismo instante resonó desde la nube una voz que decía: Este es mi querido Hijo, en quien tengo todas mis complacencias: a él habéis de escuchar."
+        },
+        {
+          "v": 6,
+          "t": "A cuya voz los discípulos cayeron sobre su rostro en tierra, y quedaron poseídos de un grande espanto."
+        },
+        {
+          "v": 7,
+          "t": "Mas Jesús se llegó a ellos, los tocó, y les dijo: Levantaos, y no tengáis miedo."
+        },
+        {
+          "v": 8,
+          "t": "Y alzando los ojos, no vieron a nadie sino a solo Jesús."
+        }
+      ]
+    },
+    "luminous_5": {
+      "chapter": 26,
+      "verses": [
+        {
+          "v": 26,
+          "t": "Mientras estaban cenando, tomó Jesús el pan, y le bendijo y partió, y diósele a sus discípulos, diciendo: Tomad, y comed: este es mi cuerpo."
+        },
+        {
+          "v": 27,
+          "t": "Y tomando el cáliz dio gracias (le bendijo), y diósele, diciendo: Bebed todos de él."
+        },
+        {
+          "v": 28,
+          "t": "Porque esta es mi sangre que será el sello del nuevo Testamento, la cual será derramada por muchos para remisión de los pecados."
+        }
+      ]
+    },
+    "sorrowful_1": {
+      "chapter": 26,
+      "verses": [
+        {
+          "v": 36,
+          "t": "Entre tanto llegó Jesús con ellos a una granja llamada Getsemaní, y les dijo: Sentaos aquí, mientras yo voy más allá, y hago oración."
+        },
+        {
+          "v": 37,
+          "t": "Y llevándose consigo a Pedro y a los dos hijos de Zebedeo, Santiago y Juan, empezó a entristecerse y angustiarse."
+        },
+        {
+          "v": 38,
+          "t": "Y les dijo entonces: Mi alma siente angustias mortales: aguardad aquí, y velad conmigo."
+        },
+        {
+          "v": 39,
+          "t": "Y adelantándose algunos pasos, se postró en tierra caído sobre su rostro, orando, y diciendo: Padre mío, si es posible, no me hagas beber este cáliz; pero no obstante no se haga lo que yo quiero, sino lo que tú."
+        },
+        {
+          "v": 40,
+          "t": "Volvió después a sus discípulos, y los halló durmiendo, y dijo a Pedro: ¿Es posible que no hayáis podido velar una hora conmigo?"
+        },
+        {
+          "v": 41,
+          "t": "Velad, y orad para no caer en la tentación. Que si bien el espíritu está pronto, mas la carne es flaca."
+        },
+        {
+          "v": 42,
+          "t": "Volvióse de nuevo por segunda vez, y oró diciendo: Padre mío, si no puede pasar este cáliz sin que yo le beba, hágase tu voluntad."
+        },
+        {
+          "v": 43,
+          "t": "Dio después otra vuelta, y encontrólos dormidos; porque sus ojos estaban cargados de sueño."
+        },
+        {
+          "v": 44,
+          "t": "Y dejándolos, se retiró aún a orar por tercera vez, repitiendo las mismas palabras."
+        },
+        {
+          "v": 45,
+          "t": "En seguida volvió a sus discípulos, y les dijo: Dormid ahora y descansad: he aquí que llegó ya la hora, y el Hijo del hombre va luego a ser entregado en manos de los pecadores."
+        },
+        {
+          "v": 46,
+          "t": "Ea, levantaos, vamos de aquí: ya llega aquel que me ha de entregar."
+        }
+      ]
+    },
+    "sorrowful_2": {
+      "chapter": 27,
+      "verses": [
+        {
+          "v": 26,
+          "t": "Entonces les soltó a Barrabás: y a Jesús, después de haberle hecho azotar, le entregó en sus manos para que fuese crucificado."
+        }
+      ]
+    },
+    "sorrowful_3": {
+      "chapter": 27,
+      "verses": [
+        {
+          "v": 27,
+          "t": "En seguida los soldados del presidente, cogiendo a Jesús y poniéndole en el pórtico del pretorio o palacio de Pilato, juntaron alrededor de él la cohorte o compañía toda entera;"
+        },
+        {
+          "v": 28,
+          "t": "y desnudándole, le cubrieron con un manto de grana;"
+        },
+        {
+          "v": 29,
+          "t": "y entretejiendo una corona de espinas, se la pusieron sobre la cabeza, y una caña por cetro en su mano derecha. Y con la rodilla hincada en tierra, le escarnecían, diciendo: Dios te salve, rey de los judíos."
+        },
+        {
+          "v": 30,
+          "t": "Y escupiéndole, tomaban la caña, y le herían en la cabeza."
+        },
+        {
+          "v": 31,
+          "t": "Y después que así se mofaron de él, le quitaron el manto, y habiéndole puesto otra vez sus propios vestidos, le sacaron a crucificar."
+        }
+      ]
+    },
+    "sorrowful_4": {
+      "chapter": 23,
+      "verses": [
+        {
+          "v": 26,
+          "t": "Al conducirle al suplicio, echaron mano de un tal Simón natural de Cirene, que venía de una granja; y le cargaron la cruz para que la llevara en pos de Jesús."
+        },
+        {
+          "v": 27,
+          "t": "Seguíale gran muchedumbre de pueblo, y de mujeres, las cuales se deshacían en llantos, y le plañían."
+        },
+        {
+          "v": 28,
+          "t": "Pero Jesús vuelto a ellas, les dijo: Hijas de Jerusalén, no lloréis por mí, llorad por vosotras mismas, y por vuestros hijos."
+        },
+        {
+          "v": 29,
+          "t": "Porque presto vendrán días en que se diga: Dichosas las estériles, y dichosos los vientres que no concibieron, y los pechos que no dieron de mamar."
+        },
+        {
+          "v": 30,
+          "t": "Entonces comenzarán a decir a los montes: Caed sobre nosotros; y a los collados: Sepultadnos."
+        },
+        {
+          "v": 31,
+          "t": "Pues si al árbol verde le tratan de esta manera, ¿en el seco qué se hará?"
+        },
+        {
+          "v": 32,
+          "t": "Eran también conducidos con Jesús a la muerte otros dos facinerosos."
+        }
+      ]
+    },
+    "sorrowful_5": {
+      "chapter": 23,
+      "verses": [
+        {
+          "v": 33,
+          "t": "Llegados que fueron al lugar llamado Calvario u Osario, allí le crucificaron, y con él a los ladrones, uno a la diestra, y otro a la izquierda."
+        },
+        {
+          "v": 34,
+          "t": "Entre tanto Jesús decía: Padre mío, perdónales, porque no saben lo que hacen. Y ellos poniéndose a repartir entre sí sus vestidos, los sortearon."
+        },
+        {
+          "v": 35,
+          "t": "El pueblo lo estaba mirando todo, y a una con él los principales hacían befa de Jesús, diciendo: A otros ha salvado, sálvese pues a sí mismo, si él es el Cristo o Mesías, el escogido de Dios."
+        },
+        {
+          "v": 36,
+          "t": "Insultábanle no menos los soldados, los cuales se arrimaban a él, y presentándole vinagre,"
+        },
+        {
+          "v": 37,
+          "t": "le decían: Si tú eres el rey de los judíos, ponte en salvo."
+        },
+        {
+          "v": 38,
+          "t": "Estaba colocado sobre la cabeza de Jesús un letrero escrito en griego, en latín y en hebreo, que decía: este es el rey de los judíos."
+        },
+        {
+          "v": 39,
+          "t": "Y uno de los ladrones que estaban crucificados, blasfemaba contra Jesús, diciendo: Si tú eres el Cristo o Mesías, sálvate a ti mismo, y a nosotros."
+        },
+        {
+          "v": 40,
+          "t": "Mas el otro le reprendía, diciendo: ¿Cómo, ni aun tú temes a Dios, estando como estás en el mismo suplicio?"
+        },
+        {
+          "v": 41,
+          "t": "Y nosotros a la verdad estamos en él justamente, pues pagamos la pena merecida por nuestros delitos; pero este ningún mal ha hecho."
+        },
+        {
+          "v": 42,
+          "t": "Decía después a Jesús: Señor, acuérdate de mí, cuando hayas llegado a tu reino."
+        },
+        {
+          "v": 43,
+          "t": "Y Jesús le dijo: En verdad te digo, que hoy estarás conmigo en el paraíso."
+        },
+        {
+          "v": 44,
+          "t": "Era ya casi la hora de sexta o el medio día, y las tinieblas cubrieron toda la tierra hasta la hora de nona."
+        },
+        {
+          "v": 45,
+          "t": "El sol se oscureció y el velo del Templo se rasgó por medio."
+        },
+        {
+          "v": 46,
+          "t": "Entonces Jesús clamando con una voz muy grande, dijo: Padre mío, en tus manos encomiendo mi espíritu. Y diciendo esto, espiró."
+        }
+      ]
+    },
+    "glorious_1": {
+      "chapter": 16,
+      "verses": [
+        {
+          "v": 1,
+          "t": "Y pasada la fiesta del sábado, María Magdalena, y María, madre de Santiago, y Salomé compraron aromas para ir a embalsamar a Jesús."
+        },
+        {
+          "v": 2,
+          "t": "Y partiendo muy de madrugada el domingo o primer día de la semana, llegaron al sepulcro, salido ya el sol."
+        },
+        {
+          "v": 3,
+          "t": "Y se decían una a otra: ¿Quién nos quitará la piedra de la entrada del sepulcro?"
+        },
+        {
+          "v": 4,
+          "t": "la cual realmente era muy grande. Mas echando la vista, repararon que la piedra estaba apartada."
+        },
+        {
+          "v": 5,
+          "t": "Y entrando en el sepulcro o cueva sepulcral, se hallaron con un joven sentado al lado derecho, vestido de un blanco ropaje, y se quedaron pasmadas."
+        },
+        {
+          "v": 6,
+          "t": "Pero él les dijo: No tenéis que asustaros: vosotras venís a buscar a Jesús nazareno, que fue crucificado: ya resucitó, no está aquí, mirad el lugar donde le pusieron."
+        },
+        {
+          "v": 7,
+          "t": "Pero id, y decid a sus discípulos, y especialmente a Pedro, que él irá delante de vosotros a Galilea; donde le veréis, según que os tiene dicho."
+        }
+      ]
+    },
+    "glorious_2": {
+      "chapter": 24,
+      "verses": [
+        {
+          "v": 46,
+          "t": "y les dijo: Así estaba ya escrito, y así era necesario que el Cristo padeciese, y que resucitase de entre los muertos al tercero día;"
+        },
+        {
+          "v": 47,
+          "t": "y que en nombre suyo se predicase la penitencia y el perdón de los pecados a todas las naciones, empezando por Jerusalén."
+        },
+        {
+          "v": 48,
+          "t": "Vosotros sois testigos de estas cosas."
+        },
+        {
+          "v": 49,
+          "t": "Y yo voy a enviaros el Espíritu divino que mi Padre os ha prometido por mi boca: entre tanto permaneced en la ciudad, hasta que seáis revestidos de la fortaleza de lo alto."
+        },
+        {
+          "v": 50,
+          "t": "Después los sacó afuera camino de Betania; y levantando las manos les echó su bendición."
+        },
+        {
+          "v": 51,
+          "t": "Y mientras los bendecía, se fue separando de ellos, y elevándose al cielo."
+        },
+        {
+          "v": 52,
+          "t": "Y habiéndole adorado, regresaron a Jerusalén con gran júbilo:"
+        },
+        {
+          "v": 53,
+          "t": "y estaban de continuo en el Templo, alabando y bendiciendo a Dios. Amén."
+        }
+      ]
+    },
+    "glorious_3": {
+      "chapter": 2,
+      "verses": [
+        {
+          "v": 1,
+          "t": "Al cumplirse pues los días de Pentecostés, estaban todos juntos en un mismo lugar,"
+        },
+        {
+          "v": 2,
+          "t": "cuando de repente sobrevino del cielo un ruido, como de viento impetuoso que soplaba, y llenó toda la casa donde estaban."
+        },
+        {
+          "v": 3,
+          "t": "Al mismo tiempo vieron aparecer unas como lenguas de fuego, que se repartieron y se asentaron sobre cada uno de ellos:"
+        },
+        {
+          "v": 4,
+          "t": "entonces fueron llenados todos del Espíritu Santo, y comenzaron a hablar en diversas lenguas las palabras que el Espíritu Santo ponía en su boca."
+        },
+        {
+          "v": 5,
+          "t": "Había a la sazón en Jerusalén judíos piadosos y temerosos de Dios, de todas las naciones del mundo."
+        },
+        {
+          "v": 6,
+          "t": "Divulgado pues este suceso, acudió una gran multitud de ellos, y quedaron atónitos, al ver que cada uno oía hablar a los apóstoles en su propia lengua."
+        },
+        {
+          "v": 7,
+          "t": "Así pasmados todos y maravillados, se decían unos a otros: ¿Por ventura estos que hablan, no son todos galileos, rudos e ignorantes?"
+        },
+        {
+          "v": 8,
+          "t": "¿pues cómo es que los oímos cada uno de nosotros hablar nuestra lengua nativa?"
+        },
+        {
+          "v": 9,
+          "t": "Partos, medos y elamitas, los moradores de Mesopotamia, de Judea, y de Capadocia, del Ponto, y del Asia,"
+        },
+        {
+          "v": 10,
+          "t": "los de Frigia, de Panfilia, y del Egipto, los de la Libia, confinante con Cirene, y los que han venido de Roma,"
+        },
+        {
+          "v": 11,
+          "t": "tanto judíos como prosélitos, los cretenses y los árabes, los oímos hablar en nuestras propias lenguas las maravillas de Dios."
+        },
+        {
+          "v": 12,
+          "t": "Estando pues todos llenos de admiración, y no sabiendo qué discurrir, se decían unos a otros: ¿Qué novedad es esta?"
+        },
+        {
+          "v": 13,
+          "t": "Pero hubo algunos que se mofaban de ellos diciendo: Estos sin duda están borrachos o llenos de mosto."
+        }
+      ]
+    },
+    "glorious_4": {
+      "chapter": 12,
+      "verses": [
+        {
+          "v": 1,
+          "t": "En esto, apareció un gran prodigio en el cielo: Una mujer vestida del sol, y la luna debajo de sus pies, y en su cabeza una corona de doce estrellas:"
+        }
+      ]
+    },
+    "glorious_5": {
+      "chapter": 12,
+      "verses": [
+        {
+          "v": 1,
+          "t": "En esto, apareció un gran prodigio en el cielo: Una mujer vestida del sol, y la luna debajo de sus pies, y en su cabeza una corona de doce estrellas:"
+        }
+      ]
+    }
+  }
+}

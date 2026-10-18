@@ -47,6 +47,11 @@ final Map<String, Visit> screens = {
     await openRosary(t);
     await press(t, LogicalKeyboardKey.arrowRight, 7);
   },
+  'scripture passage': (t) async {
+    await openRosary(t);
+    await press(t, LogicalKeyboardKey.arrowRight, 7);
+    await tapAndSettle(t, find.byKey(const Key('read-passage')));
+  },
   'rosary: voice bar': (t) async {
     await openRosary(t);
     await tapAndSettle(t, find.byKey(const Key('voice-toggle')));

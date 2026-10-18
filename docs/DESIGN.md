@@ -228,6 +228,28 @@ notify once it is closed).
 * Tapping the notification opens the app on Home, where today's mysteries and any
   unfinished Rosary are waiting.
 
+### 3.9 Bible passage of each mystery (F-17), see ADR-024
+
+Each mystery announcement has a **Read the passage** button under its Scripture reference.
+It opens the full passage (for example Luke 1:26-38 for the Annunciation), with verse numbers
+and the translation's credit at the bottom, so the person can read it before meditating.
+
+| Language | Translation | Licence |
+|---|---|---|
+| English | Douay-Rheims, 1899 American Edition (Catholic) | public domain |
+| Spanish | Torres Amat, 1836 edition (Catholic), spelling modernized | public domain |
+| French | Sainte Bible néo-Crampon Libre (Catholic, © 2022 Fraternité de Tibériade) | CC BY-SA 4.0 |
+
+* All three say "full of grace" / "llena de gracia" / "pleine de grâce" at Luke 1:28, the words of
+  the Hail Mary.
+* The Assumption is not narrated in Scripture; like the Coronation it shows Revelation 12:1,
+  the passage Tradition reads for it.
+* `tool/scripture/build.py` downloads the sources and writes `assets/data/scripture/<lang>.json`
+  (20 passages, 178 verses). The Spanish spelling update (accents, j/g, modern names such as
+  Jerusalén and Belén) is an explicit list in `tool/scripture/modern_es.py`; the wording is unchanged.
+* On TV the D-pad moves from verse to verse, scrolling as it goes.
+* Read aloud: not yet (backlog F-18).
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)

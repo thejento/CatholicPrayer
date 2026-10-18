@@ -7,6 +7,8 @@ import 'src/audio/voice_licenses.dart';
 import 'src/data/content_repository.dart';
 import 'src/data/device_profile.dart';
 import 'src/data/preferences_store.dart';
+import 'src/data/scripture_repository.dart';
+import 'src/data/scripture_licenses.dart';
 import 'src/providers/saved_session_controller.dart';
 import 'src/providers/settings_controller.dart';
 import 'src/providers/theme_manager.dart';
@@ -16,12 +18,14 @@ import 'src/reminders/reminder_controller.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   registerVoiceLicenses();
+  registerScriptureLicenses();
   final store = SharedPreferencesStore();
   final themeManager = ThemeManager(store);
   final settings = SettingsController(store);
   final savedSession = SavedSessionController(store);
-  final (content, audio, device, _, _, _) = await (
+  final (content, scripture, audio, device, _, _, _) = await (
     ContentRepository.load(rootBundle),
+    ScriptureRepository.load(rootBundle),
     AudioCatalog.load(rootBundle),
     DeviceProfile.detect(),
     themeManager.load(),
@@ -41,6 +45,7 @@ Future<void> main() async {
       settings: settings,
       savedSession: savedSession,
       reminder: reminder,
+      scripture: scripture,
       device: device,
       audio: audio,
     ),
