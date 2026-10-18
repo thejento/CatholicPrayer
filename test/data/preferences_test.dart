@@ -66,7 +66,7 @@ void main() {
   });
 
   group('voice settings', () {
-    test('default to off, normal speed, 2 s pause, guidance read aloud', () async {
+    test('default to off, normal speed, 2 s pause, guidance read aloud, auto-scroll', () async {
       final settings = SettingsController(InMemoryPreferencesStore());
       await settings.load();
       expect(settings.voiceEnabled, isFalse);
@@ -74,6 +74,7 @@ void main() {
       expect(settings.autoAdvance, isFalse);
       expect(settings.pauseSeconds, 2);
       expect(settings.readGuidanceAloud, isTrue);
+      expect(settings.autoScroll, isTrue);
     });
 
     test('persist and clamp out-of-range values', () async {

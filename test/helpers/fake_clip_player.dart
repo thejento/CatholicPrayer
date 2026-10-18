@@ -24,6 +24,14 @@ class FakeClipPlayer implements ClipPlayer {
 
   void finish() => _current?.complete();
 
+  final _started = StreamController<StartedClip>.broadcast(sync: true);
+
+  @override
+  Stream<StartedClip> get started => _started.stream;
+
+  /// Reports [asset] as starting, [duration] long at 1.0×.
+  void start(String asset, Duration duration) => _started.add(StartedClip(asset, duration));
+
   @override
   Future<void> setSpeed(double speed) async => speeds.add(speed);
 

@@ -75,6 +75,95 @@ void main() {
     expect(stepTitle(tester), "Apostles' Creed");
   });
 
+  testWidgets('auto-advance waits on the mystery announcement and says so', (tester) async {
+    final app = TestApp();
+    await app.settings.setVoiceEnabled(true);
+    await app.settings.setAutoAdvance(true);
+    await app.settings.setPauseSeconds(1);
+    await pumpApp(tester, app);
+    await startRosary(tester);
+    while (find.byKey(const Key('read-passage')).evaluate().isEmpty) {
+      expect(find.byKey(const Key('auto-advance-waits')), findsNothing);
+      await tester.sendKeyEvent(LogicalKeyboardKey.arrowRight);
+      await tester.pumpAndSettle();
+    }
+    final announcement = stepTitle(tester);
+    expect(find.byKey(const Key('auto-advance-waits')), findsOneWidget);
+    app.player.finish();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 5));
+    await tester.pumpAndSettle();
+    expect(stepTitle(tester), announcement);
+  });
+
+  group('auto-scroll', () {
+    const creed = 'assets/audio/en/prayer_apostles_creed.mp3';
+    ScrollPosition panel(WidgetTester tester) => tester
+        .state<ScrollableState>(
+          find.ancestor(of: find.byKey(const Key('step-title')), matching: find.byType(Scrollable)),
+        )
+        .position;
+
+    Future<TestApp> atTheCreed(WidgetTester tester, {bool autoScroll = true}) async {
+      final app = TestApp();
+      await app.settings.setVoiceEnabled(true);
+      await app.settings.setAutoScroll(autoScroll);
+      await pumpApp(tester, app, size: const Size(400, 600));
+      await startRosary(tester);
+      await tester.sendKeyEvent(LogicalKeyboardKey.arrowRight);
+      await tester.pumpAndSettle();
+      expect(panel(tester).maxScrollExtent, greaterThan(0), reason: 'the Creed overflows');
+      return app;
+    }
+
+    testWidgets('a long prayer scrolls along with the voice', (tester) async {
+      final app = await atTheCreed(tester);
+      app.player.start('assets/audio/en/guide_creed.mp3', const Duration(seconds: 5));
+      await tester.pump(const Duration(seconds: 5));
+      expect(panel(tester).pixels, 0, reason: 'not during the instruction');
+
+      app.player.start(creed, const Duration(seconds: 40));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 20));
+      final max = panel(tester).maxScrollExtent;
+      expect(panel(tester).pixels, closeTo(max / 2, max * 0.05));
+      await tester.pump(const Duration(seconds: 20));
+      expect(panel(tester).pixels, max);
+    });
+
+    testWidgets('touching the text hands control back to the person', (tester) async {
+      final app = await atTheCreed(tester);
+      await tester.drag(find.byKey(const Key('step-title')), const Offset(0, -50));
+      await tester.pumpAndSettle();
+      final where = panel(tester).pixels;
+      app.player.start(creed, const Duration(seconds: 40));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 20));
+      expect(panel(tester).pixels, where);
+    });
+
+    testWidgets('stopping the voice stops the scroll', (tester) async {
+      final app = await atTheCreed(tester);
+      app.player.start(creed, const Duration(seconds: 40));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 10));
+      await tester.tap(find.byKey(const Key('voice-toggle')));
+      await tester.pump();
+      final where = panel(tester).pixels;
+      expect(where, greaterThan(0));
+      await tester.pump(const Duration(seconds: 20));
+      expect(panel(tester).pixels, where);
+    });
+
+    testWidgets('can be turned off in settings', (tester) async {
+      final app = await atTheCreed(tester, autoScroll: false);
+      app.player.start(creed, const Duration(seconds: 40));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 20));
+      expect(panel(tester).pixels, 0);
+    });
+  });
+
   testWidgets('the remote play/pause key toggles the voice', (tester) async {
     final app = TestApp(isTelevision: true);
     await pumpApp(tester, app, size: const Size(960, 540));
@@ -106,6 +195,7 @@ void main() {
     await tester.tap(find.text('Read aloud'));
     await tester.tap(find.text('Read the guidance aloud'));
     await tester.tap(find.text('Auto-advance'));
+    await tester.tap(find.byKey(const Key('auto-scroll')));
     await tester.pumpAndSettle();
     await tester.drag(find.byKey(const Key('pause-slider')), const Offset(400, 0));
     await tester.pumpAndSettle();
@@ -116,6 +206,8 @@ void main() {
     expect(app.settings.pauseSeconds, SettingsController.maxPause);
     expect(await app.store.getBool(SettingsController.autoAdvanceKey), isTrue);
     expect(await app.store.getString(SettingsController.pauseKey), '5');
+    expect(app.settings.autoScroll, isFalse);
+    expect(await app.store.getBool(SettingsController.autoScrollKey), isFalse);
   });
 
   testWidgets('the credits page lists the voice licences', (tester) async {

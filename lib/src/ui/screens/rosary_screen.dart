@@ -161,7 +161,7 @@ class _StepLayout extends StatelessWidget {
       onCurrentBeadTap: session.next,
       semanticLabel: l10n.beadSemantics(step.bead + 1, beadCount),
     );
-    final panel = _StepPanel(session: session, l10n: l10n);
+    final panel = _StepPanel(session: session, voice: voice, l10n: l10n);
     final controls = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -213,9 +213,10 @@ class _StepLayout extends StatelessWidget {
 }
 
 class _StepPanel extends StatelessWidget {
-  const _StepPanel({required this.session, required this.l10n});
+  const _StepPanel({required this.session, required this.voice, required this.l10n});
 
   final RosarySession session;
+  final VoiceGuide voice;
   final AppLocalizations l10n;
 
   @override
@@ -272,7 +273,11 @@ class _StepPanel extends StatelessWidget {
       ];
     }
 
-    return SingleChildScrollView(
+    return _ScrollWithVoice(
+      // A fresh scroll position for each step, so it always opens at the top.
+      key: ValueKey(session.index),
+      voice: voice,
+      enabled: context.watch<SettingsController>().autoScroll,
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -361,6 +366,73 @@ class _Controls extends StatelessWidget {
 }
 
 /// Speed and auto-advance controls, shown while the voice is on.
+/// The step's scroll view. While the voice reads the step's text, it scrolls
+/// from top to bottom over the length of that clip: an approximation, as the
+/// voice does not keep an even pace. Touching or scrolling the text stops it
+/// for this step; stopping the voice stops it too (DESIGN §3.7).
+class _ScrollWithVoice extends StatefulWidget {
+  const _ScrollWithVoice({
+    super.key,
+    required this.voice,
+    required this.enabled,
+    required this.padding,
+    required this.child,
+  });
+
+  final VoiceGuide voice;
+  final bool enabled;
+  final EdgeInsets padding;
+  final Widget child;
+
+  @override
+  State<_ScrollWithVoice> createState() => _ScrollWithVoiceState();
+}
+
+class _ScrollWithVoiceState extends State<_ScrollWithVoice> {
+  final _controller = ScrollController();
+  bool _userScrolled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.voice.reading.addListener(_follow);
+  }
+
+  @override
+  void dispose() {
+    widget.voice.reading.removeListener(_follow);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _follow() {
+    if (!_controller.hasClients) return;
+    final position = _controller.position;
+    final length = widget.voice.reading.value;
+    if (length == null) {
+      // The voice stopped: stop where we are.
+      if (position.isScrollingNotifier.value) position.jumpTo(position.pixels);
+      return;
+    }
+    if (!widget.enabled || _userScrolled || position.maxScrollExtent <= 0) return;
+    _controller.animateTo(position.maxScrollExtent, duration: length, curve: Curves.linear);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      // Any touch, click or wheel on the text hands control to the person.
+      onPointerDown: (_) => _userScrolled = true,
+      onPointerSignal: (_) => _userScrolled = true,
+      child: SingleChildScrollView(
+        controller: _controller,
+        padding: widget.padding,
+        child: widget.child,
+      ),
+    );
+  }
+}
+
 class _VoiceBar extends StatelessWidget {
   const _VoiceBar({required this.voice, required this.l10n});
 
@@ -414,6 +486,13 @@ class _VoiceBar extends StatelessWidget {
               settings.setAutoAdvance(v);
             },
           ),
+          if (voice.waitsHere)
+            Text(
+              l10n.autoAdvanceWaits,
+              key: const Key('auto-advance-waits'),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
         ],
       ),
     );

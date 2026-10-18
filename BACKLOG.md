@@ -46,7 +46,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-08 Natural voice: pre-rendered Kokoro (EN/ES) + Kyutai (FR, ADR-021), with a freshness check in CI (ADR-020)
 - [x] F-09 Auto-advance after the voice finishes, with a 1–5 s pause
 - [x] F-16 Voice speed 0.75×–1.25× (pitch preserved), TV play/pause key, credits page
-- [ ] C-04 **Owner:** listen to every recording once (44 per language) and flag any mispronunciation — EN and ES approved 2026-10-17; FR to re-check after the Kyutai re-render
+- [x] C-04 **Owner:** listen to every recording once (44 per language) and flag any mispronunciation — EN and ES approved 2026-10-17, FR (Kyutai) 2026-10-18
 - [x] F-10 Semantics audit, automated in CI (ADR-022): labelled beads, announced steps, labelled progress
 - [x] F-11 Large text: every screen lays out at 200 % on phone, sideways phone and TV
 - [ ] Q-05 Real-device TalkBack pass (reading order, wording) on a phone and a TV emulator
@@ -54,7 +54,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 ## Iteration 3: Habit & reminders
 
 - [x] F-17 Bible passage of each mystery: Douay-Rheims / Torres Amat (modernized) / néo-Crampon (ADR-024)
-- [ ] F-18 Read the passages aloud (about 20 more recordings per language)
+- [ ] F-18 Read the passages aloud (about 20 more recordings per language). Then lift the auto-advance wait on mystery announcements (`VoiceGuide.waitsHere`)
 
 - [x] F-12 Daily reminder: weekly-per-day local notifications naming the day's mysteries, Android phones only (ADR-023)
 - [ ] F-13 Private, on-device prayer streak / journal
@@ -66,6 +66,8 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-24 About today (season, colour, why these mysteries, the four sets) and saint details with a Vatican News link (ADR-027)
 - [x] F-25 A public-domain painting on each mystery announcement, classic theme only (ADR-028)
 - [x] F-26 Web footer and Settings → About: version (with commit on deploys), GitHub Issues link, Google Play link (DESIGN §3.14)
+- [x] F-28 Auto-advance waits on mystery announcements; each step opens scrolled to the top (owner's first Rosary)
+- [x] F-29 Auto-scroll long prayers roughly at the voice's pace (Settings → Voice, on by default)
 - [ ] F-27 "Send feedback" by email (prefilled with version, device and language) in Settings → About and the web footer. On hold: needs a dedicated address from the owner
 - [ ] F-21 National calendars (e.g. Canada, USA: Epiphany/Ascension on Sunday, national saints)
 
@@ -81,5 +83,4 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 
 - Divine Mercy Chaplet and other chaplets (the sequence engine is generic enough)
 - Human-voice recordings
-- Saint of the day
 - More languages (PT, IT, DE, TL, PL)

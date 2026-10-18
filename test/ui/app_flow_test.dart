@@ -205,4 +205,22 @@ void main() {
       }
     });
   }
+
+  testWidgets('each step opens scrolled to the top', (tester) async {
+    await pumpApp(tester, TestApp(), size: const Size(400, 600));
+    await startRosary(tester);
+    await tester.sendKeyEvent(LogicalKeyboardKey.arrowRight); // the Creed, a long text
+    await tester.pumpAndSettle();
+    ScrollPosition panel() => tester
+        .state<ScrollableState>(
+          find.ancestor(of: find.byKey(const Key('step-title')), matching: find.byType(Scrollable)),
+        )
+        .position;
+    panel().jumpTo(panel().maxScrollExtent);
+    await tester.pump();
+    expect(panel().pixels, greaterThan(0));
+    await tester.sendKeyEvent(LogicalKeyboardKey.arrowRight);
+    await tester.pumpAndSettle();
+    expect(panel().pixels, 0);
+  });
 }

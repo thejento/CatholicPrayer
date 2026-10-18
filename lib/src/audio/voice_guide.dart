@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+import '../domain/rosary_sequence.dart';
 import '../domain/rosary_session.dart';
 import 'audio_catalog.dart';
 import 'clip_player.dart';
@@ -11,7 +12,8 @@ import 'clips.dart';
 ///
 /// Follows [session]: each new step stops the current clip and plays the
 /// new one. With auto-advance on, it moves to the next step [pause] after a
-/// clip ends, so the person can simply listen and pray along.
+/// clip ends, so the person can simply listen and pray along. It waits on
+/// mystery announcements, where the Bible passage is read silently.
 class VoiceGuide extends ChangeNotifier {
   VoiceGuide({
     required this.session,
@@ -25,6 +27,7 @@ class VoiceGuide extends ChangeNotifier {
     this.withGuidance = true,
   }) : _enabled = enabled && catalog.hasLanguage(language) {
     session.addListener(_onStep);
+    _clips = player.started.listen(_onClipStarted);
     if (_enabled) _speak();
   }
 
@@ -45,8 +48,21 @@ class VoiceGuide extends ChangeNotifier {
   bool _enabled;
   int _turn = 0;
   Timer? _advance;
+  late final StreamSubscription<StartedClip> _clips;
+
+  /// The step's own clips (prayer or announcement), not its instruction.
+  Set<String> _textAssets = {};
+
+  /// How long the voice will take to read the step's text, set when that
+  /// clip starts (at the current speed) and cleared when it stops. The step
+  /// panel scrolls along with it (DESIGN §3.7).
+  final reading = ValueNotifier<Duration?>(null);
 
   bool get available => catalog.hasLanguage(language);
+
+  /// Auto-advance waits on mystery announcements: the passage is not read
+  /// aloud yet, and its clip is too short to read it (F-18 can lift this).
+  bool get waitsHere => _enabled && autoAdvance && session.current.kind == StepKind.announceMystery;
   bool get enabled => _enabled;
 
   void toggle() => setEnabled(!_enabled);
@@ -82,7 +98,14 @@ class VoiceGuide extends ChangeNotifier {
     }
   }
 
+  void _onClipStarted(StartedClip clip) {
+    final length = clip.duration;
+    if (!_enabled || length == null || !_textAssets.contains(clip.asset)) return;
+    reading.value = Duration(microseconds: (length.inMicroseconds / speed).round());
+  }
+
   void _silence() {
+    reading.value = null;
     _turn++;
     _advance?.cancel();
     unawaited(player.stop());
@@ -91,16 +114,18 @@ class VoiceGuide extends ChangeNotifier {
   Future<void> _speak() async {
     final turn = ++_turn;
     _advance?.cancel();
-    final assets = clipsForStep(
-      session.current,
-      session.mysterySet,
-      withGuidance: withGuidance,
-    ).map((id) => catalog.asset(language, id)).nonNulls.toList();
+    reading.value = null;
+    final ids = clipsForStep(session.current, session.mysterySet, withGuidance: withGuidance);
+    final assets = ids.map((id) => catalog.asset(language, id)).nonNulls.toList();
+    _textAssets = {
+      for (final id in ids)
+        if (!isGuidanceClip(id)) ?catalog.asset(language, id),
+    };
     await player.stop();
     if (turn != _turn) return;
     await player.play(assets, speed: speed);
     // Only the turn that is still current may auto-advance.
-    if (turn != _turn || !_enabled || !autoAdvance || session.isFinished) return;
+    if (turn != _turn || !_enabled || !autoAdvance || session.isFinished || waitsHere) return;
     _advance = Timer(pause, () {
       if (turn == _turn) session.next();
     });
@@ -109,6 +134,8 @@ class VoiceGuide extends ChangeNotifier {
   @override
   void dispose() {
     session.removeListener(_onStep);
+    unawaited(_clips.cancel());
+    reading.dispose();
     _turn++;
     _advance?.cancel();
     unawaited(player.stop());

@@ -16,6 +16,18 @@ abstract interface class ClipPlayer {
   Future<void> stop();
 
   Future<void> dispose();
+
+  /// Each clip as it starts, with its recorded length.
+  Stream<StartedClip> get started;
+}
+
+/// A clip that has just started; [duration] is at 1.0× (null if unknown).
+@immutable
+class StartedClip {
+  const StartedClip(this.asset, this.duration);
+
+  final String asset;
+  final Duration? duration;
 }
 
 /// [ClipPlayer] backed by `just_audio` (ExoPlayer on Android, the HTML audio
@@ -28,11 +40,10 @@ abstract interface class ClipPlayer {
 class JustAudioClipPlayer implements ClipPlayer {
   AudioPlayer? _current;
   double _speed = 1.0;
-  final _started = StreamController<String>.broadcast();
+  final _started = StreamController<StartedClip>.broadcast();
 
-  /// Each clip as it starts; for on-device tests.
-  @visibleForTesting
-  Stream<String> get clipStarted => _started.stream;
+  @override
+  Stream<StartedClip> get started => _started.stream;
 
   /// Completed to cut short the sequence that is playing.
   Completer<void> _interrupt = Completer<void>()..complete();
@@ -51,9 +62,9 @@ class JustAudioClipPlayer implements ClipPlayer {
       final player = _current = AudioPlayer();
       try {
         await player.setSpeed(_speed);
-        await player.setAsset(asset);
+        final duration = await player.setAsset(asset);
         if (interrupt.isCompleted) return;
-        _started.add(asset);
+        _started.add(StartedClip(asset, duration));
         // play() completes when the clip ends, or when it is stopped.
         await Future.any([player.play(), interrupt.future]);
       } finally {
