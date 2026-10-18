@@ -1,8 +1,13 @@
 # Backlog
 
-Ordered by priority, top first. IDs are stable. When an item is done, tick it
-and add the PR number. Prefixes: **F** = feature, **T** = TV, **W** = web,
-**Q** = quality, **O** = ops/CI/CD, **C** = content.
+**Open work is tracked in [GitHub Issues](https://github.com/thejento/CatholicPrayer/issues)**
+(moved there on 2026-10-18). This file keeps the history of what was done.
+
+Each issue title starts with a stable ID: **F** = feature, **T** = TV, **W** = web,
+**Q** = quality, **O** = ops/CI/CD, **C** = content, **I** = idea (not committed).
+A new item takes the next free number of its prefix (next: F-30, T-05, W-03, Q-06, O-16, C-05, I-04).
+Iterations are milestones; labels give the type, `owner` for the owner's own tasks,
+`on hold` when blocked. Close the issue from the PR that does it (`Closes #NN`).
 Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/DECISIONS.md)
 
 ## ✅ Iteration 0: Foundation & pipeline
@@ -31,13 +36,11 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] O-13 Obsolete `claude/new-session-sjsf1m` branch deleted
 - [x] O-15 First Dependabot batch (9 updates) combined into one PR; updates grouped from now on (ADR-019)
 - [x] O-09 Upload keystore created and the 4 `ANDROID_*` secrets set (ADR-018); signature verified
-- [ ] O-14 **Owner:** back up `~/.config/catholicprayer-signing/` offline
 - [x] F-06 Resume an interrupted Rosary (persist session index + mysteries)
 - [x] F-07 Animated glow moving between beads (2.3.5 in the original spec)
 - [x] Q-02 Golden tests for both themes × phone/tablet/TV sizes (ADR-015)
 - [x] Q-03 Raise the coverage gate to 90 %
 - [x] T-04 Detect Android TV (platform channel) to apply the 10-foot type scale (ADR-016)
-- [ ] C-02 **Owner:** content review of ES/FR texts by a native speaker / parish, including the modernized Torres Amat passages and the saints' names
 - [x] W-01 Proper PWA manifest (name, colours, icons) and favicon (ADR-017)
 - [x] T-03 Proper 320×180 TV banner artwork
 
@@ -49,38 +52,16 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] C-04 **Owner:** listen to every recording once (44 per language) and flag any mispronunciation — EN and ES approved 2026-10-17, FR (Kyutai) 2026-10-18
 - [x] F-10 Semantics audit, automated in CI (ADR-022): labelled beads, announced steps, labelled progress
 - [x] F-11 Large text: every screen lays out at 200 % on phone, sideways phone and TV
-- [ ] Q-05 Real-device TalkBack pass (reading order, wording) on a phone and a TV emulator
 
 ## Iteration 3: Habit & reminders
 
 - [x] F-17 Bible passage of each mystery: Douay-Rheims / Torres Amat (modernized) / néo-Crampon (ADR-024)
-- [ ] F-18 Read the passages aloud (about 20 more recordings per language). Then lift the auto-advance wait on mystery announcements (`VoiceGuide.waitsHere`)
-
 - [x] F-12 Daily reminder: weekly-per-day local notifications naming the day's mysteries, Android phones only (ADR-023)
-- [ ] F-13 Private, on-device prayer streak / journal
 - [x] F-14 Liturgical season on Home (named day, colour) and seasonal Sunday mysteries (ADR-025)
 - [x] F-19 Saint of the day on Home: General Roman Calendar, ranks, precedence and transfers (ADR-026)
 - [x] F-20 More prayers in the library: Memorare, St Michael, Come Holy Spirit, Guardian Angel, Act of Contrition, Angelus, Regina Caeli, Holy Father's intentions (public-domain wordings)
-- [ ] F-22 Litany of Loreto in the library
-- [ ] F-23 Option to end the guided Rosary with the prayer to St Michael and/or the Holy Father's intentions (with recordings)
 - [x] F-24 About today (season, colour, why these mysteries, the four sets) and saint details with a Vatican News link (ADR-027)
 - [x] F-25 A public-domain painting on each mystery announcement, classic theme only (ADR-028)
 - [x] F-26 Web footer and Settings → About: version (with commit on deploys), GitHub Issues link, Google Play link (DESIGN §3.14)
 - [x] F-28 Auto-advance waits on mystery announcements; each step opens scrolled to the top (owner's first Rosary)
 - [x] F-29 Auto-scroll long prayers roughly at the voice's pace (Settings → Voice, on by default)
-- [ ] F-27 "Send feedback" by email (prefilled with version, device and language) in Settings → About and the web footer. On hold: needs a dedicated address from the owner
-- [ ] F-21 National calendars (e.g. Canada, USA: Epiphany/Ascension on Sunday, national saints)
-
-## Iteration 4: Distribution
-
-- [ ] O-10 Play Console listing (phone + TV), privacy policy page on Pages. The icon and feature graphic are ready in `store/`. When live, set `playStoreListed = true` in `lib/src/app_info.dart` (drops "(soon)", shows "Rate the app")
-- [ ] O-11 Upload AAB to the Play internal track from `release.yml` (service account)
-- [ ] O-12 `integration_test` on an Android emulator in CI (nightly); the first on-device test (voice playlist order) exists
-- [ ] Q-04 Cross-browser smoke (Chrome, Firefox, Safari) via Playwright on the web build
-- [ ] W-02 URL routing (`go_router`) so web refresh/deep links keep the current screen
-
-## Ideas (not committed)
-
-- Divine Mercy Chaplet and other chaplets (the sequence engine is generic enough)
-- Human-voice recordings
-- More languages (PT, IT, DE, TL, PL)
