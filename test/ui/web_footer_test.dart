@@ -57,4 +57,32 @@ void main() {
     await expectLater(tester, meetsGuideline(textContrastGuideline));
     handle.dispose();
   });
+
+  Future<void> openSettings(WidgetTester tester, TestApp app) async {
+    await pumpHome(tester, app);
+    await tester.tap(find.byTooltip('Settings'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('About and credits'));
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('Settings has an About section with the version and GitHub', (tester) async {
+    final app = TestApp(isAndroid: true);
+    await openSettings(tester, app);
+    expect(find.text('About'), findsOneWidget);
+    expect(find.text('Version $appVersion'), findsOneWidget);
+    expect(find.byKey(const Key('settings-rate')), findsNothing); // not listed yet
+    await tester.tap(find.byKey(const Key('settings-issues')));
+    await tester.pumpAndSettle();
+    expect(app.openedLinks, [issuesUrl]);
+  });
+
+  testWidgets('on TV Settings shows the GitHub address instead of a link', (tester) async {
+    final app = TestApp(isAndroid: true, isTelevision: true);
+    await openSettings(tester, app);
+    expect(find.text(issuesUrl.toString()), findsOneWidget);
+    await tester.tap(find.byKey(const Key('settings-issues')));
+    await tester.pumpAndSettle();
+    expect(app.openedLinks, isEmpty);
+  });
 }

@@ -141,5 +141,8 @@
   "artworkSemantics": "Tableau : {title}, de {artist}",
   "appVersion": "Version {version}",
   "playStoreLink": "Android sur Google Play (bientôt)",
-  "reportIssueLink": "Signaler un problème sur GitHub"
+  "reportIssueLink": "Signaler un problème sur GitHub",
+  "about": "À propos",
+  "playStoreGet": "Android sur Google Play",
+  "rateOnPlay": "Noter l'application sur Google Play"
 }

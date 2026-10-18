@@ -14,3 +14,10 @@ final playStoreUrl = Uri.parse(
 );
 
 final issuesUrl = Uri.parse('https://github.com/thejento/CatholicPrayer/issues');
+
+/// Flip to true once the Play listing is public (O-10): the web footer drops
+/// "(soon)" and the Android app offers "Rate the app".
+const playStoreListed = false;
+
+/// "1.0.0", or "1.0.0 · 081acaa" on a web deploy.
+const versionLabel = appBuild == '' ? appVersion : '$appVersion · $appBuild';

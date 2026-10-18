@@ -355,15 +355,24 @@ never shows paintings, and the prayer steps stay plain so the text is always eas
   view; it has a screen-reader label ("Painting: The Annunciation, by Masolino da Panicale").
 * Artwork titles are the museums' English titles in every language.
 
-### 3.14 Web footer
+### 3.14 Version, feedback and the Play Store
 
-On the web, the home screen ends, below the Prayer Library button, with a divider, the app
-version and two links: the Android app on Google Play (marked "soon" until the listing is live,
-O-10) and GitHub Issues to report a problem. The Android app does not show it.
+**Web:** the home screen ends, below the Prayer Library button, with a divider, the app version
+and two links: the Android app on Google Play (marked "soon" until the listing is live, O-10)
+and GitHub Issues to report a problem.
+
+**Settings → About (Android and web):** the version, "Report a problem on GitHub", "Rate the app
+on Google Play" (Android phones and tablets, once the listing is live) and the existing About
+and credits (licences). The Android home screen stays focused on prayer. On TV, where there is
+rarely a browser, the GitHub address is shown as text instead of a link.
 
 * The version comes from `lib/src/app_info.dart`: the pubspec version (a test keeps them equal),
   or the tag on release builds (`--dart-define=APP_VERSION`). Web deploys add the short commit
   (`APP_BUILD`), e.g. "Version 1.0.0 · 081acaa", so a bug report can say which build it was.
+* `playStoreListed` in the same file switches the Play links on when the listing is public.
+* GitHub needs an account, so a feedback email for everyone else is planned (F-27, on hold until
+  there is a dedicated address). The address in the app can change with any release; the one
+  on the Play listing can change at any time without a release.
 
 ## 4. The Rosary model
 
@@ -491,7 +500,7 @@ Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
 
 * No network calls and no analytics. The only links out open in the browser when the person
   taps them: the Vatican News page about the saint of the day and, on the web, the Google Play
-  and GitHub Issues links of the footer (§3.14). Android permissions, all normal (none grant access
+  and GitHub Issues links (§3.14). Android permissions, all normal (none grant access
   to personal data):
   * `POST_NOTIFICATIONS`: the optional daily reminder; asked for only when it is turned on.
   * `RECEIVE_BOOT_COMPLETED`, `VIBRATE`: restore the reminder after a reboot, vibrate with it.

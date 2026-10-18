@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../app_info.dart';
-import '../../data/link_opener.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../open_link.dart';
 
 /// Bottom of the home screen on the web: version, the Android app and where
 /// to report a problem (DESIGN §3.14).
@@ -14,13 +13,6 @@ class WebFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    Future<void> open(Uri url) async {
-      final messenger = ScaffoldMessenger.of(context);
-      if (!await context.read<LinkOpener>()(url)) {
-        messenger.showSnackBar(SnackBar(content: Text(l10n.linkOpenFailed)));
-      }
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -28,9 +20,7 @@ class WebFooter extends StatelessWidget {
         const Divider(),
         const SizedBox(height: 8),
         Text(
-          appBuild.isEmpty
-              ? l10n.appVersion(appVersion)
-              : '${l10n.appVersion(appVersion)} · $appBuild',
+          l10n.appVersion(versionLabel),
           key: const Key('app-version'),
           textAlign: TextAlign.center,
           style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
@@ -43,14 +33,14 @@ class WebFooter extends StatelessWidget {
             TextButton.icon(
               key: const Key('play-store-link'),
               icon: const Icon(Icons.android),
-              label: Text(l10n.playStoreLink),
-              onPressed: () => open(playStoreUrl),
+              label: Text(playStoreListed ? l10n.playStoreGet : l10n.playStoreLink),
+              onPressed: () => openLink(context, playStoreUrl),
             ),
             TextButton.icon(
               key: const Key('issues-link'),
               icon: const Icon(Icons.bug_report_outlined),
               label: Text(l10n.reportIssueLink),
-              onPressed: () => open(issuesUrl),
+              onPressed: () => openLink(context, issuesUrl),
             ),
           ],
         ),

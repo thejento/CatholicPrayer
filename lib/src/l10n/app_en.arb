@@ -269,5 +269,8 @@
     }
   },
   "playStoreLink": "Android app on Google Play (soon)",
-  "reportIssueLink": "Report a problem on GitHub"
+  "reportIssueLink": "Report a problem on GitHub",
+  "about": "About",
+  "playStoreGet": "Android app on Google Play",
+  "rateOnPlay": "Rate the app on Google Play"
 }

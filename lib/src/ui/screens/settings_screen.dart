@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../app_info.dart';
 import '../../audio/audio_catalog.dart';
+import '../../data/device_profile.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_controller.dart';
 import '../../providers/theme_manager.dart';
 import '../../reminders/reminder_controller.dart';
 import '../../theme/app_theme.dart';
+import '../open_link.dart';
 
 /// Native names, so a person can find their language whatever the UI language.
 const Map<String, String> _languageNames = {'en': 'English', 'es': 'Español', 'fr': 'Français'};
@@ -20,6 +23,7 @@ class SettingsScreen extends StatelessWidget {
     final theme = context.watch<ThemeManager>();
     final settings = context.watch<SettingsController>();
     final reminder = context.watch<ReminderController>();
+    final device = context.read<DeviceProfile>();
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settings)),
@@ -138,11 +142,41 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ],
               const Divider(height: 32),
+              Text(l10n.about, style: Theme.of(context).textTheme.titleMedium),
+              ListTile(
+                key: const Key('settings-version'),
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.tag),
+                title: Text(l10n.appVersion(versionLabel)),
+              ),
+              // On TV there is rarely a browser, so the address is shown instead (DESIGN §3.14).
+              ListTile(
+                key: const Key('settings-issues'),
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.bug_report_outlined),
+                title: Text(l10n.reportIssueLink),
+                subtitle: device.isTelevision ? SelectableText(issuesUrl.toString()) : null,
+                trailing: device.isTelevision ? null : const Icon(Icons.open_in_new),
+                onTap: device.isTelevision ? null : () => openLink(context, issuesUrl),
+              ),
+              if (playStoreListed && device.isAndroid && !device.isTelevision)
+                ListTile(
+                  key: const Key('settings-rate'),
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.star_outline),
+                  title: Text(l10n.rateOnPlay),
+                  trailing: const Icon(Icons.open_in_new),
+                  onTap: () => openLink(context, playStoreUrl),
+                ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.info_outline),
                 title: Text(l10n.aboutAndCredits),
-                onTap: () => showLicensePage(context: context, applicationName: l10n.appTitle),
+                onTap: () => showLicensePage(
+                  context: context,
+                  applicationName: l10n.appTitle,
+                  applicationVersion: versionLabel,
+                ),
               ),
             ],
           ),

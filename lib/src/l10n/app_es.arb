@@ -141,5 +141,8 @@
   "artworkSemantics": "Pintura: {title}, de {artist}",
   "appVersion": "Versión {version}",
   "playStoreLink": "Android en Google Play (próximamente)",
-  "reportIssueLink": "Informar de un problema en GitHub"
+  "reportIssueLink": "Informar de un problema en GitHub",
+  "about": "Acerca de",
+  "playStoreGet": "Android en Google Play",
+  "rateOnPlay": "Valorar la app en Google Play"
 }
