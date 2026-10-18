@@ -99,5 +99,10 @@
   "dayChristTheKing": "Jesucristo, Rey del Universo",
   "sundayNoteAdvent": "En los domingos de Adviento se rezan tradicionalmente los Misterios Gozosos.",
   "sundayNoteChristmas": "En los domingos del tiempo de Navidad se rezan tradicionalmente los Misterios Gozosos.",
-  "sundayNoteLent": "En los domingos de Cuaresma se rezan tradicionalmente los Misterios Dolorosos."
+  "sundayNoteLent": "En los domingos de Cuaresma se rezan tradicionalmente los Misterios Dolorosos.",
+  "rankSolemnity": "Solemnidad",
+  "rankFeast": "Fiesta",
+  "rankMemorial": "Memoria",
+  "rankOptionalMemorial": "Memoria libre",
+  "orSaint": "o {name}"
 }

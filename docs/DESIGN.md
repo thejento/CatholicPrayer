@@ -284,6 +284,26 @@ the next time the app is opened.
 * Not yet: national calendars (for example Epiphany and Ascension moved to Sunday, as in
   Canada and the United States); the universal dates are used.
 
+### 3.11 Saint of the day (F-19), see ADR-026
+
+Under the liturgical day, Home names the celebration of the day and its rank:
+*"Saint Augustine, bishop and doctor of the Church · Memorial"*. When several optional
+memorials share a day they are listed together (*"… or Saint Ansgar, bishop"*).
+
+* Source: the General Roman Calendar (221 celebrations incl. later additions such as
+  Saints Martha, Mary and Lazarus, Gregory of Narek, Hildegard, Paul VI, Faustina, Our Lady of
+  Loreto), plus the four moveable ones after Pentecost (Mary Mother of the Church, Corpus
+  Christi, Sacred Heart, Immaculate Heart). Names in EN/ES/FR, in the style of each
+  language's liturgical books.
+* Precedence, simplified from the General Norms: nothing on days that are themselves the
+  celebration (Christmas, Holy Week, the Easter octave, Ash Wednesday, Pentecost…); Sundays of
+  Advent, Lent and Easter yield to nothing; other Sundays only to solemnities and feasts of the
+  Lord; a solemnity or feast replaces the memorials of its day.
+* Transfers: Saint Joseph and the Annunciation out of Holy Week, the Easter octave and Lenten
+  Sundays; the Immaculate Conception off an Advent Sunday; John the Baptist when the Sacred Heart
+  falls on 24 June.
+* Offline, no network. National calendars and patron saints are F-21.
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)

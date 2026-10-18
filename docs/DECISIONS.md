@@ -280,3 +280,15 @@ Template:
   Ascension on Sunday in Canada and the United States, national saints) are not covered
   yet (F-21). The saint of the day (F-19) will build on the same engine.
 
+## ADR-026: Saint of the day from a bundled General Roman Calendar
+- Date: 2026-10-17 · Status: Accepted
+- Context: The owner asked for the saint of the day. The app is offline and private.
+- Options considered: an online API (network, availability); the Roman Martyrology (thousands
+  of entries, modern translations under copyright); the General Roman Calendar (the saints the
+  whole Church celebrates; dates and titles are facts, names written for this app).
+- Decision: The General Roman Calendar as a Dart table (date, rank, feast of the Lord) with
+  names per language in `assets/data/saints/`, and the precedence and transfer rules that
+  matter in practice, on top of the liturgical calendar (ADR-025).
+- Consequences: Many weekdays have no saint (the app then shows only the season). Names are
+  part of the native-speaker review (C-02). National calendars come later (F-21).
+

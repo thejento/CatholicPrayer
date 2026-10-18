@@ -37,7 +37,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] Q-02 Golden tests for both themes × phone/tablet/TV sizes (ADR-015)
 - [x] Q-03 Raise the coverage gate to 90 %
 - [x] T-04 Detect Android TV (platform channel) to apply the 10-foot type scale (ADR-016)
-- [ ] C-02 **Owner:** content review of ES/FR texts by a native speaker / parish, including the modernized Torres Amat passages
+- [ ] C-02 **Owner:** content review of ES/FR texts by a native speaker / parish, including the modernized Torres Amat passages and the saints' names
 - [x] W-01 Proper PWA manifest (name, colours, icons) and favicon (ADR-017)
 - [x] T-03 Proper 320×180 TV banner artwork
 
@@ -59,7 +59,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-12 Daily reminder: weekly-per-day local notifications naming the day's mysteries, Android phones only (ADR-023)
 - [ ] F-13 Private, on-device prayer streak / journal
 - [x] F-14 Liturgical season on Home (named day, colour) and seasonal Sunday mysteries (ADR-025)
-- [ ] F-19 Saint of the day on Home (General Roman Calendar)
+- [x] F-19 Saint of the day on Home: General Roman Calendar, ranks, precedence and transfers (ADR-026)
 - [ ] F-20 More prayers: St Michael, Memorare, Angelus / Regina Caeli, Litany of Loreto, prayer for the Pope's intentions…
 - [ ] F-21 National calendars (e.g. Canada, USA: Epiphany/Ascension on Sunday, national saints)
 
