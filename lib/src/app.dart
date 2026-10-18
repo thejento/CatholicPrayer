@@ -5,6 +5,7 @@ import 'audio/audio_catalog.dart';
 import 'audio/clip_player.dart';
 import 'data/content_repository.dart';
 import 'data/device_profile.dart';
+import 'data/link_opener.dart';
 import 'data/saints_repository.dart';
 import 'data/scripture_repository.dart';
 import 'domain/clock.dart';
@@ -32,6 +33,7 @@ class CatholicPrayerApp extends StatelessWidget {
     this.audio = const AudioCatalog.empty(),
     this.playerFactory = JustAudioClipPlayer.new,
     this.clock = const Clock(),
+    this.linkOpener = openInBrowser,
   });
 
   final ContentRepository content;
@@ -48,6 +50,9 @@ class CatholicPrayerApp extends StatelessWidget {
   final ClipPlayer Function() playerFactory;
   final Clock clock;
 
+  /// Opens web links (the saint of the day); tests pass a fake.
+  final LinkOpener linkOpener;
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -56,6 +61,7 @@ class CatholicPrayerApp extends StatelessWidget {
         Provider.value(value: scripture),
         Provider.value(value: saints),
         Provider.value(value: clock),
+        Provider<LinkOpener>.value(value: linkOpener),
         Provider.value(value: device),
         Provider.value(value: audio),
         Provider<ClipPlayer Function()>.value(value: playerFactory),

@@ -78,6 +78,10 @@ class TestApp {
   final AudioCatalog audio;
   final FakeClipPlayer player = FakeClipPlayer();
 
+  /// Links the app asked to open; [linksOpen] decides whether that succeeds.
+  final List<Uri> openedLinks = [];
+  bool linksOpen = true;
+
   Widget build() => CatholicPrayerApp(
     content: loadRealContent(),
     themeManager: themeManager,
@@ -90,5 +94,9 @@ class TestApp {
     audio: audio,
     playerFactory: () => player,
     clock: Clock.fixed(_now),
+    linkOpener: (uri) async {
+      openedLinks.add(uri);
+      return linksOpen;
+    },
   );
 }

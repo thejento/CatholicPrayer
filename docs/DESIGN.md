@@ -284,6 +284,11 @@ the next time the app is opened.
 * Not yet: national calendars (for example Epiphany and Ascension moved to Sunday, as in
   Canada and the United States); the universal dates are used.
 
+**About today.** Tapping the day (or today's mysteries) on Home opens *About today*: the
+season explained in a few sentences, what the colour of the day means, why today's mysteries
+are suggested (the weekday pattern, the seasonal Sundays, and that it is a custom rather than a
+rule), and what each of the four sets of mysteries is about, with its five mysteries.
+
 ### 3.11 Saint of the day (F-19), see ADR-026
 
 Under the liturgical day, Home names the celebration of the day and its rank:
@@ -302,7 +307,13 @@ memorials share a day they are listed together (*"… or Saint Ansgar, bishop"*)
 * Transfers: Saint Joseph and the Annunciation out of Holy Week, the Easter octave and Lenten
   Sundays; the Immaculate Conception off an Advent Sunday; John the Baptist when the Sacred Heart
   falls on 24 June.
-* Offline, no network. National calendars and patron saints are F-21.
+* Tapping the saint opens a card: each celebration of the day, what its rank means, and a
+  button **Read about the saint of the day on Vatican News**, the Holy See's news service,
+  which has a page per date in English, Spanish and French. It opens in the browser; on TV,
+  where there is rarely a browser, the address is shown instead. Three English dates have no
+  page (29 February, 1 and 2 November) and link to the saints index;
+  `tool/saints/check_vatican_links.py` re-checks every date.
+* The calendar itself is offline. National calendars and patron saints are F-21.
 
 ### 3.12 More prayers (F-20)
 
@@ -443,7 +454,8 @@ Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
 
 ## 9. Privacy & accessibility
 
-* No network calls and no analytics. Android permissions, all normal (none grant access
+* No network calls and no analytics. The only link out is the optional Vatican News page
+  about the saint of the day, opened in the browser when the person taps it. Android permissions, all normal (none grant access
   to personal data):
   * `POST_NOTIFICATIONS`: the optional daily reminder; asked for only when it is turned on.
   * `RECEIVE_BOOT_COMPLETED`, `VIBRATE`: restore the reminder after a reboot, vibrate with it.

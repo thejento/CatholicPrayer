@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../domain/liturgical_calendar.dart';
+import '../domain/mysteries.dart';
 import '../domain/sanctoral.dart';
 import '../l10n/generated/app_localizations.dart';
 
@@ -100,3 +101,59 @@ String rankName(AppLocalizations l10n, Rank rank) => switch (rank) {
   Rank.memorial => l10n.rankMemorial,
   Rank.optionalMemorial => l10n.rankOptionalMemorial,
 };
+
+String seasonAbout(AppLocalizations l10n, Season season) => switch (season) {
+  Season.advent => l10n.aboutAdvent,
+  Season.christmas => l10n.aboutChristmas,
+  Season.lent => l10n.aboutLent,
+  Season.easter => l10n.aboutEaster,
+  Season.ordinary => l10n.aboutOrdinary,
+};
+
+String colorAbout(AppLocalizations l10n, LiturgicalColor color) => switch (color) {
+  LiturgicalColor.violet => l10n.colorViolet,
+  LiturgicalColor.rose => l10n.colorRose,
+  LiturgicalColor.white => l10n.colorWhite,
+  LiturgicalColor.red => l10n.colorRed,
+  LiturgicalColor.green => l10n.colorGreen,
+};
+
+String setAbout(AppLocalizations l10n, MysterySet set) => switch (set) {
+  MysterySet.joyful => l10n.aboutJoyful,
+  MysterySet.luminous => l10n.aboutLuminous,
+  MysterySet.sorrowful => l10n.aboutSorrowful,
+  MysterySet.glorious => l10n.aboutGlorious,
+};
+
+String rankAbout(AppLocalizations l10n, Rank rank) => switch (rank) {
+  Rank.solemnity => l10n.rankSolemnityAbout,
+  Rank.feast => l10n.rankFeastAbout,
+  Rank.memorial => l10n.rankMemorialAbout,
+  Rank.optionalMemorial => l10n.rankOptionalMemorialAbout,
+};
+
+/// The liturgical colour as a small dot; decorative, the text names it.
+class ColorDot extends StatelessWidget {
+  const ColorDot({super.key, required this.color});
+
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 24,
+      height: 24,
+      child: Center(
+        child: Container(
+          width: 16,
+          height: 16,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+            border: Border.all(color: Theme.of(context).colorScheme.outline),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -37,6 +37,7 @@ final Map<String, Visit> screens = {
   'home': (_) async {},
   'settings': (t) => tapAndSettle(t, find.byTooltip('Settings')),
   'prayer library': (t) => tapAndSettle(t, find.text('Prayer Library')),
+  'about today': (t) => tapAndSettle(t, find.byKey(const Key('liturgical-day'))),
   'prayer detail': (t) async {
     await tapAndSettle(t, find.text('Prayer Library'));
     await tapAndSettle(t, find.text('Hail Mary'));

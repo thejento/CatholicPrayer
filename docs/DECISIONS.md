@@ -292,3 +292,17 @@ Template:
 - Consequences: Many weekdays have no saint (the app then shows only the season). Names are
   part of the native-speaker review (C-02). National calendars come later (F-21).
 
+## ADR-027: Link to Vatican News for the saint of the day
+- Date: 2026-10-17 · Status: Accepted
+- Context: The owner asked for details about the saint of the day and preferred a Church
+  source to Wikipedia.
+- Options considered: writing biographies (221 saints × 3 languages, risk of errors);
+  Wikipedia (not a Church source, per-saint article matching); Vatican News "Saint of the
+  day" (the Holy See's news service, one page per date in many languages).
+- Decision: Link to the Vatican News page of the date in the app language, opened in the
+  browser (`url_launcher`); show the address on TV. Explanations of seasons, colours,
+  mysteries and ranks are short texts written for the app, in EN/ES/FR.
+- Consequences: Reading about the saint needs a connection and leaves the app; the app
+  itself still makes no network calls. If Vatican News changes its addresses, the check
+  script shows it.
+
