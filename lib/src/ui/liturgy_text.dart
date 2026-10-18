@@ -1,0 +1,94 @@
+import 'package:flutter/material.dart';
+
+import '../domain/liturgical_calendar.dart';
+import '../l10n/generated/app_localizations.dart';
+
+const _englishOrdinals = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh'];
+
+/// "Second" (en), "II" (es, as in Spanish liturgical books), "2e" (fr).
+String liturgicalOrdinal(int n, String lang) {
+  switch (lang) {
+    case 'es':
+      const tens = ['', 'X', 'XX', 'XXX'];
+      const units = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+      return tens[n ~/ 10] + units[n % 10];
+    case 'fr':
+      return n == 1 ? '1er' : '${n}e';
+    default:
+      if (n <= _englishOrdinals.length) return _englishOrdinals[n - 1];
+      final suffix = (n % 100 >= 11 && n % 100 <= 13)
+          ? 'th'
+          : switch (n % 10) {
+              1 => 'st',
+              2 => 'nd',
+              3 => 'rd',
+              _ => 'th',
+            };
+      return '$n$suffix';
+  }
+}
+
+String seasonName(AppLocalizations l10n, Season season) => switch (season) {
+  Season.advent => l10n.seasonAdvent,
+  Season.christmas => l10n.seasonChristmas,
+  Season.lent => l10n.seasonLent,
+  Season.easter => l10n.seasonEaster,
+  Season.ordinary => l10n.seasonOrdinary,
+};
+
+/// "Second Sunday of Advent", "Ash Wednesday", "Ordinary Time".
+String liturgicalDayName(AppLocalizations l10n, LiturgicalDay day, String lang) {
+  if (day.special case final special?) {
+    return switch (special) {
+      SpecialDay.christmas => l10n.dayChristmas,
+      SpecialDay.holyFamily => l10n.dayHolyFamily,
+      SpecialDay.maryMotherOfGod => l10n.dayMaryMotherOfGod,
+      SpecialDay.epiphany => l10n.dayEpiphany,
+      SpecialDay.baptismOfTheLord => l10n.dayBaptismOfTheLord,
+      SpecialDay.ashWednesday => l10n.dayAshWednesday,
+      SpecialDay.palmSunday => l10n.dayPalmSunday,
+      SpecialDay.holyThursday => l10n.dayHolyThursday,
+      SpecialDay.goodFriday => l10n.dayGoodFriday,
+      SpecialDay.holySaturday => l10n.dayHolySaturday,
+      SpecialDay.easterSunday => l10n.dayEasterSunday,
+      SpecialDay.ascension => l10n.dayAscension,
+      SpecialDay.pentecost => l10n.dayPentecost,
+      SpecialDay.trinitySunday => l10n.dayTrinitySunday,
+      SpecialDay.christTheKing => l10n.dayChristTheKing,
+    };
+  }
+  if (day.sundayNumber case final n?) {
+    final ordinal = liturgicalOrdinal(n, lang);
+    return switch (day.season) {
+      Season.advent => l10n.sundayOfAdvent(ordinal),
+      Season.lent => l10n.sundayOfLent(ordinal),
+      Season.easter => l10n.sundayOfEaster(ordinal),
+      _ => l10n.sundayInOrdinaryTime(ordinal),
+    };
+  }
+  return seasonName(l10n, day.season);
+}
+
+/// The name of [date]'s place in the Church year.
+String liturgicalDayNameFor(AppLocalizations l10n, DateTime date) =>
+    liturgicalDayName(l10n, liturgicalDay(date), l10n.localeName);
+
+/// The vestment colour of the day, for the small dot on the home screen.
+Color liturgicalColor(LiturgicalColor color) => switch (color) {
+  LiturgicalColor.violet => const Color(0xFF6A1B9A),
+  LiturgicalColor.rose => const Color(0xFFE48AB0),
+  LiturgicalColor.white => const Color(0xFFFFFFFF),
+  LiturgicalColor.red => const Color(0xFFC62828),
+  LiturgicalColor.green => const Color(0xFF2E7D32),
+};
+
+/// Why a Sunday suggests other mysteries than usual, or null.
+String? sundayMysteriesNote(AppLocalizations l10n, DateTime date, LiturgicalDay day) {
+  if (date.weekday != DateTime.sunday) return null;
+  return switch (day.season) {
+    Season.advent => l10n.sundayNoteAdvent,
+    Season.christmas => l10n.sundayNoteChristmas,
+    Season.lent => l10n.sundayNoteLent,
+    _ => null,
+  };
+}

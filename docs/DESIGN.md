@@ -250,6 +250,40 @@ and the translation's credit at the bottom, so the person can read it before med
 * On TV the D-pad moves from verse to verse, scrolling as it goes.
 * Read aloud: not yet (backlog F-18).
 
+### 3.10 Liturgical season (F-14), see ADR-025
+
+The home screen shows where the day falls in the Church year, with a dot in the
+liturgical colour: *"● Second Sunday of Advent"*, *"● Lent"*, *"● Pentecost"*,
+*"● 6th Sunday in Ordinary Time"*.
+
+**Mysteries of the day.** Weekdays keep the *Rosarium Virginis Mariae* pattern. Sundays follow
+the season, a long-standing custom:
+
+| Sundays of | Mysteries |
+|---|---|
+| Advent and Christmas Time | Joyful |
+| Lent (including Palm Sunday) | Sorrowful |
+| the rest of the year | Glorious |
+
+The daily reminder uses the same rule; a reminder already scheduled for Sunday is refreshed
+the next time the app is opened.
+
+**Calendar** (General Roman Calendar, computed offline for any year):
+
+* Easter by the Gregorian computus; Ash Wednesday = Easter − 46 days; Pentecost = Easter + 49.
+* Advent begins on the fourth Sunday before Christmas; Christ the King is the Sunday before.
+* Christmas Time runs from 25 December to the Baptism of the Lord (the Sunday after 6 January).
+  Holy Family is the Sunday after Christmas, or 30 December when Christmas is a Sunday.
+* Sundays are numbered within Advent, Lent and Easter Time, and in Ordinary Time (counted
+  forward from the Baptism, then backward from Christ the King, the 34th).
+* Named days: Christmas, Holy Family, Mary Mother of God, Epiphany (6 January), Baptism of the
+  Lord, Ash Wednesday, Palm Sunday, Holy Thursday, Good Friday, Holy Saturday, Easter Sunday,
+  Ascension (Thursday), Pentecost, Most Holy Trinity, Christ the King.
+* Colours: violet (rose on Gaudete and Laetare Sundays), white, red (Palm Sunday, Good Friday,
+  Pentecost), green.
+* Not yet: national calendars (for example Epiphany and Ascension moved to Sunday, as in
+  Canada and the United States); the universal dates are used.
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)
@@ -281,7 +315,7 @@ Totals: 53 Hail Marys, 6 Our Fathers and 6 Glory Bes.
 * Hail, Holy Queen and the closing prayer are on the medal (`6`). The final Sign of the
   Cross returns to the crucifix (`0`).
 
-### 4.3 Mysteries by weekday
+### 4.3 Mysteries by weekday (Sundays: see §3.10)
 
 | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 |---|---|---|---|---|---|---|
