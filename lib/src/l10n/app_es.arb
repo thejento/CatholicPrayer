@@ -138,5 +138,8 @@
   "readOnVaticanNews": "Leer sobre el santo del día en Vatican News",
   "vaticanNewsOnTv": "Para leer sobre el santo del día, visita en un teléfono o una computadora:",
   "linkOpenFailed": "No se pudo abrir la página.",
-  "artworkSemantics": "Pintura: {title}, de {artist}"
+  "artworkSemantics": "Pintura: {title}, de {artist}",
+  "appVersion": "Versión {version}",
+  "playStoreLink": "Android en Google Play (próximamente)",
+  "reportIssueLink": "Informar de un problema en GitHub"
 }

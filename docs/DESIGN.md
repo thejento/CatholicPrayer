@@ -355,6 +355,16 @@ never shows paintings, and the prayer steps stay plain so the text is always eas
   view; it has a screen-reader label ("Painting: The Annunciation, by Masolino da Panicale").
 * Artwork titles are the museums' English titles in every language.
 
+### 3.14 Web footer
+
+On the web, the home screen ends, below the Prayer Library button, with a divider, the app
+version and two links: the Android app on Google Play (marked "soon" until the listing is live,
+O-10) and GitHub Issues to report a problem. The Android app does not show it.
+
+* The version comes from `lib/src/app_info.dart`: the pubspec version (a test keeps them equal),
+  or the tag on release builds (`--dart-define=APP_VERSION`). Web deploys add the short commit
+  (`APP_BUILD`), e.g. "Version 1.0.0 · 081acaa", so a bug report can say which build it was.
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)
@@ -479,8 +489,9 @@ Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
 
 ## 9. Privacy & accessibility
 
-* No network calls and no analytics. The only link out is the optional Vatican News page
-  about the saint of the day, opened in the browser when the person taps it. Android permissions, all normal (none grant access
+* No network calls and no analytics. The only links out open in the browser when the person
+  taps them: the Vatican News page about the saint of the day and, on the web, the Google Play
+  and GitHub Issues links of the footer (§3.14). Android permissions, all normal (none grant access
   to personal data):
   * `POST_NOTIFICATIONS`: the optional daily reminder; asked for only when it is turned on.
   * `RECEIVE_BOOT_COMPLETED`, `VIBRATE`: restore the reminder after a reboot, vibrate with it.

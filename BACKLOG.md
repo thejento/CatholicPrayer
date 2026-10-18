@@ -65,6 +65,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [ ] F-23 Option to end the guided Rosary with the prayer to St Michael and/or the Holy Father's intentions (with recordings)
 - [x] F-24 About today (season, colour, why these mysteries, the four sets) and saint details with a Vatican News link (ADR-027)
 - [x] F-25 A public-domain painting on each mystery announcement, classic theme only (ADR-028)
+- [x] F-26 Web footer: version (with commit on deploys), Google Play link, GitHub Issues link (DESIGN §3.14)
 - [ ] F-21 National calendars (e.g. Canada, USA: Epiphany/Ascension on Sunday, national saints)
 
 ## Iteration 4: Distribution

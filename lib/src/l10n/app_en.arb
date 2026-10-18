@@ -259,5 +259,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "appVersion": "Version {version}",
+  "@appVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "playStoreLink": "Android app on Google Play (soon)",
+  "reportIssueLink": "Report a problem on GitHub"
 }
