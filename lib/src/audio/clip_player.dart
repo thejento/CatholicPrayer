@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 
 /// Plays bundled audio clips one after another. Abstracted so widget tests
@@ -22,6 +23,13 @@ abstract interface class ClipPlayer {
 class JustAudioClipPlayer implements ClipPlayer {
   final AudioPlayer _player = AudioPlayer();
 
+  /// Which clip of the playlist is playing; for on-device tests.
+  @visibleForTesting
+  Stream<int?> get currentIndexStream => _player.currentIndexStream;
+
+  @visibleForTesting
+  Stream<ProcessingState> get processingStateStream => _player.processingStateStream;
+
   /// Completed to cut short the sequence that is playing.
   Completer<void> _interrupt = Completer<void>()..complete();
 
@@ -33,16 +41,21 @@ class JustAudioClipPlayer implements ClipPlayer {
   Future<void> play(List<String> assets, {required double speed}) async {
     _interruptCurrent();
     final interrupt = _interrupt = Completer<void>();
+    if (assets.isEmpty) return interrupt.complete();
+    // The step's clips (instruction, then prayer) play as one playlist. After
+    // a clip ends the player stays "playing", so loading clips one by one
+    // replayed the first clip instead of starting the next (F-08 bug).
+    await _player.stop();
+    if (interrupt.isCompleted) return;
     await _player.setSpeed(speed);
-    for (final asset in assets) {
-      if (interrupt.isCompleted) return;
-      await _player.setAsset(asset);
-      if (interrupt.isCompleted) return;
-      final done = _player.processingStateStream.firstWhere((s) => s == ProcessingState.completed);
-      unawaited(_player.play());
-      await Future.any([done, interrupt.future]);
+    await _player.setAudioSources([for (final asset in assets) AudioSource.asset(asset)]);
+    if (interrupt.isCompleted) return;
+    // play() completes when the playlist ends, or when stop() is called.
+    await Future.any([_player.play(), interrupt.future]);
+    if (!interrupt.isCompleted) {
+      interrupt.complete();
+      await _player.pause();
     }
-    if (!interrupt.isCompleted) interrupt.complete();
   }
 
   @override

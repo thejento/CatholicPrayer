@@ -204,6 +204,10 @@ build/tts/texts.json ──► tool/tts/render.py ──► assets/audio/<lang>/
   the required voice attributions.
 * A language without recordings shows no speaker button, and Settings explains why.
 * **Next** or a D-pad move stops the current clip and plays the new step's clip.
+* A step's clips (instruction, then prayer) are handed to the player as one playlist. Loading
+  them one at a time could replay the instruction instead of starting the prayer, because the
+  player stays "playing" after a clip ends. `integration_test/clip_player_test.dart` checks
+  the order on a real device or emulator.
 * **Auto-advance** (off by default): when a clip ends, wait for the pause (1–5 s, default
   2 s), then go to the next step. The person can then simply listen and pray along.
 * The Hail Mary is a single clip reused 53 times. Variants are a later idea.
