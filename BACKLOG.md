@@ -64,6 +64,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [ ] F-22 Litany of Loreto in the library
 - [ ] F-23 Option to end the guided Rosary with the prayer to St Michael and/or the Holy Father's intentions (with recordings)
 - [x] F-24 About today (season, colour, why these mysteries, the four sets) and saint details with a Vatican News link (ADR-027)
+- [x] F-25 A public-domain painting on each mystery announcement, classic theme only (ADR-028)
 - [ ] F-21 National calendars (e.g. Canada, USA: Epiphany/Ascension on Sunday, national saints)
 
 ## Iteration 4: Distribution

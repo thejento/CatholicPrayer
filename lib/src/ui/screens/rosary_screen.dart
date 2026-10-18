@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../audio/audio_catalog.dart';
 import '../../audio/clip_player.dart';
 import '../../audio/voice_guide.dart';
+import '../../data/art_catalog.dart';
 import '../../data/content_repository.dart';
 import '../../data/device_profile.dart';
 import '../../domain/mysteries.dart';
@@ -14,6 +15,8 @@ import '../../domain/rosary_session.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../providers/saved_session_controller.dart';
 import '../../providers/settings_controller.dart';
+import '../../providers/theme_manager.dart';
+import '../../theme/app_theme.dart';
 import '../step_text.dart';
 import '../widgets/rosary_beads.dart';
 import 'scripture_screen.dart';
@@ -225,7 +228,12 @@ class _StepPanel extends StatelessWidget {
 
     final String title;
     final List<Widget> body;
+    Artwork? artwork;
     if (step.kind == StepKind.announceMystery) {
+      // Paintings belong to the classic theme only, not the kid-friendly one.
+      if (context.watch<ThemeManager>().mode == AppThemeMode.classic) {
+        artwork = context.read<ArtCatalog>().artwork(session.mysterySet, step.decade!);
+      }
       final mystery = content.mystery(session.mysterySet, step.decade!);
       title = mystery.title.of(lang);
       body = [
@@ -273,6 +281,7 @@ class _StepPanel extends StatelessWidget {
             '${partLabel(l10n, step)} · ${l10n.stepCounter(session.index + 1, session.length)}',
             style: theme.textTheme.labelLarge?.copyWith(color: theme.colorScheme.primary),
           ),
+          if (artwork != null) ...[const SizedBox(height: 12), _ArtworkCard(artwork: artwork)],
           const SizedBox(height: 8),
           // A live region, so screen readers announce each new step.
           Semantics(
@@ -457,6 +466,54 @@ class _CompletionView extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// The painting of the mystery being announced, with its credit (DESIGN §3.13).
+class _ArtworkCard extends StatelessWidget {
+  const _ArtworkCard({required this.artwork});
+
+  final Artwork artwork;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
+    // About a quarter of the screen, so the mystery's title stays in view.
+    final maxHeight = (MediaQuery.sizeOf(context).height * 0.26).clamp(160.0, 360.0);
+    return Card(
+      key: const Key('mystery-artwork'),
+      clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.zero,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ColoredBox(
+            color: const Color(0xFF241A14),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: maxHeight),
+              child: Center(
+                child: AspectRatio(
+                  aspectRatio: artwork.aspectRatio,
+                  child: Image.asset(
+                    artwork.file,
+                    fit: BoxFit.contain,
+                    semanticLabel: l10n.artworkSemantics(artwork.title, artwork.artist),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
+            child: Text(
+              '${artwork.title}, ${artwork.artist} · ${artwork.museum} (${artwork.license})',
+              style: theme.textTheme.bodySmall,
+            ),
+          ),
+        ],
       ),
     );
   }

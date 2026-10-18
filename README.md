@@ -23,7 +23,7 @@ Runs on **Android phones and tablets**, **Android TV** (D-pad remote) and the
 - Resume an unfinished Rosary from the home screen
 - Prayer library: the prayers of the Rosary and other traditional prayers (Memorare, St Michael, Angelus, Regina Caeli…)
 - English, Spanish and French, with traditional public-domain texts
-- Classic and Kid-friendly themes
+- Classic and Kid-friendly themes; in the classic theme each mystery is shown with a public-domain painting
 - Keyboard and TV remote: `←`/`→` to move, `Enter`/Select for Next
 
 ## Develop

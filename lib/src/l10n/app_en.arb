@@ -248,5 +248,16 @@
         "type": "String"
       }
     }
+  },
+  "artworkSemantics": "Painting: {title}, by {artist}",
+  "@artworkSemantics": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "artist": {
+        "type": "String"
+      }
+    }
   }
 }

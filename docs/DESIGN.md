@@ -330,6 +330,26 @@ intentions after the Rosary.
 * Not yet: the Litany of Loreto (F-22), and adding Saint Michael or the Holy Father's
   intentions at the end of the guided Rosary as an option (F-23).
 
+### 3.13 Artwork on the mystery announcements, see ADR-028
+
+In the **classic theme**, each mystery announcement shows a painting of that mystery as a card
+above its title, with a one-line credit (title, artist, museum, licence). The kid-friendly theme
+never shows paintings, and the prayer steps stay plain so the text is always easy to read.
+
+* 20 paintings, one per mystery, chosen by the owner from a shortlist of 42: Masolino's
+  *Annunciation*, Duccio's *Nativity* and *Calling of Peter and Andrew*, Tintoretto's *Baptism*,
+  ter Brugghen's *Crowning with Thorns*, Rogier van der Weyden's *Crucifixion*, Sittow's
+  *Assumption*, Agnolo Gaddi's *Coronation*… The Transfiguration is an engraving (Procaccini) and
+  Pentecost a woodcut (Dürer): the open collections have no painting of them.
+* Only images their museums release as **CC0 or public domain**: National Gallery of Art
+  (Washington), Cleveland Museum of Art, Statens Museum for Kunst (Copenhagen). Credits are also
+  on the licence page.
+* `tool/art/build_art.py` downloads them, resizes to 1200 px and writes WebP (3.1 MB in all) plus
+  `assets/data/art.json`.
+* The painting keeps to about a quarter of the screen height (160–360 px) so the title stays in
+  view; it has a screen-reader label ("Painting: The Annunciation, by Masolino da Panicale").
+* Artwork titles are the museums' English titles in every language.
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)

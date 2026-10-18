@@ -137,5 +137,6 @@
   "rankOptionalMemorialAbout": "Un santo que la Iglesia puede recordar hoy; cada comunidad elige si lo celebra.",
   "readOnVaticanNews": "Leer sobre el santo del día en Vatican News",
   "vaticanNewsOnTv": "Para leer sobre el santo del día, visita en un teléfono o una computadora:",
-  "linkOpenFailed": "No se pudo abrir la página."
+  "linkOpenFailed": "No se pudo abrir la página.",
+  "artworkSemantics": "Pintura: {title}, de {artist}"
 }

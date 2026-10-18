@@ -1,0 +1,222 @@
+{
+  "joyful_1": {
+    "file": "assets/art/joyful_1.webp",
+    "width": 929,
+    "height": 1200,
+    "title": "The Annunciation",
+    "artist": "Masolino da Panicale",
+    "date": "c. 1423/1424",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.18.html"
+  },
+  "joyful_2": {
+    "file": "assets/art/joyful_2.webp",
+    "width": 1200,
+    "height": 1153,
+    "title": "The Visitation with Saint Nicholas and Saint Anthony Abbot",
+    "artist": "Piero di Cosimo",
+    "date": "c. 1489/1490",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.505.html"
+  },
+  "joyful_3": {
+    "file": "assets/art/joyful_3.webp",
+    "width": 1200,
+    "height": 668,
+    "title": "The Nativity with the Prophets Isaiah and Ezekiel",
+    "artist": "Duccio di Buoninsegna",
+    "date": "1308-1311",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.10.html"
+  },
+  "joyful_4": {
+    "file": "assets/art/joyful_4.webp",
+    "width": 994,
+    "height": 1200,
+    "title": "The Presentation in the Temple",
+    "artist": "Master of the Prado \"Adoration of the Magi\"",
+    "date": "c. 1470/1480",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.46127.html"
+  },
+  "joyful_5": {
+    "file": "assets/art/joyful_5.webp",
+    "width": 721,
+    "height": 1200,
+    "title": "Christ among the Doctors",
+    "artist": "Master of the Catholic Kings",
+    "date": "c. 1495/1497",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.41656.html"
+  },
+  "luminous_1": {
+    "file": "assets/art/luminous_1.webp",
+    "width": 1200,
+    "height": 795,
+    "title": "Baptism of Christ",
+    "artist": "Jacopo Tintoretto",
+    "date": "1580s",
+    "museum": "The Cleveland Museum of Art",
+    "license": "CC0",
+    "page": "https://clevelandart.org/art/1950.400"
+  },
+  "luminous_2": {
+    "file": "assets/art/luminous_2.webp",
+    "width": 708,
+    "height": 1200,
+    "title": "The Marriage at Cana",
+    "artist": "Master of the Catholic Kings",
+    "date": "c. 1495/1497",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.41655.html"
+  },
+  "luminous_3": {
+    "file": "assets/art/luminous_3.webp",
+    "width": 1200,
+    "height": 1127,
+    "title": "The Calling of the Apostles Peter and Andrew",
+    "artist": "Duccio di Buoninsegna",
+    "date": "1308-1311",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.282.html"
+  },
+  "luminous_4": {
+    "file": "assets/art/luminous_4.webp",
+    "width": 725,
+    "height": 1200,
+    "title": "The Transfiguration",
+    "artist": "Camillo Procaccini",
+    "date": "c. 1590",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.53285.html"
+  },
+  "luminous_5": {
+    "file": "assets/art/luminous_5.webp",
+    "width": 1200,
+    "height": 773,
+    "title": "The Last Supper",
+    "artist": "Sebastiano Ricci",
+    "date": "1713/1714",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.12130.html"
+  },
+  "sorrowful_1": {
+    "file": "assets/art/sorrowful_1.webp",
+    "width": 619,
+    "height": 1200,
+    "title": "Scenes from the Passion of Christ: The Agony in the Garden",
+    "artist": "Andrea Vanni",
+    "date": "1380s",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.198423.html"
+  },
+  "sorrowful_2": {
+    "file": "assets/art/sorrowful_2.webp",
+    "width": 1009,
+    "height": 1200,
+    "title": "The Flagellation of Christ",
+    "artist": "Bachiacca",
+    "date": "c. 1512/1515",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.41696.html"
+  },
+  "sorrowful_3": {
+    "file": "assets/art/sorrowful_3.webp",
+    "width": 1200,
+    "height": 1031,
+    "title": "The Crowning with Thorns",
+    "artist": "Hendrick ter Brugghen",
+    "date": "1620",
+    "museum": "Statens Museum for Kunst (SMK), Copenhagen",
+    "license": "Public domain (PDM 1.0)",
+    "page": "https://open.smk.dk/artwork/image/KMSsp365"
+  },
+  "sorrowful_4": {
+    "file": "assets/art/sorrowful_4.webp",
+    "width": 1200,
+    "height": 1043,
+    "title": "Christ Carrying the Cross",
+    "artist": "Benvenuto di Giovanni",
+    "date": "probably 1491",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.41667.html"
+  },
+  "sorrowful_5": {
+    "file": "assets/art/sorrowful_5.webp",
+    "width": 888,
+    "height": 1200,
+    "title": "The Crucifixion with a Carthusian Monk",
+    "artist": "Rogier van der Weyden",
+    "date": "1460",
+    "museum": "The Cleveland Museum of Art",
+    "license": "CC0",
+    "page": "https://clevelandart.org/art/1931.449"
+  },
+  "glorious_1": {
+    "file": "assets/art/glorious_1.webp",
+    "width": 904,
+    "height": 1200,
+    "title": "The Resurrection of Christ",
+    "artist": "Johann König",
+    "date": "1622",
+    "museum": "The Cleveland Museum of Art",
+    "license": "CC0",
+    "page": "https://clevelandart.org/art/2017.192"
+  },
+  "glorious_2": {
+    "file": "assets/art/glorious_2.webp",
+    "width": 811,
+    "height": 1200,
+    "title": "The Ascension",
+    "artist": "Johann Koerbecke",
+    "date": "1456/1457",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.45890.html"
+  },
+  "glorious_3": {
+    "file": "assets/art/glorious_3.webp",
+    "width": 931,
+    "height": 1200,
+    "title": "The Descent of the Holy Spirit",
+    "artist": "Albrecht Dürer",
+    "date": "1508-1511",
+    "museum": "Statens Museum for Kunst (SMK), Copenhagen",
+    "license": "Public domain (PDM 1.0)",
+    "page": "https://open.smk.dk/artwork/image/KKSgb9669/36"
+  },
+  "glorious_4": {
+    "file": "assets/art/glorious_4.webp",
+    "width": 931,
+    "height": 1200,
+    "title": "The Assumption of the Virgin",
+    "artist": "Michel Sittow",
+    "date": "c. 1500",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.50280.html"
+  },
+  "glorious_5": {
+    "file": "assets/art/glorious_5.webp",
+    "width": 582,
+    "height": 1200,
+    "title": "The Coronation of the Virgin with Six Angels",
+    "artist": "Agnolo Gaddi",
+    "date": "c. 1390",
+    "museum": "National Gallery of Art, Washington",
+    "license": "CC0",
+    "page": "https://www.nga.gov/collection/art-object-page.344.html"
+  }
+}
