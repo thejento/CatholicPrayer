@@ -304,6 +304,21 @@ memorials share a day they are listed together (*"… or Saint Ansgar, bishop"*)
   falls on 24 June.
 * Offline, no network. National calendars and patron saints are F-21.
 
+### 3.12 More prayers (F-20)
+
+The Prayer Library has two sections: **Prayers of the Rosary** (the eight prayers the guided
+Rosary uses) and **Other prayers**: the Memorare, the prayer to Saint Michael, Come Holy
+Spirit, the prayer to the Guardian Angel, an Act of Contrition, the Angelus, the Regina Caeli
+(said instead of the Angelus in Easter Time) and a note on praying for the Holy Father's
+intentions after the Rosary.
+
+* Traditional public-domain wordings only (ADR-013): the older "thee/thou" English forms, and
+  the older Spanish and French forms rather than current liturgical translations.
+* These prayers are read on screen, not aloud: only the prayers of the guided Rosary have
+  recordings.
+* Not yet: the Litany of Loreto (F-22), and adding Saint Michael or the Holy Father's
+  intentions at the end of the guided Rosary as an option (F-23).
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)
