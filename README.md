@@ -10,7 +10,7 @@ Runs on **Android phones and tablets**, **Android TV** (D-pad remote) and the
 |---|---|
 | Design | [docs/DESIGN.md](docs/DESIGN.md) |
 | Decision log | [docs/DECISIONS.md](docs/DECISIONS.md) |
-| Backlog | [BACKLOG.md](BACKLOG.md) |
+| Open work | [GitHub Issues](https://github.com/thejento/CatholicPrayer/issues) (history in [BACKLOG.md](BACKLOG.md)) |
 
 ## Features
 
