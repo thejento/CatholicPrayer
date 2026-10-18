@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import 'src/app.dart';
 import 'src/audio/audio_catalog.dart';
+import 'src/data/art_catalog.dart';
 import 'src/audio/voice_licenses.dart';
 import 'src/data/content_repository.dart';
 import 'src/data/device_profile.dart';
@@ -24,10 +25,11 @@ Future<void> main() async {
   final themeManager = ThemeManager(store);
   final settings = SettingsController(store);
   final savedSession = SavedSessionController(store);
-  final (content, scripture, saints, audio, device, _, _, _) = await (
+  final (content, scripture, saints, art, audio, device, _, _, _) = await (
     ContentRepository.load(rootBundle),
     ScriptureRepository.load(rootBundle),
     SaintsRepository.load(rootBundle),
+    ArtCatalog.load(rootBundle),
     AudioCatalog.load(rootBundle),
     DeviceProfile.detect(),
     themeManager.load(),
@@ -40,6 +42,7 @@ Future<void> main() async {
     available: device.supportsReminders,
   );
   await reminder.load();
+  registerArtLicenses(art);
   runApp(
     CatholicPrayerApp(
       content: content,
@@ -49,6 +52,7 @@ Future<void> main() async {
       reminder: reminder,
       scripture: scripture,
       saints: saints,
+      art: art,
       device: device,
       audio: audio,
     ),

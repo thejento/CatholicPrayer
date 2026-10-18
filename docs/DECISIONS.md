@@ -306,3 +306,16 @@ Template:
   itself still makes no network calls. If Vatican News changes its addresses, the check
   script shows it.
 
+## ADR-028: Public-domain paintings from CC0 museum collections
+- Date: 2026-10-18 · Status: Accepted
+- Context: The owner asked for religious artwork during the Rosary, but not in the kid-friendly
+  theme, and asked whether it would be a copyright issue.
+- Options considered: Wikimedia Commons (works are public domain, but some photos come from
+  museums that claim rights, such as Italian state museums for commercial use); museum
+  open-access collections released as CC0 (no permission needed); commissioned art (cost).
+- Decision: Old-master paintings only from CC0 / public-domain museum releases (National Gallery
+  of Art, Cleveland Museum of Art, SMK). One per mystery, chosen by the owner; shown as a card on
+  the mystery announcement in the classic theme (owner's choice over a faded background).
+- Consequences: About 3 MB more in the app. The Transfiguration and Pentecost are prints because
+  no CC0 painting exists in these collections; they can be swapped later if one is found.
+

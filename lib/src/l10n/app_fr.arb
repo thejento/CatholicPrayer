@@ -137,5 +137,6 @@
   "rankOptionalMemorialAbout": "Un saint dont l'Église peut faire mémoire aujourd'hui ; chaque communauté choisit de le célébrer ou non.",
   "readOnVaticanNews": "Lire la vie du saint du jour sur Vatican News",
   "vaticanNewsOnTv": "Pour lire la vie du saint du jour, rendez-vous sur un téléphone ou un ordinateur :",
-  "linkOpenFailed": "Impossible d'ouvrir la page."
+  "linkOpenFailed": "Impossible d'ouvrir la page.",
+  "artworkSemantics": "Tableau : {title}, de {artist}"
 }

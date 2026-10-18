@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:crc/src/app.dart';
 import 'package:crc/src/audio/audio_catalog.dart';
+import 'package:crc/src/data/art_catalog.dart';
 import 'package:crc/src/data/content_repository.dart';
 import 'package:crc/src/data/device_profile.dart';
 import 'package:crc/src/data/preferences_store.dart';
@@ -37,6 +38,9 @@ ScriptureRepository loadRealScripture() => ScriptureRepository.fromJson({
 SaintsRepository loadRealSaints() => SaintsRepository.fromJson({
   for (final l in contentLanguages) l: _read(SaintsRepository.path(l)),
 });
+
+/// The real artwork catalog.
+ArtCatalog loadRealArt() => ArtCatalog.fromJson(_read(ArtCatalog.path));
 
 /// The real voice manifest, so widget tests see the same languages as the app.
 AudioCatalog loadRealAudio() => AudioCatalog.fromManifest(_read(AudioCatalog.manifestPath));
@@ -90,6 +94,7 @@ class TestApp {
     reminder: reminder,
     scripture: loadRealScripture(),
     saints: loadRealSaints(),
+    art: loadRealArt(),
     device: DeviceProfile(isTelevision: isTelevision, isAndroid: isAndroid),
     audio: audio,
     playerFactory: () => player,

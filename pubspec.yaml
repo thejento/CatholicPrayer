@@ -43,6 +43,8 @@ flutter:
     - assets/data/mysteries/
     - assets/data/scripture/
     - assets/data/saints/
+    - assets/data/art.json
+    - assets/art/
     - assets/audio/
     - assets/audio/en/
     - assets/audio/es/
