@@ -11,7 +11,29 @@ enum StepKind {
   fatimaPrayer,
   hailHolyQueen,
   closingPrayer,
+
+  /// Mysteries-only mode: one card each for the prayers before the first
+  /// decade and after the last (DESIGN §3.15).
+  openingPrayers,
+  closingPrayers,
 }
+
+/// Guided: every prayer, one step per bead (80 steps). Mysteries only: the
+/// opening prayers, the five mysteries and the closing prayers (7 steps), for
+/// people who know the prayers (DESIGN §3.15).
+enum RosaryMode { guided, mysteriesOnly }
+
+/// Prayers summarised by the [StepKind.openingPrayers] card, in order.
+const openingPrayerIds = [
+  'sign_of_the_cross',
+  'apostles_creed',
+  'our_father',
+  'hail_mary',
+  'glory_be',
+];
+
+/// Prayers summarised by the [StepKind.closingPrayers] card, in order.
+const closingPrayerIds = ['hail_holy_queen', 'rosary_closing_prayer', 'sign_of_the_cross'];
 
 /// The three parts of the Rosary, used to tailor guidance and labels.
 enum RosaryPart { introduction, decade, closing }
@@ -53,6 +75,7 @@ class RosaryStep {
     required this.bead,
     this.decade,
     this.count,
+    this.covers = const [],
   });
 
   final StepKind kind;
@@ -68,6 +91,9 @@ class RosaryStep {
   /// 1-10 in a decade).
   final int? count;
 
+  /// Further beads this step stands for (mysteries only: the whole decade).
+  final List<int> covers;
+
   /// Id of the prayer said at this step, or `null` for a mystery
   /// announcement (which has no fixed text).
   String? get prayerId => switch (kind) {
@@ -79,7 +105,7 @@ class RosaryStep {
     StepKind.fatimaPrayer => 'fatima_prayer',
     StepKind.hailHolyQueen => 'hail_holy_queen',
     StepKind.closingPrayer => 'rosary_closing_prayer',
-    StepKind.announceMystery => null,
+    StepKind.announceMystery || StepKind.openingPrayers || StepKind.closingPrayers => null,
   };
 
   @override
@@ -130,3 +156,27 @@ List<RosaryStep> buildRosarySequence() {
   ]);
   return List.unmodifiable(steps);
 }
+
+/// Builds the 7-step mysteries-only Rosary described in docs/DESIGN.md §3.15.
+List<RosaryStep> buildMysteriesOnlySequence() => List.unmodifiable([
+  RosaryStep(
+    kind: StepKind.openingPrayers,
+    part: RosaryPart.introduction,
+    bead: crucifixBead,
+    covers: [for (var b = 1; b < medalBead; b++) b],
+  ),
+  for (var d = 1; d <= mysteriesPerSet; d++)
+    RosaryStep(
+      kind: StepKind.announceMystery,
+      part: RosaryPart.decade,
+      bead: ourFatherBeadForDecade(d),
+      decade: d,
+      covers: [for (var h = 1; h <= 10; h++) hailMaryBead(d, h)],
+    ),
+  const RosaryStep(kind: StepKind.closingPrayers, part: RosaryPart.closing, bead: medalBead),
+]);
+
+List<RosaryStep> buildSequence(RosaryMode mode) => switch (mode) {
+  RosaryMode.guided => buildRosarySequence(),
+  RosaryMode.mysteriesOnly => buildMysteriesOnlySequence(),
+};

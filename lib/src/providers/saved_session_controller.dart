@@ -2,35 +2,50 @@ import 'package:flutter/foundation.dart';
 
 import '../data/preferences_store.dart';
 import '../domain/mysteries.dart';
+import '../domain/rosary_sequence.dart';
 
 /// Where an unfinished Rosary was left off.
 @immutable
 class SavedSession {
-  const SavedSession({required this.mysterySet, required this.index});
+  const SavedSession({
+    required this.mysterySet,
+    required this.index,
+    this.mode = RosaryMode.guided,
+  });
 
   final MysterySet mysterySet;
+  final RosaryMode mode;
 
   /// Index of the step to resume on.
   final int index;
 
-  String encode() => '${mysterySet.name}:$index';
+  /// `joyful:12` (guided, as saved by earlier versions) or `joyful:3:mysteriesOnly`.
+  String encode() => mode == RosaryMode.guided
+      ? '${mysterySet.name}:$index'
+      : '${mysterySet.name}:$index:${mode.name}';
 
   /// Parses [encode]'s output; returns `null` for anything unexpected.
   static SavedSession? decode(String? value) {
     final parts = value?.split(':');
-    if (parts == null || parts.length != 2) return null;
+    if (parts == null || parts.length < 2 || parts.length > 3) return null;
     final set = MysterySet.values.where((s) => s.name == parts[0]);
     final index = int.tryParse(parts[1]);
-    if (set.isEmpty || index == null || index < 0) return null;
-    return SavedSession(mysterySet: set.first, index: index);
+    final mode = parts.length == 2
+        ? RosaryMode.guided
+        : RosaryMode.values.where((m) => m.name == parts[2]).firstOrNull;
+    if (set.isEmpty || index == null || index < 0 || mode == null) return null;
+    return SavedSession(mysterySet: set.first, index: index, mode: mode);
   }
 
   @override
   bool operator ==(Object other) =>
-      other is SavedSession && other.mysterySet == mysterySet && other.index == index;
+      other is SavedSession &&
+      other.mysterySet == mysterySet &&
+      other.index == index &&
+      other.mode == mode;
 
   @override
-  int get hashCode => Object.hash(mysterySet, index);
+  int get hashCode => Object.hash(mysterySet, index, mode);
 }
 
 /// Persists the unfinished Rosary so it can be resumed after leaving the app

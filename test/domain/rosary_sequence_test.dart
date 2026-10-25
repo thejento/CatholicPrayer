@@ -1,3 +1,6 @@
+import 'package:crc/src/domain/mysteries.dart';
+import 'package:crc/src/audio/clips.dart';
+import 'package:crc/src/domain/guidance.dart';
 import 'package:crc/src/domain/rosary_sequence.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -104,6 +107,40 @@ void main() {
     test('rejects out-of-range indices', () {
       expect(() => beadKindAt(-1), throwsRangeError);
       expect(() => beadKindAt(beadCount), throwsRangeError);
+    });
+  });
+
+  group('mysteries only', () {
+    final steps = buildMysteriesOnlySequence();
+
+    test('opening prayers, the five mysteries, closing prayers', () {
+      expect(steps.map((s) => s.kind), [
+        StepKind.openingPrayers,
+        for (var d = 1; d <= 5; d++) StepKind.announceMystery,
+        StepKind.closingPrayers,
+      ]);
+      expect(steps.where((s) => s.decade != null).map((s) => s.decade), [1, 2, 3, 4, 5]);
+      expect(buildSequence(RosaryMode.mysteriesOnly), hasLength(7));
+      expect(buildSequence(RosaryMode.guided), hasLength(80));
+    });
+
+    test('each mystery covers its decade; together they cover the rosary', () {
+      for (final s in steps.where((s) => s.decade != null)) {
+        expect(s.bead, ourFatherBeadForDecade(s.decade!));
+        expect(s.covers, [for (var h = 1; h <= 10; h++) hailMaryBead(s.decade!, h)]);
+      }
+      final all = {
+        for (final s in steps) ...[s.bead, ...s.covers],
+      };
+      expect(all, {for (var b = 0; b < beadCount; b++) b});
+    });
+
+    test('summary cards have no prayer, guidance or clip of their own', () {
+      for (final s in [steps.first, steps.last]) {
+        expect(s.prayerId, isNull);
+        expect(guidanceOf(s), isNull);
+        expect(clipsForStep(s, MysterySet.joyful, withGuidance: true), isEmpty);
+      }
     });
   });
 }

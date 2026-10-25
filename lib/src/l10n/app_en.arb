@@ -275,5 +275,14 @@
   "rateOnPlay": "Rate the app on Google Play",
   "autoAdvanceWaits": "Auto-advance waits here: tap Next when you are ready.",
   "autoScroll": "Auto-scroll with the voice",
-  "autoScrollSubtitle": "Long prayers scroll along, roughly at the pace of the voice"
+  "autoScrollSubtitle": "Long prayers scroll along, roughly at the pace of the voice",
+  "rosaryModeLabel": "How do you want to pray?",
+  "modeGuided": "Guided",
+  "modeMysteriesOnly": "Mysteries only",
+  "modeGuidedHint": "Every prayer, bead by bead, with what to do at each step.",
+  "modeMysteriesOnlyHint": "For those who know the prayers: the five mysteries, with the opening and closing prayers as one card each.",
+  "openingPrayers": "Opening prayers",
+  "closingPrayers": "Closing prayers",
+  "summaryHint": "Pray these on your own, then tap Next. Tap a prayer to see its words.",
+  "prayTheDecade": "Pray the decade: the Our Father, ten Hail Marys, the Glory Be and the Fatima Prayer."
 }

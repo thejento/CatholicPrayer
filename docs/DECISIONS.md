@@ -319,3 +319,18 @@ Template:
 - Consequences: About 3 MB more in the app. The Transfiguration and Pentecost are prints because
   no CC0 painting exists in these collections; they can be swapped later if one is found.
 
+## ADR-029: Mysteries-only mode as a second sequence
+- Date: 2026-10-25 · Status: Accepted
+- Context: The owner asked for an "advanced" mode that only tracks the mysteries, for people
+  who know the prayers.
+- Options considered: hide the prayer text but keep the 80 steps (still 80 taps); a separate
+  screen; a second, shorter sequence driven by the same session, screen, voice and resume code.
+  For the start and end: one card each, or nothing. For the decade: a tap counter, or none.
+- Decision: A second sequence of 7 steps (`RosaryMode.mysteriesOnly`), chosen on the mystery
+  picker and remembered. One summary card each for the opening and closing prayers, and no Hail
+  Mary counter (owner's choices). The step model gains `covers` so a mystery highlights its whole
+  decade on the beads.
+- Consequences: No new texts to record: the summary cards are silent, and the mysteries reuse
+  their announcement clips. Everything that walks the steps (voice, resume, progress, beads)
+  works for both modes; a tap counter can be added later on the same step model.
+

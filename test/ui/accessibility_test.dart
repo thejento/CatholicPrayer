@@ -32,6 +32,12 @@ Future<void> press(WidgetTester tester, LogicalKeyboardKey key, int times) async
   await tester.pumpAndSettle();
 }
 
+Future<void> openMysteriesOnly(WidgetTester tester) async {
+  await tapAndSettle(tester, find.text('Pray the Rosary'));
+  await tapAndSettle(tester, find.text('Mysteries only'));
+  await tapAndSettle(tester, find.text('Start'));
+}
+
 /// Screens to audit, reached from Home the way a person would.
 final Map<String, Visit> screens = {
   'home': (_) async {},
@@ -56,6 +62,11 @@ final Map<String, Visit> screens = {
   'rosary: voice bar': (t) async {
     await openRosary(t);
     await tapAndSettle(t, find.byKey(const Key('voice-toggle')));
+  },
+  'mysteries only: opening prayers': openMysteriesOnly,
+  'mysteries only: a mystery': (t) async {
+    await openMysteriesOnly(t);
+    await press(t, LogicalKeyboardKey.arrowRight, 2);
   },
   'rosary: completion': (t) async {
     await openRosary(t);

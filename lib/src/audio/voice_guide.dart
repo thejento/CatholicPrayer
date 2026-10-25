@@ -62,7 +62,14 @@ class VoiceGuide extends ChangeNotifier {
 
   /// Auto-advance waits on mystery announcements: the passage is not read
   /// aloud yet, and its clip is too short to read it (F-18 can lift this).
-  bool get waitsHere => _enabled && autoAdvance && session.current.kind == StepKind.announceMystery;
+  bool get waitsHere => _enabled && advances && session.current.kind == StepKind.announceMystery;
+
+  /// Mysteries only: the person prays each decade alone, so the voice reads
+  /// the announcement only and never moves on by itself (DESIGN §3.15).
+  bool get _guided => session.mode == RosaryMode.guided;
+
+  /// Whether auto-advance applies here: it is on, and the Rosary is guided.
+  bool get advances => autoAdvance && _guided;
   bool get enabled => _enabled;
 
   void toggle() => setEnabled(!_enabled);
@@ -115,7 +122,11 @@ class VoiceGuide extends ChangeNotifier {
     final turn = ++_turn;
     _advance?.cancel();
     reading.value = null;
-    final ids = clipsForStep(session.current, session.mysterySet, withGuidance: withGuidance);
+    final ids = clipsForStep(
+      session.current,
+      session.mysterySet,
+      withGuidance: withGuidance && _guided,
+    );
     final assets = ids.map((id) => catalog.asset(language, id)).nonNulls.toList();
     _textAssets = {
       for (final id in ids)
@@ -125,7 +136,7 @@ class VoiceGuide extends ChangeNotifier {
     if (turn != _turn) return;
     await player.play(assets, speed: speed);
     // Only the turn that is still current may auto-advance.
-    if (turn != _turn || !_enabled || !autoAdvance || session.isFinished || waitsHere) return;
+    if (turn != _turn || !_enabled || !advances || session.isFinished || waitsHere) return;
     _advance = Timer(pause, () {
       if (turn == _turn) session.next();
     });

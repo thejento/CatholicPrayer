@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../data/preferences_store.dart';
+import '../domain/rosary_sequence.dart';
 
 /// User preferences other than the theme: language and newcomer guidance.
 class SettingsController extends ChangeNotifier {
@@ -14,6 +15,7 @@ class SettingsController extends ChangeNotifier {
   static const pauseKey = 'auto_advance_pause_seconds';
   static const guidanceAloudKey = 'read_guidance_aloud';
   static const autoScrollKey = 'auto_scroll';
+  static const rosaryModeKey = 'rosary_mode';
 
   /// Allowed playback speeds and pauses (DESIGN §3.7).
   static const minSpeed = 0.75, maxSpeed = 1.25;
@@ -29,6 +31,7 @@ class SettingsController extends ChangeNotifier {
   int _pauseSeconds = 2;
   bool _readGuidanceAloud = true;
   bool _autoScroll = true;
+  RosaryMode _rosaryMode = RosaryMode.guided;
 
   /// The chosen app language, or `null` to follow the device.
   Locale? get locale => _locale;
@@ -54,6 +57,9 @@ class SettingsController extends ChangeNotifier {
   /// Whether a long prayer scrolls along while the voice reads it.
   bool get autoScroll => _autoScroll;
 
+  /// Guided or mysteries only, as last chosen on the mystery picker.
+  RosaryMode get rosaryMode => _rosaryMode;
+
   Future<void> load() async {
     final code = await _store.getString(localeKey);
     _locale = code == null ? null : Locale(code);
@@ -70,6 +76,8 @@ class SettingsController extends ChangeNotifier {
     );
     _readGuidanceAloud = await _store.getBool(guidanceAloudKey) ?? true;
     _autoScroll = await _store.getBool(autoScrollKey) ?? true;
+    final mode = await _store.getString(rosaryModeKey);
+    _rosaryMode = RosaryMode.values.where((m) => m.name == mode).firstOrNull ?? RosaryMode.guided;
     notifyListeners();
   }
 
@@ -81,6 +89,13 @@ class SettingsController extends ChangeNotifier {
 
   Future<void> setReadGuidanceAloud(bool value) =>
       _setBool(guidanceAloudKey, value, () => _readGuidanceAloud = value);
+
+  Future<void> setRosaryMode(RosaryMode value) async {
+    if (value == _rosaryMode) return;
+    _rosaryMode = value;
+    notifyListeners();
+    await _store.setString(rosaryModeKey, value.name);
+  }
 
   Future<void> setAutoScroll(bool value) =>
       _setBool(autoScrollKey, value, () => _autoScroll = value);

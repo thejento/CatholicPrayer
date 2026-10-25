@@ -32,7 +32,8 @@ List<Offset> beadPositions(Size size) {
   return positions;
 }
 
-/// Draws the rosary and highlights the [current] bead. Beads in [visited]
+/// Draws the rosary and highlights the [current] bead, and the beads of
+/// [span] (a whole decade in mysteries-only mode). Beads in [visited]
 /// are drawn as already prayed. When [current] changes, a glow travels from
 /// the previous bead to the new one to guide the eye (backlog F-07).
 class RosaryBeads extends StatefulWidget {
@@ -40,6 +41,7 @@ class RosaryBeads extends StatefulWidget {
     super.key,
     required this.current,
     required this.visited,
+    this.span = const [],
     this.onCurrentBeadTap,
     this.semanticLabel,
   });
@@ -49,6 +51,7 @@ class RosaryBeads extends StatefulWidget {
 
   final int current;
   final Set<int> visited;
+  final List<int> span;
   final VoidCallback? onCurrentBeadTap;
   final String? semanticLabel;
 
@@ -115,6 +118,7 @@ class _RosaryBeadsState extends State<RosaryBeads> with SingleTickerProviderStat
                   from: _from,
                   move: _move.value,
                   visited: widget.visited,
+                  span: widget.span,
                   threadColor: scheme.outline,
                   beadColor: scheme.primary,
                   pendingColor: scheme.surfaceContainerHighest,
@@ -135,6 +139,7 @@ class RosaryPainter extends CustomPainter {
     required this.from,
     required this.move,
     required this.visited,
+    this.span = const [],
     required this.threadColor,
     required this.beadColor,
     required this.pendingColor,
@@ -147,6 +152,7 @@ class RosaryPainter extends CustomPainter {
   final int from;
   final double move;
   final Set<int> visited;
+  final List<int> span;
   final Color threadColor;
   final Color beadColor;
   final Color pendingColor;
@@ -184,7 +190,8 @@ class RosaryPainter extends CustomPainter {
         BeadKind.medal => unit * 0.5,
         BeadKind.crucifix => unit * 0.6,
       };
-      final done = visited.contains(i) || i == current;
+      final inSpan = span.contains(i);
+      final done = visited.contains(i) || i == current || inSpan;
       final fill = Paint()..color = done ? beadColor : pendingColor;
       final outline = Paint()
         ..color = beadColor
@@ -212,6 +219,16 @@ class RosaryPainter extends CustomPainter {
           canvas.drawCircle(pos[i], r, outline);
       }
 
+      if (inSpan && move >= 1) {
+        canvas.drawCircle(
+          pos[i],
+          r * 1.3,
+          Paint()
+            ..color = highlightColor
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = math.max(1, unit * 0.06),
+        );
+      }
       if (i == current && move >= 1) {
         canvas.drawCircle(
           pos[i],
@@ -229,6 +246,7 @@ class RosaryPainter extends CustomPainter {
   bool shouldRepaint(RosaryPainter old) =>
       old.current != current ||
       old.visited.length != visited.length ||
+      old.span != span ||
       old.from != from ||
       old.move != move ||
       old.beadColor != beadColor ||

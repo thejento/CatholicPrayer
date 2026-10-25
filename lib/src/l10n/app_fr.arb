@@ -147,5 +147,14 @@
   "rateOnPlay": "Noter l'application sur Google Play",
   "autoAdvanceWaits": "L'avance automatique attend ici : touchez Suivant quand vous le souhaitez.",
   "autoScroll": "Défilement avec la voix",
-  "autoScrollSubtitle": "Les longues prières défilent, à peu près au rythme de la voix"
+  "autoScrollSubtitle": "Les longues prières défilent, à peu près au rythme de la voix",
+  "rosaryModeLabel": "Comment voulez-vous prier ?",
+  "modeGuided": "Guidé",
+  "modeMysteriesOnly": "Mystères seulement",
+  "modeGuidedHint": "Chaque prière, grain par grain, avec ce qu'il faut faire à chaque étape.",
+  "modeMysteriesOnlyHint": "Pour qui connaît les prières : les cinq mystères, avec les prières du début et de la fin sur une carte chacune.",
+  "openingPrayers": "Prières du début",
+  "closingPrayers": "Prières de la fin",
+  "summaryHint": "Priez-les de votre côté, puis touchez Suivant. Touchez une prière pour en voir le texte.",
+  "prayTheDecade": "Priez la dizaine : le Notre Père, dix Je vous salue Marie, le Gloire au Père et la prière de Fatima."
 }

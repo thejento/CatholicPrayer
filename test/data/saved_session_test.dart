@@ -1,5 +1,6 @@
 import 'package:crc/src/data/preferences_store.dart';
 import 'package:crc/src/domain/mysteries.dart';
+import 'package:crc/src/domain/rosary_sequence.dart';
 import 'package:crc/src/providers/saved_session_controller.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -10,7 +11,28 @@ void main() {
       expect(SavedSession.decode(s.encode()), s);
     });
 
-    for (final bad in [null, '', 'joyful', 'unknown:3', 'joyful:x', 'joyful:-1', 'a:b:c']) {
+    test('keeps the mode; a guided session keeps the old format', () {
+      const s = SavedSession(
+        mysterySet: MysterySet.sorrowful,
+        index: 3,
+        mode: RosaryMode.mysteriesOnly,
+      );
+      expect(s.encode(), 'sorrowful:3:mysteriesOnly');
+      expect(SavedSession.decode(s.encode()), s);
+      expect(SavedSession.decode('sorrowful:3')!.mode, RosaryMode.guided);
+    });
+
+    for (final bad in [
+      null,
+      '',
+      'joyful',
+      'unknown:3',
+      'joyful:x',
+      'joyful:-1',
+      'a:b:c',
+      'joyful:3:fast',
+      'joyful:3:guided:x',
+    ]) {
       test('rejects "$bad"', () => expect(SavedSession.decode(bad), isNull));
     }
   });

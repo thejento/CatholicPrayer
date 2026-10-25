@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 
 import '../../data/content_repository.dart';
 import '../../domain/mysteries.dart';
+import '../../domain/rosary_sequence.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../../providers/settings_controller.dart';
 import '../step_text.dart';
 import 'rosary_screen.dart';
 
@@ -26,6 +28,8 @@ class _MysteryPickerScreenState extends State<MysteryPickerScreen> {
     final l10n = AppLocalizations.of(context);
     final content = context.read<ContentRepository>();
     final lang = contentLanguage(context);
+    final settings = context.watch<SettingsController>();
+    final mode = settings.rosaryMode;
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.chooseMysteries)),
@@ -35,6 +39,27 @@ class _MysteryPickerScreenState extends State<MysteryPickerScreen> {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
+              Text(l10n.rosaryModeLabel, style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: 8),
+              SegmentedButton<RosaryMode>(
+                key: const Key('rosary-mode'),
+                segments: [
+                  ButtonSegment(value: RosaryMode.guided, label: Text(l10n.modeGuided)),
+                  ButtonSegment(
+                    value: RosaryMode.mysteriesOnly,
+                    label: Text(l10n.modeMysteriesOnly),
+                  ),
+                ],
+                selected: {mode},
+                onSelectionChanged: (s) => settings.setRosaryMode(s.first),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                mode == RosaryMode.guided ? l10n.modeGuidedHint : l10n.modeMysteriesOnlyHint,
+                key: const Key('rosary-mode-hint'),
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 24),
               Text(l10n.chooseMysteriesHint, style: Theme.of(context).textTheme.bodyLarge),
               const SizedBox(height: 16),
               RadioGroup<MysterySet>(
@@ -78,7 +103,9 @@ class _MysteryPickerScreenState extends State<MysteryPickerScreen> {
                 label: Text(l10n.start),
                 style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(56)),
                 onPressed: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute<void>(builder: (_) => RosaryScreen(mysterySet: _selected)),
+                  MaterialPageRoute<void>(
+                    builder: (_) => RosaryScreen(mysterySet: _selected, mode: mode),
+                  ),
                 ),
               ),
             ),

@@ -22,8 +22,9 @@ enum Guidance {
   signOfCrossEnd,
 }
 
-/// Which instruction applies to [step] (see DESIGN §3.2).
-Guidance guidanceOf(RosaryStep step) {
+/// Which instruction applies to [step] (see DESIGN §3.2); none for the
+/// mysteries-only summary cards.
+Guidance? guidanceOf(RosaryStep step) {
   final intro = step.part == RosaryPart.introduction;
   return switch (step.kind) {
     StepKind.signOfTheCross =>
@@ -43,5 +44,6 @@ Guidance guidanceOf(RosaryStep step) {
     StepKind.fatimaPrayer => Guidance.fatima,
     StepKind.hailHolyQueen => Guidance.hailHolyQueen,
     StepKind.closingPrayer => Guidance.closingPrayer,
+    StepKind.openingPrayers || StepKind.closingPrayers => null,
   };
 }

@@ -4,8 +4,9 @@ import '../domain/guidance.dart';
 import '../domain/rosary_sequence.dart';
 import '../l10n/generated/app_localizations.dart';
 
-/// The "what to do" sentence shown for [step] (see DESIGN §3.2).
-String guidanceFor(AppLocalizations l10n, RosaryStep step) => guidanceText(l10n, guidanceOf(step));
+/// The "what to do" sentence shown for [step] (see DESIGN §3.2), if any.
+String? guidanceFor(AppLocalizations l10n, RosaryStep step) =>
+    guidanceOf(step) == null ? null : guidanceText(l10n, guidanceOf(step)!);
 
 /// Localized text of a [Guidance] instruction.
 String guidanceText(AppLocalizations l10n, Guidance guidance) => switch (guidance) {
