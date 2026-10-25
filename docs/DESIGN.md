@@ -384,6 +384,27 @@ rarely a browser, the GitHub address is shown as text instead of a link.
   there is a dedicated address). The address in the app can change with any release; the one
   on the Play listing can change at any time without a release.
 
+### 3.15 Mysteries only (F-30), see ADR-029
+
+For people who know the prayers by heart. The mystery picker asks **How do you want to pray?**
+(**Guided** or **Mysteries only**), above the sets so it is seen on a phone, and remembers the
+choice.
+
+* **7 steps:** an *Opening prayers* card (Sign of the Cross, Creed, Our Father, Hail Mary × 3,
+  Glory Be), the five mysteries, and a *Closing prayers* card (Hail, Holy Queen, the closing
+  prayer, Sign of the Cross). Each prayer on a card opens its words, for a moment of doubt.
+* **A mystery** shows the same content as in the guided Rosary (title, painting, passage,
+  fruit) plus one line: "Pray the decade: the Our Father, ten Hail Marys, the Glory Be and the
+  Fatima Prayer." There is no "what to do" line and **no Hail Mary counter** (owner's choice):
+  the whole decade is ringed on the beads, and the decades already prayed are filled in.
+* **Voice:** it reads only the mystery announcement, without its instruction, and never
+  auto-advances (the person prays the decade at their own pace). The auto-advance chip is
+  hidden. The summary cards are silent.
+* **Resume:** the saved session keeps the mode (`joyful:3:mysteriesOnly`; the guided format
+  `joyful:12` is unchanged, so older saves still resume). Home shows "Mysteries only · Step 3 of 7".
+* Model: `RosaryMode` and `buildSequence(mode)` in `rosary_sequence.dart`. Each mystery step
+  `covers` its 10 Hail Mary beads; the opening card covers the pendant.
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)

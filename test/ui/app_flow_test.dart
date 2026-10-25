@@ -50,7 +50,7 @@ void main() {
   });
 
   testWidgets('mystery picker preselects today and allows another set', (tester) async {
-    await pumpApp(tester, TestApp());
+    await pumpApp(tester, TestApp(), size: const Size(400, 1000));
     await tester.tap(find.text('Pray the Rosary'));
     await tester.pumpAndSettle();
     expect(find.text('Suggested'), findsOneWidget);

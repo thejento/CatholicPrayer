@@ -15,6 +15,8 @@ const catalog = AudioCatalog({
     'prayer_sign_of_the_cross': 'a/sign.mp3',
     'guide_creed': 'a/guide2.mp3',
     'prayer_apostles_creed': 'a/creed.mp3',
+    'guide_announce': 'a/guide-announce.mp3',
+    'mystery_joyful_1': 'a/annunciation.mp3',
   },
 });
 
@@ -149,6 +151,25 @@ void main() {
 
       voice.toggle();
       expect(voice.reading.value, isNull); // voice off
+    });
+  });
+
+  test('mysteries only: reads the announcement alone and never moves on', () {
+    fakeAsync((async) {
+      session = RosarySession(
+        mysterySet: MysterySet.joyful,
+        mode: RosaryMode.mysteriesOnly,
+        startIndex: 1,
+      );
+      final voice = guide(autoAdvance: true);
+      async.flushMicrotasks();
+      expect(player.last, ['a/annunciation.mp3'], reason: 'no instruction');
+      expect(voice.advances, isFalse);
+      expect(voice.waitsHere, isFalse);
+      player.finish();
+      async.flushMicrotasks();
+      async.elapse(const Duration(seconds: 30));
+      expect(session.index, 1);
     });
   });
 

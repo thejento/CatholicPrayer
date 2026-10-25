@@ -5,8 +5,12 @@ import 'rosary_sequence.dart';
 
 /// Tracks progress through one Rosary, one step at a time.
 class RosarySession extends ChangeNotifier {
-  RosarySession({required this.mysterySet, List<RosaryStep>? steps, int startIndex = 0})
-    : steps = steps ?? buildRosarySequence() {
+  RosarySession({
+    required this.mysterySet,
+    this.mode = RosaryMode.guided,
+    List<RosaryStep>? steps,
+    int startIndex = 0,
+  }) : steps = steps ?? buildSequence(mode) {
     if (this.steps.isEmpty) {
       throw ArgumentError.value(steps, 'steps', 'must not be empty');
     }
@@ -15,6 +19,7 @@ class RosarySession extends ChangeNotifier {
   }
 
   final MysterySet mysterySet;
+  final RosaryMode mode;
   final List<RosaryStep> steps;
 
   int _index = 0;

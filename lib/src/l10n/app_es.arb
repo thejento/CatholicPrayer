@@ -147,5 +147,14 @@
   "rateOnPlay": "Valorar la app en Google Play",
   "autoAdvanceWaits": "El avance automático espera aquí: pulse Siguiente cuando quiera.",
   "autoScroll": "Desplazamiento con la voz",
-  "autoScrollSubtitle": "Las oraciones largas avanzan solas, más o menos al ritmo de la voz"
+  "autoScrollSubtitle": "Las oraciones largas avanzan solas, más o menos al ritmo de la voz",
+  "rosaryModeLabel": "¿Cómo quiere rezar?",
+  "modeGuided": "Guiado",
+  "modeMysteriesOnly": "Solo los misterios",
+  "modeGuidedHint": "Cada oración, cuenta por cuenta, con lo que hay que hacer en cada paso.",
+  "modeMysteriesOnlyHint": "Para quien ya sabe las oraciones: los cinco misterios, con las oraciones iniciales y finales en una tarjeta cada una.",
+  "openingPrayers": "Oraciones iniciales",
+  "closingPrayers": "Oraciones finales",
+  "summaryHint": "Rece estas oraciones por su cuenta y luego pulse Siguiente. Pulse una oración para ver su texto.",
+  "prayTheDecade": "Rece la decena: el Padre Nuestro, diez Avemarías, el Gloria y la oración de Fátima."
 }

@@ -5,7 +5,7 @@
 
 Each issue title starts with a stable ID: **F** = feature, **T** = TV, **W** = web,
 **Q** = quality, **O** = ops/CI/CD, **C** = content, **I** = idea (not committed).
-A new item takes the next free number of its prefix (next: F-30, T-05, W-03, Q-06, O-16, C-05, I-04).
+A new item takes the next free number of its prefix (next: F-31, T-05, W-03, Q-06, O-16, C-05, I-04).
 Iterations are milestones; labels give the type, `owner` for the owner's own tasks,
 `on hold` when blocked. Close the issue from the PR that does it (`Closes #NN`).
 Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/DECISIONS.md)
@@ -65,3 +65,4 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-26 Web footer and Settings → About: version (with commit on deploys), GitHub Issues link, Google Play link (DESIGN §3.14)
 - [x] F-28 Auto-advance waits on mystery announcements; each step opens scrolled to the top (owner's first Rosary)
 - [x] F-29 Auto-scroll long prayers roughly at the voice's pace (Settings → Voice, on by default)
+- [x] F-30 Mysteries-only mode: opening card, five mysteries, closing card; decade ringed on the beads (ADR-029)

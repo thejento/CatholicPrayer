@@ -19,13 +19,21 @@ import '../../providers/theme_manager.dart';
 import '../../theme/app_theme.dart';
 import '../step_text.dart';
 import '../widgets/rosary_beads.dart';
+import 'prayer_detail_screen.dart';
 import 'scripture_screen.dart';
 
-/// The guided Rosary: bead drawing, prayer text and newcomer guidance.
+/// The Rosary: bead drawing, prayer text and newcomer guidance; or, in
+/// mysteries-only mode, the five mysteries between two summary cards.
 class RosaryScreen extends StatefulWidget {
-  const RosaryScreen({super.key, required this.mysterySet, this.startIndex = 0});
+  const RosaryScreen({
+    super.key,
+    required this.mysterySet,
+    this.mode = RosaryMode.guided,
+    this.startIndex = 0,
+  });
 
   final MysterySet mysterySet;
+  final RosaryMode mode;
 
   /// Step to start on, when resuming an unfinished Rosary.
   final int startIndex;
@@ -37,6 +45,7 @@ class RosaryScreen extends StatefulWidget {
 class _RosaryScreenState extends State<RosaryScreen> {
   late final RosarySession _session = RosarySession(
     mysterySet: widget.mysterySet,
+    mode: widget.mode,
     startIndex: widget.startIndex,
   );
   late final SavedSessionController _saved = context.read<SavedSessionController>();
@@ -77,7 +86,9 @@ class _RosaryScreenState extends State<RosaryScreen> {
     if (_session.isFinished) {
       _saved.clear();
     } else {
-      _saved.save(SavedSession(mysterySet: widget.mysterySet, index: _session.index));
+      _saved.save(
+        SavedSession(mysterySet: widget.mysterySet, index: _session.index, mode: widget.mode),
+      );
     }
   }
 
@@ -154,10 +165,16 @@ class _StepLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final step = session.current;
-    final visited = {for (var i = 0; i < session.index; i++) session.steps[i].bead};
+    final visited = {
+      for (var i = 0; i < session.index; i++) ...[
+        session.steps[i].bead,
+        ...session.steps[i].covers,
+      ],
+    };
     final beads = RosaryBeads(
       current: step.bead,
       visited: visited,
+      span: step.covers,
       onCurrentBeadTap: session.next,
       semanticLabel: l10n.beadSemantics(step.bead + 1, beadCount),
     );
@@ -223,9 +240,13 @@ class _StepPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final content = context.read<ContentRepository>();
-    final showGuidance = context.watch<SettingsController>().showGuidance;
     final lang = contentLanguage(context);
     final step = session.current;
+    // Mysteries only is for people who know the prayers: no "what to do" line.
+    final guidance =
+        context.watch<SettingsController>().showGuidance && session.mode == RosaryMode.guided
+        ? guidanceFor(l10n, step)
+        : null;
 
     final String title;
     final List<Widget> body;
@@ -257,6 +278,36 @@ class _StepPanel extends StatelessWidget {
         Text(l10n.fruitLabel(mystery.fruit.of(lang)), style: theme.textTheme.titleMedium),
         const SizedBox(height: 16),
         Text(l10n.meditateHint, style: theme.textTheme.bodyLarge),
+        if (session.mode == RosaryMode.mysteriesOnly) ...[
+          const SizedBox(height: 12),
+          Text(
+            l10n.prayTheDecade,
+            key: const Key('pray-the-decade'),
+            style: theme.textTheme.bodyLarge,
+          ),
+        ],
+      ];
+    } else if (step.kind case StepKind.openingPrayers || StepKind.closingPrayers) {
+      final opening = step.kind == StepKind.openingPrayers;
+      title = opening ? l10n.openingPrayers : l10n.closingPrayers;
+      body = [
+        Text(l10n.summaryHint, style: theme.textTheme.bodyLarge),
+        const SizedBox(height: 8),
+        for (final id in opening ? openingPrayerIds : closingPrayerIds)
+          if (content.prayer(id) case final prayer?)
+            ListTile(
+              key: Key('summary-$id'),
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.chevron_right),
+              title: Text(
+                // The three Hail Marys for faith, hope and charity.
+                id == 'hail_mary' ? '${prayer.titleFor(lang)} × 3' : prayer.titleFor(lang),
+                style: theme.textTheme.titleMedium,
+              ),
+              onTap: () => Navigator.of(
+                context,
+              ).push(MaterialPageRoute<void>(builder: (_) => PrayerDetailScreen(prayer: prayer))),
+            ),
       ];
     } else {
       final prayer = content.prayer(step.prayerId!)!;
@@ -294,7 +345,7 @@ class _StepPanel extends StatelessWidget {
             liveRegion: true,
             child: Text(title, key: const Key('step-title'), style: theme.textTheme.headlineMedium),
           ),
-          if (showGuidance) ...[
+          if (guidance != null) ...[
             const SizedBox(height: 12),
             Container(
               key: const Key('step-guidance'),
@@ -309,7 +360,7 @@ class _StepPanel extends StatelessWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      guidanceFor(l10n, step),
+                      guidance,
                       style: theme.textTheme.bodyLarge?.copyWith(
                         color: theme.colorScheme.onSecondaryContainer,
                       ),
@@ -477,15 +528,16 @@ class _VoiceBar extends StatelessWidget {
             tooltip: l10n.faster,
             onPressed: i < speeds.length - 1 ? () => setSpeed(speeds[i + 1]) : null,
           ),
-          FilterChip(
-            key: const Key('auto-advance'),
-            label: Text(l10n.autoAdvance),
-            selected: voice.autoAdvance,
-            onSelected: (v) {
-              voice.setAutoAdvance(v);
-              settings.setAutoAdvance(v);
-            },
-          ),
+          if (voice.session.mode == RosaryMode.guided)
+            FilterChip(
+              key: const Key('auto-advance'),
+              label: Text(l10n.autoAdvance),
+              selected: voice.autoAdvance,
+              onSelected: (v) {
+                voice.setAutoAdvance(v);
+                settings.setAutoAdvance(v);
+              },
+            ),
           if (voice.waitsHere)
             Text(
               l10n.autoAdvanceWaits,

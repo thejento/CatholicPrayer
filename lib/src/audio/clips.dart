@@ -13,8 +13,12 @@ bool isGuidanceClip(String id) => id.startsWith('guide_');
 /// Clips to play, in order, for [step]: the instruction (when wanted), then
 /// the prayer or mystery announcement.
 List<String> clipsForStep(RosaryStep step, MysterySet set, {required bool withGuidance}) => [
-  if (withGuidance) guidanceClip(guidanceOf(step)),
-  if (step.prayerId case final id?) prayerClip(id) else mysteryClip(set, step.decade!),
+  if (withGuidance)
+    if (guidanceOf(step) case final guidance?) guidanceClip(guidance),
+  if (step.prayerId case final id?)
+    prayerClip(id)
+  else if (step.kind == StepKind.announceMystery)
+    mysteryClip(set, step.decade!),
 ];
 
 /// Every clip's spoken text for [lang]. This is the single source of truth

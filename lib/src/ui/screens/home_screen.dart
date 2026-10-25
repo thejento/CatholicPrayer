@@ -128,13 +128,17 @@ class HomeScreen extends StatelessWidget {
                       title: Text(l10n.continueRosary),
                       subtitle: Text(
                         '${content.mysterySetTitle(saved.mysterySet).of(lang)} · '
-                        '${l10n.stepCounter(saved.index + 1, buildRosarySequence().length)}',
+                        '${saved.mode == RosaryMode.mysteriesOnly ? '${l10n.modeMysteriesOnly} · ' : ''}'
+                        '${l10n.stepCounter(saved.index + 1, buildSequence(saved.mode).length)}',
                       ),
                       trailing: const Icon(Icons.play_arrow_rounded),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute<void>(
-                          builder: (_) =>
-                              RosaryScreen(mysterySet: saved.mysterySet, startIndex: saved.index),
+                          builder: (_) => RosaryScreen(
+                            mysterySet: saved.mysterySet,
+                            mode: saved.mode,
+                            startIndex: saved.index,
+                          ),
                         ),
                       ),
                     ),
