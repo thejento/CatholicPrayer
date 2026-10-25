@@ -21,6 +21,22 @@ void main() {
       expect(reloaded.mode, AppThemeMode.kidFriendly);
     });
 
+    test('follows the liturgical season by default and remembers turning it off', () async {
+      final store = InMemoryPreferencesStore();
+      final manager = ThemeManager(store);
+      await manager.load();
+      expect(manager.followSeason, isTrue);
+
+      await manager.setFollowSeason(false);
+      expect(store.values[ThemeManager.followSeasonKey], false);
+      await manager.setFollowSeason(false);
+
+      final reloaded = ThemeManager(store);
+      await reloaded.load();
+      expect(reloaded.followSeason, isFalse);
+      expect(reloaded.mode, AppThemeMode.classic);
+    });
+
     test('ignores unknown saved values', () async {
       final manager = ThemeManager(InMemoryPreferencesStore({ThemeManager.prefsKey: 'neon'}));
       await manager.load();

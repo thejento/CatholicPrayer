@@ -405,6 +405,25 @@ choice.
 * Model: `RosaryMode` and `buildSequence(mode)` in `rosary_sequence.dart`. Each mystery step
   `covers` its 10 Hail Mary beads; the opening card covers the pendant.
 
+### 3.16 Colours of the Church year (F-31), see ADR-030
+
+The **classic** theme takes the liturgical colour of the day, the same one as the dot on Home
+(§3.10): green in Ordinary Time, violet in Advent and Lent, rose on Gaudete and Laetare
+Sundays, white (drawn as gold, as white vestments are usually trimmed with it) at Christmas
+and Easter, red on Palm Sunday, Good Friday and Pentecost.
+
+* The colours are deep, muted tones, so the screens stay calm. Red days keep the maroon the
+  app always had, and that maroon is also the colour when the option is off. The gold accent
+  is kept in every season.
+* Settings → Appearance: **Colours of the Church year**, on by default, shown only with the
+  classic theme.
+* The **kid-friendly** theme keeps its own bright colours all year: children get one familiar,
+  cheerful look.
+* Saints' days do not change the colour (a martyr's red, a Marian white): only the season and
+  its named days do, so the app doesn't change colour from one day to the next.
+* Each colour is checked for text contrast and tap targets on Home, Settings, the picker and a
+  Rosary step.
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)

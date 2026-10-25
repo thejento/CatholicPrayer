@@ -215,6 +215,7 @@ void main() {
     await pumpApp(tester, app, size: const Size(400, 1200));
     await tester.tap(find.byTooltip('Settings'));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('About and credits'), 200);
     await tester.tap(find.text('About and credits'));
     await tester.pumpAndSettle();
     expect(find.byType(LicensePage), findsOneWidget);

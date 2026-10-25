@@ -46,6 +46,15 @@ class SettingsScreen extends StatelessWidget {
                 selected: {theme.mode},
                 onSelectionChanged: (s) => theme.setMode(s.first),
               ),
+              if (theme.mode == AppThemeMode.classic)
+                SwitchListTile(
+                  key: const Key('follow-season'),
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(l10n.followSeason),
+                  subtitle: Text(l10n.followSeasonHint),
+                  value: theme.followSeason,
+                  onChanged: theme.setFollowSeason,
+                ),
               const SizedBox(height: 24),
               Text(l10n.language, style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 8),

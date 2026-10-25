@@ -45,6 +45,8 @@
   "appearance": "Apparence",
   "themeClassic": "Classique",
   "themeKidFriendly": "Pour enfants",
+  "followSeason": "Couleurs de l'année liturgique",
+  "followSeasonHint": "Suit la couleur liturgique du jour : vert pendant le temps ordinaire, violet pendant l'Avent et le Carême, blanc et or à Noël et à Pâques.",
   "language": "Langue",
   "languageSystem": "Langue de l'appareil",
   "showGuidance": "Afficher le guide",

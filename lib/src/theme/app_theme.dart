@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../domain/liturgical_calendar.dart';
+
 /// The two visual themes the app supports: a subdued "Classic" look aimed at
 /// adults, and a bright, playful "Kid-Friendly" look aimed at children.
 enum AppThemeMode { classic, kidFriendly }
@@ -8,19 +10,31 @@ enum AppThemeMode { classic, kidFriendly }
 class AppTheme {
   AppTheme._();
 
-  static ThemeData themeFor(AppThemeMode mode) {
-    switch (mode) {
-      case AppThemeMode.classic:
-        return _classicTheme;
-      case AppThemeMode.kidFriendly:
-        return _kidFriendlyTheme;
-    }
-  }
+  /// The theme for [mode]. In the classic theme, [season] tints the app with
+  /// the colour the Church wears that day (DESIGN §3.16); without it, classic
+  /// keeps its maroon. The kid-friendly theme has its own colours all year.
+  static ThemeData themeFor(AppThemeMode mode, {LiturgicalColor? season}) => switch (mode) {
+    AppThemeMode.classic => _classic[season] ??= _classicTheme(classicSeed(season)),
+    AppThemeMode.kidFriendly => _kidFriendlyTheme,
+  };
 
-  static final ThemeData _classicTheme = ThemeData(
+  /// The seed of the classic palette: deep, muted tones of the vestment
+  /// colours, so the screens stay calm. White days use gold, as white
+  /// vestments are often trimmed with it.
+  static Color classicSeed(LiturgicalColor? season) => switch (season) {
+    null || LiturgicalColor.red => const Color(0xFF6B1E23), // deep liturgical maroon
+    LiturgicalColor.green => const Color(0xFF2E5E3A),
+    LiturgicalColor.violet => const Color(0xFF4A2C6E),
+    LiturgicalColor.rose => const Color(0xFFC0508F),
+    LiturgicalColor.white => const Color(0xFFA07A1F),
+  };
+
+  static final _classic = <LiturgicalColor?, ThemeData>{};
+
+  static ThemeData _classicTheme(Color seed) => ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color(0xFF6B1E23), // deep liturgical maroon
+      seedColor: seed,
       secondary: const Color(0xFFC9A227), // muted gold
       brightness: Brightness.light,
     ),
