@@ -23,7 +23,9 @@ App id `com.catholicrosarycompanion.crc`, package name `crc`, version in `pubspe
   at a time; if a write is blocked by content limits, skip that text and say so.
 - Three languages everywhere: **en, es, fr**. UI strings in `lib/src/l10n/app_<lang>.arb`
   (run `flutter gen-l10n`), content in `assets/data/**/<lang>.json`. Parity tests fail if one
-  is missing. Use gender-neutral wording in es/fr ("cuando quiera", "quand vous le souhaitez").
+  is missing. Use gender-neutral wording in es/fr ("cuando quieras", "quand vous le souhaitez"):
+  no adjective that agrees with the person ("Nuevo", "Nouveau"). Spanish addresses the person
+  as **tú**, French as **vous**, everywhere.
 - **Background notes on the prayers** (`assets/data/prayer_notes/`, "About this prayer") are the
   app's own writing, not copied. Keep to established facts and name legends as legends.
 - The owner reads the answers in plain language: explain what changed for the person praying,

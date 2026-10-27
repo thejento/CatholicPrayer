@@ -56,13 +56,21 @@ SOURCES = {
     },
     "fr": {
         "source": "Sainte Bible néo-Crampon Libre, © 2022 Fraternité de Tibériade",
-        "license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/), unmodified excerpts",
+        "license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/), unmodified excerpts; Luke 1:45 completed from the Crampon 1923 (public domain)",
         "url": "https://ebible.org/Scriptures/francl_vpl.zip",
     },
     "es": {
         "source": "Sagrada Biblia, traducción de Félix Torres Amat (1836), ortografía modernizada",
         "license": "Dominio público",
     },
+}
+
+# Verses missing or cut short in a source, completed from a public-domain edition.
+# fr LUK 1:45 stops at "Heureuse celle qui a cru" in the eBible francl file; the rest is
+# from the Crampon 1923 it modernizes (fr.wikisource.org/wiki/Bible_Crampon_1923/Luc).
+FIXES = {
+    ("fr", "LUK", 1, 45): "Heureuse celle qui a cru\u202f! car elles seront accomplies les choses "
+    "qui lui ont été dites de la part du Seigneur\u202f!\u00a0»",
 }
 
 WIKISOURCE = {
@@ -132,7 +140,7 @@ def passages(lang: str) -> dict:
     for key, (book, chapter, first, last) in PASSAGES.items():
         verses = []
         for v in range(first, last + 1):
-            text = source.get((book, chapter, v))
+            text = FIXES.get((lang, book, chapter, v)) or source.get((book, chapter, v))
             if not text:
                 sys.exit(f"{lang}: missing {book} {chapter}:{v} for {key}")
             verses.append({"v": v, "t": clean(text)})
