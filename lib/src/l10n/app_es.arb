@@ -49,6 +49,11 @@
   "followSeasonHint": "Sigue el color litúrgico del día: verde en el Tiempo Ordinario, morado en Adviento y Cuaresma, blanco y dorado en Navidad y Pascua.",
   "language": "Idioma",
   "languageSystem": "Idioma del dispositivo",
+  "calendarLabel": "Calendario litúrgico",
+  "calendarGeneral": "Calendario Romano General",
+  "calendarCanada": "Canadá",
+  "calendarUnitedStates": "Estados Unidos",
+  "calendarHint": "Canadá y Estados Unidos celebran la Epifanía, la Ascensión y el Corpus Christi en domingo, y añaden sus propios santos.",
   "showGuidance": "Mostrar la guía",
   "showGuidanceSubtitle": "Explica qué hacer en cada cuenta",
   "beadSemantics": "Rosario, cuenta {current} de {total}",
@@ -162,10 +167,5 @@
   "aboutPrayer": "Sobre esta oración",
   "noteOrigin": "De dónde viene",
   "noteUse": "Cuándo se reza",
-  "noteScripture": "En la Escritura",
-  "calendarLabel": "Calendario litúrgico",
-  "calendarGeneral": "Calendario Romano General",
-  "calendarCanada": "Canadá",
-  "calendarUnitedStates": "Estados Unidos",
-  "calendarHint": "Canadá y Estados Unidos celebran la Epifanía, la Ascensión y el Corpus Christi en domingo, y añaden sus propios santos."
+  "noteScripture": "En la Escritura"
 }

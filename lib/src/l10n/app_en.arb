@@ -94,6 +94,12 @@
   "followSeasonHint": "Follows today's liturgical colour: green in Ordinary Time, violet in Advent and Lent, white and gold at Christmas and Easter.",
   "language": "Language",
   "languageSystem": "Device language",
+  "calendarLabel": "Liturgical calendar",
+  "calendarGeneral": "General Roman Calendar",
+  "calendarCanada": "Canada",
+  "calendarUnitedStates": "United States",
+  "calendarHint": "Canada and the United States celebrate the Epiphany, the Ascension and Corpus Christi on a Sunday, and add their own saints.",
+  "@calendarLabel": {"description": "Settings: which national liturgical calendar to follow"},
   "showGuidance": "Show guidance",
   "showGuidanceSubtitle": "Explain what to do on each bead",
   "beadSemantics": "Rosary, bead {current} of {total}",
@@ -292,11 +298,5 @@
   "noteOrigin": "Where it comes from",
   "noteUse": "When it is prayed",
   "noteScripture": "In Scripture",
-  "@aboutPrayer": {"description": "Button and page title: the history and use of a prayer"},
-  "calendarLabel": "Liturgical calendar",
-  "calendarGeneral": "General Roman Calendar",
-  "calendarCanada": "Canada",
-  "calendarUnitedStates": "United States",
-  "calendarHint": "Canada and the United States celebrate the Epiphany, the Ascension and Corpus Christi on a Sunday, and add their own saints.",
-  "@calendarLabel": {"description": "Settings: which national liturgical calendar to follow"}
+  "@aboutPrayer": {"description": "Button and page title: the history and use of a prayer"}
 }
