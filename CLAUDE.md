@@ -6,7 +6,7 @@ tablets, Android TV (D-pad) and the web, from one codebase. Offline, no account,
 App id `com.catholicrosarycompanion.crc`, package name `crc`, version in `pubspec.yaml`.
 
 - Web app (deployed from `main`): https://thejento.github.io/CatholicPrayer/
-- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…028) · History: `BACKLOG.md`
+- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…030) · History: `BACKLOG.md`
 - **Open work: GitHub Issues**, see "Backlog and issues" below.
 
 ## How the owner works
@@ -69,7 +69,9 @@ flutter drive --driver=test_driver/integration_test.dart \
 - State: `provider` + `ChangeNotifier`. Dependencies come through constructors and Provider so
   tests pass fakes: `test/helpers/test_app.dart` (`TestApp`: fixed clock, in-memory prefs,
   `FakeClipPlayer`, recorded links, `isAndroid` / `isTelevision` flags).
-- Themes: classic and kid-friendly. Paintings appear only in classic.
+- Themes: classic and kid-friendly. Classic takes the liturgical colour of the day
+  (`AppTheme.themeFor(mode, season:)`, switch `ThemeManager.followSeason`); kid-friendly keeps
+  its own colours. Paintings appear only in classic.
 - Assets: `assets/data/` (prayers, mysteries, scripture, saints, art.json), `assets/audio/<lang>/`
   (pre-rendered voice), `assets/art/` (WebP paintings).
 

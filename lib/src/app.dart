@@ -10,6 +10,7 @@ import 'data/link_opener.dart';
 import 'data/saints_repository.dart';
 import 'data/scripture_repository.dart';
 import 'domain/clock.dart';
+import 'domain/liturgical_calendar.dart';
 import 'l10n/generated/app_localizations.dart';
 import 'providers/saved_session_controller.dart';
 import 'providers/settings_controller.dart';
@@ -80,7 +81,10 @@ class CatholicPrayerApp extends StatelessWidget {
         builder: (context, theme, settings, _) => MaterialApp(
           onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
           debugShowCheckedModeBanner: false,
-          theme: AppTheme.themeFor(theme.mode),
+          theme: AppTheme.themeFor(
+            theme.mode,
+            season: theme.followSeason ? liturgicalDay(clock.now()).color : null,
+          ),
           locale: settings.locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,

@@ -1,3 +1,4 @@
+import 'package:crc/src/domain/liturgical_calendar.dart';
 import 'package:crc/src/domain/rosary_sequence.dart';
 import 'package:crc/src/providers/theme_manager.dart';
 import 'package:crc/src/theme/app_theme.dart';
@@ -166,6 +167,58 @@ void main() {
       AppTheme.themeFor(AppThemeMode.kidFriendly).colorScheme.primary,
     );
     expect(await app.store.getString(ThemeManager.prefsKey), 'kidFriendly');
+  });
+
+  group('liturgical colours', () {
+    Color primary(WidgetTester tester) =>
+        Theme.of(tester.element(find.byType(Scaffold).first)).colorScheme.primary;
+    Color classic(LiturgicalColor? season) =>
+        AppTheme.themeFor(AppThemeMode.classic, season: season).colorScheme.primary;
+
+    test('each colour of the Church year has its own palette', () {
+      final primaries = {
+        for (final c in [null, ...LiturgicalColor.values]) classic(c),
+      };
+      // Red days keep the maroon the app has without the season.
+      expect(primaries, hasLength(LiturgicalColor.values.length));
+      expect(classic(LiturgicalColor.red), classic(null));
+    });
+
+    final days = {
+      DateTime(2026, 10, 12): LiturgicalColor.green, // Ordinary Time
+      DateTime(2026, 12, 1): LiturgicalColor.violet, // Advent
+      DateTime(2026, 12, 13): LiturgicalColor.rose, // Gaudete Sunday
+      DateTime(2026, 12, 26): LiturgicalColor.white, // Christmas Time
+      DateTime(2026, 4, 3): LiturgicalColor.red, // Good Friday
+    };
+    for (final MapEntry(key: day, value: colour) in days.entries) {
+      testWidgets('the classic theme wears ${colour.name} on $day', (tester) async {
+        await pumpApp(tester, TestApp(now: day));
+        expect(primary(tester), classic(colour));
+      });
+    }
+
+    testWidgets('can be turned off, and the switch is classic only', (tester) async {
+      final app = TestApp(now: DateTime(2026, 12, 1));
+      await pumpApp(tester, app);
+      await tester.tap(find.byTooltip('Settings'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('follow-season')));
+      await tester.pumpAndSettle();
+      expect(app.themeManager.followSeason, isFalse);
+      expect(primary(tester), classic(null));
+
+      await tester.tap(find.text('Kid-friendly'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('follow-season')), findsNothing);
+    });
+
+    testWidgets('the kid-friendly theme keeps its own colours all year', (tester) async {
+      final app = TestApp(now: DateTime(2026, 12, 1));
+      await app.themeManager.setMode(AppThemeMode.kidFriendly);
+      await pumpApp(tester, app);
+      expect(primary(tester), AppTheme.themeFor(AppThemeMode.kidFriendly).colorScheme.primary);
+    });
   });
 
   testWidgets('changing language translates UI and prayers', (tester) async {

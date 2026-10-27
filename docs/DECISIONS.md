@@ -334,3 +334,16 @@ Template:
   their announcement clips. Everything that walks the steps (voice, resume, progress, beads)
   works for both modes; a tap counter can be added later on the same step model.
 
+## ADR-030: The classic theme follows the liturgical colour of the day
+- Date: 2026-10-25 · Status: Accepted
+- Context: The owner suggested that the adult (classic) look follow the liturgical period,
+  while the kid-friendly look keeps its own attractive colours.
+- Options considered: a third theme to choose; the season tinting both themes; the classic
+  theme seeded with the day's colour, with a switch to turn it off. For the colour itself: the
+  season and its named days (as on Home), or also the saint of the day.
+- Decision: The classic theme is seeded with the day's colour from `liturgicalDay()` (on by
+  default, switch in Settings). Kid-friendly is unchanged. Saints' days don't change the colour.
+  White is drawn as gold, since a white seed gives a grey app.
+- Consequences: Material's seeded palettes keep the contrast in every season (checked in the
+  accessibility tests). The theme is computed when the app builds, so it changes with the day
+  the next time the app is opened. Goldens are taken on a green (Ordinary Time) day.

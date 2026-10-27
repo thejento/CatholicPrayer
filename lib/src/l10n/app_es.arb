@@ -45,6 +45,8 @@
   "appearance": "Apariencia",
   "themeClassic": "Clásico",
   "themeKidFriendly": "Para niños",
+  "followSeason": "Colores del año litúrgico",
+  "followSeasonHint": "Sigue el color litúrgico del día: verde en el Tiempo Ordinario, morado en Adviento y Cuaresma, blanco y dorado en Navidad y Pascua.",
   "language": "Idioma",
   "languageSystem": "Idioma del dispositivo",
   "showGuidance": "Mostrar la guía",

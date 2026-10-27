@@ -106,6 +106,27 @@ void main() {
     }
   }
 
+  // The classic theme takes the colour of the day (§3.16): each one stays legible.
+  final seasons = {
+    'violet': DateTime(2026, 12, 1),
+    'rose': DateTime(2026, 12, 13),
+    'white': DateTime(2026, 12, 26),
+    'red': DateTime(2026, 4, 3),
+  };
+  for (final MapEntry(key: colour, value: day) in seasons.entries) {
+    for (final screen in ['home', 'settings', 'mystery picker', 'rosary: prayer step']) {
+      testWidgets('$screen meets accessibility guidelines ($colour season)', (tester) async {
+        final handle = tester.ensureSemantics();
+        await pump(tester, TestApp(now: day), const Size(400, 800));
+        await screens[screen]!(tester);
+
+        await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+        await expectLater(tester, meetsGuideline(textContrastGuideline));
+        handle.dispose();
+      });
+    }
+  }
+
   // A small phone held upright and sideways, and a TV (which adds its own 1.3× scale).
   const layouts = {
     'small phone': (Size(360, 640), false),
