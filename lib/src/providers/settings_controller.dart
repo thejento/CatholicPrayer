@@ -1,11 +1,12 @@
 import 'package:flutter/widgets.dart';
 
 import '../data/preferences_store.dart';
+import '../domain/liturgical_calendar.dart';
 import '../domain/rosary_sequence.dart';
 
 /// User preferences other than the theme: language and newcomer guidance.
 class SettingsController extends ChangeNotifier {
-  SettingsController(this._store);
+  SettingsController(this._store, {this.deviceRegion = CalendarRegion.general});
 
   static const localeKey = 'app_locale';
   static const guidanceKey = 'show_guidance';
@@ -16,6 +17,18 @@ class SettingsController extends ChangeNotifier {
   static const guidanceAloudKey = 'read_guidance_aloud';
   static const autoScrollKey = 'auto_scroll';
   static const rosaryModeKey = 'rosary_mode';
+  static const regionKey = 'calendar_region';
+
+  /// The calendar of the device's country, used until one is chosen.
+  final CalendarRegion deviceRegion;
+
+  /// The national calendar for a device country code (`CA`, `US` …).
+  static CalendarRegion regionForCountry(String? countryCode) =>
+      switch (countryCode?.toUpperCase()) {
+        'CA' => CalendarRegion.canada,
+        'US' => CalendarRegion.unitedStates,
+        _ => CalendarRegion.general,
+      };
 
   /// Allowed playback speeds and pauses (DESIGN §3.7).
   static const minSpeed = 0.75, maxSpeed = 1.25;
@@ -32,6 +45,7 @@ class SettingsController extends ChangeNotifier {
   bool _readGuidanceAloud = true;
   bool _autoScroll = true;
   RosaryMode _rosaryMode = RosaryMode.guided;
+  CalendarRegion? _region;
 
   /// The chosen app language, or `null` to follow the device.
   Locale? get locale => _locale;
@@ -60,6 +74,9 @@ class SettingsController extends ChangeNotifier {
   /// Guided or mysteries only, as last chosen on the mystery picker.
   RosaryMode get rosaryMode => _rosaryMode;
 
+  /// The liturgical calendar followed: the chosen one, or the device's.
+  CalendarRegion get calendarRegion => _region ?? deviceRegion;
+
   Future<void> load() async {
     final code = await _store.getString(localeKey);
     _locale = code == null ? null : Locale(code);
@@ -78,6 +95,8 @@ class SettingsController extends ChangeNotifier {
     _autoScroll = await _store.getBool(autoScrollKey) ?? true;
     final mode = await _store.getString(rosaryModeKey);
     _rosaryMode = RosaryMode.values.where((m) => m.name == mode).firstOrNull ?? RosaryMode.guided;
+    final region = await _store.getString(regionKey);
+    _region = CalendarRegion.values.where((r) => r.name == region).firstOrNull;
     notifyListeners();
   }
 
@@ -95,6 +114,13 @@ class SettingsController extends ChangeNotifier {
     _rosaryMode = value;
     notifyListeners();
     await _store.setString(rosaryModeKey, value.name);
+  }
+
+  Future<void> setCalendarRegion(CalendarRegion value) async {
+    if (value == _region) return;
+    _region = value;
+    notifyListeners();
+    await _store.setString(regionKey, value.name);
   }
 
   Future<void> setAutoScroll(bool value) =>

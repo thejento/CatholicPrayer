@@ -83,7 +83,9 @@ class CatholicPrayerApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.themeFor(
             theme.mode,
-            season: theme.followSeason ? liturgicalDay(clock.now()).color : null,
+            season: theme.followSeason
+                ? liturgicalDay(clock.now(), settings.calendarRegion).color
+                : null,
           ),
           locale: settings.locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,

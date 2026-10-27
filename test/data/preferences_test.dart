@@ -1,4 +1,5 @@
 import 'package:crc/src/data/preferences_store.dart';
+import 'package:crc/src/domain/liturgical_calendar.dart';
 import 'package:crc/src/providers/settings_controller.dart';
 import 'package:crc/src/providers/theme_manager.dart';
 import 'package:crc/src/theme/app_theme.dart';
@@ -53,6 +54,25 @@ void main() {
   });
 
   group('SettingsController', () {
+    test('the calendar follows the device country until one is chosen', () async {
+      expect(SettingsController.regionForCountry('CA'), CalendarRegion.canada);
+      expect(SettingsController.regionForCountry('us'), CalendarRegion.unitedStates);
+      expect(SettingsController.regionForCountry('FR'), CalendarRegion.general);
+      expect(SettingsController.regionForCountry(null), CalendarRegion.general);
+
+      final store = InMemoryPreferencesStore();
+      final settings = SettingsController(store, deviceRegion: CalendarRegion.canada);
+      await settings.load();
+      expect(settings.calendarRegion, CalendarRegion.canada);
+      await settings.setCalendarRegion(CalendarRegion.general);
+      await settings.setCalendarRegion(CalendarRegion.general);
+      expect(store.values[SettingsController.regionKey], 'general');
+
+      final reloaded = SettingsController(store, deviceRegion: CalendarRegion.canada);
+      await reloaded.load();
+      expect(reloaded.calendarRegion, CalendarRegion.general);
+    });
+
     test('defaults to device language and guidance on', () async {
       final settings = SettingsController(InMemoryPreferencesStore());
       await settings.load();

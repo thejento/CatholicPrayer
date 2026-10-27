@@ -162,5 +162,10 @@
   "aboutPrayer": "À propos de cette prière",
   "noteOrigin": "D'où elle vient",
   "noteUse": "Quand on la prie",
-  "noteScripture": "Dans l'Écriture"
+  "noteScripture": "Dans l'Écriture",
+  "calendarLabel": "Calendrier liturgique",
+  "calendarGeneral": "Calendrier romain général",
+  "calendarCanada": "Canada",
+  "calendarUnitedStates": "États-Unis",
+  "calendarHint": "Le Canada et les États-Unis célèbrent l'Épiphanie, l'Ascension et la Fête-Dieu un dimanche, et ajoutent leurs propres saints."
 }

@@ -202,4 +202,44 @@ void main() {
       expect(suggestedMysterySet(d(2026, 3, 5)), MysterySet.luminous); // Thursday of Lent
     });
   });
+
+  group('Sunday transfers (Canada, United States)', () {
+    const canada = CalendarRegion.canada, usa = CalendarRegion.unitedStates;
+
+    test('the Epiphany is the Sunday between 2 and 8 January', () {
+      expect(epiphanyOf(2026), DateTime.utc(2026, 1, 6));
+      expect(epiphanyOf(2026, canada), DateTime.utc(2026, 1, 4));
+      expect(liturgicalDay(d(2026, 1, 4), canada).special, SpecialDay.epiphany);
+      expect(liturgicalDay(d(2026, 1, 6), canada).special, isNull);
+      expect(liturgicalDay(d(2026, 1, 6), canada).season, Season.christmas);
+      expect(liturgicalDay(d(2026, 1, 6)).special, SpecialDay.epiphany);
+      expect(epiphanyOf(2028, usa), DateTime.utc(2028, 1, 2));
+    });
+
+    test('the Baptism moves to Monday after an Epiphany on 7 or 8 January', () {
+      expect(epiphanyOf(2029, canada), DateTime.utc(2029, 1, 7));
+      expect(baptismOfTheLord(2029, canada), DateTime.utc(2029, 1, 8));
+      expect(liturgicalDay(d(2029, 1, 8), canada).special, SpecialDay.baptismOfTheLord);
+      expect(liturgicalDay(d(2029, 1, 9), canada).season, Season.ordinary);
+      expect(liturgicalDay(d(2029, 1, 14), canada).sundayNumber, 2);
+      expect(liturgicalDay(d(2029, 1, 14)).sundayNumber, 2);
+      expect(baptismOfTheLord(2026, canada), DateTime.utc(2026, 1, 11));
+      expect(liturgicalDay(d(2026, 1, 18), canada).sundayNumber, 2);
+    });
+
+    test('the Ascension is the Sunday after the 40th day', () {
+      expect(liturgicalDay(d(2026, 5, 14)).special, SpecialDay.ascension);
+      expect(liturgicalDay(d(2026, 5, 14), usa).special, isNull);
+      expect(liturgicalDay(d(2026, 5, 17), usa).special, SpecialDay.ascension);
+      expect(liturgicalDay(d(2026, 5, 17)).sundayNumber, 7);
+      expect(ascensionOf(2026, canada), DateTime.utc(2026, 5, 17));
+    });
+
+    test('the rest of the year is unchanged', () {
+      for (var day = d(2026, 1, 15); day.year == 2026; day = day.add(const Duration(days: 1))) {
+        if (day.month == 5 && (day.day == 14 || day.day == 17)) continue;
+        expect(liturgicalDay(day, canada), liturgicalDay(day), reason: '$day');
+      }
+    });
+  });
 }

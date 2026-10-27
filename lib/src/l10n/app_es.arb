@@ -162,5 +162,10 @@
   "aboutPrayer": "Sobre esta oración",
   "noteOrigin": "De dónde viene",
   "noteUse": "Cuándo se reza",
-  "noteScripture": "En la Escritura"
+  "noteScripture": "En la Escritura",
+  "calendarLabel": "Calendario litúrgico",
+  "calendarGeneral": "Calendario Romano General",
+  "calendarCanada": "Canadá",
+  "calendarUnitedStates": "Estados Unidos",
+  "calendarHint": "Canadá y Estados Unidos celebran la Epifanía, la Ascensión y el Corpus Christi en domingo, y añaden sus propios santos."
 }
