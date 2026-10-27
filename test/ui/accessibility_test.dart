@@ -48,6 +48,11 @@ final Map<String, Visit> screens = {
     await tapAndSettle(t, find.text('Prayer Library'));
     await tapAndSettle(t, find.text('Hail Mary'));
   },
+  'about a prayer': (t) async {
+    await tapAndSettle(t, find.text('Prayer Library'));
+    await tapAndSettle(t, find.text('Hail Mary'));
+    await tapAndSettle(t, find.byKey(const Key('about-prayer')));
+  },
   'mystery picker': (t) => tapAndSettle(t, find.text('Pray the Rosary')),
   'rosary: prayer step': openRosary,
   'rosary: mystery announcement': (t) async {

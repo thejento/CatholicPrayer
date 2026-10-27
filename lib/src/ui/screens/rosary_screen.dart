@@ -19,6 +19,7 @@ import '../../providers/theme_manager.dart';
 import '../../theme/app_theme.dart';
 import '../step_text.dart';
 import '../widgets/rosary_beads.dart';
+import 'prayer_about_screen.dart';
 import 'prayer_detail_screen.dart';
 import 'scripture_screen.dart';
 
@@ -321,6 +322,8 @@ class _StepPanel extends StatelessWidget {
           prayer.textFor(lang),
           style: theme.textTheme.headlineSmall?.copyWith(height: 1.4),
         ),
+        const SizedBox(height: 8),
+        AboutPrayerButton(prayer: prayer),
       ];
     }
 

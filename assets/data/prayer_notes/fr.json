@@ -1,0 +1,75 @@
+{
+  "notes": {
+    "sign_of_the_cross": {
+      "origin": "Les chrétiens tracent la croix sur eux-mêmes depuis les premiers siècles. Vers l'an 200, Tertullien écrivait que les croyants s'en marquaient le front à chaque moment de la journée. Le grand geste, du front à la poitrine et d'une épaule à l'autre, est venu plus tard. Les paroles viennent de l'ordre de Jésus de baptiser « au nom du Père, et du Fils, et du Saint-Esprit ».",
+      "use": "Il ouvre et termine la plupart des prières, la messe et le chapelet. Les catholiques le font aussi en entrant dans une église, souvent avec l'eau bénite en rappel du baptême, avant les repas et dans les moments difficiles. En un seul geste, il professe la Trinité et la croix du Christ.",
+      "scripture": "Matthieu 28,19"
+    },
+    "apostles_creed": {
+      "origin": "Un résumé de la foi né des questions posées au baptême dans l'Église ancienne de Rome (l'« ancien symbole romain » des IIe et IIIe siècles). Une vieille tradition dit que chacun des douze Apôtres en a donné un article, d'où son nom ; les historiens y voient plutôt un résumé fidèle de leur enseignement. Sa forme actuelle était fixée vers le VIIIe siècle.",
+      "use": "On le récite au début du chapelet, en tenant le crucifix. À la messe, il peut remplacer le Credo de Nicée, plus long, surtout pendant le Carême et le temps pascal. C'est le credo du baptême : le renouvellement des promesses baptismales suit ses questions."
+    },
+    "our_father": {
+      "origin": "La prière que Jésus lui-même a enseignée à ses disciples quand ils lui ont demandé : « Seigneur, apprends-nous à prier. » On la trouve dans deux Évangiles. La louange « Car c'est à toi qu'appartiennent le règne, la puissance et la gloire… » a été ajoutée dans certaines communautés chrétiennes anciennes ; les catholiques la disent à la messe, après une courte prière du prêtre, mais pas dans le chapelet.",
+      "use": "On le prie à chaque messe avant la communion, matin et soir dans la Liturgie des Heures, et au début de chaque dizaine du chapelet, sur le gros grain. Le Catéchisme, citant Tertullien, l'appelle « le résumé de tout l'Évangile » (no 2761).",
+      "scripture": "Matthieu 6,9-13 ; Luc 11,1-4"
+    },
+    "hail_mary": {
+      "origin": "La première partie réunit deux salutations de l'Évangile : celle de l'ange Gabriel, « Je vous salue, comblée de grâce, le Seigneur est avec vous », et celle d'Élisabeth, « Vous êtes bénie entre toutes les femmes, et le fruit de vos entrailles est béni ». Le nom de Jésus a été ajouté au Moyen Âge. La demande « Sainte Marie, Mère de Dieu, priez pour nous, pauvres pécheurs… » s'est répandue au XVe siècle et a été fixée dans le Bréviaire romain de 1568. Le titre de « Mère de Dieu » avait été affirmé par le concile d'Éphèse en 431.",
+      "use": "C'est le cœur du chapelet : dix par dizaine, en méditant un mystère. On la dit aussi trois fois dans l'Angélus, et seule à tout moment, pour demander la prière de Marie.",
+      "scripture": "Luc 1,28 ; Luc 1,42"
+    },
+    "glory_be": {
+      "origin": "Une courte hymne de louange à la Trinité, appelée « petite doxologie » (doxologie signifie « parole de gloire »). Elle remonte aux premiers siècles de l'Église, quand elle affirmait, contre l'hérésie arienne, que le Fils et l'Esprit partagent la gloire du Père. La seconde partie, « comme il était au commencement… », était en usage en Occident dès le VIe siècle.",
+      "use": "Il termine chaque dizaine du chapelet et chaque psaume de la Liturgie des Heures. Beaucoup inclinent la tête en disant les noms du Père, du Fils et du Saint-Esprit."
+    },
+    "fatima_prayer": {
+      "origin": "Appelée aussi prière de la dizaine. D'après le récit de sœur Lucie, la Vierge l'a enseignée aux trois petits bergers de Fatima, au Portugal, le 13 juillet 1917, et a demandé qu'on la dise après chaque dizaine. L'Église a reconnu les apparitions de Fatima comme dignes de foi ; la prière s'est répandue dans le monde entier au XXe siècle.",
+      "use": "On la dit après le Gloire au Père, à la fin de chaque dizaine. C'est une coutume très répandue, pas une règle du chapelet. Elle demande la miséricorde et le salut de tous, surtout de ceux qui en ont le plus besoin."
+    },
+    "hail_holy_queen": {
+      "origin": "C'est l'une des quatre grandes antiennes mariales de l'Église ; elle date du XIe siècle. On l'attribue souvent à Hermann de Reichenau, un moine allemand, mais son auteur n'est pas connu avec certitude. Dès le XIIIe siècle, moines et frères, surtout les dominicains, la chantaient chaque soir.",
+      "use": "Elle termine le chapelet. L'Église la chante aussi à la fin de la prière du soir (complies) pendant une grande partie de l'année. Elle se tourne vers Marie comme vers une mère, depuis « cette vallée de larmes », et lui demande de nous montrer Jésus."
+    },
+    "rosary_closing_prayer": {
+      "origin": "Cette prière vient du Missel romain : c'était la collecte (prière d'ouverture) de la messe de Notre-Dame du Rosaire. Cette fête remonte au XVIe siècle ; elle est célébrée le 7 octobre.",
+      "use": "Elle termine le chapelet, après le Salve Regina. Elle résume pourquoi on prie le chapelet : en méditant les mystères, « imiter ce qu'ils contiennent et obtenir ce qu'ils promettent »."
+    },
+    "memorare": {
+      "origin": "En latin, elle s'appelle Memorare, son premier mot : « Souvenez-vous ». On l'attribue souvent à saint Bernard de Clairvaux (XIIe siècle), mais elle vient d'une prière plus longue du XVe siècle. Au XVIIe siècle, un prêtre français, le père Claude Bernard, l'a fait connaître en la donnant aux prisonniers et aux malades, ce qui explique sans doute la confusion des noms.",
+      "use": "Une prière de confiance en l'aide de Marie, pour les moments difficiles. On peut la dire à tout moment ; beaucoup la prient chaque jour."
+    },
+    "saint_michael": {
+      "origin": "Le pape Léon XIII a écrit cette prière et l'a ajoutée, en 1886, aux prières dites après la messe basse. Une tradition dit qu'il l'a composée après une vision troublante pendant la messe, mais aucun témoignage direct ne le confirme. Les prières après la messe ont pris fin en 1964 ; en 1994, le pape Jean-Paul II a demandé aux fidèles de ne pas l'oublier.",
+      "use": "Elle demande la protection de saint Michel, qui dans l'Écriture conduit les anges de Dieu contre le mal. Beaucoup de paroisses la disent de nouveau après la messe. La fête de saint Michel est le 29 septembre.",
+      "scripture": "Daniel 10,13 ; Jude 9 ; Apocalypse 12,7-9"
+    },
+    "come_holy_spirit": {
+      "origin": "Le début est une ancienne antienne de la liturgie latine, « Veni, Sancte Spiritus, reple tuorum corda fidelium », chantée surtout autour de la Pentecôte. Le verset « Envoie ton Esprit… et tu renouvelleras la face de la terre » vient du psaume 104. La prière finale est la collecte de la messe du Saint-Esprit.",
+      "use": "On la dit avant l'étude, le travail, une décision importante ou un temps de prière, pour demander la lumière de l'Esprit Saint. Les séances de catéchisme et les réunions commencent souvent par elle.",
+      "scripture": "Psaume 104,30"
+    },
+    "guardian_angel": {
+      "origin": "La prière latine « Angele Dei » date du Moyen Âge (XIe ou XIIe siècle) ; on l'attribue parfois à Réginald de Cantorbéry, un moine anglais. La foi qu'elle exprime est plus ancienne : Jésus dit que les anges des petits voient sans cesse la face de son Père qui est aux cieux.",
+      "use": "C'est souvent la première prière que les enfants apprennent, pour le matin et le soir. L'Église fête les saints Anges gardiens le 2 octobre.",
+      "scripture": "Psaume 91,11 ; Matthieu 18,10"
+    },
+    "act_of_contrition": {
+      "origin": "Il n'y a pas de texte officiel unique : de nombreuses versions existent, de pays et de siècles différents. Toutes expriment ce que l'Église appelle la contrition : « une douleur de l'âme et une détestation du péché commis, avec la résolution de ne plus pécher à l'avenir » (Catéchisme, no 1451).",
+      "use": "On le dit pendant la confession, après avoir dit ses péchés, et le soir après un examen de conscience. Quand la confession n'est pas possible, le regret par amour de Dieu, avec la ferme intention de se confesser dès que possible, obtient déjà le pardon (Catéchisme, no 1452)."
+    },
+    "angelus": {
+      "origin": "Son nom est son premier mot en latin : « L'ange du Seigneur apporta l'annonce à Marie ». Il est né d'une coutume médiévale, aux XIIIe et XIVe siècles : dire des Je vous salue Marie au son de la cloche du soir ; celles du matin et de midi ont suivi. Sa forme actuelle, trois versets avec trois Je vous salue Marie et une prière finale, était fixée au XVIIe siècle.",
+      "use": "On le prie traditionnellement à 6 h, à midi et à 18 h, quand les cloches sonnent l'Angélus. Il rappelle l'Incarnation : Dieu le Fils fait homme. Le dimanche à midi, le pape le prie avec la foule place Saint-Pierre. Pendant le temps pascal, le Regina Caeli le remplace.",
+      "scripture": "Luc 1,26-38 ; Jean 1,14"
+    },
+    "regina_caeli": {
+      "origin": "L'une des quatre grandes antiennes mariales, du XIIe siècle environ ; son auteur est inconnu. Une légende raconte que le pape saint Grégoire le Grand entendit des anges en chanter les premiers mots à Rome pendant une peste, mais ce n'est qu'une légende. En 1742, le pape Benoît XIV a demandé qu'elle remplace l'Angélus pendant le temps pascal.",
+      "use": "On la prie à la place de l'Angélus du dimanche de Pâques à la Pentecôte, aux mêmes heures. Elle se réjouit avec Marie de la Résurrection de son Fils."
+    },
+    "holy_father_intentions": {
+      "origin": "Prier aux intentions du pape est une coutume ancienne, et l'une des conditions habituelles d'une indulgence, avec la confession et la communion. L'Église laisse la prière libre ; on dit habituellement un Notre Père et un Je vous salue Marie. Chaque mois, le pape propose aussi une intention de prière par son Réseau mondial de prière.",
+      "use": "On l'ajoute souvent à la fin du chapelet. Elle unit la personne qui prie à toute l'Église et aux préoccupations du pape pour le monde."
+    }
+  }
+}

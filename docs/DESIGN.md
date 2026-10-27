@@ -424,6 +424,29 @@ and Easter, red on Palm Sunday, Good Friday and Pentecost.
 * Each colour is checked for text contrast and tap targets on Home, Settings, the picker and a
   Rosary step.
 
+### 3.17 About this prayer (F-32), see ADR-031
+
+A teaching app should say why we pray what we pray. Every prayer of the library has an
+**About this prayer** button, which opens a page with up to three short sections:
+
+* **Where it comes from:** its origin and history (for example, Gabriel's and Elizabeth's
+  greetings in the Hail Mary; Leo XIII and the prayer to Saint Michael).
+* **When it is prayed:** its place in the Rosary, the Mass, the Hours or the day.
+* **In Scripture:** the Bible references it draws on, only when there are some.
+
+Where the button is:
+* the prayer page of the **library**, above the text;
+* every prayer step of the **guided Rosary**, under the text (so it doesn't push the prayer
+  down on each bead);
+* in **mysteries only**, the prayers on the opening and closing cards open the library page,
+  which has the button.
+
+**The texts are the app's own**, written for it (80–120 words each, en/es/fr in
+`assets/data/prayer_notes/<lang>.json`), not copied from a source. They keep to established
+facts; where a story is only tradition or legend (Leo XIII's vision, Gregory the
+Great and the Regina Caeli), they say so. They are not read aloud. On TV, the D-pad moves from
+section to section. A content test requires a note for every prayer, in every language.
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)

@@ -158,5 +158,9 @@
   "openingPrayers": "Oraciones iniciales",
   "closingPrayers": "Oraciones finales",
   "summaryHint": "Rece estas oraciones por su cuenta y luego pulse Siguiente. Pulse una oración para ver su texto.",
-  "prayTheDecade": "Rece la decena: el Padre Nuestro, diez Avemarías, el Gloria y la oración de Fátima."
+  "prayTheDecade": "Rece la decena: el Padre Nuestro, diez Avemarías, el Gloria y la oración de Fátima.",
+  "aboutPrayer": "Sobre esta oración",
+  "noteOrigin": "De dónde viene",
+  "noteUse": "Cuándo se reza",
+  "noteScripture": "En la Escritura"
 }

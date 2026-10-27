@@ -39,6 +39,26 @@ void main() {
         }
       });
 
+      test('every prayer has its background, with Scripture where English has it', () {
+        for (final prayer in content.prayers) {
+          final note = content.note(prayer.id);
+          expect(note, isNotNull, reason: 'no note for ${prayer.id}');
+          expect(note!.origin.hasLanguage(lang), isTrue, reason: '${prayer.id} origin [$lang]');
+          expect(note.use.hasLanguage(lang), isTrue, reason: '${prayer.id} use [$lang]');
+          if (note.scripture case final refs?) {
+            expect(refs.hasLanguage(lang), isTrue, reason: '${prayer.id} scripture [$lang]');
+          }
+        }
+      });
+
+      test('notes are about prayers that exist', () {
+        final notes =
+            (jsonDecode(File(ContentRepository.notesPath(lang)).readAsStringSync())
+                    as Map<String, dynamic>)['notes']
+                as Map<String, dynamic>;
+        expect(notes.keys.toSet(), content.prayers.map((p) => p.id).toSet());
+      });
+
       test('prayer file lists the same ids as English', () {
         List<String> ids(String l) => [
           for (final p

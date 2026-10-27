@@ -6,6 +6,7 @@ import '../domain/mysteries.dart';
 import '../models/localized_text.dart';
 import '../models/mystery.dart';
 import '../models/prayer.dart';
+import '../models/prayer_note.dart';
 
 /// Languages for which devotional content ships in `assets/data`.
 const List<String> contentLanguages = ['en', 'es', 'fr'];
@@ -15,27 +16,38 @@ const List<String> contentLanguages = ['en', 'es', 'fr'];
 /// Content is stored as one JSON file per language (see ADR-005) and merged
 /// here into [LocalizedText] values.
 class ContentRepository {
-  ContentRepository._(this._prayers, this._setTitles, this._mysteries, this._ordinals);
+  ContentRepository._(this._prayers, this._setTitles, this._mysteries, this._ordinals, this._notes);
 
   final Map<String, Prayer> _prayers;
   final Map<MysterySet, LocalizedText> _setTitles;
   final Map<MysterySet, List<Mystery>> _mysteries;
   final List<LocalizedText> _ordinals;
+  final Map<String, PrayerNote> _notes;
 
   static Future<ContentRepository> load(AssetBundle bundle) async {
     final prayerFiles = <String, Map<String, dynamic>>{};
     final mysteryFiles = <String, Map<String, dynamic>>{};
+    final noteFiles = <String, Map<String, dynamic>>{};
     for (final lang in contentLanguages) {
       prayerFiles[lang] = await _readJson(bundle, 'assets/data/prayers/$lang.json');
       mysteryFiles[lang] = await _readJson(bundle, 'assets/data/mysteries/$lang.json');
+      noteFiles[lang] = await _readJson(bundle, notesPath(lang));
     }
-    return ContentRepository.fromJson(prayers: prayerFiles, mysteries: mysteryFiles);
+    return ContentRepository.fromJson(
+      prayers: prayerFiles,
+      mysteries: mysteryFiles,
+      notes: noteFiles,
+    );
   }
+
+  /// The background notes on the prayers in [lang].
+  static String notesPath(String lang) => 'assets/data/prayer_notes/$lang.json';
 
   /// Builds a repository from decoded JSON keyed by language code.
   factory ContentRepository.fromJson({
     required Map<String, Map<String, dynamic>> prayers,
     required Map<String, Map<String, dynamic>> mysteries,
+    Map<String, Map<String, dynamic>> notes = const {},
   }) {
     // Keep the order of the English file (or first file) for display.
     final order = <String>[];
@@ -99,7 +111,24 @@ class ContentRepository {
               lang: (json['ordinals'] as List)[i] as String,
         }),
     ];
-    return ContentRepository._(prayerMap, setTitles, mysteryList, ordinals);
+    final noteFields = <String, Map<String, Map<String, String>>>{};
+    notes.forEach((lang, json) {
+      (json['notes'] as Map<String, dynamic>).forEach((id, raw) {
+        (raw as Map<String, dynamic>).forEach((field, text) {
+          ((noteFields[id] ??= {})[field] ??= {})[lang] = text as String;
+        });
+      });
+    });
+    final noteMap = {
+      for (final MapEntry(key: id, value: f) in noteFields.entries)
+        if (f['origin'] != null && f['use'] != null)
+          id: PrayerNote(
+            origin: LocalizedText(f['origin']!),
+            use: LocalizedText(f['use']!),
+            scripture: f['scripture'] == null ? null : LocalizedText(f['scripture']!),
+          ),
+    };
+    return ContentRepository._(prayerMap, setTitles, mysteryList, ordinals, noteMap);
   }
 
   static Future<Map<String, dynamic>> _readJson(AssetBundle bundle, String path) async =>
@@ -109,6 +138,9 @@ class ContentRepository {
   List<Prayer> get prayers => List.unmodifiable(_prayers.values);
 
   Prayer? prayer(String id) => _prayers[id];
+
+  /// Background on the prayer [id], or null if it has none.
+  PrayerNote? note(String id) => _notes[id];
 
   LocalizedText mysterySetTitle(MysterySet set) => _setTitles[set]!;
 
