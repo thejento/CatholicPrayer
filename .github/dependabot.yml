@@ -26,3 +26,12 @@ updates:
     groups:
       android-build:
         patterns: ['*']
+
+  # Pinned, hash-checked scanners used by security.yml (ADR-032).
+  - package-ecosystem: pip
+    directory: /tool/security
+    schedule:
+      interval: weekly
+    groups:
+      security-tools:
+        patterns: ['*']

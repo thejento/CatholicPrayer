@@ -6,7 +6,7 @@ tablets, Android TV (D-pad) and the web, from one codebase. Offline, no account,
 App id `com.catholicrosarycompanion.crc`, package name `crc`, version in `pubspec.yaml`.
 
 - Web app (deployed from `main`): https://thejento.github.io/CatholicPrayer/
-- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…031) · History: `BACKLOG.md`
+- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…032) · History: `BACKLOG.md`
 - **Open work: GitHub Issues**, see "Backlog and issues" below.
 
 ## How the owner works
@@ -170,6 +170,15 @@ displayed text) and let the pipeline re-render just that clip.
 | `deploy-web.yml` | push to `main` | GitHub Pages, with `APP_BUILD` = short commit |
 | `render-audio.yml` | branch push touching spoken text | renders stale clips and commits them |
 | `release.yml` | tag `vX.Y.Z` | signed AAB + APK + web zip on a GitHub Release (`APP_VERSION` = tag) |
+| `security.yml` | PR, push to `main`, weekly | OSV-Scanner, gitleaks, zizmor, Semgrep (Dart rules), Ruff, mobsfscan; Gradle dependency graph on `main` |
+| `codeql.yml` | PR, push to `main`, weekly | CodeQL for the workflows and the Python tools (no Dart support) |
+| `scorecard.yml` | push to `main`, weekly | OpenSSF Scorecard |
+| `mobsf.yml` | weekly, tag, manual | MobSF scan of the release APK; fails on new high findings |
+
+Security scanning is DESIGN §7.1 / ADR-032. Results are under Security → Code scanning. To
+accept a finding, put the reason next to it in its config (`tool/security/`, `tool/ruff.toml`);
+never just turn a rule off. Scanners are hash-pinned in `tool/security/requirements.txt`
+(regenerate with `pip-compile --generate-hashes --allow-unsafe`). Pin new actions to a commit SHA.
 
 The signing secrets are set. Play Store publishing is issues O-10/O-11; when the listing is
 live, set `playStoreListed = true`.

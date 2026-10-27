@@ -1,0 +1,67 @@
+# Project rules for the Dart code (DESIGN §6, ADR-032). Semgrep has no
+# public Dart ruleset, so these encode this app's own promises: it never goes
+# online by itself (DESIGN §9), and links only open in the browser when the
+# person taps them.
+rules:
+  - id: no-network-client
+    languages: [dart]
+    severity: ERROR
+    message: >-
+      The app makes no network calls (DESIGN §9). Network clients, sockets and
+      WebViews need a design change and an ADR first.
+    pattern-either:
+      - pattern-regex: >-
+          import\s+['"]package:(http|dio|web_socket_channel|webview_flutter|flutter_inappwebview|firebase_\w+|google_mobile_ads|sentry\w*)/
+      - pattern: HttpClient(...)
+      - pattern: Socket.connect(...)
+      - pattern: WebSocket.connect(...)
+      - pattern: AudioSource.uri(...)
+      - pattern: $P.setUrl(...)
+
+  - id: launch-url-outside-link-opener
+    languages: [dart]
+    severity: ERROR
+    message: >-
+      Open links through the injected LinkOpener (lib/src/data/link_opener.dart),
+      so tests can check them and every link opens in the external browser.
+    pattern-either:
+      - pattern: launchUrl(...)
+      - pattern: launchUrlString(...)
+      - pattern: launch(...)
+    paths:
+      exclude:
+        - lib/src/data/link_opener.dart
+
+  - id: launch-url-in-app
+    languages: [dart]
+    severity: ERROR
+    message: Links must open in the external browser, not an in-app view.
+    pattern-either:
+      - pattern: 'launchUrl($U, ..., mode: LaunchMode.inAppWebView, ...)'
+      - pattern: 'launchUrl($U, ..., mode: LaunchMode.inAppBrowserView, ...)'
+      - pattern: 'launchUrl($U, ..., mode: LaunchMode.platformDefault, ...)'
+
+  - id: cleartext-url
+    languages: [dart]
+    severity: ERROR
+    message: Use https; cleartext http links can be intercepted or rewritten.
+    pattern-either:
+      - pattern: Uri.parse("=~/^http:\/\//")
+      - pattern: Uri.http(...)
+
+  - id: link-from-non-constant
+    languages: [dart]
+    severity: WARNING
+    message: >-
+      A link built from data (content files, preferences) could point anywhere.
+      Start it with a constant https://host/ or validate the scheme and host first.
+    patterns:
+      - pattern: Uri.parse($X)
+      - metavariable-regex:
+          metavariable: $X
+          # Anything except a literal that starts with a fixed https host.
+          regex: ^(?!['"]https://[^/$'"]+(/|['"]$))
+    paths:
+      exclude:
+        # Built from the constant Vatican News bases above it and a date.
+        - lib/src/data/saint_links.dart

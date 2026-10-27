@@ -534,6 +534,8 @@ lib/
 | Golden screenshots (2 themes × phone/tablet/TV) | `matchesGoldenFile`, 0.5 % tolerance | required |
 | Accessibility (every screen, both themes; 200 % text on phone, sideways phone, TV) | `meetsGuideline` tap-target, label, contrast; overflow check | required |
 | Device/integration | `integration_test` on an emulator | backlog |
+| Security: dependencies, secrets, workflows, code (§7.1) | OSV-Scanner, gitleaks, zizmor, CodeQL, Semgrep, Ruff, mobsfscan | `security.yml`, `codeql.yml`; required once the owner adds them (§7.1) |
+| Security: built APK (§7.1) | MobSF | weekly and on release tags (`mobsf.yml`) |
 
 ## 7. Delivery pipeline (CI/CD)
 
@@ -548,6 +550,14 @@ lib/
  tag vX.Y.Z ─► release.yml ─► signed AAB + APK (keystore from secrets)
                              ─► GitHub Release with assets
                              ─► (backlog) Google Play internal track
+
+ PR / push main / weekly ─► security.yml ─┬─ OSV-Scanner (pubspec.lock, Python requirements)
+                                          ├─ gitleaks (secrets in commits)
+                                          ├─ zizmor · Semgrep (Dart) · Ruff · mobsfscan
+                                          └─ Android dependency graph (main only)
+                         ─► codeql.yml ─── CodeQL: Actions workflows, Python tools
+ push main / weekly ─────► scorecard.yml ─ OpenSSF Scorecard
+ weekly / tag / manual ──► mobsf.yml ───── MobSF scan of the release APK
 ```
 
 * **Toolchain pin:** the Flutter version is pinned in `pubspec.yaml`
@@ -560,7 +570,44 @@ lib/
   `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`,
   `ANDROID_KEY_PASSWORD`. Without them, a release falls back to debug signing
   and the release is labelled *pre-release*.
-* **Dependencies:** Dependabot opens weekly PRs for pub, Gradle and Actions.
+* **Dependencies:** Dependabot opens weekly PRs for pub, Gradle, Actions and the pinned
+  security scanners (`tool/security/requirements.txt`).
+
+### 7.1 Security scanning, see ADR-032
+
+Free tools only: the repository is public and on a personal account, so GitHub's code
+scanning, secret scanning and Dependabot alerts cost nothing, and the scanners are open source.
+
+| What | Tool | Where | Fails when |
+|---|---|---|---|
+| Known vulnerabilities in dependencies | OSV-Scanner | `security.yml` | a lockfile has a known advisory |
+| Same, as alerts with fix PRs | Dependabot alerts and security updates | repo settings; Gradle tree sent by `security.yml` | (alerts, not a check) |
+| Secrets committed to git | gitleaks; GitHub secret scanning and push protection | `security.yml`; repo settings | a secret is found; push protection blocks the push |
+| Workflow security (pinning, injection, permissions) | zizmor; CodeQL `actions` | `security.yml`; `codeql.yml` | any zizmor finding; CodeQL alerts |
+| Dart code | Semgrep with the project's own rules, `tool/security/semgrep-dart.yml` | `security.yml` | the app gains a network client or WebView, opens a link without `LinkOpener`, uses `http://`, or builds a link from data |
+| Python tools | Ruff security rules (`S`, from bandit); CodeQL `python` | `security.yml`; `codeql.yml` | a finding |
+| Android sources | mobsfscan, `tool/security/mobsfscan.yml` | `security.yml` | a warning or error |
+| Built APK | MobSF | `mobsf.yml` | a high finding not listed in `tool/security/mobsf-accepted.txt` |
+| Project practices | OpenSSF Scorecard | `scorecard.yml` | (score and advice, not a check) |
+
+* Results appear under **Security → Code scanning**, one category per tool. SARIF upload is
+  skipped on pull requests from forks, which don't get a write token.
+* The scanners are installed from `tool/security/requirements.txt`, pinned and
+  hash-checked (`pip install --require-hashes`). Every action is pinned to a commit SHA.
+* Semgrep has no public Dart rules, so the project writes its own. They encode §9's promise
+  that the app never goes online by itself. Test cases are in `tool/security/semgrep-dart.dart`
+  and are run first. CodeQL has no Dart support.
+* An accepted finding is excluded where it is configured, with the reason on the line above:
+  the `ignore-rules` of `mobsfscan.yml`, `mobsf-accepted.txt`, `per-file-ignores` in
+  `tool/ruff.toml`, or a `paths: exclude` in the Semgrep rule.
+* **Owner settings** (one-time, Settings → Code security and Branches):
+  1. Turn on Dependabot alerts, Dependabot security updates, secret scanning, push protection
+     and private vulnerability reporting.
+  2. Leave CodeQL "default setup" off: `codeql.yml` is the advanced setup, and the two can't
+     run together.
+  3. After the first green run, add these as required checks on `main`: "Dependency
+     vulnerabilities (OSV-Scanner)", "Secrets (gitleaks)", "Static analysis (zizmor · Semgrep
+     · Ruff · mobsfscan)", "CodeQL (actions)", "CodeQL (python)".
 
 ## 8. Brand assets
 
@@ -586,3 +633,5 @@ Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
 * The app respects the system text scale with no cap; layouts are checked at 200 %.
   Every tap target is at least 48 dp, and text meets WCAG AA contrast in both themes.
 * All of this is enforced by `test/ui/accessibility_test.dart` (ADR-022).
+* "No network calls" is checked in CI by the Semgrep rules of §7.1. Vulnerabilities can be
+  reported privately: see `SECURITY.md`.

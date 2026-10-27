@@ -1,0 +1,7 @@
+# Scanners run by .github/workflows/security.yml (ADR-032).
+# Regenerate the pinned, hashed requirements.txt with:
+#   pip-compile --generate-hashes --strip-extras --allow-unsafe tool/security/requirements.in
+zizmor==1.31.1
+ruff==0.17.3
+semgrep==1.172.0
+mobsfscan==1.1.0

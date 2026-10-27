@@ -1,0 +1,161 @@
+# Security scanning (DESIGN §7.1, ADR-032): known vulnerabilities in
+# dependencies, leaked secrets, workflow security and static analysis of the
+# Dart, Python and Android code. Results go to Security → Code scanning;
+# each job also fails when it finds something.
+name: Security
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    # Weekly, so new advisories are found even without a push.
+    - cron: '17 5 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  osv:
+    name: Dependency vulnerabilities (OSV-Scanner)
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@b1d267aea5211fa648d9d442fa64b90dbdcbdd36 # v2.7.0
+    with:
+      # pubspec.lock today; Python requirements files are picked up as they appear.
+      scan-args: |-
+        -r
+        ./
+      upload-sarif: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+
+  secrets:
+    name: Secrets (gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      # Free for personal accounts; an organization would need GITLEAKS_LICENSE.
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITLEAKS_ENABLE_COMMENTS: false
+
+  sast:
+    name: Static analysis (zizmor · Semgrep · Ruff · mobsfscan)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      security-events: write
+    env:
+      # SARIF upload needs a write token, which fork pull requests don't get.
+      UPLOAD: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13'
+
+      - name: Install scanners (pinned, hash-checked)
+        run: pip install --require-hashes -r tool/security/requirements.txt
+
+      - name: Workflows (zizmor)
+        id: zizmor
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # SARIF output never sets the exit code, so run twice: report, then gate.
+          zizmor --format sarif .github/workflows > zizmor.sarif
+          zizmor --format plain .github/workflows
+
+      - name: Dart rules (Semgrep)
+        id: semgrep
+        if: always()
+        run: |
+          semgrep --metrics=off --test --config tool/security/semgrep-dart.yml tool/security/semgrep-dart.dart
+          semgrep scan --metrics=off --error --config tool/security/semgrep-dart.yml \
+            --sarif-output=semgrep.sarif --text lib
+
+      - name: Python tools (Ruff security rules)
+        id: ruff
+        if: always()
+        run: |
+          ruff check --output-format sarif --output-file ruff.sarif tool/ || true
+          ruff check --output-format github tool/
+
+      - name: Android sources (mobsfscan)
+        id: mobsfscan
+        if: always()
+        run: |
+          mobsfscan --config tool/security/mobsfscan.yml --sarif -o mobsfscan.sarif android/ || true
+          mobsfscan --config tool/security/mobsfscan.yml -w android/
+
+      - name: Upload zizmor results
+        if: always() && env.UPLOAD == 'true' && hashFiles('zizmor.sarif') != ''
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        with:
+          sarif_file: zizmor.sarif
+          category: zizmor
+      - name: Upload Semgrep results
+        if: always() && env.UPLOAD == 'true' && hashFiles('semgrep.sarif') != ''
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        with:
+          sarif_file: semgrep.sarif
+          category: semgrep-dart
+      - name: Upload Ruff results
+        if: always() && env.UPLOAD == 'true' && hashFiles('ruff.sarif') != ''
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        with:
+          sarif_file: ruff.sarif
+          category: ruff
+      - name: Upload mobsfscan results
+        if: always() && env.UPLOAD == 'true' && hashFiles('mobsfscan.sarif') != ''
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        with:
+          sarif_file: mobsfscan.sarif
+          category: mobsfscan
+
+  gradle-dependencies:
+    # Sends the resolved Android (Gradle) dependency tree to GitHub, so
+    # Dependabot alerts cover the Android side too. pubspec.lock is read by
+    # GitHub directly.
+    name: Android dependency graph
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version-file: pubspec.yaml
+      - name: Prepare the Android project (writes local.properties)
+        run: |
+          flutter pub get
+          flutter build apk --config-only
+      - uses: gradle/actions/dependency-submission@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          build-root-directory: android

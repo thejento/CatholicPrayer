@@ -1,0 +1,16 @@
+# High-severity MobSF findings on the APK that were reviewed and accepted
+# (ADR-032). One finding title per line, matched as a prefix; the reason goes
+# on the comment line above it. Any other high finding fails the MobSF job.
+
+# The scanned APK is built in CI without the upload key, so it is
+# debug-signed. Release signing is checked by release.yml (see r-01, r-08).
+Application signed with debug certificate
+
+# minSdk 24 (Android 7.0) is Flutter's default and keeps older TVs and
+# phones supported. The app stores nothing sensitive and makes no network
+# calls. Revisit if the app ever handles personal data (F-13).
+App can be installed on a vulnerable unpatched Android version
+
+# Found in R8-obfuscated library code (defpackage/r1.java), not in the app:
+# the app has no Kotlin crypto and its Dart code uses no encryption.
+The App uses the encryption mode CBC with PKCS5/PKCS7 padding

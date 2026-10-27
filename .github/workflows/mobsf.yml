@@ -1,0 +1,74 @@
+# MobSF scan of the built APK (DESIGN §7.1, ADR-032). Heavier than the source
+# scans (a 2 GB container), so it runs weekly, on release tags and on demand.
+# Fails on a high-severity finding that isn't in tool/security/mobsf-accepted.txt.
+name: MobSF
+
+on:
+  schedule:
+    - cron: '7 6 * * 2'
+  push:
+    tags: ['v*.*.*']
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  apk:
+    name: MobSF APK scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    services:
+      mobsf:
+        image: opensecurity/mobile-security-framework-mobsf:v4.5.3@sha256:d4e9ca0866e0e899a5bd42c8f4f7c1aee8040401b4ee3a6863cbcadfdeeef26d
+        ports: ['8000:8000']
+        env:
+          # Only reachable from this job's runner; not a secret.
+          MOBSF_API_KEY: ci-local-key
+    env:
+      MOBSF: http://127.0.0.1:8000/api/v1
+      MOBSF_KEY: ci-local-key
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version-file: pubspec.yaml
+
+      # Same build as CI: release mode, debug-signed (no upload key here).
+      - name: Build APK
+        run: |
+          flutter pub get
+          flutter build apk --release
+
+      - name: Scan with MobSF
+        run: |
+          for _ in $(seq 1 60); do
+            curl -sf -o /dev/null -H "Authorization: $MOBSF_KEY" "$MOBSF/scans" && break
+            sleep 5
+          done
+          hash=$(curl -sf -H "Authorization: $MOBSF_KEY" \
+            -F "file=@build/app/outputs/flutter-apk/app-release.apk" "$MOBSF/upload" \
+            | python3 -c 'import json,sys; print(json.load(sys.stdin)["hash"])')
+          curl -sf -H "Authorization: $MOBSF_KEY" --data "hash=$hash" "$MOBSF/scan" -o mobsf-report.json
+          curl -sf -H "Authorization: $MOBSF_KEY" --data "hash=$hash" "$MOBSF/scorecard" -o mobsf-scorecard.json
+          curl -sf -H "Authorization: $MOBSF_KEY" --data "hash=$hash" "$MOBSF/download_pdf" -o mobsf-report.pdf || true
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: mobsf-report
+          path: mobsf-*
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Check findings
+        run: python3 -I tool/security/mobsf_gate.py mobsf-scorecard.json "$GITHUB_STEP_SUMMARY"

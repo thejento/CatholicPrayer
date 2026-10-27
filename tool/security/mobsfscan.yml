@@ -1,0 +1,18 @@
+---
+# mobsfscan settings (ADR-032). Each ignored rule says why.
+# Used as: mobsfscan --config tool/security/mobsfscan.yml android/
+- ignore-paths:
+    - android/build
+    - android/.gradle
+  ignore-rules:
+    # Flutter sets targetSdk >= 35 and the activity has taskAffinity="",
+    # which is the fix this rule asks for; it can't read flutter.targetSdkVersion.
+    - android_task_hijacking2
+    # Hardening for apps that talk to a server or hold secrets. This app has
+    # no network calls, no account and no secrets on the device (DESIGN §9).
+    - android_certificate_transparency
+    - android_ssl_pinning
+    - android_root_detection
+    - android_safetynet
+    - android_prevent_screenshot
+    - android_tapjacking

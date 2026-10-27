@@ -1,0 +1,13 @@
+# Ruff settings for the Python build tools (ADR-032). Security rules (S,
+# from bandit) plus real errors (F: pyflakes, E9: syntax).
+target-version = "py311"
+
+[lint]
+select = ["S", "F", "E9"]
+
+[lint.per-file-ignores]
+# S310 warns that urlopen also accepts file:// and custom schemes. These
+# tools only open constant https URLs written in the script itself.
+"art/build_art.py" = ["S310"]
+"saints/check_vatican_links.py" = ["S310"]
+"scripture/build.py" = ["S310"]

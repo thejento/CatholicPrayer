@@ -5,7 +5,7 @@
 
 Each issue title starts with a stable ID: **F** = feature, **T** = TV, **W** = web,
 **Q** = quality, **O** = ops/CI/CD, **C** = content, **I** = idea (not committed).
-A new item takes the next free number of its prefix (next: F-33, T-05, W-03, Q-06, O-16, C-05, I-04).
+A new item takes the next free number of its prefix (next: F-33, T-05, W-03, Q-06, O-17, C-05, I-04).
 Iterations are milestones; labels give the type, `owner` for the owner's own tasks,
 `on hold` when blocked. Close the issue from the PR that does it (`Closes #NN`).
 Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/DECISIONS.md)
@@ -35,6 +35,7 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] O-08 Pages enabled (source: GitHub Actions) → https://thejento.github.io/CatholicPrayer/
 - [x] O-13 Obsolete `claude/new-session-sjsf1m` branch deleted
 - [x] O-15 First Dependabot batch (9 updates) combined into one PR; updates grouped from now on (ADR-019)
+- [x] O-16 Security scanning in CI: OSV-Scanner, gitleaks, zizmor, CodeQL, Semgrep Dart rules, Ruff, mobsfscan, MobSF, Scorecard (ADR-032, review r-16, #70)
 - [x] O-09 Upload keystore created and the 4 `ANDROID_*` secrets set (ADR-018); signature verified
 - [x] F-06 Resume an interrupted Rosary (persist session index + mysteries)
 - [x] F-07 Animated glow moving between beads (2.3.5 in the original spec)

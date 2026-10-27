@@ -1,0 +1,10 @@
+# gitleaks settings (DESIGN §7.1, ADR-032): the default rules, plus the
+# false positives reviewed so far, each with its reason. Allow exact values,
+# never whole patterns, so a real secret on the same kind of line is still found.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Actions cache key names in render-audio.yml, not secrets"
+regexTarget = "secret"
+regexes = ['''^kyutai-tts-1\.6b-en_fr$''', '''^kokoro-v1\.0$''']

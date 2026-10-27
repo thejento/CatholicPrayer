@@ -361,3 +361,26 @@ Template:
 - Consequences: The owner reviews the English for facts and tone; Spanish and French join the
   language review (C-02). No new recordings. A prayer added to the library needs a note, or the
   content test fails.
+
+## ADR-032: Security scanning with free, pinned tools
+- Date: 2026-10-27 · Status: Accepted
+- Context: A security and code review (issues r-01…r-15) found that CI had no SAST and no
+  vulnerability or secret scanning, and that GitHub's free security features were off. The
+  repository is public on a personal account, so GitHub's security features are free, and
+  the owner wanted no running cost.
+- Options considered: CodeQL default setup only (one click, but no Dart, Android or workflow
+  depth); paid platforms (Snyk, Semgrep AppSec Platform, Socket); open-source scanners in
+  CI, reporting to GitHub code scanning.
+- Decision: Open-source scanners in CI, each uploading SARIF to code scanning: OSV-Scanner,
+  gitleaks, zizmor, Semgrep with project Dart rules, Ruff `S` rules, mobsfscan on every PR;
+  CodeQL advanced setup for Actions and Python; Scorecard on `main`; MobSF on the APK weekly
+  and on tags, with a reviewed list of accepted high findings. GitHub secret scanning, push
+  protection and Dependabot alerts are turned on in the settings. Scanners are pinned with
+  hashes and actions by SHA, so the security jobs don't add the supply-chain risk they look
+  for.
+- Consequences: No cost while the repository stays public. If it goes private, code and
+  secret scanning become paid GitHub add-ons. A gate fails until existing findings are
+  fixed or accepted with a written reason. Dart has no CodeQL support and no public Semgrep
+  rules, so Dart coverage is the project's own rules plus `flutter analyze`. Every accepted
+  finding carries its reason next to it, and is looked at again when the reason no longer
+  holds (for example personal data with F-13).
