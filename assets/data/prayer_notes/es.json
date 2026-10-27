@@ -1,0 +1,75 @@
+{
+  "notes": {
+    "sign_of_the_cross": {
+      "origin": "Los cristianos trazan la cruz sobre sí mismos desde los primeros siglos. Hacia el año 200, Tertuliano escribía que los creyentes se marcaban la frente con ella a cada paso del día. El gesto amplio, de la frente al pecho y de un hombro al otro, llegó más tarde. Las palabras vienen del mandato de Jesús de bautizar «en el nombre del Padre y del Hijo y del Espíritu Santo».",
+      "use": "Abre y cierra la mayoría de las oraciones, la Misa y el Rosario. Los católicos también la hacen al entrar en una iglesia, a menudo con agua bendita como recuerdo del Bautismo, antes de las comidas y en los momentos de necesidad. En un solo gesto profesa la Trinidad y la cruz de Cristo.",
+      "scripture": "Mateo 28,19"
+    },
+    "apostles_creed": {
+      "origin": "Un resumen de la fe nacido de las preguntas que se hacían en el Bautismo en la Iglesia primitiva de Roma (el «antiguo símbolo romano» de los siglos II y III). Una antigua tradición dice que cada uno de los doce Apóstoles aportó uno de sus artículos, de ahí su nombre; los historiadores lo ven más bien como un resumen fiel de su enseñanza. Su forma actual quedó fijada hacia el siglo VIII.",
+      "use": "Se reza al comienzo del Rosario, con el crucifijo en la mano. En la Misa puede sustituir al Credo de Nicea, más largo, sobre todo en Cuaresma y en el tiempo de Pascua. Es el credo del Bautismo: la renovación de las promesas bautismales sigue sus preguntas."
+    },
+    "our_father": {
+      "origin": "La oración que el mismo Jesús enseñó a sus discípulos cuando le pidieron: «Señor, enséñanos a orar». Se encuentra en dos Evangelios. Las palabras de alabanza «Tuyo es el reino, tuyo el poder y la gloria…» se añadieron en algunas comunidades cristianas antiguas; los católicos las dicen en la Misa, después de una breve oración del sacerdote, pero no en el Rosario.",
+      "use": "Se reza en cada Misa antes de la Comunión, por la mañana y por la tarde en la Liturgia de las Horas, y al comienzo de cada decena del Rosario, en la cuenta grande. El Catecismo, citando a Tertuliano, lo llama «el resumen de todo el Evangelio» (n. 2761).",
+      "scripture": "Mateo 6,9-13; Lucas 11,1-4"
+    },
+    "hail_mary": {
+      "origin": "La primera parte une dos saludos del Evangelio: el del ángel Gabriel, «Alégrate, llena de gracia, el Señor está contigo», y el de Isabel, «Bendita tú entre las mujeres y bendito el fruto de tu vientre». El nombre de Jesús se añadió en la Edad Media. La petición «Santa María, Madre de Dios, ruega por nosotros, pecadores…» se difundió en el siglo XV y quedó fijada en el Breviario romano de 1568. El título «Madre de Dios» había sido afirmado por el Concilio de Éfeso en el año 431.",
+      "use": "Es el corazón del Rosario: diez en cada decena, mientras se medita un misterio. También se reza tres veces en el Ángelus, y sola en cualquier momento, para pedir la oración de María.",
+      "scripture": "Lucas 1,28; Lucas 1,42"
+    },
+    "glory_be": {
+      "origin": "Un breve himno de alabanza a la Trinidad, llamado «doxología menor» (doxología significa «palabra de gloria»). Se remonta a los primeros siglos de la Iglesia, cuando afirmaba, frente a la herejía arriana, que el Hijo y el Espíritu comparten la gloria del Padre. La segunda parte, «como era en el principio…», ya se usaba en Occidente en el siglo VI.",
+      "use": "Cierra cada decena del Rosario y cada salmo de la Liturgia de las Horas. Muchas personas inclinan la cabeza al decir los nombres del Padre, del Hijo y del Espíritu Santo."
+    },
+    "fatima_prayer": {
+      "origin": "También llamada oración de la decena. Según el relato de sor Lucía, la Virgen la enseñó a los tres pastorcitos de Fátima, en Portugal, el 13 de julio de 1917, y pidió que se rezara después de cada decena. La Iglesia ha reconocido las apariciones de Fátima como dignas de fe; la oración se difundió por todo el mundo en el siglo XX.",
+      "use": "Se reza después del Gloria al final de cada decena. Es una costumbre muy extendida, no una regla del Rosario. Pide misericordia y la salvación de todos, especialmente de quienes más la necesitan."
+    },
+    "hail_holy_queen": {
+      "origin": "En latín, la Salve Regina. Es una de las cuatro grandes antífonas marianas de la Iglesia y data del siglo XI. A menudo se atribuye a Hermann de Reichenau, un monje alemán, pero no se conoce su autor con certeza. Desde el siglo XIII, monjes y frailes, sobre todo los dominicos, la cantaban cada tarde.",
+      "use": "Cierra el Rosario. La Iglesia también la canta al final de la oración de la noche (Completas) durante gran parte del año. Se dirige a María como a una madre, desde «este valle de lágrimas», y le pide que nos muestre a Jesús."
+    },
+    "rosary_closing_prayer": {
+      "origin": "Esta oración viene del Misal romano: era la oración colecta de la Misa de Nuestra Señora del Rosario. Esa fiesta se remonta al siglo XVI; se celebra el 7 de octubre.",
+      "use": "Cierra el Rosario, después de la Salve. Resume por qué rezamos el Rosario: meditando los misterios, «imitemos lo que contienen y alcancemos lo que prometen»."
+    },
+    "memorare": {
+      "origin": "En latín se llama Memorare, su primera palabra: «Acordaos». A menudo se atribuye a san Bernardo de Claraval (siglo XII), pero procede de una oración más larga del siglo XV. En el siglo XVII, un sacerdote francés, el padre Claude Bernard, la dio a conocer repartiéndola entre presos y enfermos, lo que probablemente explica la confusión de nombres.",
+      "use": "Una oración de confianza en la ayuda de María, para los momentos difíciles. Puede rezarse en cualquier momento; muchas personas la rezan cada día."
+    },
+    "saint_michael": {
+      "origin": "El papa León XIII escribió esta oración y, en 1886, la añadió a las oraciones que se rezaban después de la Misa rezada. Una tradición dice que la compuso tras una visión inquietante durante la Misa, pero no hay ningún testimonio directo de ello. Las oraciones después de la Misa terminaron en 1964; en 1994, el papa Juan Pablo II pidió a los fieles que no la olvidaran.",
+      "use": "Pide la protección de san Miguel, que en la Escritura guía a los ángeles de Dios contra el mal. Muchas parroquias la rezan de nuevo después de la Misa. La fiesta de san Miguel es el 29 de septiembre.",
+      "scripture": "Daniel 10,13; Judas 9; Apocalipsis 12,7-9"
+    },
+    "come_holy_spirit": {
+      "origin": "El comienzo es una antigua antífona de la liturgia latina, «Veni, Sancte Spiritus, reple tuorum corda fidelium», cantada sobre todo en torno a Pentecostés. El versículo «Envía tu Espíritu… y renovarás la faz de la tierra» viene del Salmo 104. La oración final es la colecta de la Misa del Espíritu Santo.",
+      "use": "Se reza antes del estudio, del trabajo, de una decisión importante o de un rato de oración, para pedir la luz del Espíritu Santo. Las clases de catequesis y las reuniones a menudo comienzan con ella.",
+      "scripture": "Salmo 104,30"
+    },
+    "guardian_angel": {
+      "origin": "La oración latina «Angele Dei» data de la Edad Media (siglo XI o XII) y a veces se atribuye a Reginaldo de Canterbury, un monje inglés. La fe que expresa es más antigua: Jesús dice que los ángeles de los pequeños ven siempre el rostro de su Padre del cielo.",
+      "use": "A menudo es la primera oración que aprenden los niños, para la mañana y la noche. La Iglesia celebra a los santos Ángeles Custodios el 2 de octubre.",
+      "scripture": "Salmo 91,11; Mateo 18,10"
+    },
+    "act_of_contrition": {
+      "origin": "No hay un único texto oficial: se usan muchas versiones, de distintos países y siglos. Todas expresan lo que la Iglesia llama contrición: «un dolor del alma y una detestación del pecado cometido con la resolución de no volver a pecar» (Catecismo, n. 1451).",
+      "use": "Se reza en la Confesión, después de decir los pecados, y por la noche tras un examen de conciencia. Cuando no es posible confesarse, el dolor por amor a Dios, con el firme propósito de confesarse cuanto antes, ya obtiene el perdón (Catecismo, n. 1452)."
+    },
+    "angelus": {
+      "origin": "Su nombre es su primera palabra en latín: «El ángel del Señor anunció a María». Nació de la costumbre medieval, en los siglos XIII y XIV, de rezar avemarías al toque de la campana de la tarde; después siguieron las de la mañana y del mediodía. Su forma actual, tres versículos con tres avemarías y una oración final, quedó fijada hacia el siglo XVII.",
+      "use": "Se reza tradicionalmente a las 6 de la mañana, a mediodía y a las 6 de la tarde, cuando las campanas tocan el Ángelus. Recuerda la Encarnación: Dios Hijo hecho hombre. Los domingos a mediodía, el Papa lo reza con los fieles en la plaza de San Pedro. En el tiempo de Pascua lo sustituye el Regina Caeli.",
+      "scripture": "Lucas 1,26-38; Juan 1,14"
+    },
+    "regina_caeli": {
+      "origin": "Una de las cuatro grandes antífonas marianas, de hacia el siglo XII; su autor es desconocido. Una leyenda cuenta que el papa san Gregorio Magno oyó a los ángeles cantar sus primeras palabras en Roma durante una peste, pero es solo una leyenda. En 1742, el papa Benedicto XIV pidió que sustituyera al Ángelus en el tiempo de Pascua.",
+      "use": "Se reza en lugar del Ángelus desde el Domingo de Pascua hasta Pentecostés, a las mismas horas. Se alegra con María por la Resurrección de su Hijo."
+    },
+    "holy_father_intentions": {
+      "origin": "Rezar por las intenciones del Papa es una costumbre antigua y una de las condiciones habituales para obtener una indulgencia, junto con la Confesión y la Comunión. La Iglesia deja libre la oración; lo habitual es un Padre Nuestro y un Avemaría. Cada mes, el Papa propone además una intención de oración a través de su Red Mundial de Oración.",
+      "use": "Se añade a menudo al final del Rosario. Une a quien reza con toda la Iglesia y con las preocupaciones del Papa por el mundo."
+    }
+  }
+}

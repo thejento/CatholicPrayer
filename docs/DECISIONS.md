@@ -347,3 +347,17 @@ Template:
 - Consequences: Material's seeded palettes keep the contrast in every season (checked in the
   accessibility tests). The theme is computed when the app builds, so it changes with the day
   the next time the app is opened. Goldens are taken on a green (Ordinary Time) day.
+
+## ADR-031: Background on the prayers, written for the app
+- Date: 2026-10-27 · Status: Accepted
+- Context: The owner asked for each prayer's history and typical use, as this is a teaching
+  app, with the button in the library as well as in the Rosary.
+- Options considered: quoting an existing source (public-domain sources such as the 1913
+  Catholic Encyclopedia are long and dated); linking to a website (needs a connection, and a
+  site the app doesn't control); short texts written for the app.
+- Decision: Short original notes in three sections (origin, use, Scripture), stored apart from
+  the public-domain prayer texts in `assets/data/prayer_notes/`. Legends are named as such.
+  A separate page opened by an "About this prayer" button, in the library and on Rosary steps.
+- Consequences: The owner reviews the English for facts and tone; Spanish and French join the
+  language review (C-02). No new recordings. A prayer added to the library needs a note, or the
+  content test fails.

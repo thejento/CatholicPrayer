@@ -287,5 +287,10 @@
   "openingPrayers": "Opening prayers",
   "closingPrayers": "Closing prayers",
   "summaryHint": "Pray these on your own, then tap Next. Tap a prayer to see its words.",
-  "prayTheDecade": "Pray the decade: the Our Father, ten Hail Marys, the Glory Be and the Fatima Prayer."
+  "prayTheDecade": "Pray the decade: the Our Father, ten Hail Marys, the Glory Be and the Fatima Prayer.",
+  "aboutPrayer": "About this prayer",
+  "noteOrigin": "Where it comes from",
+  "noteUse": "When it is prayed",
+  "noteScripture": "In Scripture",
+  "@aboutPrayer": {"description": "Button and page title: the history and use of a prayer"}
 }

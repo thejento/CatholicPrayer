@@ -158,5 +158,9 @@
   "openingPrayers": "Prières du début",
   "closingPrayers": "Prières de la fin",
   "summaryHint": "Priez-les de votre côté, puis touchez Suivant. Touchez une prière pour en voir le texte.",
-  "prayTheDecade": "Priez la dizaine : le Notre Père, dix Je vous salue Marie, le Gloire au Père et la prière de Fatima."
+  "prayTheDecade": "Priez la dizaine : le Notre Père, dix Je vous salue Marie, le Gloire au Père et la prière de Fatima.",
+  "aboutPrayer": "À propos de cette prière",
+  "noteOrigin": "D'où elle vient",
+  "noteUse": "Quand on la prie",
+  "noteScripture": "Dans l'Écriture"
 }

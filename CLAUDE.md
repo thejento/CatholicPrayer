@@ -6,7 +6,7 @@ tablets, Android TV (D-pad) and the web, from one codebase. Offline, no account,
 App id `com.catholicrosarycompanion.crc`, package name `crc`, version in `pubspec.yaml`.
 
 - Web app (deployed from `main`): https://thejento.github.io/CatholicPrayer/
-- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…030) · History: `BACKLOG.md`
+- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…031) · History: `BACKLOG.md`
 - **Open work: GitHub Issues**, see "Backlog and issues" below.
 
 ## How the owner works
@@ -24,6 +24,8 @@ App id `com.catholicrosarycompanion.crc`, package name `crc`, version in `pubspe
 - Three languages everywhere: **en, es, fr**. UI strings in `lib/src/l10n/app_<lang>.arb`
   (run `flutter gen-l10n`), content in `assets/data/**/<lang>.json`. Parity tests fail if one
   is missing. Use gender-neutral wording in es/fr ("cuando quiera", "quand vous le souhaitez").
+- **Background notes on the prayers** (`assets/data/prayer_notes/`, "About this prayer") are the
+  app's own writing, not copied. Keep to established facts and name legends as legends.
 - The owner reads the answers in plain language: explain what changed for the person praying,
   then the technical detail.
 
@@ -72,7 +74,7 @@ flutter drive --driver=test_driver/integration_test.dart \
 - Themes: classic and kid-friendly. Classic takes the liturgical colour of the day
   (`AppTheme.themeFor(mode, season:)`, switch `ThemeManager.followSeason`); kid-friendly keeps
   its own colours. Paintings appear only in classic.
-- Assets: `assets/data/` (prayers, mysteries, scripture, saints, art.json), `assets/audio/<lang>/`
+- Assets: `assets/data/` (prayers, prayer_notes, mysteries, scripture, saints, art.json), `assets/audio/<lang>/`
   (pre-rendered voice), `assets/art/` (WebP paintings).
 
 ## Tests and quality gates (CI, all required)

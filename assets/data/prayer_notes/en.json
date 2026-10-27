@@ -1,0 +1,75 @@
+{
+  "notes": {
+    "sign_of_the_cross": {
+      "origin": "Christians have traced the cross on themselves since the first centuries. Around the year 200, Tertullian wrote that believers marked their foreheads with it at every step of the day. The larger gesture, from forehead to breast and from shoulder to shoulder, came later. The words come from Jesus' command to baptise \"in the name of the Father and of the Son and of the Holy Spirit\".",
+      "use": "It opens and closes most prayers, the Mass and the Rosary. Catholics also make it on entering a church, often with holy water as a reminder of their Baptism, before meals, and in moments of need. In one gesture it professes the Trinity and the cross of Christ.",
+      "scripture": "Matthew 28:19"
+    },
+    "apostles_creed": {
+      "origin": "A summary of the faith that grew out of the questions asked at Baptism in the early Church of Rome (the \"Old Roman Creed\" of the 2nd and 3rd centuries). An old tradition says that each of the twelve Apostles gave one of its articles, hence the name; historians see it rather as a faithful summary of their teaching. Its present form was settled by about the 8th century.",
+      "use": "It is said at the start of the Rosary, holding the crucifix. At Mass it may replace the longer Nicene Creed, especially in Lent and Easter Time. It is the creed of Baptism: the renewal of baptismal promises follows its questions."
+    },
+    "our_father": {
+      "origin": "The prayer Jesus himself taught his disciples when they asked him, \"Lord, teach us to pray.\" It is found in two Gospels. The words of praise \"For the kingdom, the power and the glory are yours…\" were added in some early Christian communities; Catholics say them at Mass, after a short prayer by the priest, but not in the Rosary.",
+      "use": "It is prayed at every Mass before Communion, morning and evening in the Liturgy of the Hours, and at the start of each decade of the Rosary, on the large bead. The Catechism, quoting Tertullian, calls it \"the summary of the whole Gospel\" (no. 2761).",
+      "scripture": "Matthew 6:9-13; Luke 11:1-4"
+    },
+    "hail_mary": {
+      "origin": "The first half joins two greetings from the Gospel: the angel Gabriel's \"Hail, full of grace, the Lord is with you\" and Elizabeth's \"Blessed are you among women, and blessed is the fruit of your womb\". The name of Jesus was added in the Middle Ages. The request \"Holy Mary, Mother of God, pray for us sinners…\" spread in the 15th century and was fixed in the Roman Breviary of 1568. The title \"Mother of God\" had been affirmed by the Council of Ephesus in 431.",
+      "use": "It is the heart of the Rosary: ten on each decade, while meditating on a mystery. It is also said three times in the Angelus, and on its own at any moment, to ask for Mary's prayer.",
+      "scripture": "Luke 1:28; Luke 1:42"
+    },
+    "glory_be": {
+      "origin": "A short hymn of praise to the Trinity, called the \"lesser doxology\" (doxology means \"word of glory\"). It goes back to the first centuries of the Church, when it affirmed, against the Arian heresy, that the Son and the Spirit share the glory of the Father. The second half, \"as it was in the beginning…\", was in use in the West by the 6th century.",
+      "use": "It ends each decade of the Rosary and every psalm in the Liturgy of the Hours. Many people bow their head while saying the names of the Father, the Son and the Holy Spirit."
+    },
+    "fatima_prayer": {
+      "origin": "Also called the Decade Prayer. According to the account of Sister Lúcia, Our Lady taught it to the three shepherd children of Fatima, in Portugal, on 13 July 1917, and asked that it be said after each decade. The Church has recognised the Fatima apparitions as worthy of belief; the prayer spread across the world in the 20th century.",
+      "use": "It is said after the Glory Be at the end of each decade. It is a widespread custom, not a rule of the Rosary. It asks for mercy, and for the salvation of all, especially those most in need."
+    },
+    "hail_holy_queen": {
+      "origin": "In Latin, the Salve Regina. It is one of the four great Marian antiphons of the Church and dates from the 11th century. It is often attributed to Hermann of Reichenau, a German monk, but its author is not known for certain. From the 13th century, monks and friars, the Dominicans especially, sang it every evening.",
+      "use": "It closes the Rosary. The Church also sings it at the end of Night Prayer (Compline) for much of the year. It turns to Mary as a mother, from \"this valley of tears\", and asks her to show us Jesus."
+    },
+    "rosary_closing_prayer": {
+      "origin": "This prayer comes from the Roman Missal: it was the opening prayer (collect) of the Mass of Our Lady of the Rosary. That feast goes back to the 16th century; it is kept on 7 October.",
+      "use": "It closes the Rosary, after the Hail, Holy Queen. It sums up why we pray the Rosary: by meditating on the mysteries, \"we may imitate what they contain and obtain what they promise\"."
+    },
+    "memorare": {
+      "origin": "Its name is its first word in Latin: \"Remember\". It is often credited to Saint Bernard of Clairvaux (12th century), but it comes from a longer 15th-century prayer. In the 17th century, a French priest, Father Claude Bernard, made it widely known by giving it to prisoners and the sick, which probably explains the confusion of names.",
+      "use": "A prayer of trust in Mary's help, said in times of difficulty. It can be prayed at any moment; many people say it every day."
+    },
+    "saint_michael": {
+      "origin": "Pope Leo XIII wrote this prayer and, in 1886, added it to the prayers said after Low Mass. A tradition says he composed it after a troubling vision during Mass, but there is no first-hand record of this. The prayers after Mass ended in 1964; in 1994 Pope John Paul II asked the faithful not to forget it.",
+      "use": "It asks the protection of Saint Michael, who in Scripture leads God's angels against evil. Many parishes say it again after Mass. Saint Michael's feast is on 29 September.",
+      "scripture": "Daniel 10:13; Jude 9; Revelation 12:7-9"
+    },
+    "come_holy_spirit": {
+      "origin": "The opening is an ancient antiphon of the Latin liturgy, \"Veni, Sancte Spiritus, reple tuorum corda fidelium\", sung especially around Pentecost. The verse \"Send forth your Spirit… and you shall renew the face of the earth\" comes from Psalm 104. The closing prayer is the collect of the Mass of the Holy Spirit.",
+      "use": "It is said before study, work, an important decision or a time of prayer, to ask for the light of the Holy Spirit. Catechism classes and meetings often begin with it.",
+      "scripture": "Psalm 104:30"
+    },
+    "guardian_angel": {
+      "origin": "The Latin prayer \"Angele Dei\" dates from the Middle Ages (11th or 12th century) and is sometimes attributed to Reginald of Canterbury, an English monk. The belief behind it is older: Jesus says that the angels of the little ones always see the face of his Father in heaven.",
+      "use": "Often the first prayer children learn, said in the morning and at bedtime. The Church celebrates the Holy Guardian Angels on 2 October.",
+      "scripture": "Psalm 91:11; Matthew 18:10"
+    },
+    "act_of_contrition": {
+      "origin": "There is no single official text: many versions are in use, from different countries and centuries. They all express what the Church calls contrition: \"sorrow of the soul and detestation for the sin committed, together with the resolution not to sin again\" (Catechism, no. 1451).",
+      "use": "It is said in Confession, after telling one's sins, and at night after an examination of conscience. When Confession isn't possible, sorrow out of love for God, with the firm intention to go to Confession as soon as possible, already obtains forgiveness (Catechism, no. 1452)."
+    },
+    "angelus": {
+      "origin": "Its name is its first word in Latin: \"The angel of the Lord declared unto Mary\". It grew from the medieval custom of saying Hail Marys when the evening bell rang, in the 13th and 14th centuries; the morning and noon bells followed. Its present form, three verses with three Hail Marys and a closing prayer, was settled by the 17th century.",
+      "use": "It is traditionally prayed at 6 am, noon and 6 pm, when church bells ring the Angelus. It recalls the Incarnation: God the Son becoming man. On Sundays at noon, the Pope prays it with the crowd in Saint Peter's Square. In Easter Time, the Regina Caeli replaces it.",
+      "scripture": "Luke 1:26-38; John 1:14"
+    },
+    "regina_caeli": {
+      "origin": "One of the four great Marian antiphons, from about the 12th century; its author is unknown. A legend says Pope Gregory the Great heard angels sing its first lines in Rome during a plague, but it is only a legend. In 1742, Pope Benedict XIV asked that it replace the Angelus during Easter Time.",
+      "use": "It is prayed instead of the Angelus from Easter Sunday to Pentecost, at the same hours. It rejoices with Mary in the Resurrection of her Son."
+    },
+    "holy_father_intentions": {
+      "origin": "Praying for the Pope's intentions is an old custom, and one of the usual conditions for an indulgence, together with Confession and Communion. The Church leaves the prayer free; an Our Father and a Hail Mary are the usual choice. Each month, the Pope also proposes a prayer intention through his Worldwide Prayer Network.",
+      "use": "It is often added at the end of the Rosary. It unites the person praying with the whole Church and with the Pope's concerns for the world."
+    }
+  }
+}
