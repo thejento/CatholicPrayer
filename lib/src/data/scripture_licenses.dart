@@ -10,7 +10,8 @@ void registerScriptureLicenses() {
 French Bible passages: Sainte Bible néo-Crampon Libre, a modernisation of the Catholic
 Crampon translation. Copyright © 2022 Fraternité de Tibériade. Licensed under the Creative
 Commons Attribution-ShareAlike 4.0 licence (https://creativecommons.org/licenses/by-sa/4.0/).
-Unmodified excerpts, from eBible.org (https://ebible.org/Scriptures/details.php?id=francl).''',
+Unmodified excerpts, from eBible.org (https://ebible.org/Scriptures/details.php?id=francl),
+except Luke 1:45, which is cut short there and is completed from the Crampon 1923 (public domain).''',
     );
     yield const LicenseEntryWithLineBreaks(
       ['Scripture: Douay-Rheims Bible'],

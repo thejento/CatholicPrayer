@@ -58,7 +58,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('about-prayer')));
     await tester.pumpAndSettle();
-    expect(find.text("D'où elle vient"), findsOneWidget);
+    expect(find.text('Origine'), findsOneWidget);
     await tester.scrollUntilVisible(
       find.text('Matthieu 6,9-13 ; Luc 11,1-4'),
       200,

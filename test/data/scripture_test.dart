@@ -28,6 +28,24 @@ void main() {
     }
   });
 
+  test('no verse is cut short', () {
+    // A verse ends a sentence or a clause. The francl file once stopped Luke 1:45 after
+    // "Heureuse celle qui a cru" (completed in tool/scripture/build.py).
+    // Torres Amat has no stop after Luke 2:8; the transcription is kept as published.
+    const asPublished = {'es joyful 3 8'};
+    for (final set in MysterySet.values) {
+      for (var decade = 1; decade <= mysteriesPerSet; decade++) {
+        for (final lang in contentLanguages) {
+          for (final v in scripture.passage(set, decade, lang)!.verses) {
+            final where = '$lang ${set.name} $decade ${v.number}';
+            if (asPublished.contains(where)) continue;
+            expect(v.text.trim(), matches(RegExp(r'[.,;:!?»”")\]—]$')), reason: where);
+          }
+        }
+      }
+    }
+  });
+
   test('verses follow on without gaps', () {
     for (final set in MysterySet.values) {
       for (var decade = 1; decade <= mysteriesPerSet; decade++) {
