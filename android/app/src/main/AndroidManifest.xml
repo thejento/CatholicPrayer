@@ -7,11 +7,15 @@
          POST_NOTIFICATIONS comes from flutter_local_notifications. -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- Backup (ADR-034): nothing goes to cloud backup, so the private prayer
+         journal stays on the person's devices. -->
     <application
         android:label="Rosary Companion"
         android:banner="@drawable/tv_banner"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules">
         <activity
             android:name=".MainActivity"
             android:exported="true"

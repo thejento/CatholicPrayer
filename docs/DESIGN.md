@@ -490,6 +490,24 @@ mode the closing card lists them. A Rosary uses the ending set when it starts; t
 "Continue" card counts the steps with the current setting. Model: `RosaryEnding` in
 `rosary_sequence.dart`, `SettingsController.ending`.
 
+### 3.20 Prayer journal (F-13), see ADR-034
+
+A private list of the Rosaries prayed to the end, **kept only on the device**: no account, no
+network, and left out of cloud backups (§9).
+
+* **Recorded automatically** when a Rosary is finished (guided or mysteries only): date and
+  time, mysteries, mode. Going back and finishing again doesn't count it twice; *Pray again*
+  starts a new one. The completion screen says "Added to your prayer journal" and offers **Add
+  an intention** (optional, up to 200 characters).
+* **Home → Prayer journal**: "*n* Rosaries this month", then the entries newest first, grouped
+  by month, each with its intention. A menu on each entry edits the intention or removes it;
+  **Clear the journal** asks for confirmation inside the app.
+* **No streak** or "days in a row": prayer isn't a score, and a broken streak would make people
+  feel guilty. The monthly count is the only number.
+* **Settings → Prayer journal**: on by default. Turning it off stops recording and hides the
+  Home button; existing entries stay until cleared.
+* Storage: `journal_entries` (JSON) in the preferences store, `JournalController`.
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)
@@ -625,6 +643,9 @@ Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
   * `RECEIVE_BOOT_COMPLETED`, `VIBRATE`: restore the reminder after a reboot, vibrate with it.
   * `ACCESS_NETWORK_STATE`: added by the audio player library (ExoPlayer); the app plays
     bundled files only.
+* **Backup** (ADR-034): the app's data (settings, the prayer journal) is excluded from Android
+  cloud backup. On Android 12 and later, a device-to-device transfer to a new phone carries
+  it; on older versions nothing is carried. On the web it stays in the browser's storage.
 * Screen readers (TalkBack, browser readers): the rosary drawing is one labelled button
   ("Rosary, bead 14 of 61") whose tap moves to the next step. The step title is a heading
   and a live region, so each new step is announced without moving focus. The progress

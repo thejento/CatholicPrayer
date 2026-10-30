@@ -6,6 +6,7 @@ import '../../audio/audio_catalog.dart';
 import '../../data/device_profile.dart';
 import '../../domain/liturgical_calendar.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../../providers/journal_controller.dart';
 import '../../providers/settings_controller.dart';
 import '../../providers/theme_manager.dart';
 import '../../reminders/reminder_controller.dart';
@@ -192,6 +193,16 @@ class SettingsScreen extends StatelessWidget {
                   },
                 ),
               ],
+              const SizedBox(height: 16),
+              Text(l10n.prayerJournal, style: Theme.of(context).textTheme.titleMedium),
+              SwitchListTile(
+                key: const Key('journal-switch'),
+                contentPadding: EdgeInsets.zero,
+                title: Text(l10n.journalSwitch),
+                subtitle: Text(l10n.journalSwitchHint),
+                value: context.watch<JournalController>().enabled,
+                onChanged: context.read<JournalController>().setEnabled,
+              ),
               const Divider(height: 32),
               Text(l10n.about, style: Theme.of(context).textTheme.titleMedium),
               ListTile(

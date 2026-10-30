@@ -10,6 +10,7 @@ import '../../domain/mysteries.dart';
 import '../../domain/sanctoral.dart';
 import '../../domain/rosary_sequence.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../../providers/journal_controller.dart';
 import '../../providers/settings_controller.dart';
 import '../../providers/saved_session_controller.dart';
 import '../liturgy_text.dart';
@@ -17,6 +18,7 @@ import '../step_text.dart';
 import '../widgets/saint_sheet.dart';
 import '../widgets/web_footer.dart';
 import 'about_today_screen.dart';
+import 'journal_screen.dart';
 import 'mystery_picker_screen.dart';
 import 'prayer_library_screen.dart';
 import 'rosary_screen.dart';
@@ -167,6 +169,18 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () => Navigator.of(context)
                       .push(MaterialPageRoute<void>(builder: (_) => const PrayerLibraryScreen())),
                 ),
+                if (context.watch<JournalController>().enabled) ...[
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
+                    key: const Key('open-journal'),
+                    icon: const Icon(Icons.event_note_outlined),
+                    label: Text(l10n.prayerJournal),
+                    style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(56)),
+                    onPressed: () =>
+                        Navigator.of(context)
+                            .push(MaterialPageRoute<void>(builder: (_) => const JournalScreen())),
+                  ),
+                ],
                 if (!context.read<DeviceProfile>().isAndroid) const WebFooter(),
               ],
             ),
