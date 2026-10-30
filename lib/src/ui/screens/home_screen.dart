@@ -34,7 +34,8 @@ class HomeScreen extends StatelessWidget {
     final lang = contentLanguage(context);
     final today = context.read<Clock>().now();
     final suggested = suggestedMysterySet(today);
-    final region = context.watch<SettingsController>().calendarRegion;
+    final settings = context.watch<SettingsController>();
+    final region = settings.calendarRegion;
     final liturgy = liturgicalDay(today, region);
     final note = sundayMysteriesNote(l10n, today, liturgy);
     final celebrations = celebrationsOn(today, region);
@@ -133,7 +134,7 @@ class HomeScreen extends StatelessWidget {
                       subtitle: Text(
                         '${content.mysterySetTitle(saved.mysterySet).of(lang)} · '
                         '${saved.mode == RosaryMode.mysteriesOnly ? '${l10n.modeMysteriesOnly} · ' : ''}'
-                        '${l10n.stepCounter(saved.index + 1, buildSequence(saved.mode).length)}',
+                        '${l10n.stepCounter(saved.index + 1, buildSequence(saved.mode, ending: settings.ending).length)}',
                       ),
                       trailing: const Icon(Icons.play_arrow_rounded),
                       onTap: () => Navigator.of(context).push(

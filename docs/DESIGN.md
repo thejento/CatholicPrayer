@@ -476,6 +476,20 @@ season. Model: `CalendarRegion` in `liturgical_calendar.dart`; `canadaCalendar` 
 `unitedStatesCalendar` in `sanctoral.dart` list only what differs (an entry with a general id
 replaces it); `calendarFor(region)` merges them.
 
+### 3.19 Optional ending: Holy Father, Saint Michael (F-23), see ADR-033
+
+Settings → **End of the Rosary** has two switches, both **off** by default, so the Rosary keeps
+its 80 steps unless the person chooses:
+* **Pray for the Holy Father's intentions**: an Our Father, a Hail Mary and a Glory Be (3 steps).
+* **Add the prayer to Saint Michael** (1 step).
+
+They come after the closing prayer, still on the medal, in that order, and before the last Sign
+of the Cross (84 steps with both). Each has its own "what to do" line and voice clip; the
+prayers reuse the existing recordings, plus one new clip for Saint Michael. In mysteries-only
+mode the closing card lists them. A Rosary uses the ending set when it starts; the Home
+"Continue" card counts the steps with the current setting. Model: `RosaryEnding` in
+`rosary_sequence.dart`, `SettingsController.ending`.
+
 ### 3.20 Prayer journal (F-13), see ADR-034
 
 A private list of the Rosaries prayed to the end, **kept only on the device**: no account, no
@@ -506,6 +520,9 @@ Decade ×5 (14 each = 70):
               Glory Be · Fatima Prayer
 Closing (3):  Hail, Holy Queen · Closing prayer · Sign of the Cross
 ```
+
+Optional before the last Sign of the Cross (§3.19): Our Father · Hail Mary · Glory Be for the
+Holy Father's intentions, and the prayer to Saint Michael.
 
 Totals: 53 Hail Marys, 6 Our Fathers and 6 Glory Bes.
 

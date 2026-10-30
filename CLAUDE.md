@@ -62,7 +62,7 @@ flutter drive --driver=test_driver/integration_test.dart \
 
 | Folder | What lives there |
 |---|---|
-| `domain/` | Pure Dart, no Flutter: 80-step guided sequence, 7-step mysteries-only sequence (`RosaryMode`) and bead map (`rosary_sequence`), `rosary_session`, weekday/Sunday mysteries, step guidance, liturgical calendar (Easter computus, seasons, colours), General Roman Calendar with ranks, precedence and transfers (`sanctoral`), national calendars for Canada and the US (`CalendarRegion`, Sunday transfers and proper saints), injectable `Clock` |
+| `domain/` | Pure Dart, no Flutter: 80-step guided sequence (with the optional Holy Father / Saint Michael ending, `RosaryEnding`), 7-step mysteries-only sequence (`RosaryMode`) and bead map (`rosary_sequence`), `rosary_session`, weekday/Sunday mysteries, step guidance, liturgical calendar (Easter computus, seasons, colours), General Roman Calendar with ranks, precedence and transfers (`sanctoral`), national calendars for Canada and the US (`CalendarRegion`, Sunday transfers and proper saints), injectable `Clock` |
 | `data/` | Asset repositories (content, scripture, saints, art), `PreferencesStore`, `DeviceProfile` (TV / Android / web), `LinkOpener`, Vatican News saint links, licence registration |
 | `providers/` | `ChangeNotifier`s: theme, settings (voice, auto-advance, auto-scroll…), saved session, prayer journal (`JournalController`: on-device only, excluded from cloud backup, no streaks) |
 | `audio/` | `clips.dart` (clip ids per step), `AudioCatalog`, `ClipPlayer` (just_audio), `VoiceGuide` (follows the session, auto-advance, reading time for auto-scroll) |

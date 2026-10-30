@@ -1,5 +1,6 @@
 import 'package:crc/src/data/preferences_store.dart';
 import 'package:crc/src/domain/liturgical_calendar.dart';
+import 'package:crc/src/domain/rosary_sequence.dart';
 import 'package:crc/src/providers/settings_controller.dart';
 import 'package:crc/src/providers/theme_manager.dart';
 import 'package:crc/src/theme/app_theme.dart';
@@ -90,6 +91,20 @@ void main() {
       await reloaded.load();
       expect(reloaded.locale, const Locale('es'));
       expect(reloaded.showGuidance, isFalse);
+    });
+
+    test('the optional ending is off by default and persists', () async {
+      final store = InMemoryPreferencesStore();
+      final settings = SettingsController(store);
+      await settings.load();
+      expect(settings.ending, const RosaryEnding());
+      await settings.setEndWithHolyFather(true);
+      await settings.setEndWithSaintMichael(true);
+      await settings.setEndWithHolyFather(false);
+
+      final reloaded = SettingsController(store);
+      await reloaded.load();
+      expect(reloaded.ending, const RosaryEnding(saintMichael: true));
     });
 
     test('clearing the language removes it', () async {

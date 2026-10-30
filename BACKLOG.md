@@ -69,5 +69,6 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-31 Classic theme in the colour of the Church year; kid-friendly keeps its own (ADR-030)
 - [x] F-21 National calendars: Canada and United States, Sunday transfers and national saints (ADR-032)
 - [x] F-32 About this prayer: origin, use and Scripture for every prayer, in the library and the Rosary (ADR-031)
+- [x] F-23 Optional ending: Holy Father's intentions and/or Saint Michael, off by default (ADR-033)
 - [x] F-13 Private prayer journal: finished Rosaries, optional intention, monthly count, no streak (ADR-034)
 - [x] r-09 Android backup: app data excluded from cloud backup, kept on device transfer (ADR-034)
