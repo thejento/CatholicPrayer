@@ -9,6 +9,7 @@ import 'package:crc/src/data/device_profile.dart';
 import 'package:crc/src/data/preferences_store.dart';
 import 'package:crc/src/data/saints_repository.dart';
 import 'package:crc/src/data/scripture_repository.dart';
+import 'package:crc/src/domain/liturgical_calendar.dart';
 import 'package:crc/src/domain/clock.dart';
 import 'package:crc/src/providers/saved_session_controller.dart';
 import 'package:crc/src/providers/settings_controller.dart';
@@ -57,11 +58,12 @@ class TestApp {
     this.isTelevision = false,
     this.isAndroid = false,
     AudioCatalog? audio,
+    CalendarRegion deviceRegion = CalendarRegion.general,
   }) : store = store ?? InMemoryPreferencesStore(),
        audio = audio ?? loadRealAudio(),
        _now = now ?? aMonday {
     themeManager = ThemeManager(this.store);
-    settings = SettingsController(this.store);
+    settings = SettingsController(this.store, deviceRegion: deviceRegion);
     savedSession = SavedSessionController(this.store);
     reminder = ReminderController(
       this.store,

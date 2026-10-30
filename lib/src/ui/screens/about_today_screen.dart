@@ -6,6 +6,7 @@ import '../../data/content_repository.dart';
 import '../../domain/liturgical_calendar.dart';
 import '../../domain/mysteries.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../../providers/settings_controller.dart';
 import '../liturgy_text.dart';
 import '../step_text.dart';
 
@@ -22,7 +23,7 @@ class AboutTodayScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final lang = contentLanguage(context);
     final content = context.read<ContentRepository>();
-    final day = liturgicalDay(date);
+    final day = liturgicalDay(date, context.watch<SettingsController>().calendarRegion);
     final today = suggestedMysterySet(date);
     String setTitle(MysterySet s) => content.mysterySetTitle(s).of(lang);
 

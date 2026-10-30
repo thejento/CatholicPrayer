@@ -248,15 +248,93 @@ const List<Celebration> generalRomanCalendar = [
   Celebration(12, 31, 'sylvester_i', _o),
 ];
 
+/// The calendar proper to Canada, approved on 27 January 2016 (Prot. N. 32/16).
+/// An entry with the id of a general one replaces it (another date or rank).
+/// Civil days with their own Mass (Canada Day, Thanksgiving …) are left out.
+const List<Celebration> canadaCalendar = [
+  Celebration(1, 7, 'andre_bessette', _m),
+  Celebration(1, 8, 'raymond_of_penyafort', _o),
+  Celebration(1, 12, 'marguerite_bourgeoys', _m),
+  Celebration(4, 17, 'kateri_tekakwitha', _m),
+  Celebration(4, 18, 'marie_anne_blondin', _o),
+  Celebration(4, 26, 'our_lady_of_good_counsel', _o),
+  Celebration(4, 30, 'marie_de_l_incarnation', _m),
+  Celebration(5, 1, 'pius_v', _o),
+  Celebration(5, 4, 'marie_leonie_paradis', _o),
+  Celebration(5, 6, 'francois_de_laval', _m),
+  Celebration(5, 8, 'catherine_de_saint_augustin', _o),
+  Celebration(5, 21, 'eugene_de_mazenod', _o),
+  Celebration(5, 24, 'louis_zephirin_moreau', _o),
+  Celebration(6, 27, 'budka_velychkovsky', _o),
+  Celebration(7, 26, 'joachim_anne', _f),
+  Celebration(8, 5, 'frederic_janssoone', _o),
+  Celebration(9, 2, 'andre_grasset', _o),
+  Celebration(9, 4, 'dina_belanger', _o),
+  Celebration(9, 24, 'emilie_tavernier_gamelin', _o),
+  Celebration(9, 25, 'cosmas_damian', _o),
+  Celebration(9, 26, 'north_american_martyrs', _f),
+  Celebration(10, 6, 'marie_rose_durocher', _o),
+  Celebration(10, 16, 'marguerite_d_youville', _m),
+  Celebration(10, 20, 'hedwig', _o),
+  Celebration(10, 20, 'margaret_mary_alacoque', _o),
+  Celebration(12, 12, 'our_lady_of_guadalupe', _f),
+];
+
+/// The Proper Calendar for the Dioceses of the United States (USCCB, 2015),
+/// read the same way as [canadaCalendar]. Independence Day and Thanksgiving
+/// are left out.
+const List<Celebration> unitedStatesCalendar = [
+  Celebration(1, 4, 'elizabeth_ann_seton', _m),
+  Celebration(1, 5, 'john_neumann', _m),
+  Celebration(1, 6, 'andre_bessette', _o),
+  Celebration(1, 22, 'day_of_prayer_for_the_unborn', _m),
+  Celebration(1, 23, 'vincent_deacon', _o),
+  Celebration(1, 23, 'marianne_cope', _o),
+  Celebration(3, 3, 'katharine_drexel', _o),
+  Celebration(5, 10, 'damien_de_veuster', _o),
+  Celebration(5, 15, 'isidore_the_farmer', _o),
+  Celebration(7, 1, 'junipero_serra', _o),
+  Celebration(7, 5, 'elizabeth_of_portugal', _o),
+  Celebration(7, 14, 'kateri_tekakwitha', _m),
+  Celebration(7, 18, 'camillus_de_lellis', _o),
+  Celebration(9, 9, 'peter_claver', _m),
+  Celebration(10, 5, 'francis_xavier_seelos', _o),
+  Celebration(10, 6, 'marie_rose_durocher', _o),
+  Celebration(10, 19, 'north_american_martyrs', _m),
+  Celebration(10, 20, 'paul_of_the_cross', _o),
+  Celebration(11, 13, 'frances_xavier_cabrini', _m),
+  Celebration(11, 18, 'rose_philippine_duchesne', _o),
+  Celebration(11, 23, 'miguel_pro', _o),
+  Celebration(12, 12, 'our_lady_of_guadalupe', _f),
+];
+
+final _calendars = <CalendarRegion, List<Celebration>>{};
+
+/// The fixed-date celebrations of [region]: the general ones, with the
+/// national entries replacing those of the same id and adding the others.
+List<Celebration> calendarFor(CalendarRegion region) => _calendars[region] ??= () {
+  final national = switch (region) {
+    CalendarRegion.general => const <Celebration>[],
+    CalendarRegion.canada => canadaCalendar,
+    CalendarRegion.unitedStates => unitedStatesCalendar,
+  };
+  final replaced = {for (final c in national) c.id};
+  return List<Celebration>.unmodifiable([
+    for (final c in generalRomanCalendar)
+      if (!replaced.contains(c.id)) c,
+    ...national,
+  ]);
+}();
+
 DateTime _utc(DateTime d) => DateTime.utc(d.year, d.month, d.day);
 DateTime _plus(DateTime d, int days) => DateTime.utc(d.year, d.month, d.day + days);
 
 /// Celebrations on [date]: the highest first, then any optional memorials.
 /// Empty when the day itself is the celebration (Sundays of Advent, Lent and
 /// Easter, Holy Week, the Easter octave, Christmas, Pentecost …).
-List<Celebration> celebrationsOn(DateTime date) {
+List<Celebration> celebrationsOn(DateTime date, [CalendarRegion region = CalendarRegion.general]) {
   final d = _utc(date);
-  final day = liturgicalDay(d);
+  final day = liturgicalDay(d, region);
   final easter = easterSunday(d.year);
   final pentecost = _plus(easter, 49);
   final sunday = d.weekday == DateTime.sunday;
@@ -266,7 +344,8 @@ List<Celebration> celebrationsOn(DateTime date) {
 
   // Moveable celebrations tied to Pentecost.
   if (d == _plus(pentecost, 1)) return const [Celebration(0, 0, 'mary_mother_of_the_church', _m)];
-  if (d == _plus(pentecost, 11)) {
+  // Thursday after Trinity Sunday, or the Sunday after it where transferred.
+  if (d == _plus(pentecost, region.sundayTransfers ? 14 : 11)) {
     return const [Celebration(0, 0, 'corpus_christi', _s, ofTheLord: true)];
   }
   if (d == _plus(pentecost, 19)) {
@@ -275,7 +354,7 @@ List<Celebration> celebrationsOn(DateTime date) {
   if (d == _plus(pentecost, 20)) return const [Celebration(0, 0, 'immaculate_heart_of_mary', _m)];
 
   final found = [
-    for (final c in generalRomanCalendar)
+    for (final c in calendarFor(region))
       if (_utc(_observed(c, d.year)) == d) c,
   ];
   if (sunday) {
@@ -311,6 +390,8 @@ DateTime _observed(Celebration c, int year) {
       if (inHolyWeekOrOctave) return _plus(easter, 8);
       return sunday ? _plus(date, 1) : date;
     case 'immaculate_conception':
+      return sunday ? _plus(date, 1) : date;
+    case 'day_of_prayer_for_the_unborn':
       return sunday ? _plus(date, 1) : date;
     case 'nativity_of_john_the_baptist':
       // Moved to the eve when the Sacred Heart falls on 24 June.

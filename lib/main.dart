@@ -1,3 +1,5 @@
+import 'dart:ui' show PlatformDispatcher;
+
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -23,7 +25,12 @@ Future<void> main() async {
   registerScriptureLicenses();
   final store = SharedPreferencesStore();
   final themeManager = ThemeManager(store);
-  final settings = SettingsController(store);
+  final settings = SettingsController(
+    store,
+    deviceRegion: SettingsController.regionForCountry(
+      PlatformDispatcher.instance.locale.countryCode,
+    ),
+  );
   final savedSession = SavedSessionController(store);
   final (content, scripture, saints, art, audio, device, _, _, _) = await (
     ContentRepository.load(rootBundle),

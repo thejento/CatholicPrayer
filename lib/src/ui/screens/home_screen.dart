@@ -10,6 +10,7 @@ import '../../domain/mysteries.dart';
 import '../../domain/sanctoral.dart';
 import '../../domain/rosary_sequence.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../../providers/settings_controller.dart';
 import '../../providers/saved_session_controller.dart';
 import '../liturgy_text.dart';
 import '../step_text.dart';
@@ -31,9 +32,10 @@ class HomeScreen extends StatelessWidget {
     final lang = contentLanguage(context);
     final today = context.read<Clock>().now();
     final suggested = suggestedMysterySet(today);
-    final liturgy = liturgicalDay(today);
+    final region = context.watch<SettingsController>().calendarRegion;
+    final liturgy = liturgicalDay(today, region);
     final note = sundayMysteriesNote(l10n, today, liturgy);
-    final celebrations = celebrationsOn(today);
+    final celebrations = celebrationsOn(today, region);
     final saints = context.read<SaintsRepository>();
     void openAbout() =>
         Navigator.of(context)

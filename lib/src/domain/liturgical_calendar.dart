@@ -5,6 +5,18 @@ enum Season { advent, christmas, lent, easter, ordinary }
 
 enum LiturgicalColor { violet, rose, white, red, green }
 
+/// Which calendar to follow: the General Roman Calendar, or a national one
+/// on top of it (DESIGN §3.18). Canada and the United States keep Epiphany,
+/// Ascension and Corpus Christi on a Sunday, and add their own saints.
+enum CalendarRegion {
+  general,
+  canada,
+  unitedStates;
+
+  /// Whether Epiphany, Ascension and Corpus Christi move to a Sunday.
+  bool get sundayTransfers => this != general;
+}
+
 /// Days with a name of their own in the General Roman Calendar.
 enum SpecialDay {
   christmas,
@@ -76,11 +88,26 @@ DateTime firstSundayOfAdvent(int year) {
   return _plus(christmas, -(christmas.weekday % 7 == 0 ? 7 : christmas.weekday % 7) - 21);
 }
 
-/// The Baptism of the Lord of [year]: the Sunday after 6 January.
-DateTime baptismOfTheLord(int year) {
-  final epiphany = _day(year, 1, 6);
+/// The Epiphany of [year]: 6 January, or the Sunday between 2 and 8 January
+/// where it is transferred.
+DateTime epiphanyOf(int year, [CalendarRegion region = CalendarRegion.general]) {
+  if (!region.sundayTransfers) return _day(year, 1, 6);
+  final second = _day(year, 1, 2);
+  return _plus(second, (7 - second.weekday % 7) % 7);
+}
+
+/// The Baptism of the Lord of [year]: the Sunday after the Epiphany, or the
+/// Monday after it when a transferred Epiphany falls on 7 or 8 January.
+DateTime baptismOfTheLord(int year, [CalendarRegion region = CalendarRegion.general]) {
+  final epiphany = epiphanyOf(year, region);
+  if (region.sundayTransfers) return _plus(epiphany, epiphany.day >= 7 ? 1 : 7);
   return _plus(epiphany, 7 - epiphany.weekday % 7);
 }
+
+/// The Ascension of [year]: Thursday, 40 days after Easter, or the next
+/// Sunday (the 7th of Easter) where it is transferred.
+DateTime ascensionOf(int year, [CalendarRegion region = CalendarRegion.general]) =>
+    _plus(easterSunday(year), region.sundayTransfers ? 42 : 39);
 
 /// Holy Family: the Sunday after Christmas, or 30 December if there is none.
 DateTime holyFamily(int year) {
@@ -90,8 +117,9 @@ DateTime holyFamily(int year) {
   return _day(year, 12, 30);
 }
 
-/// Where [date] falls in the Church year (General Roman Calendar).
-LiturgicalDay liturgicalDay(DateTime date) {
+/// Where [date] falls in the Church year (General Roman Calendar, with the
+/// Sunday transfers of [region]).
+LiturgicalDay liturgicalDay(DateTime date, [CalendarRegion region = CalendarRegion.general]) {
   final d = _day(date.year, date.month, date.day);
   final y = d.year;
   final sunday = d.weekday == DateTime.sunday;
@@ -101,7 +129,7 @@ LiturgicalDay liturgicalDay(DateTime date) {
   final pentecost = _plus(easter, 49);
   final advent = firstSundayOfAdvent(y);
   final christTheKing = _plus(advent, -7);
-  final baptism = baptismOfTheLord(y);
+  final baptism = baptismOfTheLord(y, region);
 
   LiturgicalDay named(SpecialDay s, Season season, LiturgicalColor c) =>
       LiturgicalDay(season: season, color: c, special: s);
@@ -115,7 +143,7 @@ LiturgicalDay liturgicalDay(DateTime date) {
     if (d.month == 1 && d.day == 1) {
       return named(SpecialDay.maryMotherOfGod, Season.christmas, white);
     }
-    if (d.month == 1 && d.day == 6) return named(SpecialDay.epiphany, Season.christmas, white);
+    if (d == epiphanyOf(y, region)) return named(SpecialDay.epiphany, Season.christmas, white);
     if (d == baptism) return named(SpecialDay.baptismOfTheLord, Season.christmas, white);
     return const LiturgicalDay(season: Season.christmas, color: white);
   }
@@ -154,7 +182,7 @@ LiturgicalDay liturgicalDay(DateTime date) {
   if (!d.isBefore(easter) && !d.isAfter(pentecost)) {
     const white = LiturgicalColor.white;
     if (d == easter) return named(SpecialDay.easterSunday, Season.easter, white);
-    if (d == _plus(easter, 39)) return named(SpecialDay.ascension, Season.easter, white);
+    if (d == ascensionOf(y, region)) return named(SpecialDay.ascension, Season.easter, white);
     if (d == pentecost) return named(SpecialDay.pentecost, Season.easter, LiturgicalColor.red);
     return LiturgicalDay(
       season: Season.easter,
@@ -172,6 +200,8 @@ LiturgicalDay liturgicalDay(DateTime date) {
     return named(SpecialDay.christTheKing, Season.ordinary, LiturgicalColor.white);
   }
   if (!sunday) return const LiturgicalDay(season: Season.ordinary, color: green);
-  final n = d.isBefore(ashWednesday) ? week(baptism) : 34 - _daysBetween(d, christTheKing) ~/ 7;
+  // Counted from the Sunday of the Baptism's week (it may be kept on a Monday).
+  final firstSunday = _plus(baptism, -(baptism.weekday % 7));
+  final n = d.isBefore(ashWednesday) ? week(firstSunday) : 34 - _daysBetween(d, christTheKing) ~/ 7;
   return LiturgicalDay(season: Season.ordinary, color: green, sundayNumber: n);
 }

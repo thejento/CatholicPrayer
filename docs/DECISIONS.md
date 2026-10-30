@@ -363,3 +363,18 @@ Template:
 - Consequences: The owner reviews the English for facts and tone; Spanish and French join the
   language review (C-02). No new recordings. A prayer added to the library needs a note, or the
   content test fails.
+
+## ADR-032: National calendars as differences from the general one
+- Date: 2026-10-27 · Status: Accepted
+- Context: Canada and the United States keep the Epiphany, Ascension and Corpus Christi on a
+  Sunday and have their own saints (issue F-21). The app showed the universal dates only.
+- Options considered: a full calendar per country; a list of differences applied on top of the
+  General Roman Calendar. For the default: always general, or from the device's country.
+- Decision: Each country lists only what differs from the general calendar, from its official
+  proper calendar (Canada 2016, Prot. N. 32/16; USCCB). An entry with the id of a general
+  celebration replaces it (new date or rank). The country follows the device until chosen in
+  Settings. The Sunday transfers are rules in the temporal calendar. Civil days are left out.
+- Consequences: Adding a country is a list of differences and its names in three languages.
+  Proper calendars change from time to time (new saints), so the lists need an occasional
+  check against the bishops' conferences. The US provinces that keep the Ascension on Thursday
+  are not distinguished.

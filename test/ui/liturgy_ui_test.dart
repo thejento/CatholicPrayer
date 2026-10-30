@@ -1,3 +1,4 @@
+import 'package:crc/src/domain/liturgical_calendar.dart';
 import 'package:crc/src/l10n/generated/app_localizations_en.dart';
 import 'package:crc/src/ui/liturgy_text.dart';
 import 'package:flutter/material.dart';
@@ -103,6 +104,32 @@ void main() {
     await pumpHome(tester, TestApp(now: DateTime(2026, 10, 15), locale: const Locale('fr')));
     expect(find.text("Sainte Thérèse de Jésus, vierge et docteur de l'Église"), findsOneWidget);
     expect(find.text('Mémoire'), findsOneWidget);
+  });
+
+  group('national calendar', () {
+    testWidgets('a Canadian device keeps the Canadian Martyrs as a feast', (tester) async {
+      final app = TestApp(now: DateTime(2026, 9, 26), deviceRegion: CalendarRegion.canada);
+      await pumpHome(tester, app);
+      expect(find.textContaining('John de Brébeuf'), findsOneWidget);
+      expect(find.text('Feast'), findsOneWidget);
+    });
+
+    testWidgets('the Epiphany on Sunday, chosen in Settings', (tester) async {
+      final app = TestApp(now: DateTime(2026, 1, 4)); // a Sunday
+      await pumpHome(tester, app);
+      expect(dayLine(tester), isNot('The Epiphany of the Lord'));
+
+      await tester.tap(find.byTooltip('Settings'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('calendar-dropdown')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('United States').last);
+      await tester.pumpAndSettle();
+      expect(app.settings.calendarRegion, CalendarRegion.unitedStates);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+      expect(dayLine(tester), 'The Epiphany of the Lord');
+    });
   });
 
   testWidgets('no saint row on Easter Sunday', (tester) async {

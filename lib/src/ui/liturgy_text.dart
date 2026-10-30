@@ -72,8 +72,11 @@ String liturgicalDayName(AppLocalizations l10n, LiturgicalDay day, String lang) 
 }
 
 /// The name of [date]'s place in the Church year.
-String liturgicalDayNameFor(AppLocalizations l10n, DateTime date) =>
-    liturgicalDayName(l10n, liturgicalDay(date), l10n.localeName);
+String liturgicalDayNameFor(
+  AppLocalizations l10n,
+  DateTime date, [
+  CalendarRegion region = CalendarRegion.general,
+]) => liturgicalDayName(l10n, liturgicalDay(date, region), l10n.localeName);
 
 /// The vestment colour of the day, for the small dot on the home screen.
 Color liturgicalColor(LiturgicalColor color) => switch (color) {
@@ -157,3 +160,9 @@ class ColorDot extends StatelessWidget {
     );
   }
 }
+
+String calendarName(AppLocalizations l10n, CalendarRegion region) => switch (region) {
+  CalendarRegion.general => l10n.calendarGeneral,
+  CalendarRegion.canada => l10n.calendarCanada,
+  CalendarRegion.unitedStates => l10n.calendarUnitedStates,
+};

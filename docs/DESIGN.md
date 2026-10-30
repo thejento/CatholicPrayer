@@ -296,8 +296,7 @@ the next time the app is opened.
   Ascension (Thursday), Pentecost, Most Holy Trinity, Christ the King.
 * Colours: violet (rose on Gaudete and Laetare Sundays), white, red (Palm Sunday, Good Friday,
   Pentecost), green.
-* Not yet: national calendars (for example Epiphany and Ascension moved to Sunday, as in
-  Canada and the United States); the universal dates are used.
+* National calendars (Canada, United States): see §3.18.
 
 **About today.** Tapping the day (or today's mysteries) on Home opens *About today*: the
 season explained in a few sentences, what the colour of the day means, why today's mysteries
@@ -446,6 +445,36 @@ Where the button is:
 facts; where a story is only tradition or legend (Leo XIII's vision, Gregory the
 Great and the Regina Caeli), they say so. They are not read aloud. On TV, the D-pad moves from
 section to section. A content test requires a note for every prayer, in every language.
+
+### 3.18 National calendars (F-21), see ADR-032
+
+Settings → **Liturgical calendar**: *General Roman Calendar*, *Canada* or *United States*. Until
+the person chooses, the app follows the device's country (`en-CA`, `fr-CA` → Canada; `en-US`,
+`es-US` → United States; anything else → the General Roman Calendar).
+
+**Sunday transfers** (both countries): the **Epiphany** is the Sunday between 2 and 8 January,
+and the **Baptism of the Lord** the Sunday after it, or the Monday when the Epiphany falls on 7
+or 8 January; the **Ascension** replaces the 7th Sunday of Easter; **Corpus Christi** is the
+Sunday after Trinity Sunday. (A few US provinces keep the Ascension on Thursday; the app uses
+Sunday, as most dioceses do.)
+
+**National saints**, from the official proper calendars:
+* Canada: the calendar approved on 27 January 2016 (Prot. N. 32/16): André Bessette, Marguerite
+  Bourgeoys, Kateri Tekakwitha, Marie de l'Incarnation, François de Laval, Marguerite d'Youville,
+  Canadian blesseds… The Canadian Martyrs are a **feast on 26 September**, Saints Anne and
+  Joachim a **feast**, Our Lady of Guadalupe a **feast**; Raymond of Penyafort, Pius V, Cosmas
+  and Damian, Hedwig and Margaret Mary move a day to make room.
+* United States: the USCCB Proper Calendar: Elizabeth Ann Seton, John Neumann, the Day of Prayer
+  for the Legal Protection of Unborn Children (22 January, or 23 when the 22nd is a Sunday),
+  Katharine Drexel, Kateri Tekakwitha, Frances Xavier Cabrini… Our Lady of Guadalupe is a
+  **feast**; Vincent, Elizabeth of Portugal, Camillus and Paul of the Cross move a day.
+* Civil days with their own Mass (Canada Day, Thanksgiving, Independence Day…) are left out:
+  the saint row is for saints and feasts.
+
+The Sunday suggestion of mysteries is unchanged: the transfers never move a Sunday out of its
+season. Model: `CalendarRegion` in `liturgical_calendar.dart`; `canadaCalendar` and
+`unitedStatesCalendar` in `sanctoral.dart` list only what differs (an entry with a general id
+replaces it); `calendarFor(region)` merges them.
 
 ## 4. The Rosary model
 

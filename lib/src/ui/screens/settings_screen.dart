@@ -4,11 +4,13 @@ import 'package:provider/provider.dart';
 import '../../app_info.dart';
 import '../../audio/audio_catalog.dart';
 import '../../data/device_profile.dart';
+import '../../domain/liturgical_calendar.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_controller.dart';
 import '../../providers/theme_manager.dart';
 import '../../reminders/reminder_controller.dart';
 import '../../theme/app_theme.dart';
+import '../liturgy_text.dart';
 import '../open_link.dart';
 
 /// Native names, so a person can find their language whatever the UI language.
@@ -69,6 +71,20 @@ class SettingsScreen extends StatelessWidget {
                 ],
                 onChanged: (code) => settings.setLocale(code == null ? null : Locale(code)),
               ),
+              const SizedBox(height: 24),
+              Text(l10n.calendarLabel, style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: 8),
+              DropdownButton<CalendarRegion>(
+                key: const Key('calendar-dropdown'),
+                isExpanded: true,
+                value: settings.calendarRegion,
+                items: [
+                  for (final r in CalendarRegion.values)
+                    DropdownMenuItem(value: r, child: Text(calendarName(l10n, r))),
+                ],
+                onChanged: (r) => settings.setCalendarRegion(r!),
+              ),
+              Text(l10n.calendarHint, style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 16),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,

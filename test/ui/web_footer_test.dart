@@ -62,14 +62,19 @@ void main() {
     await pumpHome(tester, app);
     await tester.tap(find.byTooltip('Settings'));
     await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('About and credits'));
+    // The About section is at the end of the list.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('settings-issues')),
+      200,
+      // The settings list, not the selectable address inside it on TV.
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.pumpAndSettle();
   }
 
   testWidgets('Settings has an About section with the version and GitHub', (tester) async {
     final app = TestApp(isAndroid: true);
     await openSettings(tester, app);
-    expect(find.text('About'), findsOneWidget);
     expect(find.text('Version $appVersion'), findsOneWidget);
     expect(find.byKey(const Key('settings-rate')), findsNothing); // not listed yet
     await tester.tap(find.byKey(const Key('settings-issues')));

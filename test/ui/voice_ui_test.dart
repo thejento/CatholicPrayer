@@ -184,12 +184,13 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Settings'));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('No voice is available in this language yet'), 200);
     expect(find.text('No voice is available in this language yet'), findsOneWidget);
   });
 
   testWidgets('voice settings are saved', (tester) async {
     final app = TestApp();
-    await pumpApp(tester, app, size: const Size(400, 1200));
+    await pumpApp(tester, app, size: const Size(400, 1500));
     await tester.tap(find.byTooltip('Settings'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Read aloud'));

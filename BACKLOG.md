@@ -67,4 +67,5 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-29 Auto-scroll long prayers roughly at the voice's pace (Settings → Voice, on by default)
 - [x] F-30 Mysteries-only mode: opening card, five mysteries, closing card; decade ringed on the beads (ADR-029)
 - [x] F-31 Classic theme in the colour of the Church year; kid-friendly keeps its own (ADR-030)
+- [x] F-21 National calendars: Canada and United States, Sunday transfers and national saints (ADR-032)
 - [x] F-32 About this prayer: origin, use and Scripture for every prayer, in the library and the Rosary (ADR-031)
