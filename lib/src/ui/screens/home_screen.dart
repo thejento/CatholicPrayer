@@ -151,6 +151,14 @@ class HomeScreen extends StatelessWidget {
                   style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(56)),
                   onPressed: () => context.push(Routes.library),
                 ),
+                const SizedBox(height: 12),
+                OutlinedButton.icon(
+                  key: const Key('divine-mercy'),
+                  icon: const Icon(Icons.volunteer_activism_outlined),
+                  label: Text(l10n.divineMercyChaplet),
+                  style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(56)),
+                  onPressed: () => context.push(Routes.divineMercy),
+                ),
                 if (context.watch<JournalController>().enabled) ...[
                   const SizedBox(height: 12),
                   OutlinedButton.icon(

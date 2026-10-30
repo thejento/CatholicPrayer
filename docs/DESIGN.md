@@ -520,6 +520,7 @@ paths), so **refreshing keeps the screen** and **a link can open one**:
 | `#/library`, `#/library/hail_mary`, `#/library/hail_mary/about` | Library, a prayer, its background |
 | `#/rosary/joyful` (`?mode=mysteriesOnly`) | The Rosary |
 | `#/rosary/joyful/passage/3` | A mystery's Bible passage, over its Rosary |
+| `#/chaplet/divine-mercy` | The Divine Mercy Chaplet (§3.22), from its start |
 
 * Every screen sits under Home, so after opening a link, Back climbs to Home.
 * **The Rosary's step is not in the address**: on a refresh or a link, the Rosary resumes at
@@ -529,6 +530,31 @@ paths), so **refreshing keeps the screen** and **a link can open one**:
   the picker.
 * Android and TV use the same routes; only the web shows them.
 * Model: `lib/src/routes.dart` (`Routes`, `buildRouter`, go_router).
+### 3.22 Divine Mercy Chaplet (I-01), see ADR-036
+
+Home → **Divine Mercy Chaplet**: the chaplet Saint Faustina recorded in 1935 (Diary, nos.
+474-476), guided bead by bead on the **same rosary drawing**, with guidance, voice and
+auto-advance like the Rosary (63 steps):
+
+```
+Opening (4):   Sign of the Cross (crucifix) · Our Father (bead 1) · Hail Mary (bead 2) ·
+               Apostles' Creed (bead 3)
+Decade ×5 (11 each = 55):
+               Eternal Father (large bead) · "For the sake of His sorrowful Passion" ×10
+Closing (4):   Holy God ×3 (medal) · Sign of the Cross (crucifix)
+```
+
+* The optional opening and closing prayers of the Diary are left out, to keep the core.
+* No mysteries, paintings or passages. The chaplet isn't saved for later (it takes about
+  10 minutes), and it leaves an unfinished Rosary's progress alone.
+* The end screen says "You prayed the Divine Mercy Chaplet!" and "Jesus, I trust in you."
+* The library has a **Divine Mercy Chaplet** section with its three prayers, each with
+  "About this prayer".
+* Texts: the app's own translations of the Polish original (public domain), in the
+  traditional register of the other prayers (ADR-036).
+* Model: `Devotion` and `buildDivineMercySequence()` in `rosary_sequence.dart`;
+  `RosaryScreen.chaplet`, address `#/chaplet/divine-mercy`. Not recorded in the prayer journal
+  (§3.20), which lists Rosaries. Another chaplet is a new sequence, its texts and recordings.
 
 ## 4. The Rosary model
 

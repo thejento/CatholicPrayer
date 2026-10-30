@@ -81,6 +81,21 @@
       "id": "holy_father_intentions",
       "title": "For the Intentions of the Holy Father",
       "text": "At the end of the Rosary, it is customary to pray for the intentions of the Pope: one Our Father, one Hail Mary and one Glory Be."
+    },
+    {
+      "id": "divine_mercy_eternal_father",
+      "title": "Eternal Father (Divine Mercy Chaplet)",
+      "text": "Eternal Father, I offer Thee the Body and Blood, Soul and Divinity of Thy dearly beloved Son, our Lord Jesus Christ, in atonement for our sins and those of the whole world."
+    },
+    {
+      "id": "divine_mercy_passion",
+      "title": "For the Sake of His Sorrowful Passion",
+      "text": "For the sake of His sorrowful Passion, have mercy on us and on the whole world."
+    },
+    {
+      "id": "divine_mercy_holy_god",
+      "title": "Holy God",
+      "text": "Holy God, Holy Mighty One, Holy Immortal One, have mercy on us and on the whole world."
     }
   ]
 }

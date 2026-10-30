@@ -30,6 +30,11 @@ String guidanceText(AppLocalizations l10n, Guidance guidance) => switch (guidanc
   Guidance.gloryBeHolyFather => l10n.guideGloryBeHolyFather,
   Guidance.saintMichael => l10n.guideSaintMichael,
   Guidance.signOfCrossEnd => l10n.guideSignOfCrossEnd,
+  Guidance.chapletHailMary => l10n.guideChapletHailMary,
+  Guidance.chapletCreed => l10n.guideChapletCreed,
+  Guidance.eternalFather => l10n.guideEternalFather,
+  Guidance.sorrowfulPassion => l10n.guideSorrowfulPassion,
+  Guidance.holyGod => l10n.guideHolyGod,
 };
 
 /// Short "where am I" label, e.g. "Decade 3 of 5".

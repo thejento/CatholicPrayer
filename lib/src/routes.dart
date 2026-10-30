@@ -29,6 +29,7 @@ abstract final class Routes {
   static const library = '/library';
   static const pray = '/pray';
   static const journal = '/journal';
+  static const divineMercy = '/chaplet/divine-mercy';
 
   static String prayer(String id) => '/library/$id';
   static String aboutPrayer(String id) => '/library/$id/about';
@@ -76,6 +77,10 @@ GoRouter _router() => GoRouter(
       routes: [
         GoRoute(path: 'settings', builder: (_, _) => const SettingsScreen()),
         GoRoute(path: 'journal', builder: (_, _) => const JournalScreen()),
+        GoRoute(
+          path: 'chaplet/divine-mercy',
+          builder: (_, _) => const RosaryScreen.chaplet(devotion: Devotion.divineMercy),
+        ),
         GoRoute(
           path: 'today',
           builder: (context, _) => AboutTodayScreen(date: context.read<Clock>().now()),

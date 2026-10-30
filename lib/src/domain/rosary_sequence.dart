@@ -17,7 +17,16 @@ enum StepKind {
   /// decade and after the last (DESIGN §3.15).
   openingPrayers,
   closingPrayers,
+
+  /// Divine Mercy Chaplet (I-01, DESIGN §3.22).
+  eternalFather,
+  sorrowfulPassion,
+  holyGod,
 }
+
+/// What is prayed on the beads: the Rosary, or a chaplet that uses the same
+/// rosary beads (I-01).
+enum Devotion { rosary, divineMercy }
 
 /// Guided: every prayer, one step per bead (80 steps). Mysteries only: the
 /// opening prayers, the five mysteries and the closing prayers (7 steps), for
@@ -105,6 +114,7 @@ class RosaryStep {
     this.decade,
     this.count,
     this.covers = const [],
+    this.devotion = Devotion.rosary,
     this.summary = const [],
   });
 
@@ -124,6 +134,8 @@ class RosaryStep {
   /// Further beads this step stands for (mysteries only: the whole decade).
   final List<int> covers;
 
+  final Devotion devotion;
+
   /// Prayers listed on a mysteries-only summary card, in order.
   final List<String> summary;
 
@@ -138,6 +150,9 @@ class RosaryStep {
     StepKind.fatimaPrayer => 'fatima_prayer',
     StepKind.hailHolyQueen => 'hail_holy_queen',
     StepKind.closingPrayer => 'rosary_closing_prayer',
+    StepKind.eternalFather => 'divine_mercy_eternal_father',
+    StepKind.sorrowfulPassion => 'divine_mercy_passion',
+    StepKind.holyGod => 'divine_mercy_holy_god',
     StepKind.saintMichael => 'saint_michael',
     StepKind.announceMystery || StepKind.openingPrayers || StepKind.closingPrayers => null,
   };
@@ -230,3 +245,45 @@ List<RosaryStep> buildSequence(RosaryMode mode, {RosaryEnding ending = const Ros
       RosaryMode.guided => buildRosarySequence(ending: ending),
       RosaryMode.mysteriesOnly => buildMysteriesOnlySequence(ending: ending),
     };
+
+/// Builds the 63-step Divine Mercy Chaplet, prayed on the same beads as the
+/// Rosary (DESIGN §3.22): Our Father, Hail Mary and Creed on the first beads,
+/// then on each decade the Eternal Father and ten times "For the sake of His
+/// sorrowful Passion", and "Holy God" three times on the medal.
+List<RosaryStep> buildDivineMercySequence() {
+  const dm = Devotion.divineMercy;
+  const intro = RosaryPart.introduction;
+  const closing = RosaryPart.closing;
+  return List.unmodifiable([
+    const RosaryStep(kind: StepKind.signOfTheCross, part: intro, bead: crucifixBead, devotion: dm),
+    const RosaryStep(kind: StepKind.ourFather, part: intro, bead: 1, devotion: dm),
+    const RosaryStep(kind: StepKind.hailMary, part: intro, bead: 2, devotion: dm),
+    const RosaryStep(kind: StepKind.apostlesCreed, part: intro, bead: 3, devotion: dm),
+    for (var d = 1; d <= mysteriesPerSet; d++) ...[
+      RosaryStep(
+        kind: StepKind.eternalFather,
+        part: RosaryPart.decade,
+        bead: ourFatherBeadForDecade(d),
+        decade: d,
+        devotion: dm,
+      ),
+      for (var h = 1; h <= 10; h++)
+        RosaryStep(
+          kind: StepKind.sorrowfulPassion,
+          part: RosaryPart.decade,
+          bead: hailMaryBead(d, h),
+          decade: d,
+          count: h,
+          devotion: dm,
+        ),
+    ],
+    for (var i = 1; i <= 3; i++)
+      RosaryStep(kind: StepKind.holyGod, part: closing, bead: medalBead, count: i, devotion: dm),
+    const RosaryStep(
+      kind: StepKind.signOfTheCross,
+      part: closing,
+      bead: crucifixBead,
+      devotion: dm,
+    ),
+  ]);
+}

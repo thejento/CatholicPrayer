@@ -24,14 +24,22 @@ enum Guidance {
   gloryBeHolyFather,
   saintMichael,
   signOfCrossEnd,
+  chapletHailMary,
+  chapletCreed,
+  eternalFather,
+  sorrowfulPassion,
+  holyGod,
 }
 
 /// Which instruction applies to [step] (see DESIGN §3.2); none for the
 /// mysteries-only summary cards.
 Guidance? guidanceOf(RosaryStep step) {
   final intro = step.part == RosaryPart.introduction;
+  final chaplet = step.devotion == Devotion.divineMercy;
   final closing = step.part == RosaryPart.closing;
   return switch (step.kind) {
+    StepKind.hailMary when chaplet => Guidance.chapletHailMary,
+    StepKind.apostlesCreed when chaplet => Guidance.chapletCreed,
     StepKind.signOfTheCross => closing ? Guidance.signOfCrossEnd : Guidance.signOfCrossStart,
     StepKind.apostlesCreed => Guidance.creed,
     // For the Holy Father's intentions, after the closing prayer.
@@ -52,6 +60,9 @@ Guidance? guidanceOf(RosaryStep step) {
     StepKind.fatimaPrayer => Guidance.fatima,
     StepKind.hailHolyQueen => Guidance.hailHolyQueen,
     StepKind.closingPrayer => Guidance.closingPrayer,
+    StepKind.eternalFather => Guidance.eternalFather,
+    StepKind.sorrowfulPassion => Guidance.sorrowfulPassion,
+    StepKind.holyGod => Guidance.holyGod,
     StepKind.saintMichael => Guidance.saintMichael,
     StepKind.openingPrayers || StepKind.closingPrayers => null,
   };

@@ -81,6 +81,21 @@
       "id": "holy_father_intentions",
       "title": "Por las intenciones del Santo Padre",
       "text": "Al final del Rosario es costumbre rezar por las intenciones del Papa: un Padre nuestro, un Ave María y un Gloria."
+    },
+    {
+      "id": "divine_mercy_eternal_father",
+      "title": "Padre Eterno (Coronilla de la Divina Misericordia)",
+      "text": "Padre Eterno, te ofrezco el Cuerpo y la Sangre, el Alma y la Divinidad de tu amadísimo Hijo, nuestro Señor Jesucristo, como propiciación por nuestros pecados y los del mundo entero."
+    },
+    {
+      "id": "divine_mercy_passion",
+      "title": "Por su dolorosa Pasión",
+      "text": "Por su dolorosa Pasión, ten misericordia de nosotros y del mundo entero."
+    },
+    {
+      "id": "divine_mercy_holy_god",
+      "title": "Santo Dios",
+      "text": "Santo Dios, Santo Fuerte, Santo Inmortal, ten piedad de nosotros y del mundo entero."
     }
   ]
 }

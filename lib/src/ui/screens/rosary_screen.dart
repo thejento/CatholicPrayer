@@ -31,13 +31,20 @@ import 'prayer_about_screen.dart';
 class RosaryScreen extends StatefulWidget {
   const RosaryScreen({
     super.key,
-    required this.mysterySet,
+    required MysterySet this.mysterySet,
     this.mode = RosaryMode.guided,
     this.startIndex = 0,
-  });
+  }) : devotion = Devotion.rosary;
 
-  final MysterySet mysterySet;
+  /// A chaplet prayed on the rosary beads (I-01): no mysteries, not saved.
+  const RosaryScreen.chaplet({super.key, required this.devotion})
+    : mysterySet = null,
+      mode = RosaryMode.guided,
+      startIndex = 0;
+
+  final MysterySet? mysterySet;
   final RosaryMode mode;
+  final Devotion devotion;
 
   /// Step to start on, when resuming an unfinished Rosary.
   final int startIndex;
@@ -53,7 +60,10 @@ class _RosaryScreenState extends State<RosaryScreen> {
   late final RosarySession _session = RosarySession(
     mysterySet: widget.mysterySet,
     mode: widget.mode,
-    steps: buildSequence(widget.mode, ending: _settings.ending),
+    devotion: widget.devotion,
+    steps: widget.devotion == Devotion.rosary
+        ? buildSequence(widget.mode, ending: _settings.ending)
+        : null,
     startIndex: widget.startIndex,
   );
   VoiceGuide? _voice;
@@ -93,21 +103,22 @@ class _RosaryScreenState extends State<RosaryScreen> {
 
   /// Remembers progress so the Rosary can be resumed later (F-06).
   void _persist() {
+    final set = widget.mysterySet;
+    // Only the Rosary is resumed; a chaplet is short and leaves it alone.
+    if (set == null) return;
     if (_session.isFinished) {
       _saved.clear();
-      _record();
+      _record(set);
     } else {
-      _saved.save(
-        SavedSession(mysterySet: widget.mysterySet, index: _session.index, mode: widget.mode),
-      );
+      _saved.save(SavedSession(mysterySet: set, index: _session.index, mode: widget.mode));
     }
   }
 
-  Future<void> _record() async {
+  Future<void> _record(MysterySet set) async {
     if (_entry != null) return;
     final entry = JournalEntry(
       prayedAt: context.read<Clock>().now(),
-      mysterySet: widget.mysterySet,
+      mysterySet: set,
       mode: widget.mode,
     );
     _entry = entry;
@@ -155,12 +166,14 @@ class _RosaryScreenState extends State<RosaryScreen> {
           listenable: Listenable.merge([_session, _voice]),
           builder: (context, _) => Scaffold(
             appBar: AppBar(
-              title: Text(
-                context
-                    .read<ContentRepository>()
-                    .mysterySetTitle(widget.mysterySet)
-                    .of(contentLanguage(context)),
-              ),
+              title: Text(switch (widget.mysterySet) {
+                final set? =>
+                  context
+                      .read<ContentRepository>()
+                      .mysterySetTitle(set)
+                      .of(contentLanguage(context)),
+                null => l10n.divineMercyChaplet,
+              }),
               actions: [
                 if (_voice!.available)
                   IconButton(
@@ -187,6 +200,7 @@ class _RosaryScreenState extends State<RosaryScreen> {
                       onBack: _session.previous,
                       entry: _entry,
                       onAddIntention: _addIntention,
+                      chaplet: widget.devotion == Devotion.divineMercy,
                     )
                   : _StepLayout(session: _session, voice: _voice!, l10n: l10n),
             ),
@@ -296,9 +310,9 @@ class _StepPanel extends StatelessWidget {
     if (step.kind == StepKind.announceMystery) {
       // Paintings belong to the classic theme only, not the kid-friendly one.
       if (context.watch<ThemeManager>().mode == AppThemeMode.classic) {
-        artwork = context.read<ArtCatalog>().artwork(session.mysterySet, step.decade!);
+        artwork = context.read<ArtCatalog>().artwork(session.mysterySet!, step.decade!);
       }
-      final mystery = content.mystery(session.mysterySet, step.decade!);
+      final mystery = content.mystery(session.mysterySet!, step.decade!);
       title = mystery.title.of(lang);
       body = [
         Text(l10n.scriptureLabel(mystery.scripture.of(lang)), style: theme.textTheme.titleMedium),
@@ -309,7 +323,7 @@ class _StepPanel extends StatelessWidget {
             icon: const Icon(Icons.menu_book_outlined),
             label: Text(l10n.readPassage),
             onPressed: () =>
-                context.push(Routes.passage(session.mysterySet, session.mode, step.decade!)),
+                context.push(Routes.passage(session.mysterySet!, session.mode, step.decade!)),
           ),
         ),
         const SizedBox(height: 8),
@@ -348,7 +362,8 @@ class _StepPanel extends StatelessWidget {
     } else {
       final prayer = content.prayer(step.prayerId!)!;
       final count = step.count;
-      final total = step.part == RosaryPart.introduction ? 3 : 10;
+      // Three Hail Marys (or Holy Gods) outside the decades, ten in each.
+      final total = step.part == RosaryPart.decade ? 10 : 3;
       title = count == null
           ? prayer.titleFor(lang)
           : '${prayer.titleFor(lang)} (${l10n.hailMaryCount(count, total)})';
@@ -595,7 +610,10 @@ class _CompletionView extends StatelessWidget {
     required this.onBack,
     required this.entry,
     required this.onAddIntention,
+    required this.chaplet,
   });
+
+  final bool chaplet;
 
   final VoidCallback onPrayAgain;
   final VoidCallback onBack;
@@ -622,14 +640,14 @@ class _CompletionView extends StatelessWidget {
                 header: true,
                 liveRegion: true,
                 child: Text(
-                  l10n.completeTitle,
+                  chaplet ? l10n.completeChapletTitle : l10n.completeTitle,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.headlineMedium,
                 ),
               ),
               const SizedBox(height: 12),
               Text(
-                l10n.completeMessage,
+                chaplet ? l10n.completeChapletMessage : l10n.completeMessage,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyLarge,
               ),

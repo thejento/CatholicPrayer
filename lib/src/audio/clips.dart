@@ -12,13 +12,13 @@ bool isGuidanceClip(String id) => id.startsWith('guide_');
 
 /// Clips to play, in order, for [step]: the instruction (when wanted), then
 /// the prayer or mystery announcement.
-List<String> clipsForStep(RosaryStep step, MysterySet set, {required bool withGuidance}) => [
+List<String> clipsForStep(RosaryStep step, MysterySet? set, {required bool withGuidance}) => [
   if (withGuidance)
     if (guidanceOf(step) case final guidance?) guidanceClip(guidance),
   if (step.prayerId case final id?)
     prayerClip(id)
   else if (step.kind == StepKind.announceMystery)
-    mysteryClip(set, step.decade!),
+    mysteryClip(set!, step.decade!),
 ];
 
 /// Every clip's spoken text for [lang]. This is the single source of truth
@@ -31,10 +31,10 @@ Map<String, String> speakableTexts(
   String Function(Guidance) guidance,
 ) {
   // Every prayer the Rosary can include, the optional ending too.
-  final prayerIds = buildRosarySequence(ending: RosaryEnding.all)
-      .map((s) => s.prayerId)
-      .nonNulls
-      .toSet();
+  final prayerIds = [
+    ...buildRosarySequence(ending: RosaryEnding.all),
+    ...buildDivineMercySequence(),
+  ].map((s) => s.prayerId).nonNulls.toSet();
   return {
     for (final id in prayerIds) prayerClip(id): spokenPrayer(content.prayer(id)!.textFor(lang)),
     for (final set in MysterySet.values)

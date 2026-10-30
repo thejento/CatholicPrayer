@@ -84,6 +84,7 @@ void main() {
     ('/settings', 'Settings'),
     ('/pray', 'Choose the mysteries'),
     ('/journal', 'Prayer journal'),
+    ('/chaplet/divine-mercy', 'Divine Mercy Chaplet'),
   ]) {
     testWidgets('$location opens $title', (tester) async {
       await openAt(tester, TestApp(), location);

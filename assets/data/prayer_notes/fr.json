@@ -70,6 +70,20 @@
     "holy_father_intentions": {
       "origin": "Prier aux intentions du pape est une coutume ancienne, et l'une des conditions habituelles d'une indulgence, avec la confession et la communion. L'Église laisse la prière libre ; on dit habituellement un Notre Père et un Je vous salue Marie. Chaque mois, le pape propose aussi une intention de prière par son Réseau mondial de prière.",
       "use": "On l'ajoute souvent à la fin du chapelet. Elle unit la personne qui prie à toute l'Église et aux préoccupations du pape pour le monde."
+    },
+    "divine_mercy_eternal_father": {
+      "origin": "Sainte Faustine Kowalska, religieuse polonaise, a écrit dans son Petit Journal que Jésus lui a enseigné ce chapelet à Vilnius les 13 et 14 septembre 1935 (Petit Journal, nos 474-476). C'est sa prière centrale : elle offre au Père le Christ tout entier, comme à la messe. Saint Jean-Paul II l'a canonisée en 2000 et a nommé le deuxième dimanche de Pâques dimanche de la Divine Miséricorde.",
+      "use": "On la dit sur chaque gros grain du Chapelet de la Divine Miséricorde, qui se prie sur un chapelet ordinaire. Beaucoup le prient à trois heures de l'après-midi, l'heure de la mort de Jésus, et en neuvaine du Vendredi saint au dimanche de la Divine Miséricorde ; on le prie aussi souvent pour les malades et les mourants."
+    },
+    "divine_mercy_passion": {
+      "origin": "La prière brève du Chapelet de la Divine Miséricorde, tirée des mêmes pages du Petit Journal de sainte Faustine (no 476). Elle demande miséricorde par la Passion du Christ, pour ceux qui prient et pour le monde entier.",
+      "use": "On la dit dix fois sur chaque dizaine, sur les petits grains, après le Père éternel du gros grain. La répéter, comme les Je vous salue Marie du Rosaire, garde la pensée sur la souffrance et la miséricorde du Christ.",
+      "scripture": "Isaïe 53,5 ; 1 Jean 2,2"
+    },
+    "divine_mercy_holy_god": {
+      "origin": "Une hymne ancienne appelée Trisagion (en grec, « trois fois saint »), chantée par les Églises d'Orient au moins depuis le Ve siècle ; le concile de Chalcédoine l'a entendue en 451. Le rite romain la chante le Vendredi saint, en grec et en latin, pendant la vénération de la Croix. Le chapelet de sainte Faustine se termine par elle, en ajoutant « et du monde entier ».",
+      "use": "On la dit trois fois à la fin du Chapelet de la Divine Miséricorde. Les liturgies orientales la chantent à chaque Divine Liturgie.",
+      "scripture": "Isaïe 6,3 ; Apocalypse 4,8"
     }
   }
 }

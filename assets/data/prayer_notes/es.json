@@ -70,6 +70,20 @@
     "holy_father_intentions": {
       "origin": "Rezar por las intenciones del Papa es una costumbre antigua y una de las condiciones habituales para obtener una indulgencia, junto con la Confesión y la Comunión. La Iglesia deja libre la oración; lo habitual es un Padre Nuestro y un Avemaría. Cada mes, el Papa propone además una intención de oración a través de su Red Mundial de Oración.",
       "use": "Se añade a menudo al final del Rosario. Une a quien reza con toda la Iglesia y con las preocupaciones del Papa por el mundo."
+    },
+    "divine_mercy_eternal_father": {
+      "origin": "Santa Faustina Kowalska, religiosa polaca, escribió en su Diario que Jesús le enseñó esta coronilla en Vilna los días 13 y 14 de septiembre de 1935 (Diario, n.º 474-476). Es su oración central: ofrece al Padre a Cristo entero, como en la Misa. San Juan Pablo II la canonizó en el año 2000 y llamó al segundo domingo de Pascua Domingo de la Divina Misericordia.",
+      "use": "Se dice en cada cuenta grande de la Coronilla de la Divina Misericordia, que se reza con un rosario corriente. Muchos la rezan a las tres de la tarde, la hora de la muerte de Jesús, y como novena desde el Viernes Santo hasta el Domingo de la Divina Misericordia; también se reza a menudo por los enfermos y los moribundos."
+    },
+    "divine_mercy_passion": {
+      "origin": "La oración breve de la Coronilla de la Divina Misericordia, de las mismas páginas del Diario de santa Faustina (n.º 476). Pide misericordia por la Pasión de Cristo, para quienes rezan y para el mundo entero.",
+      "use": "Se dice diez veces en cada decena, en las cuentas pequeñas, después del Padre Eterno de la cuenta grande. Repetirla, como las avemarías del Rosario, mantiene el pensamiento en el sufrimiento y la misericordia de Cristo.",
+      "scripture": "Isaías 53,5; 1 Juan 2,2"
+    },
+    "divine_mercy_holy_god": {
+      "origin": "Un himno antiguo llamado Trisagio (en griego, «tres veces santo»), que las Iglesias de Oriente cantan al menos desde el siglo V; el Concilio de Calcedonia lo escuchó en el año 451. El rito romano lo canta el Viernes Santo, en griego y en latín, durante la adoración de la Cruz. La coronilla de santa Faustina termina con él, añadiendo «y del mundo entero».",
+      "use": "Se dice tres veces al final de la Coronilla de la Divina Misericordia. Las liturgias orientales lo cantan en cada Divina Liturgia.",
+      "scripture": "Isaías 6,3; Apocalipsis 4,8"
     }
   }
 }

@@ -425,4 +425,20 @@ Template:
 - Consequences: Every screen can be linked and survives a refresh. Opening a screen goes
   through `context.push(Routes.…)`; a new screen needs a route in `routes.dart`. Path addresses
   would need a `404.html` copy of `index.html` on Pages.
+## ADR-036: Chaplets on the Rosary's beads, starting with Divine Mercy
+- Date: 2026-10-30 · Status: Accepted
+- Context: I-01 suggested other bead prayers, the Divine Mercy Chaplet first. Its usual
+  English, Spanish and French wordings come from modern translations of Saint Faustina's
+  Diary, which are under copyright, while the app uses public-domain texts only (ADR-013).
+- Options considered: a separate screen per chaplet, or the Rosary screen driven by another
+  sequence; the published translations, or the app's own from the Polish original.
+- Decision: The same screen, session, beads, guidance and voice, with a `Devotion` on the
+  steps and a separate sequence; the bead positions are those of the Rosary. The texts are the
+  app's own translations of the Polish original (Saint Faustina died in 1938, so it is in the
+  public domain), in the traditional register of the other prayers ("Thee" in English,
+  "vous" in French); the Trisagion is an ancient liturgical text. The chaplet isn't saved for
+  later, so it never replaces an unfinished Rosary.
+- Consequences: The wordings are close to, but not exactly, those people may know; the parish
+  review (C-02) should look at them. Another chaplet needs its sequence, guidance lines, texts
+  in three languages and recordings.
 

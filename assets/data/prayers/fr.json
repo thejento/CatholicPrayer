@@ -81,6 +81,21 @@
       "id": "holy_father_intentions",
       "title": "Aux intentions du Saint-Père",
       "text": "À la fin du chapelet, il est d'usage de prier aux intentions du pape : un Notre Père, un Je vous salue Marie et un Gloire au Père."
+    },
+    {
+      "id": "divine_mercy_eternal_father",
+      "title": "Père éternel (Chapelet de la Divine Miséricorde)",
+      "text": "Père éternel, je vous offre le Corps et le Sang, l'Âme et la Divinité de votre Fils bien-aimé, notre Seigneur Jésus-Christ, en réparation de nos péchés et de ceux du monde entier."
+    },
+    {
+      "id": "divine_mercy_passion",
+      "title": "Par sa douloureuse Passion",
+      "text": "Par sa douloureuse Passion, soyez miséricordieux pour nous et pour le monde entier."
+    },
+    {
+      "id": "divine_mercy_holy_god",
+      "title": "Dieu saint",
+      "text": "Dieu saint, Dieu fort, Dieu immortel, ayez pitié de nous et du monde entier."
     }
   ]
 }

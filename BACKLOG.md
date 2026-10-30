@@ -73,3 +73,4 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-13 Private prayer journal: finished Rosaries, optional intention, monthly count, no streak (ADR-034)
 - [x] r-09 Android backup: app data excluded from cloud backup, kept on device transfer (ADR-034)
 - [x] W-02 Web addresses: each screen has a `#/…` address; refresh keeps it, links open it (ADR-035)
+- [x] I-01 Divine Mercy Chaplet, guided on the rosary beads; own translations of the Polish original (ADR-036)

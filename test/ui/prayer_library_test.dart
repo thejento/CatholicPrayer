@@ -33,6 +33,23 @@ void main() {
     }
   });
 
+  testWidgets('the Divine Mercy Chaplet has its own section', (tester) async {
+    await openLibrary(tester, TestApp());
+    final chaplet = tester.getTopLeft(find.text('Divine Mercy Chaplet')).dy;
+    final other = tester.getTopLeft(find.text('Other prayers')).dy;
+    for (final title in [
+      'Eternal Father (Divine Mercy Chaplet)',
+      'For the Sake of His Sorrowful Passion',
+      'Holy God',
+    ]) {
+      expect(
+        tester.getTopLeft(find.text(title)).dy,
+        inExclusiveRange(chaplet, other),
+        reason: title,
+      );
+    }
+  });
+
   testWidgets('a new prayer opens in the app language', (tester) async {
     await openLibrary(tester, TestApp(locale: const Locale('fr')));
     expect(find.text('Autres prières'), findsOneWidget);

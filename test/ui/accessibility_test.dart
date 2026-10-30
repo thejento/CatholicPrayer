@@ -77,6 +77,14 @@ final Map<String, Visit> screens = {
     await openRosary(t);
     await press(t, LogicalKeyboardKey.arrowRight, 80);
   },
+  'divine mercy: a decade bead': (t) async {
+    await tapAndSettle(t, find.byKey(const Key('divine-mercy')));
+    await press(t, LogicalKeyboardKey.arrowRight, 5);
+  },
+  'divine mercy: completion': (t) async {
+    await tapAndSettle(t, find.byKey(const Key('divine-mercy')));
+    await press(t, LogicalKeyboardKey.arrowRight, 63);
+  },
   'prayer journal': (t) async {
     await openRosary(t);
     await press(t, LogicalKeyboardKey.arrowRight, 80);
