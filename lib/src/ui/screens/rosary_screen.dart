@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../audio/audio_catalog.dart';
@@ -17,11 +18,10 @@ import '../../providers/saved_session_controller.dart';
 import '../../providers/settings_controller.dart';
 import '../../providers/theme_manager.dart';
 import '../../theme/app_theme.dart';
+import '../../routes.dart';
 import '../step_text.dart';
 import '../widgets/rosary_beads.dart';
 import 'prayer_about_screen.dart';
-import 'prayer_detail_screen.dart';
-import 'scripture_screen.dart';
 
 /// The Rosary: bead drawing, prayer text and newcomer guidance; or, in
 /// mysteries-only mode, the five mysteries between two summary cards.
@@ -267,12 +267,8 @@ class _StepPanel extends StatelessWidget {
             key: const Key('read-passage'),
             icon: const Icon(Icons.menu_book_outlined),
             label: Text(l10n.readPassage),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (_) =>
-                    ScriptureScreen(mysterySet: session.mysterySet, decade: step.decade!),
-              ),
-            ),
+            onPressed: () =>
+                context.push(Routes.passage(session.mysterySet, session.mode, step.decade!)),
           ),
         ),
         const SizedBox(height: 8),
@@ -305,9 +301,7 @@ class _StepPanel extends StatelessWidget {
                 id == 'hail_mary' ? '${prayer.titleFor(lang)} × 3' : prayer.titleFor(lang),
                 style: theme.textTheme.titleMedium,
               ),
-              onTap: () => Navigator.of(
-                context,
-              ).push(MaterialPageRoute<void>(builder: (_) => PrayerDetailScreen(prayer: prayer))),
+              onTap: () => context.push(Routes.prayer(id)),
             ),
       ];
     } else {
@@ -592,7 +586,7 @@ class _CompletionView extends StatelessWidget {
               const SizedBox(height: 24),
               FilledButton(
                 autofocus: true,
-                onPressed: () => Navigator.of(context).popUntil((r) => r.isFirst),
+                onPressed: () => context.go(Routes.home),
                 child: Text(l10n.backToHome),
               ),
               const SizedBox(height: 12),

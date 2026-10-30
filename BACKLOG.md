@@ -69,3 +69,4 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] F-31 Classic theme in the colour of the Church year; kid-friendly keeps its own (ADR-030)
 - [x] F-21 National calendars: Canada and United States, Sunday transfers and national saints (ADR-032)
 - [x] F-32 About this prayer: origin, use and Scripture for every prayer, in the library and the Rosary (ADR-031)
+- [x] W-02 Web addresses: each screen has a `#/…` address; refresh keeps it, links open it (ADR-035)

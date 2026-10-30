@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/content_repository.dart';
@@ -12,15 +13,11 @@ import '../../domain/rosary_sequence.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_controller.dart';
 import '../../providers/saved_session_controller.dart';
+import '../../routes.dart';
 import '../liturgy_text.dart';
 import '../step_text.dart';
 import '../widgets/saint_sheet.dart';
 import '../widgets/web_footer.dart';
-import 'about_today_screen.dart';
-import 'mystery_picker_screen.dart';
-import 'prayer_library_screen.dart';
-import 'rosary_screen.dart';
-import 'settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -37,9 +34,7 @@ class HomeScreen extends StatelessWidget {
     final note = sundayMysteriesNote(l10n, today, liturgy);
     final celebrations = celebrationsOn(today, region);
     final saints = context.read<SaintsRepository>();
-    void openAbout() =>
-        Navigator.of(context)
-            .push(MaterialPageRoute<void>(builder: (_) => AboutTodayScreen(date: today)));
+    void openAbout() => context.push(Routes.today);
     final content = context.read<ContentRepository>();
     final setTitle = content.mysterySetTitle(suggested).of(lang);
     final saved = context.watch<SavedSessionController>().saved;
@@ -51,9 +46,7 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings_outlined),
             tooltip: l10n.settings,
-            onPressed: () =>
-                Navigator.of(context)
-                    .push(MaterialPageRoute<void>(builder: (_) => const SettingsScreen())),
+            onPressed: () => context.push(Routes.settings),
           ),
         ],
       ),
@@ -134,14 +127,9 @@ class HomeScreen extends StatelessWidget {
                         '${l10n.stepCounter(saved.index + 1, buildSequence(saved.mode).length)}',
                       ),
                       trailing: const Icon(Icons.play_arrow_rounded),
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => RosaryScreen(
-                            mysterySet: saved.mysterySet,
-                            mode: saved.mode,
-                            startIndex: saved.index,
-                          ),
-                        ),
+                      onTap: () => context.push(
+                        Routes.rosary(saved.mysterySet, saved.mode),
+                        extra: saved.index,
                       ),
                     ),
                   ),
@@ -152,19 +140,14 @@ class HomeScreen extends StatelessWidget {
                   icon: const Icon(Icons.play_arrow_rounded),
                   label: Text(l10n.beginRosary),
                   style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(64)),
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (_) => MysteryPickerScreen(initial: suggested),
-                    ),
-                  ),
+                  onPressed: () => context.push(Routes.pray),
                 ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
                   icon: const Icon(Icons.menu_book_outlined),
                   label: Text(l10n.prayerLibrary),
                   style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(56)),
-                  onPressed: () => Navigator.of(context)
-                      .push(MaterialPageRoute<void>(builder: (_) => const PrayerLibraryScreen())),
+                  onPressed: () => context.push(Routes.library),
                 ),
                 if (!context.read<DeviceProfile>().isAndroid) const WebFooter(),
               ],

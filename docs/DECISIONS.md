@@ -378,3 +378,20 @@ Template:
   Proper calendars change from time to time (new saints), so the lists need an occasional
   check against the bishops' conferences. The US provinces that keep the Ascension on Thursday
   are not distinguished.
+
+## ADR-035: go_router with hash addresses, the Rosary step left out of the URL
+- Date: 2026-10-30 · Status: Accepted
+- Context: On the web, refreshing the page went back to Home, and no link could point to a
+  screen (issue W-02).
+- Options considered: Navigator named routes or go_router; path addresses (`/library`) or hash
+  addresses (`#/library`); putting the Rosary step in the address or not.
+- Decision: go_router (Flutter's own package), with routes nested under Home so Back climbs
+  to it. Hash addresses, because GitHub Pages has no fallback that would serve the app for
+  `/CatholicPrayer/library`. Screens opened on top of others (`push`) also update the address
+  (`optionURLReflectsImperativeAPIs`). The Rosary's step stays out of the address: the saved
+  session (F-06) already remembers it, and an address that changed on every bead would fill
+  the browser history.
+- Consequences: Every screen can be linked and survives a refresh. Opening a screen goes
+  through `context.push(Routes.…)`; a new screen needs a route in `routes.dart`. Path addresses
+  would need a `404.html` copy of `index.html` on Pages.
+
