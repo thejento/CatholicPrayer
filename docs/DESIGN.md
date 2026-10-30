@@ -476,6 +476,31 @@ season. Model: `CalendarRegion` in `liturgical_calendar.dart`; `canadaCalendar` 
 `unitedStatesCalendar` in `sanctoral.dart` list only what differs (an entry with a general id
 replaces it); `calendarFor(region)` merges them.
 
+### 3.22 Divine Mercy Chaplet (I-01), see ADR-036
+
+Home → **Divine Mercy Chaplet**: the chaplet Saint Faustina recorded in 1935 (Diary, nos.
+474-476), guided bead by bead on the **same rosary drawing**, with guidance, voice and
+auto-advance like the Rosary (63 steps):
+
+```
+Opening (4):   Sign of the Cross (crucifix) · Our Father (bead 1) · Hail Mary (bead 2) ·
+               Apostles' Creed (bead 3)
+Decade ×5 (11 each = 55):
+               Eternal Father (large bead) · "For the sake of His sorrowful Passion" ×10
+Closing (4):   Holy God ×3 (medal) · Sign of the Cross (crucifix)
+```
+
+* The optional opening and closing prayers of the Diary are left out, to keep the core.
+* No mysteries, paintings or passages. The chaplet isn't saved for later (it takes about
+  10 minutes), and it leaves an unfinished Rosary's progress alone.
+* The end screen says "You prayed the Divine Mercy Chaplet!" and "Jesus, I trust in you."
+* The library has a **Divine Mercy Chaplet** section with its three prayers, each with
+  "About this prayer".
+* Texts: the app's own translations of the Polish original (public domain), in the
+  traditional register of the other prayers (ADR-036).
+* Model: `Devotion` and `buildDivineMercySequence()` in `rosary_sequence.dart`;
+  `RosaryScreen.chaplet`. Another chaplet is a new sequence, its texts and recordings.
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)

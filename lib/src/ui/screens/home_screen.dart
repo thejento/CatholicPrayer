@@ -166,6 +166,18 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () => Navigator.of(context)
                       .push(MaterialPageRoute<void>(builder: (_) => const PrayerLibraryScreen())),
                 ),
+                const SizedBox(height: 12),
+                OutlinedButton.icon(
+                  key: const Key('divine-mercy'),
+                  icon: const Icon(Icons.volunteer_activism_outlined),
+                  label: Text(l10n.divineMercyChaplet),
+                  style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(56)),
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const RosaryScreen.chaplet(devotion: Devotion.divineMercy),
+                    ),
+                  ),
+                ),
                 if (!context.read<DeviceProfile>().isAndroid) const WebFooter(),
               ],
             ),

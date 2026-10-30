@@ -9,7 +9,7 @@ Future<void> openLibrary(WidgetTester tester, TestApp app) async {
   addTearDown(tester.view.reset);
   await tester.pumpWidget(app.build());
   await tester.pumpAndSettle();
-  await tester.tap(find.byType(OutlinedButton).last); // Prayer Library
+  await tester.tap(find.widgetWithIcon(OutlinedButton, Icons.menu_book_outlined)); // Prayer Library
   await tester.pumpAndSettle();
 }
 
@@ -30,6 +30,23 @@ void main() {
       'For the Intentions of the Holy Father',
     ]) {
       expect(tester.getTopLeft(find.text(title)).dy, greaterThan(other), reason: title);
+    }
+  });
+
+  testWidgets('the Divine Mercy Chaplet has its own section', (tester) async {
+    await openLibrary(tester, TestApp());
+    final chaplet = tester.getTopLeft(find.text('Divine Mercy Chaplet')).dy;
+    final other = tester.getTopLeft(find.text('Other prayers')).dy;
+    for (final title in [
+      'Eternal Father (Divine Mercy Chaplet)',
+      'For the Sake of His Sorrowful Passion',
+      'Holy God',
+    ]) {
+      expect(
+        tester.getTopLeft(find.text(title)).dy,
+        inExclusiveRange(chaplet, other),
+        reason: title,
+      );
     }
   });
 

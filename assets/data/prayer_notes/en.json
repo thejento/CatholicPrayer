@@ -70,6 +70,20 @@
     "holy_father_intentions": {
       "origin": "Praying for the Pope's intentions is an old custom, and one of the usual conditions for an indulgence, together with Confession and Communion. The Church leaves the prayer free; an Our Father and a Hail Mary are the usual choice. Each month, the Pope also proposes a prayer intention through his Worldwide Prayer Network.",
       "use": "It is often added at the end of the Rosary. It unites the person praying with the whole Church and with the Pope's concerns for the world."
+    },
+    "divine_mercy_eternal_father": {
+      "origin": "Saint Faustina Kowalska, a Polish religious sister, wrote in her Diary that Jesus taught her this chaplet in Vilnius on 13 and 14 September 1935 (Diary, nos. 474-476). This is its central prayer: it offers to the Father the whole Christ, as at Mass. Saint John Paul II canonised her in 2000 and named the Second Sunday of Easter Divine Mercy Sunday.",
+      "use": "It is said on each large bead of the Divine Mercy Chaplet, which is prayed on an ordinary rosary. Many pray the chaplet at three in the afternoon, the hour of Jesus' death, and as a novena from Good Friday to Divine Mercy Sunday; it is also often prayed for the sick and the dying."
+    },
+    "divine_mercy_passion": {
+      "origin": "The short prayer of the Divine Mercy Chaplet, from the same pages of Saint Faustina's Diary (no. 476). It asks for mercy through the Passion of Christ, for those who pray and for the whole world.",
+      "use": "It is said ten times on each decade, on the small beads, after the Eternal Father on the large bead. Repeating it, like the Hail Marys of the Rosary, keeps the mind on the suffering and the mercy of Christ.",
+      "scripture": "Isaiah 53:5; 1 John 2:2"
+    },
+    "divine_mercy_holy_god": {
+      "origin": "An ancient hymn called the Trisagion (Greek for \"thrice holy\"), sung in the Eastern Churches since at least the 5th century; the Council of Chalcedon heard it in 451. The Roman rite sings it on Good Friday, in Greek and Latin, during the veneration of the Cross. Saint Faustina's chaplet ends with it, adding \"and on the whole world\".",
+      "use": "It is said three times at the end of the Divine Mercy Chaplet. The Eastern liturgies sing it at every Divine Liturgy.",
+      "scripture": "Isaiah 6:3; Revelation 4:8"
     }
   }
 }

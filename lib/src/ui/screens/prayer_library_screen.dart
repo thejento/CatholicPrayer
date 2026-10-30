@@ -17,8 +17,16 @@ class PrayerLibraryScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final prayers = context.read<ContentRepository>().prayers;
     final rosaryIds = buildRosarySequence().map((s) => s.prayerId).nonNulls.toSet();
+    final chapletIds = buildDivineMercySequence()
+        .map((s) => s.prayerId)
+        .nonNulls
+        .toSet()
+        .difference(rosaryIds);
     final rosary = prayers.where((p) => rosaryIds.contains(p.id)).toList();
-    final others = prayers.where((p) => !rosaryIds.contains(p.id)).toList();
+    final chaplet = prayers.where((p) => chapletIds.contains(p.id)).toList();
+    final others = prayers
+        .where((p) => !rosaryIds.contains(p.id) && !chapletIds.contains(p.id))
+        .toList();
     final lang = contentLanguage(context);
     final headerStyle = Theme.of(context).textTheme.titleSmall
         ?.copyWith(color: Theme.of(context).colorScheme.primary);
@@ -45,6 +53,8 @@ class PrayerLibraryScreen extends StatelessWidget {
             children: [
               header(l10n.rosaryPrayersSection),
               for (final (i, p) in rosary.indexed) tile(p, first: i == 0),
+              header(l10n.divineMercyChaplet),
+              for (final p in chaplet) tile(p),
               if (others.isNotEmpty) ...[
                 header(l10n.otherPrayersSection),
                 for (final p in others) tile(p),

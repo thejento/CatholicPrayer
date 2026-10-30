@@ -95,6 +95,68 @@ void main() {
     });
   });
 
+  group('Divine Mercy Chaplet (I-01)', () {
+    final chaplet = buildDivineMercySequence();
+    int count(StepKind kind) => chaplet.where((s) => s.kind == kind).length;
+
+    test('has 63 steps: opening, five decades, Holy God three times, Sign of the Cross', () {
+      expect(chaplet, hasLength(63));
+      expect(chaplet.take(4).map((s) => s.kind), [
+        StepKind.signOfTheCross,
+        StepKind.ourFather,
+        StepKind.hailMary,
+        StepKind.apostlesCreed,
+      ]);
+      expect(count(StepKind.eternalFather), 5);
+      expect(count(StepKind.sorrowfulPassion), 50);
+      expect(count(StepKind.holyGod), 3);
+      expect(chaplet.last.kind, StepKind.signOfTheCross);
+      expect(chaplet.last.bead, crucifixBead);
+      expect(chaplet.every((s) => s.devotion == Devotion.divineMercy), isTrue);
+    });
+
+    test('uses the Rosary beads: Eternal Father on the large ones, the decade on the small', () {
+      for (final s in chaplet) {
+        if (s.kind == StepKind.eternalFather) {
+          expect(beadKindAt(s.bead), BeadKind.large);
+          expect(s.bead, ourFatherBeadForDecade(s.decade!));
+        }
+        if (s.kind == StepKind.sorrowfulPassion) {
+          expect(s.bead, hailMaryBead(s.decade!, s.count!));
+        }
+      }
+      expect(chaplet.where((s) => s.kind == StepKind.holyGod).map((s) => s.bead).toSet(), {
+        medalBead,
+      });
+    });
+
+    test('has its own guidance and prayers', () {
+      expect(chaplet.map(guidanceOf).nonNulls, hasLength(63));
+      expect(guidanceOf(chaplet[2]), Guidance.chapletHailMary);
+      expect(guidanceOf(chaplet[3]), Guidance.chapletCreed);
+      expect(guidanceOf(chaplet[4]), Guidance.eternalFather);
+      expect(guidanceOf(chaplet[5]), Guidance.sorrowfulPassion);
+      expect(guidanceOf(chaplet[59]), Guidance.holyGod);
+      expect(chaplet.map((s) => s.prayerId).toSet(), {
+        'sign_of_the_cross',
+        'our_father',
+        'hail_mary',
+        'apostles_creed',
+        'divine_mercy_eternal_father',
+        'divine_mercy_passion',
+        'divine_mercy_holy_god',
+      });
+      expect(clipsForStep(chaplet[5], null, withGuidance: true), [
+        'guide_sorrowfulPassion',
+        'prayer_divine_mercy_passion',
+      ]);
+    });
+
+    test('the Rosary is unchanged', () {
+      expect(buildRosarySequence().every((s) => s.devotion == Devotion.rosary), isTrue);
+    });
+  });
+
   group('beadKindAt', () {
     test('has 1 crucifix, 1 medal, 6 large and 53 small beads', () {
       final kinds = [for (var i = 0; i < beadCount; i++) beadKindAt(i)];
