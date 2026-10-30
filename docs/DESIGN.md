@@ -476,6 +476,38 @@ season. Model: `CalendarRegion` in `liturgical_calendar.dart`; `canadaCalendar` 
 `unitedStatesCalendar` in `sanctoral.dart` list only what differs (an entry with a general id
 replaces it); `calendarFor(region)` merges them.
 
+### 3.19 Optional ending: Holy Father, Saint Michael (F-23), see ADR-033
+
+Settings → **End of the Rosary** has two switches, both **off** by default, so the Rosary keeps
+its 80 steps unless the person chooses:
+* **Pray for the Holy Father's intentions**: an Our Father, a Hail Mary and a Glory Be (3 steps).
+* **Add the prayer to Saint Michael** (1 step).
+
+They come after the closing prayer, still on the medal, in that order, and before the last Sign
+of the Cross (84 steps with both). Each has its own "what to do" line and voice clip; the
+prayers reuse the existing recordings, plus one new clip for Saint Michael. In mysteries-only
+mode the closing card lists them. A Rosary uses the ending set when it starts; the Home
+"Continue" card counts the steps with the current setting. Model: `RosaryEnding` in
+`rosary_sequence.dart`, `SettingsController.ending`.
+
+### 3.20 Prayer journal (F-13), see ADR-034
+
+A private list of the Rosaries prayed to the end, **kept only on the device**: no account, no
+network, and left out of cloud backups (§9).
+
+* **Recorded automatically** when a Rosary is finished (guided or mysteries only): date and
+  time, mysteries, mode. Going back and finishing again doesn't count it twice; *Pray again*
+  starts a new one. The completion screen says "Added to your prayer journal" and offers **Add
+  an intention** (optional, up to 200 characters).
+* **Home → Prayer journal**: "*n* Rosaries this month", then the entries newest first, grouped
+  by month, each with its intention. A menu on each entry edits the intention or removes it;
+  **Clear the journal** asks for confirmation inside the app.
+* **No streak** or "days in a row": prayer isn't a score, and a broken streak would make people
+  feel guilty. The monthly count is the only number.
+* **Settings → Prayer journal**: on by default. Turning it off stops recording and hides the
+  Home button; existing entries stay until cleared.
+* Storage: `journal_entries` (JSON) in the preferences store, `JournalController`.
+
 ### 3.21 Web addresses (W-02), see ADR-035
 
 Every screen has an address, shown in the browser after `#` (GitHub Pages can't serve other
@@ -484,7 +516,7 @@ paths), so **refreshing keeps the screen** and **a link can open one**:
 | Address | Screen |
 |---|---|
 | `#/` | Home |
-| `#/settings`, `#/today`, `#/pray` | Settings, About today, choosing the mysteries |
+| `#/settings`, `#/today`, `#/pray`, `#/journal` | Settings, About today, choosing the mysteries, prayer journal |
 | `#/library`, `#/library/hail_mary`, `#/library/hail_mary/about` | Library, a prayer, its background |
 | `#/rosary/joyful` (`?mode=mysteriesOnly`) | The Rosary |
 | `#/rosary/joyful/passage/3` | A mystery's Bible passage, over its Rosary |
@@ -510,6 +542,9 @@ Decade ×5 (14 each = 70):
               Glory Be · Fatima Prayer
 Closing (3):  Hail, Holy Queen · Closing prayer · Sign of the Cross
 ```
+
+Optional before the last Sign of the Cross (§3.19): Our Father · Hail Mary · Glory Be for the
+Holy Father's intentions, and the prayer to Saint Michael.
 
 Totals: 53 Hail Marys, 6 Our Fathers and 6 Glory Bes.
 
@@ -630,6 +665,9 @@ Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
   * `RECEIVE_BOOT_COMPLETED`, `VIBRATE`: restore the reminder after a reboot, vibrate with it.
   * `ACCESS_NETWORK_STATE`: added by the audio player library (ExoPlayer); the app plays
     bundled files only.
+* **Backup** (ADR-034): the app's data (settings, the prayer journal) is excluded from Android
+  cloud backup. On Android 12 and later, a device-to-device transfer to a new phone carries
+  it; on older versions nothing is carried. On the web it stays in the browser's storage.
 * Screen readers (TalkBack, browser readers): the rosary drawing is one labelled button
   ("Rosary, bead 14 of 61") whose tap moves to the next step. The step title is a heading
   and a live region, so each new step is announced without moving focus. The progress

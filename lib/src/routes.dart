@@ -9,6 +9,7 @@ import 'domain/rosary_sequence.dart';
 import 'providers/saved_session_controller.dart';
 import 'ui/screens/about_today_screen.dart';
 import 'ui/screens/home_screen.dart';
+import 'ui/screens/journal_screen.dart';
 import 'ui/screens/mystery_picker_screen.dart';
 import 'ui/screens/prayer_about_screen.dart';
 import 'ui/screens/prayer_detail_screen.dart';
@@ -27,6 +28,7 @@ abstract final class Routes {
   static const today = '/today';
   static const library = '/library';
   static const pray = '/pray';
+  static const journal = '/journal';
 
   static String prayer(String id) => '/library/$id';
   static String aboutPrayer(String id) => '/library/$id/about';
@@ -73,6 +75,7 @@ GoRouter _router() => GoRouter(
       builder: (_, _) => const HomeScreen(),
       routes: [
         GoRoute(path: 'settings', builder: (_, _) => const SettingsScreen()),
+        GoRoute(path: 'journal', builder: (_, _) => const JournalScreen()),
         GoRoute(
           path: 'today',
           builder: (context, _) => AboutTodayScreen(date: context.read<Clock>().now()),

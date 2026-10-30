@@ -80,7 +80,11 @@ void main() {
     expect(find.text('Pray the Rosary'), findsOneWidget);
   });
 
-  for (final (location, title) in [('/settings', 'Settings'), ('/pray', 'Choose the mysteries')]) {
+  for (final (location, title) in [
+    ('/settings', 'Settings'),
+    ('/pray', 'Choose the mysteries'),
+    ('/journal', 'Prayer journal'),
+  ]) {
     testWidgets('$location opens $title', (tester) async {
       await openAt(tester, TestApp(), location);
       expect(appBarTitle(tester), title);

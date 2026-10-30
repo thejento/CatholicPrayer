@@ -10,10 +10,12 @@ import '../../audio/voice_guide.dart';
 import '../../data/art_catalog.dart';
 import '../../data/content_repository.dart';
 import '../../data/device_profile.dart';
+import '../../domain/clock.dart';
 import '../../domain/mysteries.dart';
 import '../../domain/rosary_sequence.dart';
 import '../../domain/rosary_session.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../../providers/journal_controller.dart';
 import '../../providers/saved_session_controller.dart';
 import '../../providers/settings_controller.dart';
 import '../../providers/theme_manager.dart';
@@ -21,6 +23,7 @@ import '../../theme/app_theme.dart';
 import '../../routes.dart';
 import '../step_text.dart';
 import '../widgets/rosary_beads.dart';
+import 'journal_screen.dart';
 import 'prayer_about_screen.dart';
 
 /// The Rosary: bead drawing, prayer text and newcomer guidance; or, in
@@ -44,14 +47,20 @@ class RosaryScreen extends StatefulWidget {
 }
 
 class _RosaryScreenState extends State<RosaryScreen> {
+  late final SavedSessionController _saved = context.read<SavedSessionController>();
+  late final SettingsController _settings = context.read<SettingsController>();
+  // The ending chosen in Settings when this Rosary starts (F-23).
   late final RosarySession _session = RosarySession(
     mysterySet: widget.mysterySet,
     mode: widget.mode,
+    steps: buildSequence(widget.mode, ending: _settings.ending),
     startIndex: widget.startIndex,
   );
-  late final SavedSessionController _saved = context.read<SavedSessionController>();
-  late final SettingsController _settings = context.read<SettingsController>();
   VoiceGuide? _voice;
+
+  /// This Rosary's journal entry, once finished (F-13): recorded once, even
+  /// if the person goes back and finishes again.
+  JournalEntry? _entry;
 
   @override
   void initState() {
@@ -86,11 +95,38 @@ class _RosaryScreenState extends State<RosaryScreen> {
   void _persist() {
     if (_session.isFinished) {
       _saved.clear();
+      _record();
     } else {
       _saved.save(
         SavedSession(mysterySet: widget.mysterySet, index: _session.index, mode: widget.mode),
       );
     }
+  }
+
+  Future<void> _record() async {
+    if (_entry != null) return;
+    final entry = JournalEntry(
+      prayedAt: context.read<Clock>().now(),
+      mysterySet: widget.mysterySet,
+      mode: widget.mode,
+    );
+    _entry = entry;
+    final recorded = await context.read<JournalController>().record(entry);
+    if (mounted && recorded == null) setState(() => _entry = null);
+  }
+
+  Future<void> _addIntention() async {
+    final entry = _entry;
+    if (entry == null) return;
+    final text = await showIntentionDialog(context, initial: entry.intention);
+    if (text == null || !mounted) return;
+    final updated = await context.read<JournalController>().setIntention(entry, text);
+    if (mounted) setState(() => _entry = updated);
+  }
+
+  void _prayAgain() {
+    _entry = null;
+    _session.restart();
   }
 
   @override
@@ -146,7 +182,12 @@ class _RosaryScreenState extends State<RosaryScreen> {
             ),
             body: SafeArea(
               child: _session.isFinished
-                  ? _CompletionView(onPrayAgain: _session.restart, onBack: _session.previous)
+                  ? _CompletionView(
+                      onPrayAgain: _prayAgain,
+                      onBack: _session.previous,
+                      entry: _entry,
+                      onAddIntention: _addIntention,
+                    )
                   : _StepLayout(session: _session, voice: _voice!, l10n: l10n),
             ),
           ),
@@ -290,7 +331,7 @@ class _StepPanel extends StatelessWidget {
       body = [
         Text(l10n.summaryHint, style: theme.textTheme.bodyLarge),
         const SizedBox(height: 8),
-        for (final id in opening ? openingPrayerIds : closingPrayerIds)
+        for (final id in step.summary)
           if (content.prayer(id) case final prayer?)
             ListTile(
               key: Key('summary-$id'),
@@ -549,10 +590,19 @@ class _VoiceBar extends StatelessWidget {
 }
 
 class _CompletionView extends StatelessWidget {
-  const _CompletionView({required this.onPrayAgain, required this.onBack});
+  const _CompletionView({
+    required this.onPrayAgain,
+    required this.onBack,
+    required this.entry,
+    required this.onAddIntention,
+  });
 
   final VoidCallback onPrayAgain;
   final VoidCallback onBack;
+
+  /// The journal entry for this Rosary, or `null` when the journal is off.
+  final JournalEntry? entry;
+  final VoidCallback onAddIntention;
 
   @override
   Widget build(BuildContext context) {
@@ -583,6 +633,30 @@ class _CompletionView extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyLarge,
               ),
+              if (entry case final entry?) ...[
+                const SizedBox(height: 16),
+                Text(
+                  l10n.journalSaved,
+                  key: const Key('journal-saved'),
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium,
+                ),
+                if (entry.intention.isNotEmpty)
+                  Text(
+                    entry.intention,
+                    key: const Key('journal-intention'),
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
+                  ),
+                TextButton.icon(
+                  key: const Key('add-intention'),
+                  icon: const Icon(Icons.edit_note),
+                  label: Text(
+                    entry.intention.isEmpty ? l10n.journalAddIntention : l10n.journalEditIntention,
+                  ),
+                  onPressed: onAddIntention,
+                ),
+              ],
               const SizedBox(height: 24),
               FilledButton(
                 autofocus: true,

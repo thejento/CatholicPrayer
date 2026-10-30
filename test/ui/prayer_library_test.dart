@@ -9,7 +9,7 @@ Future<void> openLibrary(WidgetTester tester, TestApp app) async {
   addTearDown(tester.view.reset);
   await tester.pumpWidget(app.build());
   await tester.pumpAndSettle();
-  await tester.tap(find.byType(OutlinedButton).last); // Prayer Library
+  await tester.tap(find.widgetWithIcon(OutlinedButton, Icons.menu_book_outlined)); // Prayer Library
   await tester.pumpAndSettle();
 }
 
