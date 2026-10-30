@@ -157,6 +157,75 @@ void main() {
     });
   });
 
+  group('optional ending (F-23)', () {
+    List<StepKind> lastKinds(RosaryEnding ending, int n) {
+      final all = buildRosarySequence(ending: ending);
+      return all.skip(all.length - n).map((s) => s.kind).toList();
+    }
+
+    test('off by default: the 80 steps are unchanged', () {
+      expect(buildRosarySequence(ending: const RosaryEnding()), hasLength(80));
+      expect(lastKinds(const RosaryEnding(), 3), [
+        StepKind.hailHolyQueen,
+        StepKind.closingPrayer,
+        StepKind.signOfTheCross,
+      ]);
+    });
+
+    test("the Holy Father's intentions add an Our Father, a Hail Mary and a Glory Be", () {
+      const ending = RosaryEnding(holyFather: true);
+      expect(buildRosarySequence(ending: ending), hasLength(83));
+      expect(lastKinds(ending, 5), [
+        StepKind.closingPrayer,
+        StepKind.ourFather,
+        StepKind.hailMary,
+        StepKind.gloryBe,
+        StepKind.signOfTheCross,
+      ]);
+      final added = buildRosarySequence(ending: ending).skip(79).take(3);
+      expect(added.map(guidanceOf), [
+        Guidance.ourFatherHolyFather,
+        Guidance.hailMaryHolyFather,
+        Guidance.gloryBeHolyFather,
+      ]);
+      expect(added.every((s) => s.part == RosaryPart.closing && s.bead == medalBead), isTrue);
+    });
+
+    test('Saint Michael comes last, before the Sign of the Cross', () {
+      expect(lastKinds(const RosaryEnding(saintMichael: true), 2), [
+        StepKind.saintMichael,
+        StepKind.signOfTheCross,
+      ]);
+      final all = buildRosarySequence(ending: RosaryEnding.all);
+      expect(all, hasLength(84));
+      final michael = all[all.length - 2];
+      expect(michael.prayerId, 'saint_michael');
+      expect(guidanceOf(michael), Guidance.saintMichael);
+      expect(clipsForStep(michael, MysterySet.joyful, withGuidance: true), [
+        'guide_saintMichael',
+        'prayer_saint_michael',
+      ]);
+    });
+
+    test('mysteries only lists the chosen prayers on the closing card', () {
+      expect(buildMysteriesOnlySequence().last.summary, closingPrayerIds());
+      expect(buildSequence(RosaryMode.mysteriesOnly, ending: RosaryEnding.all), hasLength(7));
+      expect(buildSequence(RosaryMode.mysteriesOnly, ending: RosaryEnding.all).last.summary, [
+        'hail_holy_queen',
+        'rosary_closing_prayer',
+        'holy_father_intentions',
+        'saint_michael',
+        'sign_of_the_cross',
+      ]);
+    });
+
+    test('compares by value', () {
+      expect(const RosaryEnding(holyFather: true), const RosaryEnding(holyFather: true));
+      expect(const RosaryEnding(holyFather: true).hashCode, isNot(RosaryEnding.all.hashCode));
+      expect(const RosaryEnding(), isNot(const RosaryEnding(saintMichael: true)));
+    });
+  });
+
   group('beadKindAt', () {
     test('has 1 crucifix, 1 medal, 6 large and 53 small beads', () {
       final kinds = [for (var i = 0; i < beadCount; i++) beadKindAt(i)];

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/content_repository.dart';
 import '../../data/device_profile.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../models/prayer.dart';
+import '../../routes.dart';
 import '../step_text.dart';
 
 /// Opens the background of [prayer]; nothing when it has none (DESIGN §3.17).
@@ -22,9 +24,7 @@ class AboutPrayerButton extends StatelessWidget {
         key: const Key('about-prayer'),
         icon: const Icon(Icons.info_outline),
         label: Text(AppLocalizations.of(context).aboutPrayer),
-        onPressed: () =>
-            Navigator.of(context)
-                .push(MaterialPageRoute<void>(builder: (_) => PrayerAboutScreen(prayer: prayer))),
+        onPressed: () => context.push(Routes.aboutPrayer(prayer.id)),
       ),
     );
   }

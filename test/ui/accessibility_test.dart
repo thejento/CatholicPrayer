@@ -85,6 +85,12 @@ final Map<String, Visit> screens = {
     await tapAndSettle(t, find.byKey(const Key('divine-mercy')));
     await press(t, LogicalKeyboardKey.arrowRight, 63);
   },
+  'prayer journal': (t) async {
+    await openRosary(t);
+    await press(t, LogicalKeyboardKey.arrowRight, 80);
+    await tapAndSettle(t, find.text('Back to home'));
+    await tapAndSettle(t, find.byKey(const Key('open-journal')));
+  },
 };
 
 TestApp appFor(AppThemeMode mode) {

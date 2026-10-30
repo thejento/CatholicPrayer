@@ -379,6 +379,52 @@ Template:
   check against the bishops' conferences. The US provinces that keep the Ascension on Thursday
   are not distinguished.
 
+## ADR-033: Optional ending after the closing prayer, off by default
+- Date: 2026-10-30 · Status: Accepted
+- Context: Many people end the Rosary with the prayer to Saint Michael and with an Our Father,
+  a Hail Mary and a Glory Be for the Pope's intentions (issue F-23). Neither is part of the
+  Rosary itself, and the order varies from place to place.
+- Options considered: always include them; one switch for both; two switches. Placement: before
+  the Hail, Holy Queen or after the closing prayer.
+- Decision: Two independent switches, off by default. Both go after the closing prayer, on the
+  medal: the Holy Father's intentions first, then Saint Michael, then the last Sign of the
+  Cross. The steps reuse the existing prayer kinds in the closing part, so the Our Father, Hail
+  Mary and Glory Be reuse their recordings; only Saint Michael and four guidance lines are new.
+- Consequences: The default Rosary is unchanged (80 steps). Changing the setting during an
+  unfinished Rosary takes effect on the next one; a saved step number is clamped as before.
+
+## ADR-034: A private prayer journal, without streaks, out of cloud backup
+- Date: 2026-10-30 · Status: Accepted
+- Context: F-13 asked for a private record of the Rosaries prayed, with open questions: a
+  streak or not, export or backup, kid-friendly wording. Review r-09 noted that Android's
+  default backup would upload the preferences, and so the journal, to Google Drive.
+- Options considered: a streak counter, a calendar of days or a plain list; on or off by
+  default; Android backup left on, off, or limited to device-to-device transfer.
+- Decision: A plain list with one number, the Rosaries this month: no streak, because missing
+  a day shouldn't feel like failing. Finished Rosaries are recorded automatically (the
+  journal is on by default, with a switch in Settings); an intention can be added. Android
+  cloud backup excludes all the app's data (`data_extraction_rules.xml`, `backup_rules.xml`);
+  Android 12+ device-to-device transfer keeps it, as it stays among the person's own devices.
+  The same words work in both themes, so the kid-friendly one has no separate wording.
+- Consequences: Nothing about prayer ever leaves the person's devices, but a lost phone loses
+  the journal. An export (a file the person keeps) could come later. Settings are no longer
+  restored from a cloud backup either.
+
+## ADR-035: go_router with hash addresses, the Rosary step left out of the URL
+- Date: 2026-10-30 · Status: Accepted
+- Context: On the web, refreshing the page went back to Home, and no link could point to a
+  screen (issue W-02).
+- Options considered: Navigator named routes or go_router; path addresses (`/library`) or hash
+  addresses (`#/library`); putting the Rosary step in the address or not.
+- Decision: go_router (Flutter's own package), with routes nested under Home so Back climbs
+  to it. Hash addresses, because GitHub Pages has no fallback that would serve the app for
+  `/CatholicPrayer/library`. Screens opened on top of others (`push`) also update the address
+  (`optionURLReflectsImperativeAPIs`). The Rosary's step stays out of the address: the saved
+  session (F-06) already remembers it, and an address that changed on every bead would fill
+  the browser history.
+- Consequences: Every screen can be linked and survives a refresh. Opening a screen goes
+  through `context.push(Routes.…)`; a new screen needs a route in `routes.dart`. Path addresses
+  would need a `404.html` copy of `index.html` on Pages.
 ## ADR-036: Chaplets on the Rosary's beads, starting with Divine Mercy
 - Date: 2026-10-30 · Status: Accepted
 - Context: I-01 suggested other bead prayers, the Divine Mercy Chaplet first. Its usual

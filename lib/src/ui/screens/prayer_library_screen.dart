@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/content_repository.dart';
 import '../../domain/rosary_sequence.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../models/prayer.dart';
+import '../../routes.dart';
 import '../step_text.dart';
-import 'prayer_detail_screen.dart';
 
 /// The prayers of the Rosary, then other traditional prayers (DESIGN §3.12).
 class PrayerLibraryScreen extends StatelessWidget {
@@ -39,9 +40,7 @@ class PrayerLibraryScreen extends StatelessWidget {
       autofocus: first,
       title: Text(p.titleFor(lang)),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () =>
-          Navigator.of(context)
-              .push(MaterialPageRoute<void>(builder: (_) => PrayerDetailScreen(prayer: p))),
+      onTap: () => context.push(Routes.prayer(p.id)),
     );
 
     return Scaffold(

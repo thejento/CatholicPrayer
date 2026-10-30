@@ -30,8 +30,9 @@ Map<String, String> speakableTexts(
   String lang,
   String Function(Guidance) guidance,
 ) {
+  // Every prayer the Rosary can include, the optional ending too.
   final prayerIds = [
-    ...buildRosarySequence(),
+    ...buildRosarySequence(ending: RosaryEnding.all),
     ...buildDivineMercySequence(),
   ].map((s) => s.prayerId).nonNulls.toSet();
   return {
