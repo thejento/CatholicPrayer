@@ -11,6 +11,7 @@ enum StepKind {
   fatimaPrayer,
   hailHolyQueen,
   closingPrayer,
+  saintMichael,
 
   /// Mysteries-only mode: one card each for the prayers before the first
   /// decade and after the last (DESIGN §3.15).
@@ -32,8 +33,36 @@ const openingPrayerIds = [
   'glory_be',
 ];
 
+/// Optional prayers after the closing prayer, before the last Sign of the
+/// Cross (DESIGN §3.19). Both are off by default.
+class RosaryEnding {
+  const RosaryEnding({this.holyFather = false, this.saintMichael = false});
+
+  /// Every option on: the longest Rosary, for the voice clips.
+  static const all = RosaryEnding(holyFather: true, saintMichael: true);
+
+  /// An Our Father, a Hail Mary and a Glory Be for the Pope's intentions.
+  final bool holyFather;
+
+  /// The prayer to Saint Michael the Archangel.
+  final bool saintMichael;
+
+  @override
+  bool operator ==(Object other) =>
+      other is RosaryEnding && other.holyFather == holyFather && other.saintMichael == saintMichael;
+
+  @override
+  int get hashCode => Object.hash(holyFather, saintMichael);
+}
+
 /// Prayers summarised by the [StepKind.closingPrayers] card, in order.
-const closingPrayerIds = ['hail_holy_queen', 'rosary_closing_prayer', 'sign_of_the_cross'];
+List<String> closingPrayerIds([RosaryEnding ending = const RosaryEnding()]) => [
+  'hail_holy_queen',
+  'rosary_closing_prayer',
+  if (ending.holyFather) 'holy_father_intentions',
+  if (ending.saintMichael) 'saint_michael',
+  'sign_of_the_cross',
+];
 
 /// The three parts of the Rosary, used to tailor guidance and labels.
 enum RosaryPart { introduction, decade, closing }
@@ -76,6 +105,7 @@ class RosaryStep {
     this.decade,
     this.count,
     this.covers = const [],
+    this.summary = const [],
   });
 
   final StepKind kind;
@@ -94,6 +124,9 @@ class RosaryStep {
   /// Further beads this step stands for (mysteries only: the whole decade).
   final List<int> covers;
 
+  /// Prayers listed on a mysteries-only summary card, in order.
+  final List<String> summary;
+
   /// Id of the prayer said at this step, or `null` for a mystery
   /// announcement (which has no fixed text).
   String? get prayerId => switch (kind) {
@@ -105,6 +138,7 @@ class RosaryStep {
     StepKind.fatimaPrayer => 'fatima_prayer',
     StepKind.hailHolyQueen => 'hail_holy_queen',
     StepKind.closingPrayer => 'rosary_closing_prayer',
+    StepKind.saintMichael => 'saint_michael',
     StepKind.announceMystery || StepKind.openingPrayers || StepKind.closingPrayers => null,
   };
 
@@ -114,8 +148,9 @@ class RosaryStep {
       'decade: $decade, count: $count)';
 }
 
-/// Builds the 80-step Rosary described in docs/DESIGN.md §4.1.
-List<RosaryStep> buildRosarySequence() {
+/// Builds the 80-step Rosary described in docs/DESIGN.md §4.1, with the
+/// optional prayers of [ending] before the last Sign of the Cross.
+List<RosaryStep> buildRosarySequence({RosaryEnding ending = const RosaryEnding()}) {
   const intro = RosaryPart.introduction;
   final steps = <RosaryStep>[
     const RosaryStep(kind: StepKind.signOfTheCross, part: intro, bead: crucifixBead),
@@ -149,34 +184,49 @@ List<RosaryStep> buildRosarySequence() {
   }
 
   const closing = RosaryPart.closing;
-  steps.addAll(const [
-    RosaryStep(kind: StepKind.hailHolyQueen, part: closing, bead: medalBead),
-    RosaryStep(kind: StepKind.closingPrayer, part: closing, bead: medalBead),
-    RosaryStep(kind: StepKind.signOfTheCross, part: closing, bead: crucifixBead),
+  steps.addAll([
+    const RosaryStep(kind: StepKind.hailHolyQueen, part: closing, bead: medalBead),
+    const RosaryStep(kind: StepKind.closingPrayer, part: closing, bead: medalBead),
+    if (ending.holyFather) ...const [
+      RosaryStep(kind: StepKind.ourFather, part: closing, bead: medalBead),
+      RosaryStep(kind: StepKind.hailMary, part: closing, bead: medalBead),
+      RosaryStep(kind: StepKind.gloryBe, part: closing, bead: medalBead),
+    ],
+    if (ending.saintMichael)
+      const RosaryStep(kind: StepKind.saintMichael, part: closing, bead: medalBead),
+    const RosaryStep(kind: StepKind.signOfTheCross, part: closing, bead: crucifixBead),
   ]);
   return List.unmodifiable(steps);
 }
 
 /// Builds the 7-step mysteries-only Rosary described in docs/DESIGN.md §3.15.
-List<RosaryStep> buildMysteriesOnlySequence() => List.unmodifiable([
-  RosaryStep(
-    kind: StepKind.openingPrayers,
-    part: RosaryPart.introduction,
-    bead: crucifixBead,
-    covers: [for (var b = 1; b < medalBead; b++) b],
-  ),
-  for (var d = 1; d <= mysteriesPerSet; d++)
-    RosaryStep(
-      kind: StepKind.announceMystery,
-      part: RosaryPart.decade,
-      bead: ourFatherBeadForDecade(d),
-      decade: d,
-      covers: [for (var h = 1; h <= 10; h++) hailMaryBead(d, h)],
-    ),
-  const RosaryStep(kind: StepKind.closingPrayers, part: RosaryPart.closing, bead: medalBead),
-]);
+List<RosaryStep> buildMysteriesOnlySequence({RosaryEnding ending = const RosaryEnding()}) =>
+    List.unmodifiable([
+      RosaryStep(
+        kind: StepKind.openingPrayers,
+        part: RosaryPart.introduction,
+        bead: crucifixBead,
+        covers: [for (var b = 1; b < medalBead; b++) b],
+        summary: openingPrayerIds,
+      ),
+      for (var d = 1; d <= mysteriesPerSet; d++)
+        RosaryStep(
+          kind: StepKind.announceMystery,
+          part: RosaryPart.decade,
+          bead: ourFatherBeadForDecade(d),
+          decade: d,
+          covers: [for (var h = 1; h <= 10; h++) hailMaryBead(d, h)],
+        ),
+      RosaryStep(
+        kind: StepKind.closingPrayers,
+        part: RosaryPart.closing,
+        bead: medalBead,
+        summary: closingPrayerIds(ending),
+      ),
+    ]);
 
-List<RosaryStep> buildSequence(RosaryMode mode) => switch (mode) {
-  RosaryMode.guided => buildRosarySequence(),
-  RosaryMode.mysteriesOnly => buildMysteriesOnlySequence(),
-};
+List<RosaryStep> buildSequence(RosaryMode mode, {RosaryEnding ending = const RosaryEnding()}) =>
+    switch (mode) {
+      RosaryMode.guided => buildRosarySequence(ending: ending),
+      RosaryMode.mysteriesOnly => buildMysteriesOnlySequence(ending: ending),
+    };

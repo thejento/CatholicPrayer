@@ -190,7 +190,7 @@ void main() {
 
   testWidgets('voice settings are saved', (tester) async {
     final app = TestApp();
-    await pumpApp(tester, app, size: const Size(400, 1500));
+    await pumpApp(tester, app, size: const Size(400, 1800));
     await tester.tap(find.byTooltip('Settings'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Read aloud'));

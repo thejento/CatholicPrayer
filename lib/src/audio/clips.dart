@@ -30,7 +30,11 @@ Map<String, String> speakableTexts(
   String lang,
   String Function(Guidance) guidance,
 ) {
-  final prayerIds = buildRosarySequence().map((s) => s.prayerId).nonNulls.toSet();
+  // Every prayer the Rosary can include, the optional ending too.
+  final prayerIds = buildRosarySequence(ending: RosaryEnding.all)
+      .map((s) => s.prayerId)
+      .nonNulls
+      .toSet();
   return {
     for (final id in prayerIds) prayerClip(id): spokenPrayer(content.prayer(id)!.textFor(lang)),
     for (final set in MysterySet.values)

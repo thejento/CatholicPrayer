@@ -81,6 +81,10 @@
   "guideFatima": "Then pray the Fatima Prayer.",
   "guideHailHolyQueen": "Holding the medal, pray the Hail, Holy Queen.",
   "guideClosingPrayer": "Pray the closing prayer.",
+  "guideOurFatherHolyFather": "Still holding the medal, pray an Our Father for the intentions of the Holy Father, the Pope.",
+  "guideHailMaryHolyFather": "Then pray a Hail Mary for his intentions.",
+  "guideGloryBeHolyFather": "And a Glory Be for his intentions.",
+  "guideSaintMichael": "Ask Saint Michael the Archangel to defend us.",
   "guideSignOfCrossEnd": "Return to the crucifix and end with the Sign of the Cross.",
   "completeTitle": "You prayed the Rosary!",
   "completeMessage": "Thank you for taking this time to pray. Come back tomorrow to pray the next mysteries.",
@@ -102,6 +106,11 @@
   "@calendarLabel": {"description": "Settings: which national liturgical calendar to follow"},
   "showGuidance": "Show guidance",
   "showGuidanceSubtitle": "Explain what to do on each bead",
+  "endingSection": "End of the Rosary",
+  "endHolyFather": "Pray for the Holy Father's intentions",
+  "endHolyFatherHint": "An Our Father, a Hail Mary and a Glory Be, after the closing prayer",
+  "endSaintMichael": "Add the prayer to Saint Michael",
+  "endSaintMichaelHint": "After the closing prayer",
   "beadSemantics": "Rosary, bead {current} of {total}",
   "@beadSemantics": {
     "placeholders": {

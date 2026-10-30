@@ -18,6 +18,8 @@ class SettingsController extends ChangeNotifier {
   static const autoScrollKey = 'auto_scroll';
   static const rosaryModeKey = 'rosary_mode';
   static const regionKey = 'calendar_region';
+  static const holyFatherKey = 'end_holy_father';
+  static const saintMichaelKey = 'end_saint_michael';
 
   /// The calendar of the device's country, used until one is chosen.
   final CalendarRegion deviceRegion;
@@ -46,6 +48,7 @@ class SettingsController extends ChangeNotifier {
   bool _autoScroll = true;
   RosaryMode _rosaryMode = RosaryMode.guided;
   CalendarRegion? _region;
+  RosaryEnding _ending = const RosaryEnding();
 
   /// The chosen app language, or `null` to follow the device.
   Locale? get locale => _locale;
@@ -77,6 +80,9 @@ class SettingsController extends ChangeNotifier {
   /// The liturgical calendar followed: the chosen one, or the device's.
   CalendarRegion get calendarRegion => _region ?? deviceRegion;
 
+  /// Optional prayers before the last Sign of the Cross (F-23).
+  RosaryEnding get ending => _ending;
+
   Future<void> load() async {
     final code = await _store.getString(localeKey);
     _locale = code == null ? null : Locale(code);
@@ -97,6 +103,10 @@ class SettingsController extends ChangeNotifier {
     _rosaryMode = RosaryMode.values.where((m) => m.name == mode).firstOrNull ?? RosaryMode.guided;
     final region = await _store.getString(regionKey);
     _region = CalendarRegion.values.where((r) => r.name == region).firstOrNull;
+    _ending = RosaryEnding(
+      holyFather: await _store.getBool(holyFatherKey) ?? false,
+      saintMichael: await _store.getBool(saintMichaelKey) ?? false,
+    );
     notifyListeners();
   }
 
@@ -122,6 +132,18 @@ class SettingsController extends ChangeNotifier {
     notifyListeners();
     await _store.setString(regionKey, value.name);
   }
+
+  Future<void> setEndWithHolyFather(bool value) => _setBool(
+    holyFatherKey,
+    value,
+    () => _ending = RosaryEnding(holyFather: value, saintMichael: _ending.saintMichael),
+  );
+
+  Future<void> setEndWithSaintMichael(bool value) => _setBool(
+    saintMichaelKey,
+    value,
+    () => _ending = RosaryEnding(holyFather: _ending.holyFather, saintMichael: value),
+  );
 
   Future<void> setAutoScroll(bool value) =>
       _setBool(autoScrollKey, value, () => _autoScroll = value);
