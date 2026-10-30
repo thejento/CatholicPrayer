@@ -28,6 +28,11 @@
           "sha256": "c4e1bbe213db854e00cc7d29f1c117085c62e167dcc5c777d36f7ce8fd2a0242",
           "ms": 4331
         },
+        "guide_gloryBeHolyFather": {
+          "file": "guide_gloryBeHolyFather.mp3",
+          "sha256": "708245915f6b2b9b38da495c48d24bd0055542617dd988fa8a26a3573f6986ca",
+          "ms": 2027
+        },
         "guide_gloryBeIntro": {
           "file": "guide_gloryBeIntro.mp3",
           "sha256": "eb8a74d2d44e84339ea87a5785b814092bc91116edcd952a94237c0eb98096aa",
@@ -58,6 +63,11 @@
           "sha256": "7ec1c3f0922f8fa7cf97e5a78c3d05fe5ec06472017df55eff840c5f6c1d7df5",
           "ms": 3819
         },
+        "guide_hailMaryHolyFather": {
+          "file": "guide_hailMaryHolyFather.mp3",
+          "sha256": "0b9ab65ee06305ba3a472fd9e57715604f241e252b50baa5043b7a92eee79c6a",
+          "ms": 2325
+        },
         "guide_hailMaryHope": {
           "file": "guide_hailMaryHope.mp3",
           "sha256": "7d1d83356e5eb81e3bdd8a72599681315cc7b18409ac7c3d8ef84dbabfd4e059",
@@ -68,10 +78,20 @@
           "sha256": "33c4b7c6e7d0fdca4658cf09a9f3992046e60a4f45c2320426bc1ff08828f8e2",
           "ms": 2667
         },
+        "guide_ourFatherHolyFather": {
+          "file": "guide_ourFatherHolyFather.mp3",
+          "sha256": "cc16b865d26e5b1206de8d657365b481c251e5b202b66d674973197952f9809f",
+          "ms": 5525
+        },
         "guide_ourFatherIntro": {
           "file": "guide_ourFatherIntro.mp3",
           "sha256": "33a9efc99299bbca5665ece1156b9a199f525d88290fd569fb1503535b6dbdee",
           "ms": 3456
+        },
+        "guide_saintMichael": {
+          "file": "guide_saintMichael.mp3",
+          "sha256": "f1cd56a87ab7f4672124e9858e38022266446133431c1d559bf68b8c6b74c0fe",
+          "ms": 3093
         },
         "guide_signOfCrossEnd": {
           "file": "guide_signOfCrossEnd.mp3",
@@ -218,6 +238,11 @@
           "sha256": "fc37717d70c1d6937562e255a81d41626e34b41e0c75babff9a8a1a68e637fd1",
           "ms": 23893
         },
+        "prayer_saint_michael": {
+          "file": "prayer_saint_michael.mp3",
+          "sha256": "190d0c2f6682ebfc6890ed7ba7653770e985ab533cb30ea9cfa591c7d705af2f",
+          "ms": 22016
+        },
         "prayer_sign_of_the_cross": {
           "file": "prayer_sign_of_the_cross.mp3",
           "sha256": "4acafb408bdcfc950a6a53d62273068ada8d338f1cc982fc0a70240d6d385f65",
@@ -253,6 +278,11 @@
           "sha256": "94d3afd0b34c4819c641bb03ecc98500beeba1f4e27a9842cd58546bedc07de8",
           "ms": 4288
         },
+        "guide_gloryBeHolyFather": {
+          "file": "guide_gloryBeHolyFather.mp3",
+          "sha256": "4fee213435d3a6d8380e730eaf62b54a78978333e19d5c5f988442d9a8cb5111",
+          "ms": 2027
+        },
         "guide_gloryBeIntro": {
           "file": "guide_gloryBeIntro.mp3",
           "sha256": "62b5ed126436265b5255aa2fd02200bea30f325304f4b8a1d62aaa38e4e91677",
@@ -283,6 +313,11 @@
           "sha256": "4d68ce4ad10c41adeaee3dd56c52b6d8cc71f4d9ab930520d4f67c2d93514c53",
           "ms": 3776
         },
+        "guide_hailMaryHolyFather": {
+          "file": "guide_hailMaryHolyFather.mp3",
+          "sha256": "df97be95ae0cc6bf9850fd1cbb95d232f45871db5b429887ea0310039d2804fc",
+          "ms": 3008
+        },
         "guide_hailMaryHope": {
           "file": "guide_hailMaryHope.mp3",
           "sha256": "81a0de7a545ea6caf9c6c0dd142b80b44a19bd58d7c7f690d40afa61e8f26043",
@@ -293,10 +328,20 @@
           "sha256": "8c83f53b6b9e8c5ebe0478f6cb67a551c396a00203f71045c0412b9a919c3e92",
           "ms": 3093
         },
+        "guide_ourFatherHolyFather": {
+          "file": "guide_ourFatherHolyFather.mp3",
+          "sha256": "b4f6f0d26c0692a493d6e6dc25413c0f4e55477407574d7b2871fa1210e75591",
+          "ms": 6080
+        },
         "guide_ourFatherIntro": {
           "file": "guide_ourFatherIntro.mp3",
           "sha256": "fe35639568073935bd55214843f7816c69051ec553695143227a8794af3ecbd4",
           "ms": 3541
+        },
+        "guide_saintMichael": {
+          "file": "guide_saintMichael.mp3",
+          "sha256": "3a6fdd38006f5a97c957ef34e7f5657b99ed6a814cec773cd6382b4bb58938cb",
+          "ms": 2624
         },
         "guide_signOfCrossEnd": {
           "file": "guide_signOfCrossEnd.mp3",
@@ -443,6 +488,11 @@
           "sha256": "45e422416ea1bc506bc046493eb065100c82dc2718c0bf6123bd065f0344c76f",
           "ms": 18965
         },
+        "prayer_saint_michael": {
+          "file": "prayer_saint_michael.mp3",
+          "sha256": "6b2522ca249e5fbb5f1244e4bd67675ca140355407c7754f2b3245d4ad096068",
+          "ms": 20480
+        },
         "prayer_sign_of_the_cross": {
           "file": "prayer_sign_of_the_cross.mp3",
           "sha256": "e0797705bcbd06019bcac7787b8b254ac94a67b0a7b35d762410c1fb7ea8ec61",
@@ -478,6 +528,11 @@
           "sha256": "f612a4bb4c28aba800bd234d917ef2a96ab8a67d274e2b554347ec5f76ee375e",
           "ms": 5940
         },
+        "guide_gloryBeHolyFather": {
+          "file": "guide_gloryBeHolyFather.mp3",
+          "sha256": "a7e112aa5fbc6dd984b58bc0bff07eaf559b22e8b2a642d5b2c85e55dfe6d5a8",
+          "ms": 2367
+        },
         "guide_gloryBeIntro": {
           "file": "guide_gloryBeIntro.mp3",
           "sha256": "dd1e7fa9ff57dbbd8dc42989cc9bac45b61bb1cdb4fb367effcaf648caf9812c",
@@ -508,6 +563,11 @@
           "sha256": "d9b0887df7da1c4c5dcd57e92e0ebb99bde16b1109a4d4cac2547ce2a3c10cf7",
           "ms": 6512
         },
+        "guide_hailMaryHolyFather": {
+          "file": "guide_hailMaryHolyFather.mp3",
+          "sha256": "be0ec06195c77a77368683c134bf088b568058766b7302d58f7c6eee3e2c9220",
+          "ms": 3955
+        },
         "guide_hailMaryHope": {
           "file": "guide_hailMaryHope.mp3",
           "sha256": "61ed14e684a98ee1133de5980e38ec85c70bed7deb99b205105ce928d8a23858",
@@ -518,10 +578,20 @@
           "sha256": "49dc1db458220e6b3d2d1919769cffdeb1a5499f0c8955f1dbbe3c886095f971",
           "ms": 3638
         },
+        "guide_ourFatherHolyFather": {
+          "file": "guide_ourFatherHolyFather.mp3",
+          "sha256": "57d54c8afaf3a4a7e3b356ae7b62ba1385ce820becf2883f74f07b212f7bf99c",
+          "ms": 6496
+        },
         "guide_ourFatherIntro": {
           "file": "guide_ourFatherIntro.mp3",
           "sha256": "156ca5a4c14703559d5d54e8ce8c1a31137e67ce5d406166464fac3d3476302d",
           "ms": 4157
+        },
+        "guide_saintMichael": {
+          "file": "guide_saintMichael.mp3",
+          "sha256": "9b1613c77a9e0ee38ae3a715345f40f40eb0a06caf21f2355b7fff4a3beb6ced",
+          "ms": 3686
         },
         "guide_signOfCrossEnd": {
           "file": "guide_signOfCrossEnd.mp3",
@@ -667,6 +737,11 @@
           "file": "prayer_rosary_closing_prayer.mp3",
           "sha256": "3876cbd3c8916cad55e0c4e8efebe267f66d5c7bbba8ae003a8b1018f0e62728",
           "ms": 23035
+        },
+        "prayer_saint_michael": {
+          "file": "prayer_saint_michael.mp3",
+          "sha256": "9febf306e5ae901f949d5fa051b912e083ee3adbdf262152e4e31746325af82d",
+          "ms": 21003
         },
         "prayer_sign_of_the_cross": {
           "file": "prayer_sign_of_the_cross.mp3",
