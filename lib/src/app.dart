@@ -19,10 +19,10 @@ import 'providers/theme_manager.dart';
 import 'reminders/reminder_controller.dart';
 import 'reminders/reminder_sync.dart';
 import 'theme/app_theme.dart';
-import 'ui/screens/home_screen.dart';
+import 'routes.dart';
 
 /// Root widget. All dependencies are passed in so tests can supply fakes.
-class CatholicPrayerApp extends StatelessWidget {
+class CatholicPrayerApp extends StatefulWidget {
   const CatholicPrayerApp({
     super.key,
     required this.content,
@@ -63,7 +63,37 @@ class CatholicPrayerApp extends StatelessWidget {
   final ArtCatalog art;
 
   @override
+  State<CatholicPrayerApp> createState() => _CatholicPrayerAppState();
+}
+
+class _CatholicPrayerAppState extends State<CatholicPrayerApp> {
+  // One router for the app's lifetime: it holds the screen stack (W-02).
+  late final _router = buildRouter();
+
+  @override
+  void dispose() {
+    _router.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final CatholicPrayerApp(
+      :content,
+      :scripture,
+      :saints,
+      :clock,
+      :linkOpener,
+      :device,
+      :audio,
+      :art,
+      :playerFactory,
+      :themeManager,
+      :settings,
+      :savedSession,
+      :journal,
+      :reminder,
+    ) = widget;
     return MultiProvider(
       providers: [
         Provider.value(value: content),
@@ -82,7 +112,8 @@ class CatholicPrayerApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: reminder),
       ],
       child: Consumer2<ThemeManager, SettingsController>(
-        builder: (context, theme, settings, _) => MaterialApp(
+        builder: (context, theme, settings, _) => MaterialApp.router(
+          routerConfig: _router,
           onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.themeFor(
@@ -95,7 +126,6 @@ class CatholicPrayerApp extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           builder: (context, child) => ReminderSync(child: child!),
-          home: const HomeScreen(),
         ),
       ),
     );

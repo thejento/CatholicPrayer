@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/content_repository.dart';
@@ -6,8 +7,8 @@ import '../../domain/mysteries.dart';
 import '../../domain/rosary_sequence.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../providers/settings_controller.dart';
+import '../../routes.dart';
 import '../step_text.dart';
-import 'rosary_screen.dart';
 
 /// Lets the person confirm today's suggested mysteries or choose another set.
 class MysteryPickerScreen extends StatefulWidget {
@@ -102,11 +103,7 @@ class _MysteryPickerScreenState extends State<MysteryPickerScreen> {
                 icon: const Icon(Icons.play_arrow_rounded),
                 label: Text(l10n.start),
                 style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(56)),
-                onPressed: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute<void>(
-                    builder: (_) => RosaryScreen(mysterySet: _selected, mode: mode),
-                  ),
-                ),
+                onPressed: () => context.pushReplacement(Routes.rosary(_selected, mode), extra: 0),
               ),
             ),
           ),

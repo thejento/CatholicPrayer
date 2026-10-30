@@ -23,6 +23,7 @@ dependencies:
   timezone: ^0.11.2
   flutter_timezone: ^5.1.1
   url_launcher: ^6.3.3
+  go_router: ^18.1.2
 
 dev_dependencies:
   flutter_test:

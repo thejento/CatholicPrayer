@@ -6,7 +6,7 @@ tablets, Android TV (D-pad) and the web, from one codebase. Offline, no account,
 App id `com.catholicrosarycompanion.crc`, package name `crc`, version in `pubspec.yaml`.
 
 - Web app (deployed from `main`): https://thejento.github.io/CatholicPrayer/
-- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…034) · History: `BACKLOG.md`
+- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…035) · History: `BACKLOG.md`
 - **Open work: GitHub Issues**, see "Backlog and issues" below.
 
 ## How the owner works
@@ -68,6 +68,7 @@ flutter drive --driver=test_driver/integration_test.dart \
 | `audio/` | `clips.dart` (clip ids per step), `AudioCatalog`, `ClipPlayer` (just_audio), `VoiceGuide` (follows the session, auto-advance, reading time for auto-scroll) |
 | `reminders/` | Daily reminder: weekly local notifications, Android phones only |
 | `ui/` | Screens (home, rosary, picker, library, scripture, about today, settings) and widgets (beads painter, saint sheet, web footer) |
+| `routes.dart` | go_router table: every screen has an address (`#/library/hail_mary` on the web); open screens with `context.push(Routes.…)` (ADR-035) |
 | `app_info.dart` | Version (`APP_VERSION` / `APP_BUILD` dart-defines), Play and Issues URLs, `playStoreListed` switch |
 
 - State: `provider` + `ChangeNotifier`. Dependencies come through constructors and Provider so

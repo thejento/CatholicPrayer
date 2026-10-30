@@ -508,6 +508,28 @@ network, and left out of cloud backups (§9).
   Home button; existing entries stay until cleared.
 * Storage: `journal_entries` (JSON) in the preferences store, `JournalController`.
 
+### 3.21 Web addresses (W-02), see ADR-035
+
+Every screen has an address, shown in the browser after `#` (GitHub Pages can't serve other
+paths), so **refreshing keeps the screen** and **a link can open one**:
+
+| Address | Screen |
+|---|---|
+| `#/` | Home |
+| `#/settings`, `#/today`, `#/pray`, `#/journal` | Settings, About today, choosing the mysteries, prayer journal |
+| `#/library`, `#/library/hail_mary`, `#/library/hail_mary/about` | Library, a prayer, its background |
+| `#/rosary/joyful` (`?mode=mysteriesOnly`) | The Rosary |
+| `#/rosary/joyful/passage/3` | A mystery's Bible passage, over its Rosary |
+
+* Every screen sits under Home, so after opening a link, Back climbs to Home.
+* **The Rosary's step is not in the address**: on a refresh or a link, the Rosary resumes at
+  the saved step (F-06) when it is the same Rosary, otherwise at the start. Starting from the
+  picker always begins again.
+* An unknown address opens Home; an unknown prayer, the library; an unknown set of mysteries,
+  the picker.
+* Android and TV use the same routes; only the web shows them.
+* Model: `lib/src/routes.dart` (`Routes`, `buildRouter`, go_router).
+
 ## 4. The Rosary model
 
 ### 4.1 Sequence (80 steps)
