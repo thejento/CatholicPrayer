@@ -378,3 +378,18 @@ Template:
   Proper calendars change from time to time (new saints), so the lists need an occasional
   check against the bishops' conferences. The US provinces that keep the Ascension on Thursday
   are not distinguished.
+
+## ADR-033: Optional ending after the closing prayer, off by default
+- Date: 2026-10-30 · Status: Accepted
+- Context: Many people end the Rosary with the prayer to Saint Michael and with an Our Father,
+  a Hail Mary and a Glory Be for the Pope's intentions (issue F-23). Neither is part of the
+  Rosary itself, and the order varies from place to place.
+- Options considered: always include them; one switch for both; two switches. Placement: before
+  the Hail, Holy Queen or after the closing prayer.
+- Decision: Two independent switches, off by default. Both go after the closing prayer, on the
+  medal: the Holy Father's intentions first, then Saint Michael, then the last Sign of the
+  Cross. The steps reuse the existing prayer kinds in the closing part, so the Our Father, Hail
+  Mary and Glory Be reuse their recordings; only Saint Michael and four guidance lines are new.
+- Consequences: The default Rosary is unchanged (80 steps). Changing the setting during an
+  unfinished Rosary takes effect on the next one; a saved step number is clamped as before.
+

@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../helpers/test_app.dart';
 
 Future<void> openSettings(WidgetTester tester, TestApp app) async {
-  tester.view.physicalSize = const Size(400, 1700);
+  tester.view.physicalSize = const Size(400, 2000);
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
   await tester.pumpWidget(app.build());

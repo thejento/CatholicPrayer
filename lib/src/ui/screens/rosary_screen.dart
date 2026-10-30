@@ -44,13 +44,15 @@ class RosaryScreen extends StatefulWidget {
 }
 
 class _RosaryScreenState extends State<RosaryScreen> {
+  late final SavedSessionController _saved = context.read<SavedSessionController>();
+  late final SettingsController _settings = context.read<SettingsController>();
+  // The ending chosen in Settings when this Rosary starts (F-23).
   late final RosarySession _session = RosarySession(
     mysterySet: widget.mysterySet,
     mode: widget.mode,
+    steps: buildSequence(widget.mode, ending: _settings.ending),
     startIndex: widget.startIndex,
   );
-  late final SavedSessionController _saved = context.read<SavedSessionController>();
-  late final SettingsController _settings = context.read<SettingsController>();
   VoiceGuide? _voice;
 
   @override
@@ -294,7 +296,7 @@ class _StepPanel extends StatelessWidget {
       body = [
         Text(l10n.summaryHint, style: theme.textTheme.bodyLarge),
         const SizedBox(height: 8),
-        for (final id in opening ? openingPrayerIds : closingPrayerIds)
+        for (final id in step.summary)
           if (content.prayer(id) case final prayer?)
             ListTile(
               key: Key('summary-$id'),
