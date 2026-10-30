@@ -8,6 +8,16 @@
           "sha256": "eb609bac0c364862307761a4e3f821e97739a96c9f008bbacebce7619e4f29a2",
           "ms": 4736
         },
+        "guide_chapletCreed": {
+          "file": "guide_chapletCreed.mp3",
+          "sha256": "99346d3ea231ecf7e9c9f7bf5bb47540d981f9490f8c6d7167eb7272184b25d8",
+          "ms": 2709
+        },
+        "guide_chapletHailMary": {
+          "file": "guide_chapletHailMary.mp3",
+          "sha256": "7321dd1f36c94d24aa74dae9c85a0e1287ecd4b27701e896454b112fc6ee46ff",
+          "ms": 2325
+        },
         "guide_closingPrayer": {
           "file": "guide_closingPrayer.mp3",
           "sha256": "5e184c5aa9718a711179a190da91255f4433a1b6f308feb64833b88bbd41da2b",
@@ -17,6 +27,11 @@
           "file": "guide_creed.mp3",
           "sha256": "b1b01f07c32424cca6f9bee2fcb62bff46f97d57722c96cfebf8c6733b334428",
           "ms": 3328
+        },
+        "guide_eternalFather": {
+          "file": "guide_eternalFather.mp3",
+          "sha256": "e2a127cabcd153f93adf4eb247026e5d257cbb6d0628e703f46e762d8054719a",
+          "ms": 3243
         },
         "guide_fatima": {
           "file": "guide_fatima.mp3",
@@ -63,6 +78,11 @@
           "sha256": "7d1d83356e5eb81e3bdd8a72599681315cc7b18409ac7c3d8ef84dbabfd4e059",
           "ms": 3627
         },
+        "guide_holyGod": {
+          "file": "guide_holyGod.mp3",
+          "sha256": "df4009c0e9607fc10d2a02c276613a84b808d7fdf4884b6f1203f9dc41d590eb",
+          "ms": 4032
+        },
         "guide_ourFatherDecade": {
           "file": "guide_ourFatherDecade.mp3",
           "sha256": "33c4b7c6e7d0fdca4658cf09a9f3992046e60a4f45c2320426bc1ff08828f8e2",
@@ -82,6 +102,11 @@
           "file": "guide_signOfCrossStart.mp3",
           "sha256": "b7cc9a461c806b5474d1fd57c95fea1bb7fc4fd1bd9bd702dd6a49f2df702d0e",
           "ms": 2923
+        },
+        "guide_sorrowfulPassion": {
+          "file": "guide_sorrowfulPassion.mp3",
+          "sha256": "37a88e0d02b7001ac79baa89991113cb82e1b146404e1070880f7c11c823ca2a",
+          "ms": 2965
         },
         "mystery_glorious_1": {
           "file": "mystery_glorious_1.mp3",
@@ -188,6 +213,21 @@
           "sha256": "7490e039b7e41daa54b6f9891451ced045f35e19bca0f19e580612bf8c4525c6",
           "ms": 40677
         },
+        "prayer_divine_mercy_eternal_father": {
+          "file": "prayer_divine_mercy_eternal_father.mp3",
+          "sha256": "6a9d92e6fd4532b2127eafebf3d1faa8fa6efa5193626cafc35a70424bb3bb3e",
+          "ms": 12203
+        },
+        "prayer_divine_mercy_holy_god": {
+          "file": "prayer_divine_mercy_holy_god.mp3",
+          "sha256": "1996ccb5bf3f631540974cf33077dc714153aa03a3578263313e47d94c5b31a4",
+          "ms": 6123
+        },
+        "prayer_divine_mercy_passion": {
+          "file": "prayer_divine_mercy_passion.mp3",
+          "sha256": "f6b08b6b515159f54d9e006149ff881ad74a4358d67598df8eee60f711ace3f2",
+          "ms": 4715
+        },
         "prayer_fatima_prayer": {
           "file": "prayer_fatima_prayer.mp3",
           "sha256": "8b93b0a4e63db6798c9c97bbdcdd7dc6500598068e292b0cfc60a5a987340a93",
@@ -233,6 +273,16 @@
           "sha256": "35e2df3fb4a1cc5870b35538d3d8b7caed5abd29d088ae5f1952ec9dc9ecea8e",
           "ms": 4160
         },
+        "guide_chapletCreed": {
+          "file": "guide_chapletCreed.mp3",
+          "sha256": "b595812b98906046e141692a743c51aef9318c36a0b49bbc5502e25dadc59b15",
+          "ms": 2389
+        },
+        "guide_chapletHailMary": {
+          "file": "guide_chapletHailMary.mp3",
+          "sha256": "1cd073c0ac1da4c061680ee4260c14aa4fd55cb78b8740c6954af2a774112c57",
+          "ms": 2624
+        },
         "guide_closingPrayer": {
           "file": "guide_closingPrayer.mp3",
           "sha256": "07b07a8f3b34e50ad488905982b2f37c59e9996d33abdef144a321110135bb44",
@@ -242,6 +292,11 @@
           "file": "guide_creed.mp3",
           "sha256": "3e18c0351534d801bfcfda566f7adead60999a076649c13289b64f4aaa4ff144",
           "ms": 2603
+        },
+        "guide_eternalFather": {
+          "file": "guide_eternalFather.mp3",
+          "sha256": "bca611464f061e8461b5fe09ef17a65f82b243809b9e66ce12eb879d244eba86",
+          "ms": 3456
         },
         "guide_fatima": {
           "file": "guide_fatima.mp3",
@@ -288,6 +343,11 @@
           "sha256": "81a0de7a545ea6caf9c6c0dd142b80b44a19bd58d7c7f690d40afa61e8f26043",
           "ms": 4160
         },
+        "guide_holyGod": {
+          "file": "guide_holyGod.mp3",
+          "sha256": "f13546cf094b6e0105f3924a805b11f142cfc82657f0d06687ca9b997c6a0777",
+          "ms": 4117
+        },
         "guide_ourFatherDecade": {
           "file": "guide_ourFatherDecade.mp3",
           "sha256": "8c83f53b6b9e8c5ebe0478f6cb67a551c396a00203f71045c0412b9a919c3e92",
@@ -307,6 +367,11 @@
           "file": "guide_signOfCrossStart.mp3",
           "sha256": "c1d1875ef1d8b5c7190dd4d20812f5498b9cd2fca92f7bd2c24b1b8858f7c2ca",
           "ms": 2859
+        },
+        "guide_sorrowfulPassion": {
+          "file": "guide_sorrowfulPassion.mp3",
+          "sha256": "062043fa1f7c4f698ae6b6009402fd2ea1f86efac1cf6ba78b0a0b6eb0c168d1",
+          "ms": 3371
         },
         "mystery_glorious_1": {
           "file": "mystery_glorious_1.mp3",
@@ -413,6 +478,21 @@
           "sha256": "b796149f9970d6718724955ee644e7b088980d9a3e6927afc92902aa3a291f0b",
           "ms": 36239
         },
+        "prayer_divine_mercy_eternal_father": {
+          "file": "prayer_divine_mercy_eternal_father.mp3",
+          "sha256": "b9e9a95ad2253e9b3935ac7023e784ea110610c0c2470231af7dc4f7da84bfce",
+          "ms": 10667
+        },
+        "prayer_divine_mercy_holy_god": {
+          "file": "prayer_divine_mercy_holy_god.mp3",
+          "sha256": "9747a1631cc5b6eac222e172034bfea97472312e33d71d0abdf106bd7618754d",
+          "ms": 5141
+        },
+        "prayer_divine_mercy_passion": {
+          "file": "prayer_divine_mercy_passion.mp3",
+          "sha256": "3aaaf5422aa919c0ab3b26553ce5fa22193124b2b9c1b0b5a3fe63bea2a57139",
+          "ms": 4245
+        },
         "prayer_fatima_prayer": {
           "file": "prayer_fatima_prayer.mp3",
           "sha256": "f96953a484580bcb38078eb11b35d635eb7804d6dab1d1eeda3394a349d4c19e",
@@ -458,6 +538,16 @@
           "sha256": "10cc3aec9c84ccc5c05b8f2e8751b015ab89f0a502c87a4b1cf2f8c749c7574f",
           "ms": 5322
         },
+        "guide_chapletCreed": {
+          "file": "guide_chapletCreed.mp3",
+          "sha256": "b2c883d1946b5e872af0904321dd396ffb379b2eb61a4326526e3cc37406b35c",
+          "ms": 4455
+        },
+        "guide_chapletHailMary": {
+          "file": "guide_chapletHailMary.mp3",
+          "sha256": "4c7b261b6e048a93a7d4deadb80d704507a8af7a33ff699aff5eb6c570f4fc5b",
+          "ms": 4400
+        },
         "guide_closingPrayer": {
           "file": "guide_closingPrayer.mp3",
           "sha256": "b853ac492c780d6a1bdafd78557bd7f6324c2f2330ab95f208ffae8e5d9ce20d",
@@ -467,6 +557,11 @@
           "file": "guide_creed.mp3",
           "sha256": "848a35ebfd1e29c5fe26467fc0e78c214d56ed26002e0f4afda332c30a2572bf",
           "ms": 4237
+        },
+        "guide_eternalFather": {
+          "file": "guide_eternalFather.mp3",
+          "sha256": "17dc060220ad3ceba7ea99ef950e62d4484aea1fa855bf620ea5cd10016514c2",
+          "ms": 3376
         },
         "guide_fatima": {
           "file": "guide_fatima.mp3",
@@ -513,6 +608,11 @@
           "sha256": "61ed14e684a98ee1133de5980e38ec85c70bed7deb99b205105ce928d8a23858",
           "ms": 6957
         },
+        "guide_holyGod": {
+          "file": "guide_holyGod.mp3",
+          "sha256": "b2e8cc6e31997a0e3b5552d88a728c11ccd31b5a38b4cebf8dfb72fa00000f1b",
+          "ms": 4806
+        },
         "guide_ourFatherDecade": {
           "file": "guide_ourFatherDecade.mp3",
           "sha256": "49dc1db458220e6b3d2d1919769cffdeb1a5499f0c8955f1dbbe3c886095f971",
@@ -532,6 +632,11 @@
           "file": "guide_signOfCrossStart.mp3",
           "sha256": "943192af1b45a67e4e17159f84d068d36ad5c8f8acd11cab2b4582c0497b6ad1",
           "ms": 2707
+        },
+        "guide_sorrowfulPassion": {
+          "file": "guide_sorrowfulPassion.mp3",
+          "sha256": "950902826e7cd13705ab93e8dc0896d8fb5b01dd0951ab32b03608c815db4fe5",
+          "ms": 3360
         },
         "mystery_glorious_1": {
           "file": "mystery_glorious_1.mp3",
@@ -637,6 +742,21 @@
           "file": "prayer_apostles_creed.mp3",
           "sha256": "5e25f9104e582e33d46dcba2b9214431df87daeaab45ccd696725a1883cb834b",
           "ms": 37688
+        },
+        "prayer_divine_mercy_eternal_father": {
+          "file": "prayer_divine_mercy_eternal_father.mp3",
+          "sha256": "6996b26ca1539b13178556616fb9d95709b39fcd8c041ac6352433a6d43f3c15",
+          "ms": 11196
+        },
+        "prayer_divine_mercy_holy_god": {
+          "file": "prayer_divine_mercy_holy_god.mp3",
+          "sha256": "0bdd0e4a4d977483bcdf81de27212b9c375ca134a1410ab47076da32b8116c1a",
+          "ms": 5800
+        },
+        "prayer_divine_mercy_passion": {
+          "file": "prayer_divine_mercy_passion.mp3",
+          "sha256": "dc33090cc298a8ca36df3e936a640d8e401da178263b04d7c6349ae8bc6eb365",
+          "ms": 5248
         },
         "prayer_fatima_prayer": {
           "file": "prayer_fatima_prayer.mp3",
