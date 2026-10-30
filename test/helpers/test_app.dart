@@ -11,6 +11,7 @@ import 'package:crc/src/data/saints_repository.dart';
 import 'package:crc/src/data/scripture_repository.dart';
 import 'package:crc/src/domain/liturgical_calendar.dart';
 import 'package:crc/src/domain/clock.dart';
+import 'package:crc/src/providers/journal_controller.dart';
 import 'package:crc/src/providers/saved_session_controller.dart';
 import 'package:crc/src/providers/settings_controller.dart';
 import 'package:crc/src/providers/theme_manager.dart';
@@ -65,6 +66,7 @@ class TestApp {
     themeManager = ThemeManager(this.store);
     settings = SettingsController(this.store, deviceRegion: deviceRegion);
     savedSession = SavedSessionController(this.store);
+    journal = JournalController(this.store);
     reminder = ReminderController(
       this.store,
       reminders,
@@ -78,6 +80,7 @@ class TestApp {
   late final ThemeManager themeManager;
   late final SettingsController settings;
   late final SavedSessionController savedSession;
+  late final JournalController journal;
   late final ReminderController reminder;
   final FakeReminderScheduler reminders = FakeReminderScheduler();
   final bool isTelevision;
@@ -94,6 +97,7 @@ class TestApp {
     themeManager: themeManager,
     settings: settings,
     savedSession: savedSession,
+    journal: journal,
     reminder: reminder,
     scripture: loadRealScripture(),
     saints: loadRealSaints(),

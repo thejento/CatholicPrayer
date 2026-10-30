@@ -13,6 +13,7 @@ import 'src/data/preferences_store.dart';
 import 'src/data/saints_repository.dart';
 import 'src/data/scripture_repository.dart';
 import 'src/data/scripture_licenses.dart';
+import 'src/providers/journal_controller.dart';
 import 'src/providers/saved_session_controller.dart';
 import 'src/providers/settings_controller.dart';
 import 'src/providers/theme_manager.dart';
@@ -32,6 +33,7 @@ Future<void> main() async {
     ),
   );
   final savedSession = SavedSessionController(store);
+  final journal = JournalController(store);
   final (content, scripture, saints, art, audio, device, _, _, _) = await (
     ContentRepository.load(rootBundle),
     ScriptureRepository.load(rootBundle),
@@ -48,7 +50,7 @@ Future<void> main() async {
     device.supportsReminders ? LocalNotificationsScheduler() : const NoReminderScheduler(),
     available: device.supportsReminders,
   );
-  await reminder.load();
+  await (reminder.load(), journal.load()).wait;
   registerArtLicenses(art);
   runApp(
     CatholicPrayerApp(
@@ -56,6 +58,7 @@ Future<void> main() async {
       themeManager: themeManager,
       settings: settings,
       savedSession: savedSession,
+      journal: journal,
       reminder: reminder,
       scripture: scripture,
       saints: saints,

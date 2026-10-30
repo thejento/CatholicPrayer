@@ -378,3 +378,21 @@ Template:
   Proper calendars change from time to time (new saints), so the lists need an occasional
   check against the bishops' conferences. The US provinces that keep the Ascension on Thursday
   are not distinguished.
+
+## ADR-034: A private prayer journal, without streaks, out of cloud backup
+- Date: 2026-10-30 · Status: Accepted
+- Context: F-13 asked for a private record of the Rosaries prayed, with open questions: a
+  streak or not, export or backup, kid-friendly wording. Review r-09 noted that Android's
+  default backup would upload the preferences, and so the journal, to Google Drive.
+- Options considered: a streak counter, a calendar of days or a plain list; on or off by
+  default; Android backup left on, off, or limited to device-to-device transfer.
+- Decision: A plain list with one number, the Rosaries this month: no streak, because missing
+  a day shouldn't feel like failing. Finished Rosaries are recorded automatically (the
+  journal is on by default, with a switch in Settings); an intention can be added. Android
+  cloud backup excludes all the app's data (`data_extraction_rules.xml`, `backup_rules.xml`);
+  Android 12+ device-to-device transfer keeps it, as it stays among the person's own devices.
+  The same words work in both themes, so the kid-friendly one has no separate wording.
+- Consequences: Nothing about prayer ever leaves the person's devices, but a lost phone loses
+  the journal. An export (a file the person keeps) could come later. Settings are no longer
+  restored from a cloud backup either.
+

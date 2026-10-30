@@ -12,6 +12,7 @@ import 'data/scripture_repository.dart';
 import 'domain/clock.dart';
 import 'domain/liturgical_calendar.dart';
 import 'l10n/generated/app_localizations.dart';
+import 'providers/journal_controller.dart';
 import 'providers/saved_session_controller.dart';
 import 'providers/settings_controller.dart';
 import 'providers/theme_manager.dart';
@@ -28,6 +29,7 @@ class CatholicPrayerApp extends StatelessWidget {
     required this.themeManager,
     required this.settings,
     required this.savedSession,
+    required this.journal,
     required this.reminder,
     required this.scripture,
     required this.saints,
@@ -43,6 +45,7 @@ class CatholicPrayerApp extends StatelessWidget {
   final ThemeManager themeManager;
   final SettingsController settings;
   final SavedSessionController savedSession;
+  final JournalController journal;
   final ReminderController reminder;
   final ScriptureRepository scripture;
   final SaintsRepository saints;
@@ -75,6 +78,7 @@ class CatholicPrayerApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: themeManager),
         ChangeNotifierProvider.value(value: settings),
         ChangeNotifierProvider.value(value: savedSession),
+        ChangeNotifierProvider.value(value: journal),
         ChangeNotifierProvider.value(value: reminder),
       ],
       child: Consumer2<ThemeManager, SettingsController>(
