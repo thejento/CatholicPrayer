@@ -43,6 +43,7 @@ flutter:
     - assets/data/prayers/
     - assets/data/mysteries/
     - assets/data/prayer_notes/
+    - assets/data/learn/
     - assets/data/scripture/
     - assets/data/saints/
     - assets/data/art.json

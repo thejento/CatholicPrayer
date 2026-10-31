@@ -5,7 +5,7 @@
 
 Each issue title starts with a stable ID: **F** = feature, **T** = TV, **W** = web,
 **Q** = quality, **O** = ops/CI/CD, **C** = content, **I** = idea (not committed).
-A new item takes the next free number of its prefix (next: F-33, T-05, W-03, Q-06, O-16, C-05, I-04).
+A new item takes the next free number of its prefix (next: F-34, T-05, W-03, Q-06, O-16, C-05, I-04).
 Iterations are milestones; labels give the type, `owner` for the owner's own tasks,
 `on hold` when blocked. Close the issue from the PR that does it (`Closes #NN`).
 Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/DECISIONS.md)
@@ -74,3 +74,4 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] r-09 Android backup: app data excluded from cloud backup, kept on device transfer (ADR-034)
 - [x] W-02 Web addresses: each screen has a `#/…` address; refresh keeps it, links open it (ADR-035)
 - [x] I-01 Divine Mercy Chaplet, guided on the rosary beads; own translations of the Polish original (ADR-036)
+- [x] F-33 Learn about the Rosary: the mysteries, the chaplet, ways to pray, the ending (ADR-037)

@@ -1,0 +1,156 @@
+{
+  "topics": {
+    "rosary": {
+      "title": "Qu'est-ce que le Rosaire ?",
+      "summary": "Une prière sur des grains qui parcourt la vie de Jésus avec Marie.",
+      "sections": [
+        {
+          "heading": "Les lèvres et le cœur",
+          "text": "Le Rosaire unit deux formes de prière. Les lèvres répètent des prières apprises par cœur : le Notre Père, dix Je vous salue Marie et le Gloire au Père. Pendant ce temps, l'esprit et le cœur contemplent un événement de la vie de Jésus ou de Marie, appelé mystère. La répétition n'a pas vocation à être mécanique : comme un rythme paisible, elle apaise l'esprit et laisse de la place pour regarder la scène. Le pape Paul VI a écrit que, sans cette contemplation, le Rosaire est un corps sans âme."
+        },
+        {
+          "heading": "D'où il vient",
+          "text": "Dans les monastères du Moyen Âge, les moines priaient les 150 psaumes. Les laïcs qui ne savaient pas lire disaient à la place 150 Notre Père ou Je vous salue Marie, qu'ils comptaient sur des cordelettes à nœuds ou des chapelets de grains. Au XVe siècle, des prédicateurs chartreux et dominicains ont ajouté aux prières une pensée sur la vie du Christ, et le dominicain Alain de la Roche a répandu la dévotion grâce à des confréries. En 1569, le pape Pie V en a fixé la forme, avec quinze mystères. Une légende bien connue raconte que Marie a donné le Rosaire à saint Dominique ; les historiens y voient plutôt le fruit d'une longue évolution."
+        },
+        {
+          "heading": "Sa forme sur les grains",
+          "text": "Sur la croix : le signe de croix et le Symbole des Apôtres. Sur le premier gros grain, un Notre Père ; sur les trois petits grains suivants, trois Je vous salue Marie, souvent pour la foi, l'espérance et la charité ; puis un Gloire au Père. Viennent ensuite cinq dizaines. Chacune commence sur un gros grain par l'annonce d'un mystère et un Notre Père, continue par dix Je vous salue Marie sur les petits grains et se termine par le Gloire au Père et, très souvent, la prière de Fatima. Le Rosaire se conclut sur la médaille par le Salve Regina et une prière finale."
+        },
+        {
+          "heading": "Quatre séries de mystères",
+          "text": "Il y a vingt mystères, en quatre séries de cinq : joyeux, lumineux, douloureux et glorieux. Un chapelet correspond à une série, soit cinq dizaines. Chaque jour de la semaine a sa série, si bien qu'en une semaine tout le récit de l'Évangile passe sous les yeux : la venue de Jésus, sa vie publique, sa Passion et sa Résurrection. Vous pouvez prier n'importe quelle série n'importe quel jour. L'Église fête Notre-Dame du Rosaire le 7 octobre, et octobre est appelé le mois du Rosaire."
+        }
+      ]
+    },
+    "joyful": {
+      "title": "Les mystères joyeux",
+      "summary": "La venue de Jésus et ses années cachées à Nazareth.",
+      "sections": [
+        {
+          "heading": "Ce qu'ils rappellent",
+          "text": "Les mystères joyeux suivent le début de l'Évangile : le message de l'ange à Marie, sa visite à sa cousine Élisabeth, la naissance de Jésus à Bethléem, sa présentation au Temple et le jour où ses parents l'ont retrouvé, à douze ans, au Temple de Jérusalem. Ils sont racontés dans les deux premiers chapitres de l'Évangile de Luc."
+        },
+        {
+          "heading": "Leur esprit",
+          "text": "Leur joie est celle de Dieu qui se fait proche : Dieu devient un enfant, dans une famille, parmi des gens simples. Ces mystères invitent à regarder le « oui » de Marie, l'accueil des pauvres et une vie presque entièrement cachée, faite de travail, d'attente et de confiance. Le dernier porte déjà une ombre : l'angoisse de chercher un enfant perdu."
+        },
+        {
+          "heading": "Quand les prier",
+          "text": "Le lundi et le samedi, ainsi que les dimanches de l'Avent et du temps de Noël, quand l'Église se prépare à la naissance de Jésus et la célèbre."
+        }
+      ]
+    },
+    "luminous": {
+      "title": "Les mystères lumineux",
+      "summary": "La vie publique de Jésus : les mystères de la lumière.",
+      "sections": [
+        {
+          "heading": "Ce qu'ils rappellent",
+          "text": "Les mystères lumineux couvrent les années où Jésus a enseigné en public : son baptême dans le Jourdain, les noces de Cana où il a changé l'eau en vin, l'annonce du Royaume de Dieu avec l'appel à la conversion, sa Transfiguration sur la montagne et l'institution de l'Eucharistie lors de la Cène."
+        },
+        {
+          "heading": "La série la plus récente",
+          "text": "Ces cinq mystères sont les plus récents. Le pape saint Jean-Paul II les a proposés le 16 octobre 2002, dans sa lettre sur le Rosaire, Rosarium Virginis Mariae. Les quinze mystères anciens passaient directement du recouvrement au Temple à l'agonie au jardin ; la nouvelle série comble ce vide avec le cœur des Évangiles. Il les a appelés mystères de la lumière parce que Jésus s'y montre comme « la lumière du monde » (Jean 8, 12)."
+        },
+        {
+          "heading": "Quand les prier",
+          "text": "Le jeudi, jour de la Cène, qui est le dernier de ces mystères."
+        }
+      ]
+    },
+    "sorrowful": {
+      "title": "Les mystères douloureux",
+      "summary": "La Passion et la mort de Jésus.",
+      "sections": [
+        {
+          "heading": "Ce qu'ils rappellent",
+          "text": "Les mystères douloureux suivent les dernières heures de Jésus : son agonie au jardin de Gethsémani, la flagellation, le couronnement d'épines, le portement de la croix et sa mort sur la croix au Calvaire. Les quatre Évangiles les racontent."
+        },
+        {
+          "heading": "Leur esprit",
+          "text": "Il ne s'agit pas de s'attarder sur la souffrance pour elle-même, mais de voir jusqu'où va l'amour. Jésus y accepte la volonté du Père, pardonne à ceux qui lui font du mal et donne sa vie. Beaucoup de personnes confient à ces mystères leur propre souffrance, ou celle d'un être cher, et y découvrent qu'elles ne la portent pas sans lui."
+        },
+        {
+          "heading": "Quand les prier",
+          "text": "Le mardi et le vendredi (le vendredi est le jour de la mort de Jésus), ainsi que les dimanches du Carême, les quarante jours de préparation à Pâques."
+        }
+      ]
+    },
+    "glorious": {
+      "title": "Les mystères glorieux",
+      "summary": "La Résurrection et la vie du ciel.",
+      "sections": [
+        {
+          "heading": "Ce qu'ils rappellent",
+          "text": "Les mystères glorieux commencent au matin de Pâques : la Résurrection de Jésus, son Ascension au ciel, la venue de l'Esprit Saint sur les Apôtres et Marie à la Pentecôte, l'Assomption de Marie au ciel et son couronnement comme Reine du ciel et de la terre. Les trois premiers sont racontés dans les Évangiles et les Actes des Apôtres. Les deux derniers viennent de la foi de l'Église : l'Assomption a été définie comme dogme en 1950, après des siècles de foi et de célébration."
+        },
+        {
+          "heading": "Leur esprit",
+          "text": "Ce sont les mystères de l'espérance. La mort n'a pas le dernier mot, l'Esprit donne à l'Église son courage, et Marie, la première des disciples, partage déjà la gloire promise à tous."
+        },
+        {
+          "heading": "Quand les prier",
+          "text": "Le mercredi et le dimanche, jour de la Résurrection, sauf les dimanches de l'Avent, du temps de Noël et du Carême."
+        }
+      ]
+    },
+    "divineMercy": {
+      "title": "Le chapelet de la Divine Miséricorde",
+      "summary": "Une courte prière sur les mêmes grains, qui demande miséricorde par la Passion de Jésus.",
+      "sections": [
+        {
+          "heading": "D'où il vient",
+          "text": "Sainte Faustine Kowalska (1905-1938), religieuse polonaise de la Congrégation des Sœurs de Notre-Dame de la Miséricorde, a écrit dans son Petit Journal que Jésus lui a enseigné cette prière en septembre 1935, à Vilnius. Le pape saint Jean-Paul II l'a canonisée en 2000 et, le même jour, a nommé le dimanche après Pâques dimanche de la Divine Miséricorde."
+        },
+        {
+          "heading": "En quoi il diffère du Rosaire",
+          "text": "Il utilise les mêmes grains, mais il n'a pas de mystères, et ses prières s'adressent à Dieu le Père. Après un Notre Père, un Je vous salue Marie et le Credo, chaque gros grain porte la prière « Père éternel, je vous offre… », et chaque petit grain « Par sa douloureuse Passion, soyez miséricordieux pour nous et pour le monde entier ». Il se termine par « Dieu saint, Dieu fort, Dieu immortel », trois fois. Il dure une dizaine de minutes."
+        },
+        {
+          "heading": "Quand le prier",
+          "text": "À tout moment. Beaucoup le prient à trois heures de l'après-midi, l'heure de la mort de Jésus, que sainte Faustine appelait l'heure de la miséricorde, et pendant les neuf jours qui précèdent le dimanche de la Divine Miséricorde. Les mots de cette application sont sa propre traduction du polonais : ils peuvent donc différer un peu de la version que vous connaissez."
+        }
+      ]
+    },
+    "ways": {
+      "title": "Façons de prier",
+      "summary": "Guidé grain par grain, ou avec les mystères seulement ; en privé ou ensemble.",
+      "sections": [
+        {
+          "heading": "Guidé",
+          "text": "Chaque prière apparaît dans l'ordre, avec ce qu'il faut faire à chaque étape, et le grain s'allume sur le dessin. La voix peut tout lire à haute voix et avancer d'elle-même. Cette façon convient pour un premier chapelet, ou pour qui apprend encore les prières. Elle dure une vingtaine de minutes."
+        },
+        {
+          "heading": "Mystères seulement",
+          "text": "Pour qui connaît les prières par cœur : une carte pour les prières du début, une pour chaque mystère, avec son passage de la Bible et sa peinture, et une pour les prières de la fin. Vous dites les prières vous-même, peut-être sur votre propre chapelet, et passez à la carte suivante à la fin de chaque dizaine."
+        },
+        {
+          "heading": "Avec votre chapelet",
+          "text": "Tenir un chapelet aide beaucoup de personnes : les doigts comptent, et l'esprit reste libre. Les grains de l'écran correspondent à ceux d'un chapelet ordinaire, vous pouvez donc suivre les deux à la fois. Ne pas avoir de chapelet n'est pas un obstacle : depuis longtemps, dix doigts font le même office."
+        },
+        {
+          "heading": "En privé ou ensemble",
+          "text": "En famille ou en groupe, une personne guide généralement : elle dit la première partie de chaque prière, et tout le monde répond par la seconde, par exemple « Sainte Marie, Mère de Dieu… » dans le Je vous salue Marie. Chaque dizaine peut aussi être guidée par une personne différente. Prier posément, à un rythme partagé, fait partie de la prière."
+        }
+      ]
+    },
+    "ending": {
+      "title": "La fin du Rosaire",
+      "summary": "Des prières que beaucoup ajoutent : aux intentions du pape, et à saint Michel.",
+      "sections": [
+        {
+          "heading": "Aux intentions du Saint-Père",
+          "text": "Beaucoup terminent le Rosaire par un Notre Père, un Je vous salue Marie et un Gloire au Père aux intentions du pape, unissant leur prière à celle de toute l'Église. Chaque mois, le pape propose aussi une intention pour le monde. Cette prière aux intentions du pape est l'une des conditions habituelles d'une indulgence, que l'Église accorde, entre autres, pour la récitation du Rosaire dans une église ou en famille."
+        },
+        {
+          "heading": "La prière à saint Michel",
+          "text": "Le pape Léon XIII a écrit cette prière dans les années 1880 et l'a fait dire après la messe basse, avec d'autres prières, à partir de 1886. Cette coutume a pris fin avec la réforme liturgique des années 1960, mais beaucoup ont gardé la prière, et le pape saint Jean-Paul II l'a de nouveau recommandée en 1994. Elle demande à l'archange Michel sa protection dans le combat contre le mal."
+        },
+        {
+          "heading": "Dans cette application",
+          "text": "Aucune des deux ne fait partie du Rosaire lui-même : elles sont donc désactivées. Pour les ajouter, allez dans Paramètres, Fin du Rosaire : elles viennent après la prière finale, avant le dernier signe de croix."
+        }
+      ]
+    }
+  }
+}

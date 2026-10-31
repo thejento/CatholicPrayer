@@ -200,5 +200,14 @@
   "aboutPrayer": "Sobre esta oración",
   "noteOrigin": "De dónde viene",
   "noteUse": "Cuándo se reza",
-  "noteScripture": "En la Escritura"
+  "noteScripture": "En la Escritura",
+  "learnTitle": "Conoce el Rosario",
+  "learnIntro": "Qué es el Rosario, sus cuatro grupos de misterios y otras formas de rezar con las cuentas.",
+  "learnGroupRosary": "El Rosario",
+  "learnGroupOther": "Otras oraciones con las cuentas",
+  "learnGroupApp": "Rezar con la aplicación",
+  "learnMore": "Saber más",
+  "learnMysteries": "Los cinco misterios",
+  "prayTheseMysteries": "Rezar estos misterios",
+  "prayChaplet": "Rezar la coronilla"
 }

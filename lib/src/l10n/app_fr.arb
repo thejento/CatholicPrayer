@@ -200,5 +200,14 @@
   "aboutPrayer": "À propos de cette prière",
   "noteOrigin": "Origine",
   "noteUse": "Quand et pourquoi",
-  "noteScripture": "Dans l'Écriture"
+  "noteScripture": "Dans l'Écriture",
+  "learnTitle": "Découvrir le Rosaire",
+  "learnIntro": "Ce qu'est le Rosaire, ses quatre séries de mystères et d'autres façons de prier sur les grains.",
+  "learnGroupRosary": "Le Rosaire",
+  "learnGroupOther": "Autres prières sur les grains",
+  "learnGroupApp": "Prier avec l'application",
+  "learnMore": "En savoir plus",
+  "learnMysteries": "Les cinq mystères",
+  "prayTheseMysteries": "Prier ces mystères",
+  "prayChaplet": "Prier le chapelet"
 }

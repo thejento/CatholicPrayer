@@ -6,6 +6,7 @@ import '../../audio/audio_catalog.dart';
 import '../../data/device_profile.dart';
 import '../../domain/liturgical_calendar.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../../models/learn_page.dart';
 import '../../providers/journal_controller.dart';
 import '../../providers/settings_controller.dart';
 import '../../providers/theme_manager.dart';
@@ -13,6 +14,7 @@ import '../../reminders/reminder_controller.dart';
 import '../../theme/app_theme.dart';
 import '../liturgy_text.dart';
 import '../open_link.dart';
+import 'learn_screen.dart';
 
 /// Native names, so a person can find their language whatever the UI language.
 const Map<String, String> _languageNames = {'en': 'English', 'es': 'Español', 'fr': 'Français'};
@@ -112,6 +114,7 @@ class SettingsScreen extends StatelessWidget {
                 value: settings.ending.saintMichael,
                 onChanged: settings.setEndWithSaintMichael,
               ),
+              LearnMoreButton(topic: LearnTopic.ending, subject: l10n.endingSection),
               const SizedBox(height: 16),
               Text(l10n.voiceSection, style: Theme.of(context).textTheme.titleMedium),
               if (!context.read<AudioCatalog>().hasLanguage(

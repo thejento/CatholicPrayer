@@ -56,6 +56,8 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Suggested'), findsOneWidget);
 
+    await tester.ensureVisible(find.text('Glorious Mysteries'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Glorious Mysteries'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Start'));

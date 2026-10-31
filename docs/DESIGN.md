@@ -521,6 +521,7 @@ paths), so **refreshing keeps the screen** and **a link can open one**:
 | `#/rosary/joyful` (`?mode=mysteriesOnly`) | The Rosary |
 | `#/rosary/joyful/passage/3` | A mystery's Bible passage, over its Rosary |
 | `#/chaplet/divine-mercy` | The Divine Mercy Chaplet (§3.22), from its start |
+| `#/learn`, `#/learn/joyful`, `#/learn/divine-mercy` | Learn about the Rosary (§3.23) |
 
 * Every screen sits under Home, so after opening a link, Back climbs to Home.
 * **The Rosary's step is not in the address**: on a refresh or a link, the Rosary resumes at
@@ -555,6 +556,27 @@ Closing (4):   Holy God ×3 (medal) · Sign of the Cross (crucifix)
 * Model: `Devotion` and `buildDivineMercySequence()` in `rosary_sequence.dart`;
   `RosaryScreen.chaplet`, address `#/chaplet/divine-mercy`. Not recorded in the prayer journal
   (§3.20), which lists Rosaries. Another chaplet is a new sequence, its texts and recordings.
+
+### 3.23 Learn about the Rosary (F-33), see ADR-037
+
+The app's goal is to teach, so it explains the different ways of praying on the beads.
+
+* **Home → Learn about the Rosary** (`#/learn`, after the Prayer Library): a list of topics, each with a one-line
+  summary, in three groups:
+  * *The Rosary*: what it is (prayer and meditation, history, the shape on the beads), then
+    the Joyful, Luminous, Sorrowful and Glorious mysteries (what each set remembers, its days).
+  * *Other prayers on the beads*: the Divine Mercy Chaplet (Saint Faustina, how it differs).
+  * *Praying with the app*: guided or mysteries only, praying alone or in a group; the optional
+    ending (the Holy Father's intentions, Saint Michael).
+* **A topic page** (`#/learn/joyful`, `#/learn/divine-mercy`…): the title, its summary and a
+  few short sections, laid out like "About this prayer" (§3.17). A mystery set also lists its
+  five mysteries with their fruit, then **Pray these mysteries**. The chaplet page ends with
+  **Pray the chaplet**, the ending page with **Settings**.
+* **Where the choice is made:** each card in *Choose the mysteries* shows the set's summary
+  and a **Learn more** button; the mode hint links to *Ways to pray*; Settings → End of the
+  Rosary links to the ending page.
+* Texts are the app's own writing, in `assets/data/learn/<lang>.json`, keeping to established
+  facts and naming legends as legends (as for the prayer notes). Not read aloud.
 
 ## 4. The Rosary model
 

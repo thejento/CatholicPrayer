@@ -1,5 +1,6 @@
 import 'package:crc/src/domain/mysteries.dart';
 import 'package:crc/src/domain/rosary_sequence.dart';
+import 'package:crc/src/models/learn_page.dart';
 import 'package:crc/src/providers/saved_session_controller.dart';
 import 'package:crc/src/routes.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ void main() {
       '/rosary/sorrowful/passage/2',
     );
     expect(Routes.aboutPrayer('memorare'), '/library/memorare/about');
+    expect(Routes.learnTopic(LearnTopic.divineMercy), '/learn/divine-mercy');
   });
 
   testWidgets('the address follows the screens', (tester) async {
@@ -85,12 +87,24 @@ void main() {
     ('/pray', 'Choose the mysteries'),
     ('/journal', 'Prayer journal'),
     ('/chaplet/divine-mercy', 'Divine Mercy Chaplet'),
+    ('/learn', 'Learn about the Rosary'),
   ]) {
     testWidgets('$location opens $title', (tester) async {
       await openAt(tester, TestApp(), location);
       expect(appBarTitle(tester), title);
     });
   }
+
+  testWidgets('a link opens a Learn page', (tester) async {
+    await openAt(tester, TestApp(), '/learn/luminous');
+    expect(find.text('The Luminous Mysteries'), findsOneWidget);
+  });
+
+  testWidgets('an unknown Learn topic opens the list', (tester) async {
+    await openAt(tester, TestApp(), '/learn/nothing');
+    expect(address(tester), '/learn');
+    expect(find.byKey(const Key('topic-rosary')), findsOneWidget);
+  });
 
   testWidgets('/today opens About today', (tester) async {
     await openAt(tester, TestApp(), '/today');

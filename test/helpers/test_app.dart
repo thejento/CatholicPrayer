@@ -30,6 +30,7 @@ ContentRepository loadRealContent() => ContentRepository.fromJson(
   prayers: {for (final l in contentLanguages) l: _read('assets/data/prayers/$l.json')},
   mysteries: {for (final l in contentLanguages) l: _read('assets/data/mysteries/$l.json')},
   notes: {for (final l in contentLanguages) l: _read(ContentRepository.notesPath(l))},
+  learn: {for (final l in contentLanguages) l: _read(ContentRepository.learnPath(l))},
 );
 
 /// The real Bible passages.

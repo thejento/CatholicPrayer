@@ -332,5 +332,15 @@
   "noteOrigin": "Where it comes from",
   "noteUse": "When it is prayed",
   "noteScripture": "In Scripture",
-  "@aboutPrayer": {"description": "Button and page title: the history and use of a prayer"}
+  "@aboutPrayer": {"description": "Button and page title: the history and use of a prayer"},
+  "learnTitle": "Learn about the Rosary",
+  "learnIntro": "What the Rosary is, its four sets of mysteries, and other ways of praying on the beads.",
+  "learnGroupRosary": "The Rosary",
+  "learnGroupOther": "Other prayers on the beads",
+  "learnGroupApp": "Praying with the app",
+  "learnMore": "Learn more",
+  "learnMysteries": "The five mysteries",
+  "prayTheseMysteries": "Pray these mysteries",
+  "prayChaplet": "Pray the chaplet",
+  "@learnTitle": {"description": "Home button and page title: pages that explain the Rosary, its mysteries and the chaplet"}
 }
