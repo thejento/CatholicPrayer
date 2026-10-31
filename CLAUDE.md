@@ -6,7 +6,7 @@ tablets, Android TV (D-pad) and the web, from one codebase. Offline, no account,
 App id `com.catholicrosarycompanion.crc`, package name `crc`, version in `pubspec.yaml`.
 
 - Web app (deployed from `main`): https://thejento.github.io/CatholicPrayer/
-- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…036) · History: `BACKLOG.md`
+- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…037) · History: `BACKLOG.md`
 - **Open work: GitHub Issues**, see "Backlog and issues" below.
 
 ## How the owner works
@@ -67,7 +67,7 @@ flutter drive --driver=test_driver/integration_test.dart \
 | `providers/` | `ChangeNotifier`s: theme, settings (voice, auto-advance, auto-scroll…), saved session, prayer journal (`JournalController`: on-device only, excluded from cloud backup, no streaks) |
 | `audio/` | `clips.dart` (clip ids per step), `AudioCatalog`, `ClipPlayer` (just_audio), `VoiceGuide` (follows the session, auto-advance, reading time for auto-scroll) |
 | `reminders/` | Daily reminder: weekly local notifications, Android phones only |
-| `ui/` | Screens (home, rosary, picker, library, scripture, about today, settings) and widgets (beads painter, saint sheet, web footer) |
+| `ui/` | Screens (home, rosary, picker, library, scripture, about today, settings, learn) and widgets (beads painter, saint sheet, web footer) |
 | `routes.dart` | go_router table: every screen has an address (`#/library/hail_mary` on the web); open screens with `context.push(Routes.…)` (ADR-035) |
 | `app_info.dart` | Version (`APP_VERSION` / `APP_BUILD` dart-defines), Play and Issues URLs, `playStoreListed` switch |
 
@@ -77,7 +77,7 @@ flutter drive --driver=test_driver/integration_test.dart \
 - Themes: classic and kid-friendly. Classic takes the liturgical colour of the day
   (`AppTheme.themeFor(mode, season:)`, switch `ThemeManager.followSeason`); kid-friendly keeps
   its own colours. Paintings appear only in classic.
-- Assets: `assets/data/` (prayers, prayer_notes, mysteries, scripture, saints, art.json), `assets/audio/<lang>/`
+- Assets: `assets/data/` (prayers, prayer_notes, learn (teaching pages), mysteries, scripture, saints, art.json), `assets/audio/<lang>/`
   (pre-rendered voice), `assets/art/` (WebP paintings).
 
 ## Tests and quality gates (CI, all required)

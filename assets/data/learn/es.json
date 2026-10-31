@@ -1,0 +1,156 @@
+{
+  "topics": {
+    "rosary": {
+      "title": "¿Qué es el Rosario?",
+      "summary": "Una oración con cuentas que recorre la vida de Jesús junto a María.",
+      "sections": [
+        {
+          "heading": "Los labios y el corazón",
+          "text": "El Rosario une dos formas de oración. Los labios repiten oraciones aprendidas de memoria: el Padrenuestro, diez Avemarías y el Gloria. Mientras tanto, la mente y el corazón contemplan un acontecimiento de la vida de Jesús o de María, llamado misterio. La repetición no pretende ser mecánica: como un ritmo tranquilo, calma la mente y deja espacio para mirar la escena. El papa Pablo VI escribió que, sin esta contemplación, el Rosario es un cuerpo sin alma."
+        },
+        {
+          "heading": "De dónde viene",
+          "text": "En los monasterios medievales, los monjes rezaban los 150 salmos. Los laicos que no sabían leer rezaban en su lugar 150 Padrenuestros o Avemarías, que contaban con cuerdas anudadas o sartas de cuentas. En el siglo XV, predicadores cartujos y dominicos añadieron a las oraciones un pensamiento sobre la vida de Cristo, y el dominico Alano de la Roca difundió la devoción por medio de cofradías. En 1569 el papa Pío V fijó su forma, con quince misterios. Una leyenda muy conocida cuenta que María entregó el Rosario a santo Domingo; los historiadores lo ven más bien como fruto de un largo desarrollo."
+        },
+        {
+          "heading": "Su forma en las cuentas",
+          "text": "En el crucifijo: la señal de la cruz y el Credo de los Apóstoles. En la primera cuenta grande, un Padrenuestro; en las tres pequeñas siguientes, tres Avemarías, a menudo por la fe, la esperanza y la caridad; luego un Gloria. Siguen cinco decenas. Cada una empieza en una cuenta grande con el anuncio de un misterio y un Padrenuestro, continúa con diez Avemarías en las cuentas pequeñas y termina con el Gloria y, muy a menudo, la oración de Fátima. El Rosario se cierra en la medalla con la Salve y una oración final."
+        },
+        {
+          "heading": "Cuatro grupos de misterios",
+          "text": "Hay veinte misterios en cuatro grupos de cinco: gozosos, luminosos, dolorosos y gloriosos. Un Rosario es un grupo, es decir, cinco decenas. Cada día de la semana tiene su grupo, de modo que en una semana pasa ante los ojos todo el relato del Evangelio: la venida de Jesús, su vida pública, su Pasión y su Resurrección. Puedes rezar cualquier grupo cualquier día. La Iglesia celebra el 7 de octubre la fiesta de Nuestra Señora del Rosario, y octubre se llama el mes del Rosario."
+        }
+      ]
+    },
+    "joyful": {
+      "title": "Los Misterios Gozosos",
+      "summary": "La venida de Jesús y sus años ocultos en Nazaret.",
+      "sections": [
+        {
+          "heading": "Qué recuerdan",
+          "text": "Los Misterios Gozosos siguen el comienzo del Evangelio: el mensaje del ángel a María, su visita a su prima Isabel, el nacimiento de Jesús en Belén, su presentación en el Templo y el día en que sus padres lo encontraron, a los doce años, en el Templo de Jerusalén. Los narran los dos primeros capítulos del Evangelio de Lucas."
+        },
+        {
+          "heading": "Su espíritu",
+          "text": "Su alegría es la de Dios que se hace cercano: Dios se hace niño, en una familia, entre gente sencilla. Estos misterios invitan a mirar el «sí» de María, la acogida de los pobres y una vida casi toda oculta, hecha de trabajo, espera y confianza. El último ya lleva una sombra: la angustia de buscar a un niño perdido."
+        },
+        {
+          "heading": "Cuándo se rezan",
+          "text": "Los lunes y los sábados, y los domingos de Adviento y del tiempo de Navidad, cuando la Iglesia se prepara para el nacimiento de Jesús y lo celebra."
+        }
+      ]
+    },
+    "luminous": {
+      "title": "Los Misterios Luminosos",
+      "summary": "La vida pública de Jesús: los misterios de luz.",
+      "sections": [
+        {
+          "heading": "Qué recuerdan",
+          "text": "Los Misterios Luminosos abarcan los años en que Jesús enseñó en público: su bautismo en el Jordán, las bodas de Caná, donde convirtió el agua en vino, el anuncio del Reino de Dios con la llamada a la conversión, su Transfiguración en el monte y la institución de la Eucaristía en la Última Cena."
+        },
+        {
+          "heading": "El grupo más reciente",
+          "text": "Estos cinco misterios son los más recientes. El papa san Juan Pablo II los propuso el 16 de octubre de 2002, en su carta sobre el Rosario, Rosarium Virginis Mariae. Los quince misterios antiguos pasaban directamente del Niño hallado en el Templo a la agonía en el huerto; el nuevo grupo llena ese hueco con el corazón de los Evangelios. Los llamó misterios de luz porque en ellos Jesús se muestra como «la luz del mundo» (Juan 8,12)."
+        },
+        {
+          "heading": "Cuándo se rezan",
+          "text": "Los jueves, día de la Última Cena, que es el último de estos misterios."
+        }
+      ]
+    },
+    "sorrowful": {
+      "title": "Los Misterios Dolorosos",
+      "summary": "La Pasión y la muerte de Jesús.",
+      "sections": [
+        {
+          "heading": "Qué recuerdan",
+          "text": "Los Misterios Dolorosos siguen las últimas horas de Jesús: su agonía en el huerto de Getsemaní, la flagelación, la coronación de espinas, el camino con la cruz a cuestas y su muerte en la cruz en el Calvario. Los narran los cuatro Evangelios."
+        },
+        {
+          "heading": "Su espíritu",
+          "text": "No buscan detenerse en el dolor por sí mismo, sino ver hasta dónde llega el amor. En ellos Jesús acepta la voluntad del Padre, perdona a quienes le hacen daño y entrega su vida. Mucha gente lleva a estos misterios su propio sufrimiento, o el de un ser querido, y descubre allí que no está a solas."
+        },
+        {
+          "heading": "Cuándo se rezan",
+          "text": "Los martes y los viernes (el viernes es el día en que murió Jesús), y los domingos de Cuaresma, los cuarenta días de preparación para la Pascua."
+        }
+      ]
+    },
+    "glorious": {
+      "title": "Los Misterios Gloriosos",
+      "summary": "La Resurrección y la vida del cielo.",
+      "sections": [
+        {
+          "heading": "Qué recuerdan",
+          "text": "Los Misterios Gloriosos empiezan la mañana de Pascua: la Resurrección de Jesús, su Ascensión al cielo, la venida del Espíritu Santo sobre los Apóstoles y María en Pentecostés, la Asunción de María al cielo y su coronación como Reina del cielo y de la tierra. Los tres primeros los narran los Evangelios y los Hechos de los Apóstoles. Los dos últimos vienen de la fe de la Iglesia: la Asunción se definió como dogma en 1950, tras siglos de fe y de celebración."
+        },
+        {
+          "heading": "Su espíritu",
+          "text": "Son los misterios de la esperanza. La muerte no tiene la última palabra, el Espíritu da a la Iglesia su valentía, y María, la primera de los discípulos, ya comparte la gloria prometida a todos."
+        },
+        {
+          "heading": "Cuándo se rezan",
+          "text": "Los miércoles y los domingos, día de la Resurrección, salvo los domingos de Adviento, del tiempo de Navidad y de Cuaresma."
+        }
+      ]
+    },
+    "divineMercy": {
+      "title": "La Coronilla de la Divina Misericordia",
+      "summary": "Una oración breve con las mismas cuentas, que pide misericordia por la Pasión de Jesús.",
+      "sections": [
+        {
+          "heading": "De dónde viene",
+          "text": "Santa Faustina Kowalska (1905-1938), religiosa polaca de la Congregación de las Hermanas de la Madre de Dios de la Misericordia, escribió en su Diario que Jesús le enseñó esta oración en septiembre de 1935, en Vilna. El papa san Juan Pablo II la canonizó en el año 2000 y, el mismo día, llamó al domingo después de Pascua Domingo de la Divina Misericordia."
+        },
+        {
+          "heading": "En qué se diferencia del Rosario",
+          "text": "Usa las mismas cuentas, pero no tiene misterios, y sus oraciones se dirigen a Dios Padre. Tras un Padrenuestro, un Avemaría y el Credo, en cada cuenta grande se reza «Padre Eterno, te ofrezco…», y en cada cuenta pequeña «Por su dolorosa Pasión, ten misericordia de nosotros y del mundo entero». Termina con «Santo Dios, Santo Fuerte, Santo Inmortal» tres veces. Dura unos diez minutos."
+        },
+        {
+          "heading": "Cuándo se reza",
+          "text": "En cualquier momento. Mucha gente la reza a las tres de la tarde, la hora en que murió Jesús, que santa Faustina llamaba la hora de la misericordia, y durante los nueve días antes del Domingo de la Divina Misericordia. Las palabras de esta aplicación son su propia traducción del polaco, así que pueden diferir un poco de la versión que conoces."
+        }
+      ]
+    },
+    "ways": {
+      "title": "Formas de rezar",
+      "summary": "Guiado cuenta por cuenta o solo con los misterios; en privado o en grupo.",
+      "sections": [
+        {
+          "heading": "Guiado",
+          "text": "Cada oración aparece en orden, con lo que hay que hacer en cada paso, y la cuenta se ilumina en el dibujo. La voz puede leerlo todo en voz alta y avanzar por sí misma. Esta forma conviene para un primer Rosario o para quien todavía está aprendiendo las oraciones. Dura unos veinte minutos."
+        },
+        {
+          "heading": "Solo los misterios",
+          "text": "Para quienes saben las oraciones de memoria: una tarjeta para las oraciones iniciales, una para cada misterio, con su pasaje de la Biblia y su pintura, y una para las oraciones finales. Tú rezas las oraciones, quizá con tu propio rosario, y pasas a la tarjeta siguiente al final de cada decena."
+        },
+        {
+          "heading": "Con tu propio rosario",
+          "text": "Sostener un rosario ayuda a mucha gente: los dedos llevan la cuenta y la mente queda libre. Las cuentas de la pantalla corresponden a las de un rosario normal, así que puedes seguir los dos a la vez. No tener rosario no es un obstáculo: desde hace mucho, diez dedos sirven para lo mismo."
+        },
+        {
+          "heading": "En privado o en grupo",
+          "text": "En familia o en grupo, normalmente una persona dirige: dice la primera parte de cada oración, y todos responden con la segunda, por ejemplo «Santa María, Madre de Dios…» en el Avemaría. También puede dirigir cada decena una persona distinta. Rezar con calma, a un ritmo compartido, forma parte de la oración."
+        }
+      ]
+    },
+    "ending": {
+      "title": "El final del Rosario",
+      "summary": "Oraciones que mucha gente añade: por las intenciones del Papa y a san Miguel.",
+      "sections": [
+        {
+          "heading": "Por las intenciones del Santo Padre",
+          "text": "Mucha gente termina el Rosario con un Padrenuestro, un Avemaría y un Gloria por las intenciones del Papa, uniendo su oración a la de toda la Iglesia. Cada mes, el Papa propone además una intención para el mundo. Esta oración por las intenciones del Papa es una de las condiciones habituales de una indulgencia, que la Iglesia concede, entre otras cosas, por rezar el Rosario en una iglesia o en familia."
+        },
+        {
+          "heading": "La oración a san Miguel",
+          "text": "El papa León XIII escribió esta oración en la década de 1880 y mandó rezarla después de la misa rezada, con otras oraciones, desde 1886. Esa costumbre terminó con la reforma litúrgica de los años sesenta, pero mucha gente conservó la oración, y el papa san Juan Pablo II la recomendó de nuevo en 1994. Pide al arcángel Miguel protección en la lucha contra el mal."
+        },
+        {
+          "heading": "En esta aplicación",
+          "text": "Ninguna de las dos forma parte del Rosario, así que están desactivadas. Para añadirlas, ve a Ajustes, Final del Rosario: van después de la oración final, antes de la última señal de la cruz."
+        }
+      ]
+    }
+  }
+}

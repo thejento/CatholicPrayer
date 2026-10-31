@@ -442,3 +442,18 @@ Template:
   review (C-02) should look at them. Another chaplet needs its sequence, guidance lines, texts
   in three languages and recordings.
 
+## ADR-037: Teaching pages as content files, linked where the choice is made
+- Date: 2026-10-31 · Status: Accepted
+- Context: The app's goal is to teach, but nothing explained the four sets of mysteries, the
+  chaplet, the two ways to pray or the optional ending (issue F-33).
+- Options considered: texts in the ARB files or in content JSON; one long page, or a list of
+  topic pages; reachable only from Home, or also from the screens where each choice is made.
+- Decision: One JSON file per language (`assets/data/learn/`), like the prayer notes: they are
+  long texts, the app's own writing, and the parity test checks that every topic has the same
+  sections in each language. A list of topics (`#/learn`) with one page each
+  (`#/learn/<topic>`), so a link can point to one. Reachable from Home and from a **Learn
+  more** button on each mystery card, under the mode choice and in Settings → End of the
+  Rosary. Each page ends with a way to act on it (pray these mysteries, the chaplet,
+  Settings). The texts are not read aloud.
+- Consequences: A new topic needs its enum value, a page in three languages and its place in
+  the list. The facts (dates, popes, the Diary) should be part of the parish review (C-02).

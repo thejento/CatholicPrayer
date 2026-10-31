@@ -6,10 +6,12 @@ import 'data/content_repository.dart';
 import 'domain/clock.dart';
 import 'domain/mysteries.dart';
 import 'domain/rosary_sequence.dart';
+import 'models/learn_page.dart';
 import 'providers/saved_session_controller.dart';
 import 'ui/screens/about_today_screen.dart';
 import 'ui/screens/home_screen.dart';
 import 'ui/screens/journal_screen.dart';
+import 'ui/screens/learn_screen.dart';
 import 'ui/screens/mystery_picker_screen.dart';
 import 'ui/screens/prayer_about_screen.dart';
 import 'ui/screens/prayer_detail_screen.dart';
@@ -30,6 +32,10 @@ abstract final class Routes {
   static const pray = '/pray';
   static const journal = '/journal';
   static const divineMercy = '/chaplet/divine-mercy';
+  static const learn = '/learn';
+
+  /// A page of "Learn about the Rosary": `/learn/joyful`.
+  static String learnTopic(LearnTopic topic) => '/learn/${topic.slug}';
 
   static String prayer(String id) => '/library/$id';
   static String aboutPrayer(String id) => '/library/$id/about';
@@ -77,6 +83,19 @@ GoRouter _router() => GoRouter(
       routes: [
         GoRoute(path: 'settings', builder: (_, _) => const SettingsScreen()),
         GoRoute(path: 'journal', builder: (_, _) => const JournalScreen()),
+        GoRoute(
+          path: 'learn',
+          builder: (_, _) => const LearnScreen(),
+          routes: [
+            GoRoute(
+              path: ':topic',
+              redirect: (_, state) =>
+                  LearnTopic.fromSlug(state.pathParameters['topic']) == null ? Routes.learn : null,
+              builder: (_, state) =>
+                  LearnTopicScreen(topic: LearnTopic.fromSlug(state.pathParameters['topic'])!),
+            ),
+          ],
+        ),
         GoRoute(
           path: 'chaplet/divine-mercy',
           builder: (_, _) => const RosaryScreen.chaplet(devotion: Devotion.divineMercy),

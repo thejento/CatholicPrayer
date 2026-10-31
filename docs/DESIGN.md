@@ -521,6 +521,7 @@ paths), so **refreshing keeps the screen** and **a link can open one**:
 | `#/rosary/joyful` (`?mode=mysteriesOnly`) | The Rosary |
 | `#/rosary/joyful/passage/3` | A mystery's Bible passage, over its Rosary |
 | `#/chaplet/divine-mercy` | The Divine Mercy Chaplet (§3.22), from its start |
+| `#/learn`, `#/learn/joyful`, `#/learn/divine-mercy` | Learn about the Rosary (§3.23) |
 
 * Every screen sits under Home, so after opening a link, Back climbs to Home.
 * **The Rosary's step is not in the address**: on a refresh or a link, the Rosary resumes at
@@ -556,11 +557,11 @@ Closing (4):   Holy God ×3 (medal) · Sign of the Cross (crucifix)
   `RosaryScreen.chaplet`, address `#/chaplet/divine-mercy`. Not recorded in the prayer journal
   (§3.20), which lists Rosaries. Another chaplet is a new sequence, its texts and recordings.
 
-### 3.23 Learn about the Rosary (F-33)
+### 3.23 Learn about the Rosary (F-33), see ADR-037
 
 The app's goal is to teach, so it explains the different ways of praying on the beads.
 
-* **Home → Learn about the Rosary** (`#/learn`): a list of topics, each with a one-line
+* **Home → Learn about the Rosary** (`#/learn`, after the Prayer Library): a list of topics, each with a one-line
   summary, in three groups:
   * *The Rosary*: what it is (prayer and meditation, history, the shape on the beads), then
     the Joyful, Luminous, Sorrowful and Glorious mysteries (what each set remembers, its days).

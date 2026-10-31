@@ -6,9 +6,11 @@ import '../../data/content_repository.dart';
 import '../../domain/mysteries.dart';
 import '../../domain/rosary_sequence.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../../models/learn_page.dart';
 import '../../providers/settings_controller.dart';
 import '../../routes.dart';
 import '../step_text.dart';
+import 'learn_screen.dart';
 
 /// Lets the person confirm today's suggested mysteries or choose another set.
 class MysteryPickerScreen extends StatefulWidget {
@@ -60,6 +62,7 @@ class _MysteryPickerScreenState extends State<MysteryPickerScreen> {
                 key: const Key('rosary-mode-hint'),
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
+              LearnMoreButton(topic: LearnTopic.ways, subject: l10n.rosaryModeLabel),
               const SizedBox(height: 24),
               Text(l10n.chooseMysteriesHint, style: Theme.of(context).textTheme.bodyLarge),
               const SizedBox(height: 16),
@@ -70,17 +73,42 @@ class _MysteryPickerScreenState extends State<MysteryPickerScreen> {
                   children: [
                     for (final set in MysterySet.values)
                       Card(
-                        child: RadioListTile<MysterySet>(
-                          value: set,
-                          title: Text(content.mysterySetTitle(set).of(lang)),
-                          subtitle: Text(
-                            content.mysteriesOf(set).map((m) => m.title.of(lang)).join(' · '),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          secondary: set == widget.initial
-                              ? Chip(label: Text(l10n.suggestedBadge))
-                              : null,
+                        child: Column(
+                          children: [
+                            RadioListTile<MysterySet>(
+                              value: set,
+                              title: Text(content.mysterySetTitle(set).of(lang)),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (content.learnPage(LearnTopic.forSet(set)) case final page?)
+                                    Text(
+                                      page.summary.of(lang),
+                                      key: Key('summary-${set.name}'),
+                                      style: const TextStyle(fontStyle: FontStyle.italic),
+                                    ),
+                                  Text(
+                                    content
+                                        .mysteriesOf(set)
+                                        .map((m) => m.title.of(lang))
+                                        .join(' · '),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                              secondary: set == widget.initial
+                                  ? Chip(label: Text(l10n.suggestedBadge))
+                                  : null,
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.only(start: 8, bottom: 4),
+                              child: LearnMoreButton(
+                                topic: LearnTopic.forSet(set),
+                                subject: content.mysterySetTitle(set).of(lang),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                   ],

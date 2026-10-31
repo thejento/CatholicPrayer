@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:crc/src/data/content_repository.dart';
 import 'package:crc/src/domain/mysteries.dart';
 import 'package:crc/src/domain/rosary_sequence.dart';
+import 'package:crc/src/models/learn_page.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -49,6 +50,35 @@ void main() {
             expect(refs.hasLanguage(lang), isTrue, reason: '${prayer.id} scripture [$lang]');
           }
         }
+      });
+
+      test('every Learn topic has its page, with as many sections as English', () {
+        for (final topic in LearnTopic.values) {
+          final page = content.learnPage(topic);
+          expect(page, isNotNull, reason: 'no page for $topic');
+          expect(page!.title.hasLanguage(lang), isTrue, reason: '$topic title [$lang]');
+          expect(page.summary.hasLanguage(lang), isTrue, reason: '$topic summary [$lang]');
+          expect(page.sections, isNotEmpty);
+          for (final (i, section) in page.sections.indexed) {
+            expect(section.heading.hasLanguage(lang), isTrue, reason: '$topic $i heading [$lang]');
+            expect(section.text.hasLanguage(lang), isTrue, reason: '$topic $i text [$lang]');
+          }
+          final sections =
+              (((jsonDecode(File(ContentRepository.learnPath(lang)).readAsStringSync())
+                              as Map<String, dynamic>)['topics']
+                          as Map<String, dynamic>)[topic.name]
+                      as Map<String, dynamic>)['sections']
+                  as List;
+          expect(sections, hasLength(page.sections.length), reason: '$topic sections [$lang]');
+        }
+      });
+
+      test('Learn pages are about known topics', () {
+        final topics =
+            (jsonDecode(File(ContentRepository.learnPath(lang)).readAsStringSync())
+                    as Map<String, dynamic>)['topics']
+                as Map<String, dynamic>;
+        expect(topics.keys.toSet(), LearnTopic.values.map((t) => t.name).toSet());
       });
 
       test('notes are about prayers that exist', () {

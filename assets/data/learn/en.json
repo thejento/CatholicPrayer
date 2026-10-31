@@ -1,0 +1,156 @@
+{
+  "topics": {
+    "rosary": {
+      "title": "What is the Rosary?",
+      "summary": "A prayer on beads that walks through the life of Jesus with Mary.",
+      "sections": [
+        {
+          "heading": "Lips and heart together",
+          "text": "The Rosary joins two kinds of prayer. The lips repeat prayers learned by heart: the Our Father, ten Hail Marys and the Glory Be. Meanwhile the mind and heart dwell on an event in the life of Jesus or Mary, called a mystery. The repetition is not meant to be mechanical: like a steady rhythm, it quiets the mind and leaves room to look at the scene. Pope Paul VI wrote that without this contemplation, the Rosary is a body without a soul."
+        },
+        {
+          "heading": "Where it comes from",
+          "text": "In medieval monasteries, monks prayed the 150 psalms. Lay people who could not read said 150 Our Fathers or Hail Marys instead, counting them on knotted cords or strings of beads. In the 15th century, Carthusian and Dominican preachers added a thought on the life of Christ to the prayers, and the Dominican Alan de la Roche spread the devotion through confraternities. In 1569 Pope Pius V set its form, with fifteen mysteries. A well-known legend says that Mary gave the Rosary to Saint Dominic; historians see it rather as the fruit of a long growth."
+        },
+        {
+          "heading": "Its shape on the beads",
+          "text": "On the crucifix: the Sign of the Cross and the Apostles' Creed. On the first large bead, an Our Father; on the next three small beads, three Hail Marys, often for faith, hope and charity; then a Glory Be. Next come five decades. Each one begins on a large bead with the announcement of a mystery and an Our Father, continues with ten Hail Marys on the small beads, and ends with the Glory Be and, very often, the Fatima prayer. The Rosary closes on the medal with the Hail, Holy Queen and a closing prayer."
+        },
+        {
+          "heading": "Four sets of mysteries",
+          "text": "There are twenty mysteries in four sets of five: Joyful, Luminous, Sorrowful and Glorious. One Rosary is one set, so five decades. Each day of the week has its own set, so that over a week the whole Gospel story passes before the eyes: Jesus' coming, his public life, his Passion and his Resurrection. Any set may be prayed on any day. The Church keeps 7 October as the feast of Our Lady of the Rosary, and October is called the month of the Rosary."
+        }
+      ]
+    },
+    "joyful": {
+      "title": "The Joyful Mysteries",
+      "summary": "The coming of Jesus and his hidden years at Nazareth.",
+      "sections": [
+        {
+          "heading": "What they remember",
+          "text": "The Joyful Mysteries follow the beginning of the Gospel: the angel's message to Mary, her visit to her cousin Elizabeth, the birth of Jesus in Bethlehem, his presentation in the Temple, and the day his parents found him, at twelve, in the Temple in Jerusalem. They are told in the first two chapters of the Gospel of Luke."
+        },
+        {
+          "heading": "Their spirit",
+          "text": "Their joy is that of God coming close: God becomes a child, in a family, among ordinary people. These mysteries invite us to look at Mary's \"yes\", at the welcome of the poor, and at a life that is mostly hidden, made of work, waiting and trust. The last one already carries a shadow: the worry of searching for a lost child."
+        },
+        {
+          "heading": "When they are prayed",
+          "text": "On Mondays and Saturdays, and on the Sundays of Advent and Christmas Time, when the Church prepares for and celebrates the birth of Jesus."
+        }
+      ]
+    },
+    "luminous": {
+      "title": "The Luminous Mysteries",
+      "summary": "The public life of Jesus: the mysteries of light.",
+      "sections": [
+        {
+          "heading": "What they remember",
+          "text": "The Luminous Mysteries cover the years when Jesus taught in public: his baptism in the Jordan, the wedding at Cana where he changed water into wine, his proclamation of the Kingdom of God with the call to conversion, his Transfiguration on the mountain, and the institution of the Eucharist at the Last Supper."
+        },
+        {
+          "heading": "The newest set",
+          "text": "These five mysteries are the most recent. Pope Saint John Paul II proposed them on 16 October 2002, in his letter on the Rosary, Rosarium Virginis Mariae. The fifteen older mysteries went straight from the finding in the Temple to the agony in the garden; the new set fills that gap with the heart of the Gospels. He called them mysteries of light because in them Jesus shows himself as \"the light of the world\" (John 8:12)."
+        },
+        {
+          "heading": "When they are prayed",
+          "text": "On Thursdays, the day of the Last Supper, which is the last of these mysteries."
+        }
+      ]
+    },
+    "sorrowful": {
+      "title": "The Sorrowful Mysteries",
+      "summary": "The Passion and death of Jesus.",
+      "sections": [
+        {
+          "heading": "What they remember",
+          "text": "The Sorrowful Mysteries follow the last hours of Jesus: his agony in the garden of Gethsemane, the scourging, the crowning with thorns, the carrying of the cross, and his death on the cross on Calvary. All four Gospels tell them."
+        },
+        {
+          "heading": "Their spirit",
+          "text": "They are not meant to dwell on pain for its own sake, but to see how far love goes. In them Jesus accepts the Father's will, forgives those who hurt him, and gives his life. Many people bring their own suffering, or that of someone dear, to these mysteries, and find there that they are not alone."
+        },
+        {
+          "heading": "When they are prayed",
+          "text": "On Tuesdays and Fridays (Friday is the day Jesus died), and on the Sundays of Lent, the forty days of preparation for Easter."
+        }
+      ]
+    },
+    "glorious": {
+      "title": "The Glorious Mysteries",
+      "summary": "The Resurrection, and the life of heaven.",
+      "sections": [
+        {
+          "heading": "What they remember",
+          "text": "The Glorious Mysteries begin on Easter morning: the Resurrection of Jesus, his Ascension into heaven, the coming of the Holy Spirit on the Apostles and Mary at Pentecost, the Assumption of Mary into heaven, and her crowning as Queen of heaven and earth. The first three are told in the Gospels and the Acts of the Apostles. The last two come from the faith of the Church: the Assumption was defined as a dogma in 1950, after centuries of belief and celebration."
+        },
+        {
+          "heading": "Their spirit",
+          "text": "They are the mysteries of hope. Death does not have the last word, the Spirit gives the Church its courage, and Mary, the first of the disciples, already shares in the glory promised to all."
+        },
+        {
+          "heading": "When they are prayed",
+          "text": "On Wednesdays and on Sundays, the day of the Resurrection, except on the Sundays of Advent, Christmas Time and Lent."
+        }
+      ]
+    },
+    "divineMercy": {
+      "title": "The Divine Mercy Chaplet",
+      "summary": "A short prayer on the same beads, asking for mercy through the Passion of Jesus.",
+      "sections": [
+        {
+          "heading": "Where it comes from",
+          "text": "Saint Faustina Kowalska (1905-1938), a Polish sister of the Congregation of the Sisters of Our Lady of Mercy, wrote in her Diary that Jesus taught her this prayer in September 1935, in Vilnius. Pope Saint John Paul II made her a saint in 2000 and, the same day, named the Sunday after Easter Divine Mercy Sunday."
+        },
+        {
+          "heading": "How it differs from the Rosary",
+          "text": "It uses the same beads, but it has no mysteries, and its prayers are addressed to God the Father. After an Our Father, a Hail Mary and the Creed, each large bead has the prayer \"Eternal Father, I offer Thee…\", and each small bead \"For the sake of His sorrowful Passion, have mercy on us and on the whole world.\" It ends with \"Holy God, Holy Mighty One, Holy Immortal One\" three times. It takes about ten minutes."
+        },
+        {
+          "heading": "When it is prayed",
+          "text": "At any time. Many people pray it at three in the afternoon, the hour Jesus died, which Saint Faustina called the hour of mercy, and during the nine days before Divine Mercy Sunday. The words in this app are its own translation from the Polish, so they may differ slightly from the version you know."
+        }
+      ]
+    },
+    "ways": {
+      "title": "Ways to pray",
+      "summary": "Guided bead by bead, or with the mysteries only; alone or with others.",
+      "sections": [
+        {
+          "heading": "Guided",
+          "text": "Every prayer appears in order, with what to do at each step, and the bead lights up on the drawing. The voice can read it all aloud and move on by itself. This way suits a first Rosary, or anyone still learning the prayers. It takes about twenty minutes."
+        },
+        {
+          "heading": "Mysteries only",
+          "text": "For those who know the prayers by heart: one card for the opening prayers, one for each mystery, with its Bible passage and painting, and one for the closing prayers. You say the prayers yourself, perhaps on your own rosary, and move to the next card at the end of each decade."
+        },
+        {
+          "heading": "With your own rosary",
+          "text": "Holding a rosary helps many people: the fingers keep count, so the mind is free. The beads on the screen match those of an ordinary rosary, so you can follow both at once. Having no rosary is no obstacle: ten fingers have long served the same purpose."
+        },
+        {
+          "heading": "Privately or together",
+          "text": "In a family or a group, one person usually leads: they say the first half of each prayer, and everyone answers with the second half, for example \"Holy Mary, Mother of God…\" in the Hail Mary. One person can also lead a decade each. Praying together slowly, at a shared pace, is part of the prayer."
+        }
+      ]
+    },
+    "ending": {
+      "title": "Ending the Rosary",
+      "summary": "Prayers many people add: for the Pope's intentions, and to Saint Michael.",
+      "sections": [
+        {
+          "heading": "For the Holy Father's intentions",
+          "text": "Many people end the Rosary with an Our Father, a Hail Mary and a Glory Be for the intentions of the Pope, joining their prayer to the whole Church's. Each month the Pope also proposes an intention for the world. This prayer for the Pope's intentions is one of the usual conditions of an indulgence, which the Church grants, among other things, for praying the Rosary in a church or with one's family."
+        },
+        {
+          "heading": "The prayer to Saint Michael",
+          "text": "Pope Leo XIII wrote this prayer in the 1880s and had it said after Low Mass, with other prayers, from 1886. That custom ended with the liturgical reform of the 1960s, but many people kept the prayer, and Pope Saint John Paul II encouraged it again in 1994. It asks the archangel Michael for protection in the struggle against evil."
+        },
+        {
+          "heading": "In this app",
+          "text": "Neither is part of the Rosary itself, so both are off. To add them, go to Settings, End of the Rosary: they come after the closing prayer, before the last Sign of the Cross."
+        }
+      ]
+    }
+  }
+}

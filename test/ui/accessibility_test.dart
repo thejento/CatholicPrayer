@@ -85,6 +85,13 @@ final Map<String, Visit> screens = {
     await tapAndSettle(t, find.byKey(const Key('divine-mercy')));
     await press(t, LogicalKeyboardKey.arrowRight, 63);
   },
+  'learn: topics': (t) => tapAndSettle(t, find.byKey(const Key('open-learn'))),
+  'learn: a set of mysteries': (t) async {
+    await tapAndSettle(t, find.byKey(const Key('open-learn')));
+    final joyful = find.byKey(const Key('topic-joyful'));
+    await t.scrollUntilVisible(joyful, 200, scrollable: find.byType(Scrollable).last);
+    await tapAndSettle(t, joyful);
+  },
   'prayer journal': (t) async {
     await openRosary(t);
     await press(t, LogicalKeyboardKey.arrowRight, 80);
