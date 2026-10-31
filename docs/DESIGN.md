@@ -344,15 +344,18 @@ memorials share a day they are listed together (*"… or Saint Ansgar, bishop"*)
 The Prayer Library has two sections: **Prayers of the Rosary** (the eight prayers the guided
 Rosary uses) and **Other prayers**: the Memorare, the prayer to Saint Michael, Come Holy
 Spirit, the prayer to the Guardian Angel, an Act of Contrition, the Angelus, the Regina Caeli
-(said instead of the Angelus in Easter Time) and a note on praying for the Holy Father's
-intentions after the Rosary.
+(said instead of the Angelus in Easter Time), the Litany of Loreto (F-22) and a note on
+praying for the Holy Father's intentions after the Rosary.
 
 * Traditional public-domain wordings only (ADR-013): the older "thee/thou" English forms, and
   the older Spanish and French forms rather than current liturgical translations.
 * These prayers are read on screen, not aloud: only the prayers of the guided Rosary have
   recordings.
-* Not yet: the Litany of Loreto (F-22), and adding Saint Michael or the Holy Father's
-  intentions at the end of the guided Rosary as an option (F-23).
+* **Litany of Loreto** (F-22): the traditional wording, with every title the popes have added
+  up to 2020 (Mother of mercy, Mother of hope, Solace of migrants), one invocation per line
+  with its response, so a group can pray it with one person leading. For the 2020 titles
+  the app uses its own translations. Its "About this prayer" page lists when each title was
+  added. Saint Michael and the Holy Father's intentions can now end the guided Rosary (§3.19).
 
 ### 3.13 Artwork on the mystery announcements, see ADR-028
 
