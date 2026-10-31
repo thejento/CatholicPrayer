@@ -75,3 +75,4 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] W-02 Web addresses: each screen has a `#/…` address; refresh keeps it, links open it (ADR-035)
 - [x] I-01 Divine Mercy Chaplet, guided on the rosary beads; own translations of the Polish original (ADR-036)
 - [x] F-33 Learn about the Rosary: the mysteries, the chaplet, ways to pray, the ending (ADR-037)
+- [x] F-22 Litany of Loreto in the library, traditional wording with the titles added up to 2020
