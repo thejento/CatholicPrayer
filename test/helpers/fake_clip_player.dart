@@ -11,6 +11,9 @@ class FakeClipPlayer implements ClipPlayer {
   bool disposed = false;
   Completer<void>? _current;
 
+  /// When set, [play] fails with it, as a missing clip or a blocked autoplay.
+  Object? failWith;
+
   bool get isPlaying => _current != null && !_current!.isCompleted;
   List<String> get last => played.last;
 
@@ -18,6 +21,7 @@ class FakeClipPlayer implements ClipPlayer {
   Future<void> play(List<String> assets, {required double speed}) {
     played.add(assets);
     speeds.add(speed);
+    if (failWith case final error?) return Future.error(error);
     _current = Completer<void>();
     return _current!.future;
   }

@@ -22,8 +22,9 @@ class SaintsRepository {
       lang: jsonDecode(await bundle.loadString(path(lang))) as Map<String, dynamic>,
   });
 
-  /// The name of celebration [id] in [lang], or else in English.
-  String name(String id, String lang) => _names[lang]?[id] ?? _names['en']![id]!;
+  /// The name of celebration [id] in [lang], or else in English, or else the
+  /// id itself rather than failing (r-13).
+  String name(String id, String lang) => _names[lang]?[id] ?? _names['en']?[id] ?? id;
 
   /// Every id with a name in [lang].
   Iterable<String> ids(String lang) => _names[lang]?.keys ?? const [];

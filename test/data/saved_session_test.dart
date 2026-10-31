@@ -32,9 +32,19 @@ void main() {
       'a:b:c',
       'joyful:3:fast',
       'joyful:3:guided:x',
+      'joyful:500',
+      'joyful:84',
+      'joyful:7:mysteriesOnly',
     ]) {
       test('rejects "$bad"', () => expect(SavedSession.decode(bad), isNull));
     }
+  });
+
+  test('keeps the last step of the longest Rosary, and clamps to a shorter one (r-14)', () {
+    final s = SavedSession.decode('joyful:83')!;
+    expect(s.index, 83);
+    expect(s.indexWithin(80), 79);
+    expect(s.indexWithin(84), 83);
   });
 
   group('SavedSessionController', () {

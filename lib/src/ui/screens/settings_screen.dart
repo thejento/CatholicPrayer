@@ -172,8 +172,13 @@ class SettingsScreen extends StatelessWidget {
                   value: reminder.enabled,
                   onChanged: (on) async {
                     final messenger = ScaffoldMessenger.of(context);
-                    if (!await reminder.setEnabled(on)) {
-                      messenger.showSnackBar(SnackBar(content: Text(l10n.reminderDenied)));
+                    final message = switch (await reminder.setEnabled(on)) {
+                      ReminderChange.done => null,
+                      ReminderChange.denied => l10n.reminderDenied,
+                      ReminderChange.failed => l10n.reminderFailed,
+                    };
+                    if (message != null) {
+                      messenger.showSnackBar(SnackBar(content: Text(message)));
                     }
                   },
                 ),

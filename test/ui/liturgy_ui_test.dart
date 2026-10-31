@@ -83,7 +83,7 @@ void main() {
     final app = TestApp(now: DateTime(2026, 11, 30), isAndroid: true); // Monday of Advent
     await pumpHome(tester, app);
     await app.reminder.setEnabled(true);
-    final sunday = app.reminders.scheduled.firstWhere((r) => r.weekday == DateTime.sunday);
+    final sunday = app.reminders.scheduled.firstWhere((r) => r.at.weekday == DateTime.sunday);
     expect(sunday.body, 'Today: the Joyful Mysteries.');
   });
 

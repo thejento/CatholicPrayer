@@ -19,12 +19,17 @@ import 'src/providers/settings_controller.dart';
 import 'src/providers/theme_manager.dart';
 import 'src/reminders/local_notifications_scheduler.dart';
 import 'src/reminders/reminder_controller.dart';
+import 'src/startup.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   registerVoiceLicenses();
   registerScriptureLicenses();
-  final store = SharedPreferencesStore();
+  runApp(await startApp(_load));
+}
+
+Future<Widget> _load() async {
+  final store = await openPreferences(SharedPreferencesStore());
   final themeManager = ThemeManager(store);
   final settings = SettingsController(
     store,
@@ -52,19 +57,17 @@ Future<void> main() async {
   );
   await (reminder.load(), journal.load()).wait;
   registerArtLicenses(art);
-  runApp(
-    CatholicPrayerApp(
-      content: content,
-      themeManager: themeManager,
-      settings: settings,
-      savedSession: savedSession,
-      journal: journal,
-      reminder: reminder,
-      scripture: scripture,
-      saints: saints,
-      art: art,
-      device: device,
-      audio: audio,
-    ),
+  return CatholicPrayerApp(
+    content: content,
+    themeManager: themeManager,
+    settings: settings,
+    savedSession: savedSession,
+    journal: journal,
+    reminder: reminder,
+    scripture: scripture,
+    saints: saints,
+    art: art,
+    device: device,
+    audio: audio,
   );
 }

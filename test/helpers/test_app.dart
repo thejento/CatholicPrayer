@@ -72,6 +72,7 @@ class TestApp {
       this.store,
       reminders,
       available: DeviceProfile(isTelevision: isTelevision, isAndroid: isAndroid).supportsReminders,
+      clock: Clock.fixed(_now),
     );
     if (locale != null) settings.setLocale(locale);
   }

@@ -457,3 +457,15 @@ Template:
   Settings). The texts are not read aloud.
 - Consequences: A new topic needs its enum value, a page in three languages and its place in
   the list. The facts (dates, popes, the Diary) should be part of the parish review (C-02).
+
+## ADR-038: Dated reminders for 12 weeks instead of weekly repeats
+- Date: 2026-10-31 · Status: Accepted
+- Context: ADR-023 scheduled seven weekly repeating notifications, each naming that weekday's
+  mysteries. Their text was fixed when scheduled, so after Advent or Lent began, the Sunday
+  reminder named the wrong mysteries until the app was opened (review r-12).
+- Options considered: a text without the mysteries; one dated notification per day for some
+  weeks, renewed when the app opens.
+- Decision: 84 dated, non-repeating notifications (12 weeks), each naming its date's
+  mysteries, renewed at every start. Well under Android's 500-alarm limit.
+- Consequences: Someone who doesn't open the app for 12 weeks stops getting reminders. Old
+  weekly repeats are cancelled at the first reschedule after the update.

@@ -209,5 +209,9 @@
   "learnMore": "En savoir plus",
   "learnMysteries": "Les cinq mystères",
   "prayTheseMysteries": "Prier ces mystères",
-  "prayChaplet": "Prier le chapelet"
+  "prayChaplet": "Prier le chapelet",
+  "voiceFailed": "Impossible de lire la voix. Vous pouvez continuer avec Suivant.",
+  "reminderFailed": "Impossible de programmer le rappel. Veuillez réessayer plus tard.",
+  "startupFailedTitle": "L'application n'a pas pu démarrer",
+  "startupFailedMessage": "Veuillez la fermer et la rouvrir. Si le problème persiste, réinstallez l'application ou signalez-le à cette adresse :"
 }

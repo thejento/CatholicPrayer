@@ -34,7 +34,8 @@ void main() {
 
     await tester.tap(reminderSwitch);
     await tester.pumpAndSettle();
-    final byDay = {for (final r in app.reminders.scheduled) r.weekday: r};
+    // Monday 12 October onwards: one a day.
+    final byDay = {for (final r in app.reminders.scheduled.take(7)) r.at.weekday: r};
     expect(byDay, hasLength(7));
     expect(byDay[DateTime.monday]!.title, 'Time to pray the Rosary');
     expect(byDay[DateTime.monday]!.body, 'Today: the Joyful Mysteries.');
@@ -49,6 +50,16 @@ void main() {
     await tester.tap(reminderSwitch);
     await tester.pumpAndSettle();
     expect(find.textContaining('Allow them in Android settings'), findsOneWidget);
+    expect(tester.widget<SwitchListTile>(reminderSwitch).value, isFalse);
+  });
+
+  testWidgets('a reminder that cannot be scheduled says so and stays off (r-11)', (tester) async {
+    final app = TestApp(isAndroid: true);
+    await openSettings(tester, app);
+    app.reminders.failWith = Exception('unknown time zone');
+    await tester.tap(reminderSwitch);
+    await tester.pumpAndSettle();
+    expect(find.text("Couldn't set the reminder. Please try again later."), findsOneWidget);
     expect(tester.widget<SwitchListTile>(reminderSwitch).value, isFalse);
   });
 
@@ -71,7 +82,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('7:15 AM'), findsOneWidget);
-    expect(app.reminders.scheduled.every((r) => r.hour == 7 && r.minute == 15), isTrue);
+    expect(app.reminders.scheduled.every((r) => r.at.hour == 7 && r.at.minute == 15), isTrue);
   });
 
   testWidgets('switching language reschedules in that language', (tester) async {
@@ -82,7 +93,7 @@ void main() {
 
     await app.settings.setLocale(const Locale('fr'));
     await tester.pumpAndSettle();
-    final monday = app.reminders.scheduled.firstWhere((r) => r.weekday == DateTime.monday);
+    final monday = app.reminders.scheduled.firstWhere((r) => r.at.weekday == DateTime.monday);
     expect(monday.title, "C'est l'heure du chapelet");
     expect(monday.body, "Aujourd'hui : les Mystères joyeux.");
     expect(app.reminders.channelName, 'Rappel quotidien');

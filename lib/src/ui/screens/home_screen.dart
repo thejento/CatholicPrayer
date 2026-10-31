@@ -40,6 +40,8 @@ class HomeScreen extends StatelessWidget {
     final content = context.read<ContentRepository>();
     final setTitle = content.mysterySetTitle(suggested).of(lang);
     final saved = context.watch<SavedSessionController>().saved;
+    // Steps in the saved Rosary with today's ending setting (F-23).
+    final total = saved == null ? 0 : buildSequence(saved.mode, ending: settings.ending).length;
 
     return Scaffold(
       appBar: AppBar(
@@ -126,12 +128,12 @@ class HomeScreen extends StatelessWidget {
                       subtitle: Text(
                         '${content.mysterySetTitle(saved.mysterySet).of(lang)} · '
                         '${saved.mode == RosaryMode.mysteriesOnly ? '${l10n.modeMysteriesOnly} · ' : ''}'
-                        '${l10n.stepCounter(saved.index + 1, buildSequence(saved.mode, ending: settings.ending).length)}',
+                        '${l10n.stepCounter(saved.indexWithin(total) + 1, total)}',
                       ),
                       trailing: const Icon(Icons.play_arrow_rounded),
                       onTap: () => context.push(
                         Routes.rosary(saved.mysterySet, saved.mode),
-                        extra: saved.index,
+                        extra: saved.indexWithin(total),
                       ),
                     ),
                   ),

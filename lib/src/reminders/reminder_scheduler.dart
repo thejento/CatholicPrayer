@@ -1,39 +1,29 @@
 import 'package:flutter/foundation.dart';
 
-/// One weekly notification: [weekday] uses [DateTime.monday]..[DateTime.sunday].
+/// One notification on a given day, at wall-clock time [at] (local).
 @immutable
-class WeeklyReminder {
-  const WeeklyReminder({
-    required this.weekday,
-    required this.hour,
-    required this.minute,
-    required this.title,
-    required this.body,
-  });
+class Reminder {
+  const Reminder({required this.id, required this.at, required this.title, required this.body});
 
-  final int weekday;
-  final int hour;
-  final int minute;
+  /// Stable per position, so rescheduling replaces rather than duplicates.
+  final int id;
+  final DateTime at;
   final String title;
   final String body;
 
-  /// Stable notification id, so rescheduling replaces rather than duplicates.
-  int get id => 100 + weekday;
-
   @override
   bool operator ==(Object other) =>
-      other is WeeklyReminder &&
-      other.weekday == weekday &&
-      other.hour == hour &&
-      other.minute == minute &&
+      other is Reminder &&
+      other.id == id &&
+      other.at == at &&
       other.title == title &&
       other.body == body;
 
   @override
-  int get hashCode => Object.hash(weekday, hour, minute, title, body);
+  int get hashCode => Object.hash(id, at, title, body);
 
   @override
-  String toString() => 'WeeklyReminder($weekday $hour:$minute "$title" "$body")';
+  String toString() => 'Reminder($id $at "$title" "$body")';
 }
 
 /// Schedules the daily reminder on the platform (ADR-023).
@@ -43,7 +33,7 @@ abstract interface class ReminderScheduler {
 
   /// Replaces every scheduled reminder with [reminders].
   /// [channelName] is the user-visible name of the Android channel.
-  Future<void> schedule(List<WeeklyReminder> reminders, {required String channelName});
+  Future<void> schedule(List<Reminder> reminders, {required String channelName});
 
   /// Removes every scheduled reminder.
   Future<void> cancelAll();
