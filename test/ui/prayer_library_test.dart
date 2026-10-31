@@ -27,6 +27,7 @@ void main() {
       'Act of Contrition',
       'The Angelus',
       'Regina Caeli (Easter Time)',
+      'Litany of Loreto',
       'For the Intentions of the Holy Father',
     ]) {
       expect(tester.getTopLeft(find.text(title)).dy, greaterThan(other), reason: title);
@@ -48,6 +49,19 @@ void main() {
         reason: title,
       );
     }
+  });
+
+  testWidgets('the Litany of Loreto opens, with its responses and background', (tester) async {
+    await openLibrary(tester, TestApp());
+    await tester.ensureVisible(find.text('Litany of Loreto'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Litany of Loreto'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Holy Mary, pray for us.'), findsOneWidget);
+    expect(find.textContaining('Solace of migrants, pray for us.'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('about-prayer')));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Sixtus V'), findsOneWidget);
   });
 
   testWidgets('a new prayer opens in the app language', (tester) async {
