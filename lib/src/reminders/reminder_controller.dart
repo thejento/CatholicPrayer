@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../data/preferences_store.dart';
+import '../domain/clock.dart';
+import '../domain/mysteries.dart';
 import 'reminder_scheduler.dart';
 
 /// Localized texts of the reminder, provided by the UI layer.
@@ -11,34 +13,49 @@ class ReminderTexts {
   final String title;
   final String channelName;
 
-  /// Notification body per weekday ([DateTime.monday]..[DateTime.sunday]).
-  final Map<int, String> bodies;
+  /// Notification body naming each set of mysteries.
+  final Map<MysterySet, String> bodies;
 
   @override
   bool operator ==(Object other) =>
       other is ReminderTexts &&
       other.title == title &&
       other.channelName == channelName &&
-      [for (var d = 1; d <= 7; d++) other.bodies[d] == bodies[d]].every((same) => same);
+      MysterySet.values.every((s) => other.bodies[s] == bodies[s]);
 
   @override
-  int get hashCode => Object.hash(title, channelName, Object.hashAll(bodies.values));
+  int get hashCode =>
+      Object.hash(title, channelName, Object.hashAll(MysterySet.values.map((s) => bodies[s])));
 }
+
+/// What became of turning the reminder on or off.
+enum ReminderChange { done, denied, failed }
 
 /// The daily reminder setting (F-12, ADR-023): on/off and time, persisted, and
 /// kept in sync with the platform schedule.
 class ReminderController extends ChangeNotifier {
-  ReminderController(this._store, this._scheduler, {required this.available});
+  ReminderController(
+    this._store,
+    this._scheduler, {
+    required this.available,
+    this.clock = const Clock(),
+  });
 
   static const enabledKey = 'reminder_enabled';
   static const timeKey = 'reminder_minutes';
   static const defaultTime = TimeOfDay(hour: 20, minute: 0);
+
+  /// Days scheduled ahead, one notification each, each naming that date's
+  /// mysteries (r-12). Renewed whenever the app starts; well under Android's
+  /// limit of 500 alarms per app.
+  static const daysAhead = 84;
 
   final PreferencesStore _store;
   final ReminderScheduler _scheduler;
 
   /// False where reminders are not offered (web, Android TV).
   final bool available;
+  final Clock clock;
 
   bool _enabled = false;
   TimeOfDay _time = defaultTime;
@@ -56,15 +73,23 @@ class ReminderController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Turns the reminder on or off. Turning it on asks for permission first;
-  /// returns false (and stays off) if it is refused.
-  Future<bool> setEnabled(bool value) async {
-    if (value && !await _scheduler.requestPermission()) return false;
+  /// Turns the reminder on or off. Turning it on asks for permission first
+  /// and stays off if it is refused, or if the reminders can't be scheduled.
+  Future<ReminderChange> setEnabled(bool value) async {
+    try {
+      if (value && !await _scheduler.requestPermission()) return ReminderChange.denied;
+    } catch (error) {
+      debugPrint('Reminder: permission request failed: $error');
+      return ReminderChange.failed;
+    }
     _enabled = value;
     notifyListeners();
     await _store.setBool(enabledKey, value);
-    await _sync();
-    return true;
+    if (await _sync() || !value) return ReminderChange.done;
+    _enabled = false;
+    notifyListeners();
+    await _store.setBool(enabledKey, false);
+    return ReminderChange.failed;
   }
 
   Future<void> setTime(TimeOfDay time) async {
@@ -79,26 +104,44 @@ class ReminderController extends ChangeNotifier {
   Future<void> updateTexts(ReminderTexts texts) async {
     if (texts == _texts) return;
     _texts = texts;
-    await _sync();
+    // Tried again with the next texts, e.g. at the next start.
+    if (!await _sync()) _texts = null;
   }
 
-  Future<void> _sync() async {
+  /// Brings the platform schedule in line; returns false if it failed, which
+  /// never escapes as an error (r-11).
+  Future<bool> _sync() async {
     final texts = _texts;
-    if (!available || texts == null) return;
-    if (!_enabled) {
-      await _scheduler.cancelAll();
-      return;
+    if (!available || texts == null) return true;
+    try {
+      if (!_enabled) {
+        await _scheduler.cancelAll();
+      } else {
+        await _scheduler.schedule(_reminders(texts), channelName: texts.channelName);
+      }
+      return true;
+    } catch (error) {
+      debugPrint('Reminder: scheduling failed: $error');
+      return false;
     }
-    await _scheduler.schedule([
-      for (var day = DateTime.monday; day <= DateTime.sunday; day++)
-        WeeklyReminder(
-          weekday: day,
-          hour: _time.hour,
-          minute: _time.minute,
-          title: texts.title,
-          body: texts.bodies[day]!,
-        ),
-    ], channelName: texts.channelName);
+  }
+
+  /// One per day from the next [time], with that date's mysteries.
+  List<Reminder> _reminders(ReminderTexts texts) {
+    final now = clock.now();
+    DateTime day(int offset) =>
+        DateTime(now.year, now.month, now.day + offset, _time.hour, _time.minute);
+    final first = day(0).isAfter(now) ? 0 : 1;
+    return [
+      for (var i = 0; i < daysAhead; i++)
+        if (day(first + i) case final at)
+          Reminder(
+            id: 100 + i,
+            at: at,
+            title: texts.title,
+            body: texts.bodies[suggestedMysterySet(at)]!,
+          ),
+    ];
   }
 }
 
@@ -110,7 +153,7 @@ class NoReminderScheduler implements ReminderScheduler {
   Future<bool> requestPermission() async => false;
 
   @override
-  Future<void> schedule(List<WeeklyReminder> reminders, {required String channelName}) async {}
+  Future<void> schedule(List<Reminder> reminders, {required String channelName}) async {}
 
   @override
   Future<void> cancelAll() async {}

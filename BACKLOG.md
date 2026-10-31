@@ -75,3 +75,8 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] W-02 Web addresses: each screen has a `#/…` address; refresh keeps it, links open it (ADR-035)
 - [x] I-01 Divine Mercy Chaplet, guided on the rosary beads; own translations of the Polish original (ADR-036)
 - [x] F-33 Learn about the Rosary: the mysteries, the chaplet, ways to pray, the ending (ADR-037)
+- [x] r-10 Voice errors: the voice turns off with a message, auto-advance no longer stalls
+- [x] r-11 Reminder set-up retried after a failure; unknown time zone falls back by offset
+- [x] r-12 Reminders dated per day for 12 weeks, so Sundays name the season's mysteries (ADR-038)
+- [x] r-13 Startup errors show a message; storage failure falls back to memory
+- [x] r-14 Saved step bounded; Home and the Rosary agree on the step number

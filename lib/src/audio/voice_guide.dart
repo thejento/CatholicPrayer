@@ -25,10 +25,11 @@ class VoiceGuide extends ChangeNotifier {
     this.autoAdvance = false,
     this.pause = const Duration(seconds: 2),
     this.withGuidance = true,
+    this.onError,
   }) : _enabled = enabled && catalog.hasLanguage(language) {
     session.addListener(_onStep);
     _clips = player.started.listen(_onClipStarted);
-    if (_enabled) _speak();
+    if (_enabled) unawaited(_speak());
   }
 
   final RosarySession session;
@@ -41,6 +42,10 @@ class VoiceGuide extends ChangeNotifier {
   bool autoAdvance;
   Duration pause;
   bool withGuidance;
+
+  /// Called when a clip can't be played (r-10): the voice has turned itself
+  /// off, so auto-advance doesn't wait for a clip that will never end.
+  final VoidCallback? onError;
 
   /// Speeds offered to the person: a little slower or faster than recorded.
   static const speeds = [0.75, 0.85, 1.0, 1.15, 1.25];
@@ -79,7 +84,7 @@ class VoiceGuide extends ChangeNotifier {
     _enabled = value;
     notifyListeners();
     if (value) {
-      _speak();
+      unawaited(_speak());
     } else {
       _silence();
     }
@@ -101,7 +106,7 @@ class VoiceGuide extends ChangeNotifier {
     if (session.isFinished) {
       _silence();
     } else {
-      _speak();
+      unawaited(_speak());
     }
   }
 
@@ -132,9 +137,20 @@ class VoiceGuide extends ChangeNotifier {
       for (final id in ids)
         if (!isGuidanceClip(id)) ?catalog.asset(language, id),
     };
-    await player.stop();
-    if (turn != _turn) return;
-    await player.play(assets, speed: speed);
+    try {
+      await player.stop();
+      if (turn != _turn) return;
+      await player.play(assets, speed: speed);
+    } catch (error) {
+      // A newer step already took over: its own clips are playing.
+      if (turn != _turn) return;
+      debugPrint('Voice: could not play $assets: $error');
+      _enabled = false;
+      _silence();
+      notifyListeners();
+      onError?.call();
+      return;
+    }
     // Only the turn that is still current may auto-advance.
     if (turn != _turn || !_enabled || !advances || session.isFinished || waitsHere) return;
     _advance = Timer(pause, () {

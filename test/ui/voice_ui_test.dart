@@ -29,6 +29,21 @@ void main() {
     expect(app.settings.voiceEnabled, isFalse);
   });
 
+  testWidgets('a voice that cannot play says so and turns off (r-10)', (tester) async {
+    final app = TestApp();
+    app.player.failWith = Exception('NotAllowedError');
+    await pumpApp(tester, app);
+    await startRosary(tester);
+
+    await tester.tap(find.byKey(const Key('voice-toggle')));
+    await tester.pumpAndSettle();
+    expect(find.text("Couldn't play the voice. You can go on with Next."), findsOneWidget);
+    expect(find.byTooltip('Read aloud'), findsOneWidget);
+    await tester.tap(find.text('Next'));
+    await tester.pumpAndSettle();
+    expect(stepTitle(tester), "Apostles' Creed");
+  });
+
   testWidgets('speed can be slowed down and sped up a bit', (tester) async {
     final app = TestApp();
     await app.settings.setVoiceEnabled(true);

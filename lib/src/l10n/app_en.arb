@@ -342,5 +342,10 @@
   "learnMysteries": "The five mysteries",
   "prayTheseMysteries": "Pray these mysteries",
   "prayChaplet": "Pray the chaplet",
-  "@learnTitle": {"description": "Home button and page title: pages that explain the Rosary, its mysteries and the chaplet"}
+  "@learnTitle": {"description": "Home button and page title: pages that explain the Rosary, its mysteries and the chaplet"},
+  "voiceFailed": "Couldn't play the voice. You can go on with Next.",
+  "@voiceFailed": {"description": "Message when a voice clip cannot be played; the voice turns off"},
+  "reminderFailed": "Couldn't set the reminder. Please try again later.",
+  "startupFailedTitle": "The app couldn't start",
+  "startupFailedMessage": "Please close it and open it again. If this keeps happening, reinstall the app or let us know at this address:"
 }

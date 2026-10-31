@@ -239,4 +239,53 @@ void main() {
   test('spoken prayers drop V./R. markers', () {
     expect(spokenPrayer('Hello.\n\nV. Pray for us.\nR. Amen.'), 'Hello. Pray for us. Amen.');
   });
+
+  test('a clip that fails turns the voice off and stops auto-advance (r-10)', () {
+    fakeAsync((async) {
+      var errors = 0;
+      player.failWith = Exception('blocked autoplay');
+      final g = VoiceGuide(
+        session: session,
+        catalog: catalog,
+        player: player,
+        language: 'en',
+        enabled: true,
+        autoAdvance: true,
+        onError: () => errors++,
+      );
+      async.flushMicrotasks();
+      expect(errors, 1);
+      expect(g.enabled, isFalse);
+      async.elapse(const Duration(seconds: 10));
+      expect(session.index, 0, reason: 'no advance after a failed clip');
+
+      // The person can turn it back on; it plays again once the player works.
+      player.failWith = null;
+      g.toggle();
+      async.flushMicrotasks();
+      expect(g.enabled, isTrue);
+      expect(player.played, hasLength(2));
+    });
+  });
+
+  test('an error from a step that was already left is ignored', () {
+    fakeAsync((async) {
+      var errors = 0;
+      final g = VoiceGuide(
+        session: session,
+        catalog: catalog,
+        player: player,
+        language: 'en',
+        enabled: true,
+        onError: () => errors++,
+      );
+      async.flushMicrotasks();
+      player.failWith = Exception('interrupted');
+      session.next();
+      session.previous();
+      async.flushMicrotasks();
+      expect(errors, 1, reason: 'only the current step reports');
+      expect(g.enabled, isFalse);
+    });
+  });
 }

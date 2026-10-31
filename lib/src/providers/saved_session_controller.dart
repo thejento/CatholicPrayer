@@ -19,12 +19,17 @@ class SavedSession {
   /// Index of the step to resume on.
   final int index;
 
+  /// [index] within a Rosary of [length] steps: the ending setting can have
+  /// shortened it since the save. [RosarySession] clamps the same way.
+  int indexWithin(int length) => index.clamp(0, length - 1);
+
   /// `joyful:12` (guided, as saved by earlier versions) or `joyful:3:mysteriesOnly`.
   String encode() => mode == RosaryMode.guided
       ? '${mysterySet.name}:$index'
       : '${mysterySet.name}:$index:${mode.name}';
 
-  /// Parses [encode]'s output; returns `null` for anything unexpected.
+  /// Parses [encode]'s output; returns `null` for anything unexpected,
+  /// including a step beyond the longest Rosary of that mode (r-14).
   static SavedSession? decode(String? value) {
     final parts = value?.split(':');
     if (parts == null || parts.length < 2 || parts.length > 3) return null;
@@ -34,6 +39,7 @@ class SavedSession {
         ? RosaryMode.guided
         : RosaryMode.values.where((m) => m.name == parts[2]).firstOrNull;
     if (set.isEmpty || index == null || index < 0 || mode == null) return null;
+    if (index >= buildSequence(mode, ending: RosaryEnding.all).length) return null;
     return SavedSession(mysterySet: set.first, index: index, mode: mode);
   }
 

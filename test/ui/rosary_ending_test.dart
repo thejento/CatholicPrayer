@@ -80,4 +80,19 @@ void main() {
     expect(find.byKey(const Key('summary-saint_michael')), findsOneWidget);
     expect(find.byKey(const Key('summary-holy_father_intentions')), findsNothing);
   });
+
+  testWidgets('Home and the Rosary agree on the step after the ending is turned off (r-14)', (
+    tester,
+  ) async {
+    final app = TestApp();
+    // Saved on Saint Michael (step 83 of 84), then the ending was turned off.
+    await app.savedSession.save(const SavedSession(mysterySet: MysterySet.joyful, index: 82));
+    await pumpApp(tester, app, size: const Size(400, 1200));
+
+    expect(find.textContaining('Step 80 of 80'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('continue-rosary')));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Step 80 of 80'), findsOneWidget);
+    expect(stepTitle(tester), 'Sign of the Cross');
+  });
 }

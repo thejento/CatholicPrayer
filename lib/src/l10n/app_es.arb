@@ -209,5 +209,9 @@
   "learnMore": "Saber más",
   "learnMysteries": "Los cinco misterios",
   "prayTheseMysteries": "Rezar estos misterios",
-  "prayChaplet": "Rezar la coronilla"
+  "prayChaplet": "Rezar la coronilla",
+  "voiceFailed": "No se pudo reproducir la voz. Puedes continuar con Siguiente.",
+  "reminderFailed": "No se pudo programar el recordatorio. Inténtalo de nuevo más tarde.",
+  "startupFailedTitle": "La aplicación no pudo iniciarse",
+  "startupFailedMessage": "Ciérrala y vuelve a abrirla. Si sigue ocurriendo, reinstala la aplicación o avísanos en esta dirección:"
 }

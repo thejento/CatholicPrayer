@@ -164,6 +164,10 @@ as small compressed audio files. The app only *plays* audio.
 
 The mapping lives in `tool/tts/voices.json`. Changing an entry re-renders that language.
 
+**If a clip can't be played** (a missing file, or a browser blocking sound without a tap),
+the voice turns itself off and says *"Couldn't play the voice. You can go on with Next."*,
+so auto-advance never waits for a clip that won't end (r-10).
+
 **What is spoken** (44 clips per language):
 
 * every prayer (8 clips)
@@ -233,11 +237,17 @@ notify once it is closed).
   picked with the system time picker.
 * Turning it on asks for the notification permission (Android 13+). If the person refuses,
   the switch stays off and a message explains how to allow notifications in Android settings.
-* The notification names that day's mysteries, so seven weekly reminders are scheduled,
-  one per weekday: *"Time to pray the Rosary"* / *"Today: the Sorrowful Mysteries."*
+* The notification names that day's mysteries: *"Time to pray the Rosary"* / *"Today: the
+  Sorrowful Mysteries."* Sundays depend on the season, so the app schedules one dated
+  notification per day for the next **12 weeks** (84), each with its own date's mysteries,
+  rather than weekly repeats whose text would go stale when Advent or Lent begins (r-12,
+  ADR-038). Opening the app renews the 12 weeks; after 12 weeks without opening it, the
+  reminders stop.
 * Texts follow the app language. Reminders are rescheduled at start-up and whenever the
-  language, time or switch changes, so they never go stale; Android restores them after a
-  reboot or app update.
+  language, time or switch changes; Android restores them after a reboot or app update.
+* If they can't be scheduled (an unknown time zone falls back to one with the same UTC
+  offset; anything else), the switch goes back off with *"Couldn't set the reminder"*, and
+  the next start tries again (r-11).
 * Delivery is *inexact* (Android may shift it by a few minutes to save battery), so the app
   needs no exact-alarm permission.
 * Tapping the notification opens the app on Home, where today's mysteries and any
@@ -705,6 +715,9 @@ Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
 
 ## 9. Privacy & accessibility
 
+* **Startup:** if the content can't be loaded, the app shows *"The app couldn't start"* with
+  the address to report it, instead of a blank screen. If storage is unavailable (a
+  private browser window), it opens anyway without remembering settings (r-13).
 * No network calls and no analytics. The only links out open in the browser when the person
   taps them: the Vatican News page about the saint of the day and, on the web, the Google Play
   and GitHub Issues links (§3.14). Android permissions, all normal (none grant access

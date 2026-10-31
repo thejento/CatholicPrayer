@@ -67,6 +67,9 @@ class JustAudioClipPlayer implements ClipPlayer {
         _started.add(StartedClip(asset, duration));
         // play() completes when the clip ends, or when it is stopped.
         await Future.any([player.play(), interrupt.future]);
+      } on PlayerInterruptedException {
+        // Stopped while loading: the next step's clips are on their way.
+        return;
       } finally {
         if (identical(_current, player)) _current = null;
         await player.dispose();

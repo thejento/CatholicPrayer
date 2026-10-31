@@ -92,6 +92,20 @@ class _RosaryScreenState extends State<RosaryScreen> {
       autoAdvance: _settings.autoAdvance,
       pause: Duration(seconds: _settings.pauseSeconds),
       withGuidance: _settings.readGuidanceAloud,
+      onError: _voiceFailed,
+    );
+  }
+
+  void _voiceFailed() {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        key: const Key('voice-failed'),
+        // Floats above Previous and Next, which stay usable.
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.fromLTRB(16, 0, 16, 96),
+        content: Text(AppLocalizations.of(context).voiceFailed),
+      ),
     );
   }
 
