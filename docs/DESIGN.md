@@ -191,9 +191,10 @@ build/tts/texts.json ──► tool/tts/render.py ──► assets/audio/<lang>/
   matches the current text. So the audio can never silently drift from the words on screen.
 * `render-audio.yml` runs on any branch push that changes spoken text. It renders only
   the stale clips, installs only the engines needed (Kokoro takes minutes; Kyutai
-  takes about an hour for French on CPU) and commits them to the branch. GitHub holds CI runs
-  triggered by a bot push for approval, and branch protection only counts PR-event runs,
-  so the job approves that held run through the API.
+  takes about an hour for French on CPU) with read-only rights. A second job, which runs none
+  of the branch's code, checks that only clips and the manifest changed and commits them to
+  the branch. GitHub holds the PR's CI run for that bot commit until the owner approves it
+  (ADR-040).
 * Kokoro (EN/ES) can also be rendered locally in about 2 minutes.
 
 **Playback** (`just_audio`, MIT, Android + web)
@@ -717,6 +718,10 @@ lib/
 * **Gradle:** the wrapper jar is checked against Gradle's official checksums in CI and
   release, and the distribution zip has a pinned `distributionSha256Sum` (r-08).
 * **Dependencies:** Dependabot opens weekly PRs for pub, Gradle and Actions.
+* **Workflow safety** (ADR-040): every action is pinned to a commit SHA with its version as a
+  comment, and CI fails on one that isn't. Checkouts don't keep the token, except where the
+  job pushes. Each job gets only the rights it needs: the Pages rights only in `deploy`, the
+  push right only in render-audio's `commit` job, which runs none of the branch's code.
 
 ## 8. Brand assets
 

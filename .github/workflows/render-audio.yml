@@ -1,8 +1,10 @@
-# Keeps the voice recordings in sync with the texts (DESIGN §3.7, ADR-020).
+# Keeps the voice recordings in sync with the texts (DESIGN §3.7, ADR-020, ADR-040).
 #
-# On a branch push that touches spoken text or the voice config, renders only
-# the stale clips, commits them back to the branch, then approves the PR's CI
-# run that the bot push opened (GitHub holds bot-triggered runs for approval).
+# On a branch push that touches spoken text or the voice config, `render` finds
+# and renders only the stale clips with read-only rights. `commit` runs none of
+# the branch's code: it checks that the files are only clips and the manifest,
+# then commits them back to the branch. The PR's CI run for that bot commit
+# waits for the owner's approval ("Approve workflows to run").
 name: Render audio
 
 on:
@@ -17,8 +19,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  actions: write
+  contents: read
 
 concurrency:
   group: render-audio-${{ github.ref }}
@@ -26,12 +27,17 @@ concurrency:
 
 jobs:
   render:
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 300
+    outputs:
+      langs: ${{ steps.stale.outputs.langs }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
           channel: stable
           flutter-version-file: pubspec.yaml
@@ -42,7 +48,7 @@ jobs:
           flutter pub get
           flutter test tool/tts/export_texts_test.dart
 
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.11'
 
@@ -52,12 +58,17 @@ jobs:
           pip install -q numpy
           result=$(python tool/tts/render.py --check)
           echo "$result"
-          echo "langs=$(echo "$result" | python -c 'import json,sys; print(",".join(json.load(sys.stdin)["languages"]))')" >> "$GITHUB_OUTPUT"
-          echo "engines=$(echo "$result" | python -c 'import json,sys; print(",".join(json.load(sys.stdin)["engines"]))')" >> "$GITHUB_OUTPUT"
+          langs=$(echo "$result" | python -c 'import json,sys; print(",".join(json.load(sys.stdin)["languages"]))')
+          engines=$(echo "$result" | python -c 'import json,sys; print(",".join(json.load(sys.stdin)["engines"]))')
+          # Both end up in later commands: allow only plain codes and names.
+          [[ -z "$langs" || "$langs" =~ ^[a-z]{2}(,[a-z]{2})*$ ]] || { echo "::error::Bad languages: $langs"; exit 1; }
+          [[ -z "$engines" || "$engines" =~ ^[a-z]+(,[a-z]+)*$ ]] || { echo "::error::Bad engines: $engines"; exit 1; }
+          echo "langs=$langs" >> "$GITHUB_OUTPUT"
+          echo "engines=$engines" >> "$GITHUB_OUTPUT"
 
       - name: Cache Kokoro model
         if: contains(steps.stale.outputs.engines, 'kokoro')
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: build/tts/models
           key: kokoro-v1.0
@@ -74,7 +85,7 @@ jobs:
 
       - name: Cache Kyutai model
         if: contains(steps.stale.outputs.engines, 'kyutai')
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/huggingface
           key: kyutai-tts-1.6b-en_fr
@@ -85,36 +96,62 @@ jobs:
 
       - name: Render
         if: steps.stale.outputs.langs != ''
+        env:
+          LANGS: ${{ steps.stale.outputs.langs }}
         run: |
           pip install -q soundfile lameenc
-          python tool/tts/render.py --langs "${{ steps.stale.outputs.langs }}"
+          python tool/tts/render.py --langs "$LANGS"
 
-      - name: Commit recordings and re-run CI
+      - name: Keep the recordings for the commit job
         if: steps.stale.outputs.langs != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: audio
+          path: assets/audio/
+          if-no-files-found: error
+          retention-days: 1
+
+  commit:
+    needs: render
+    if: needs.render.outputs.langs != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: audio
+          path: ${{ runner.temp }}/audio
+
+      - name: Check the files are only clips and the manifest
         env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
+          AUDIO: ${{ runner.temp }}/audio
         run: |
+          cd "$AUDIO"
+          bad=$(find . -type f -printf '%P\n' | grep -Ev '^([a-z]{2}/[A-Za-z0-9_]+\.mp3|manifest\.json)$' || true)
+          [ -z "$bad" ] || { echo "::error::Unexpected files: $bad"; exit 1; }
+          [ -z "$(find . ! -type f ! -type d)" ] || { echo "::error::Links or special files"; exit 1; }
+          [ -z "$(find . -type f -size +2M)" ] || { echo "::error::A file is over 2 MB"; exit 1; }
+          python3 -c 'import json; json.load(open("manifest.json"))'
+
+      - name: Commit the recordings
+        env:
+          AUDIO: ${{ runner.temp }}/audio
+          LANGS: ${{ needs.render.outputs.langs }}
+        run: |
+          [[ "$LANGS" =~ ^[a-z]{2}(,[a-z]{2})*$ ]] || { echo "::error::Bad languages: $LANGS"; exit 1; }
+          rm -rf assets/audio
+          cp -r "$AUDIO" assets/audio
+          git add -A assets/audio
+          outside=$(git status --porcelain | grep -v ' assets/audio/' || true)
+          [ -z "$outside" ] || { echo "::error::Changes outside assets/audio: $outside"; exit 1; }
+          git diff --cached --quiet && { echo "Nothing new to commit."; exit 0; }
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/audio
-          git commit -m "Render voice clips (${{ steps.stale.outputs.langs }})"
-          git pull --rebase origin "${GITHUB_REF_NAME}"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
-          sha=$(git rev-parse HEAD)
-
-          # A bot push opens the PR's CI run as "action_required". Branch
-          # protection only counts PR-event runs, so approve that run.
-          for _ in $(seq 1 12); do
-            run=$(gh api "repos/$REPO/actions/runs?head_sha=$sha&event=pull_request" \
-              --jq '[.workflow_runs[] | select(.name == "CI")][0].id // empty')
-            [ -n "$run" ] && break
-            sleep 10
-          done
-          if [ -n "$run" ] && gh api -X POST "repos/$REPO/actions/runs/$run/approve" >/dev/null 2>&1; then
-            echo "Approved CI run $run for $sha"
-          else
-            # No open PR yet (CI runs when it is opened), or approval refused.
-            gh workflow run ci.yml --ref "${GITHUB_REF_NAME}"
-            echo "::notice::CI dispatched for $sha. If a PR is open and shows 'Approve workflows to run', approve it once."
-          fi
+          git commit -m "Render voice clips ($LANGS)"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+          echo "::notice::Clips committed. On the PR, approve the held CI run once (Approve workflows to run)."
