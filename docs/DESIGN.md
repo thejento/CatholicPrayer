@@ -195,6 +195,11 @@ build/tts/texts.json ──► tool/tts/render.py ──► assets/audio/<lang>/
   of the branch's code, checks that only clips and the manifest changed and commits them to
   the branch. GitHub holds the PR's CI run for that bot commit until the owner approves it
   (ADR-040).
+* Every download is pinned (ADR-041). Python packages come from hash-locked files in
+  `tool/tts/requirements/` (`lock.sh` regenerates them from versions at least two weeks
+  old), torch only from the PyTorch CPU index. `render.py` checks the Kokoro files' SHA-256
+  before loading them and loads Kyutai's weights and voice at fixed Hugging Face commits
+  (`tool/tts/models.json`). The cache keys include those pins.
 * Kokoro (EN/ES) can also be rendered locally in about 2 minutes.
 
 **Playback** (`just_audio`, MIT, Android + web)
@@ -271,7 +276,8 @@ and the translation's credit at the bottom, so the person can read it before med
 * The Assumption is not narrated in Scripture; like the Coronation it shows Revelation 12:1,
   the passage Tradition reads for it.
 * `tool/scripture/build.py` downloads the sources and writes `assets/data/scripture/<lang>.json`
-  (20 passages, 178 verses). The Spanish spelling update (accents, j/g, modern names such as
+  (20 passages, 178 verses). The eBible archives are checked by SHA-256 and the Wikisource
+  pages are read at fixed revisions, so a changed source stops the build (ADR-041). The Spanish spelling update (accents, j/g, modern names such as
   Jerusalén and Belén) is an explicit list in `tool/scripture/modern_es.py`; the wording is unchanged.
 * On TV the D-pad moves from verse to verse, scrolling as it goes.
 * Read aloud: not yet (backlog F-18).
@@ -372,8 +378,8 @@ never shows paintings, and the prayer steps stay plain so the text is always eas
 * Only images their museums release as **CC0 or public domain**: National Gallery of Art
   (Washington), Cleveland Museum of Art, Statens Museum for Kunst (Copenhagen). Credits are also
   on the licence page.
-* `tool/art/build_art.py` downloads them, resizes to 1200 px and writes WebP (3.1 MB in all) plus
-  `assets/data/art.json`.
+* `tool/art/build_art.py` downloads them, checks each one's SHA-256 before decoding it
+  (ADR-041), resizes to 1200 px and writes WebP (3.1 MB in all) plus `assets/data/art.json`.
 * The painting keeps to about a quarter of the screen height (160–360 px) so the title stays in
   view; it has a screen-reader label ("Painting: The Annunciation, by Masolino da Panicale").
 * Artwork titles are the museums' English titles in every language.
