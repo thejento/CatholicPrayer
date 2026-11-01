@@ -102,7 +102,7 @@ Template:
 - Consequences: A custom domain can be added later (CNAME), which would change the base href to `/`.
 
 ## ADR-012: Release signing through GitHub secrets with debug fallback
-- Date: 2026-10-14 · Status: Accepted
+- Date: 2026-10-14 · Status: Accepted; the release fallback is replaced by ADR-039
 - Decision: Gradle reads `android/key.properties` when present. CI writes it from
   secrets. Without secrets, the release uses debug signing and the GitHub release is marked
   pre-release, so the pipeline works on day 1.
@@ -470,6 +470,22 @@ Template:
 - Consequences: Someone who doesn't open the app for 12 weeks stops getting reminders. Old
   weekly repeats are cancelled at the first reschedule after the update.
 
+## ADR-039: Releases only from main, approved by the owner, never debug-signed
+- Date: 2026-11-01 · Status: Accepted
+- Context: Any `v*` tag on any commit started a signed release with the repository's signing
+  secrets, and without the secrets a debug-signed pre-release was still published (reviews
+  r-01, r-08). Once Play uploads exist (O-11), that path reaches real users.
+- Options considered: keep one job and add checks; split the workflow into jobs with
+  separate rights; GitHub settings (tag ruleset, environment with reviewers) or none.
+- Decision: Three jobs. *verify* (read-only) checks the tag is a version on a commit of
+  `main` and runs the tests, before any secret. *build* runs in the `release` environment,
+  which requires the owner's approval and holds the signing secrets; it fails if they are
+  missing, Gradle refuses the debug key (`REQUIRE_RELEASE_SIGNING`), and the APK's
+  certificate is checked. *publish* alone has `contents: write` and only uploads the
+  files. A tag ruleset lets only the owner create, move or delete `v*` tags. The Gradle
+  wrapper is validated and its distribution hash pinned.
+- Consequences: Every release waits for a click in the Actions tab. PR builds keep the debug
+  fallback. Updating Gradle means updating `distributionSha256Sum` too.
 ## ADR-040: Workflows with pinned actions, least rights per job, no self-approved CI
 - Date: 2026-11-01 · Status: Accepted · Changes the CI approval part of ADR-020
 - Context: The security review found actions referenced by movable tags (`@v7`), the

@@ -172,12 +172,13 @@ displayed text) and let the pipeline re-render just that clip.
 | `ci.yml` | PR, push to `main` | checks: "Format · Analyze · Test", "Build web", "Build Android APK" |
 | `deploy-web.yml` | push to `main` | GitHub Pages, with `APP_BUILD` = short commit |
 | `render-audio.yml` | branch push touching spoken text | renders stale clips (read-only), a second job checks and commits them |
-| `release.yml` | tag `vX.Y.Z` | signed AAB + APK + web zip on a GitHub Release (`APP_VERSION` = tag) |
+| `release.yml` | tag `vX.Y.Z` (owner only, on `main`) | verify → build (owner approves, environment `release`) → publish: signed AAB + APK + web zip on a GitHub Release (`APP_VERSION` = tag); never debug-signed (ADR-039) |
 
 Actions are pinned to a commit SHA with a `# vX.Y.Z` comment; CI fails on a tag (ADR-040).
 Checkouts use `persist-credentials: false` and write rights go on the job, not the workflow.
 
-The signing secrets are set. Play Store publishing is issues O-10/O-11; when the listing is
+The signing secrets belong in the `release` environment. Updating Gradle also means updating
+`distributionSha256Sum` in `android/gradle/wrapper/gradle-wrapper.properties`. Play Store publishing is issues O-10/O-11; when the listing is
 live, set `playStoreListed = true`.
 
 ## Backlog and issues

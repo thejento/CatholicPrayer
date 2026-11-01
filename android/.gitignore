@@ -1,4 +1,4 @@
-gradle-wrapper.jar
+# gradle-wrapper.jar is committed: the official Gradle 9.8.1 jar, checked in CI (r-08).
 /.gradle
 /captures/
 /gradlew
