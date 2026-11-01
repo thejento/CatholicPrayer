@@ -9,7 +9,12 @@ Sources (downloaded into build/scripture/, never committed):
                                                                (eBible.org francl)
   es  Torres Amat, 1836 edition, public domain                 (es.wikisource.org transcription)
       with the spelling modernized by tool/scripture/modern_es.py
+
+Every download is pinned (ADR-041): the eBible archives by SHA-256, the Wikisource
+pages by revision. A changed source stops the build; review the new text, then
+update the pin.
 """
+import hashlib
 import html
 import io
 import json
@@ -53,11 +58,13 @@ SOURCES = {
         "source": "Douay-Rheims Bible, 1899 American Edition",
         "license": "Public domain",
         "url": "https://ebible.org/Scriptures/engDRA_vpl.zip",
+        "sha256": "96b1f09c0a8edbb77e5258cf2dcc10bde00d5a57cae660660c55fbfbd770aed5",
     },
     "fr": {
         "source": "Sainte Bible néo-Crampon Libre, © 2022 Fraternité de Tibériade",
         "license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/), unmodified excerpts; Luke 1:45 completed from the Crampon 1923 (public domain)",
         "url": "https://ebible.org/Scriptures/francl_vpl.zip",
+        "sha256": "4e679d80dacb8fad8a59e85a5b5f9dcc2bf94a2e7e7c1700bec21bd449b067f4",
     },
     "es": {
         "source": "Sagrada Biblia, traducción de Félix Torres Amat (1836), ortografía modernizada",
@@ -73,27 +80,33 @@ FIXES = {
     "qui lui ont été dites de la part du Seigneur\u202f!\u00a0»",
 }
 
+# Book → (page, revision). The revision fixes the text; the page name is for people.
 WIKISOURCE = {
-    "MAT": "La_Sagrada_Biblia_(XIII)/Mateo",
-    "MAR": "La_Sagrada_Biblia_(XIII)/Marcos",
-    "LUK": "La_Sagrada_Biblia_(XIII)/Lucas",
-    "JOH": "La_Sagrada_Biblia_(XIII)/Juan",
-    "ACT": "La_Sagrada_Biblia_(XIV)/Hechos",
-    "REV": "La_Sagrada_Biblia_(XV)/Apocalipsis",
+    "MAT": ("La_Sagrada_Biblia_(XIII)/Mateo", 1229135),
+    "MAR": ("La_Sagrada_Biblia_(XIII)/Marcos", 1229134),
+    "LUK": ("La_Sagrada_Biblia_(XIII)/Lucas", 1229133),
+    "JOH": ("La_Sagrada_Biblia_(XIII)/Juan", 1229132),
+    "ACT": ("La_Sagrada_Biblia_(XIV)/Hechos", 1229140),
+    "REV": ("La_Sagrada_Biblia_(XV)/Apocalipsis", 1229148),
 }
 
-def fetch(url: str, name: str) -> bytes:
+def fetch(url: str, name: str, sha256: str | None = None) -> bytes:
+    """The file at [url], cached as [name]; with [sha256], checked against it."""
     path = CACHE / name
     if not path.exists():
         CACHE.mkdir(parents=True, exist_ok=True)
         req = urllib.request.Request(url, headers={"User-Agent": "RosaryCompanion-build/1.0"})
         path.write_bytes(urllib.request.urlopen(req, timeout=60).read())
-    return path.read_bytes()
+    data = path.read_bytes()
+    if sha256 and hashlib.sha256(data).hexdigest() != sha256:
+        sys.exit(f"{path} ({url}) has changed: SHA-256 {hashlib.sha256(data).hexdigest()}, "
+                 f"expected {sha256}. Review the new source, then update SOURCES.")
+    return data
 
 
 def vpl_verses(lang: str) -> dict:
     """{(book, chapter, verse): text} from an eBible VPL archive."""
-    data = fetch(SOURCES[lang]["url"], f"{lang}.zip")
+    data = fetch(SOURCES[lang]["url"], f"{lang}.zip", SOURCES[lang]["sha256"])
     with zipfile.ZipFile(io.BytesIO(data)) as z:
         name = next(n for n in z.namelist() if n.endswith("_vpl.txt"))
         text = z.read(name).decode("utf-8-sig")
@@ -107,9 +120,9 @@ def vpl_verses(lang: str) -> dict:
 
 def wikisource_verses(book: str) -> dict:
     """{(book, chapter, verse): text} from the Torres Amat transcription."""
-    api = ("https://es.wikisource.org/w/api.php?action=parse&prop=text&format=json&page="
-           + urllib.parse.quote(WIKISOURCE[book]))
-    page = json.loads(fetch(api, f"es-{book}.json"))["parse"]["text"]["*"]
+    _, revision = WIKISOURCE[book]
+    api = f"https://es.wikisource.org/w/api.php?action=parse&prop=text&format=json&oldid={revision}"
+    page = json.loads(fetch(api, f"es-{book}-{revision}.json"))["parse"]["text"]["*"]
     page = re.sub(r"<sup[^>]*class=\"reference\"[^>]*>.*?</sup>", "", page, flags=re.S)
     page = re.sub(r"<span[^>]*class=\"pagenum\"[^>]*>.*?</span>", "", page, flags=re.S)
     page = re.split(r"<(?:div|ol)[^>]*class=\"[^\"]*references", page)[0]
@@ -160,13 +173,11 @@ def main():
         return
     OUT.mkdir(parents=True, exist_ok=True)
     for lang in ("en", "es", "fr"):
-        meta = {k: v for k, v in SOURCES[lang].items() if k != "url"}
+        meta = {k: v for k, v in SOURCES[lang].items() if k not in ("url", "sha256")}
         doc = {"language": lang, **meta, "passages": passages(lang)}
         (OUT / f"{lang}.json").write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", "utf-8")
         print(f"{lang}: {sum(len(p['verses']) for p in doc['passages'].values())} verses")
 
 
 if __name__ == "__main__":
-    import urllib.parse  # noqa: F401  (used by wikisource_verses)
-
     main()

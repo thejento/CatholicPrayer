@@ -507,3 +507,25 @@ Template:
   An App token can replace the click later, if it becomes a burden.
 - Consequences: One click per content PR whose clips were rendered. A new action goes in
   with its SHA and version comment, or CI fails.
+
+## ADR-041: Every build download pinned by hash or fixed revision
+- Date: 2026-11-01 · Status: Accepted
+- Context: The voice, Bible and painting tools download what ends up in the app, and none of
+  it was checked (review r-04). The Kokoro files had no checksum and a fixed cache key.
+  Python packages had no versions. `--extra-index-url` let pip take a package from either
+  index, the way the 2022 `torchtriton` attack worked. Kyutai loaded whatever Hugging Face
+  served that day, and the museum images were decoded unchecked.
+- Options considered: for packages, version pins only, or versions with hashes; for the
+  web sources, hashes, or fixed revisions where the content is generated on each request.
+- Decision: Python packages are locked with hashes in `tool/tts/requirements/` and installed
+  with `--require-hashes --no-deps`. `lock.sh` resolves all of them together, so the groups
+  agree, and takes only versions at least two weeks old. torch comes only from the PyTorch
+  index, everything else only from PyPI. `tool/tts/models.json` holds the Kokoro files'
+  SHA-256 and the Kyutai model and voice commits, and the cache keys include them. The eBible
+  archives and the paintings are checked by SHA-256. The Wikisource pages are read at fixed
+  revisions, because the API's HTML carries a timestamp. Each pin was taken from a download
+  that rebuilt the committed files: the Bible texts and paintings came out identical, and
+  the Kokoro clips the same length.
+- Consequences: An upstream change stops the build with the old and new hash. Someone looks
+  at the new file, then updates the pin. Updating packages means running `lock.sh` (it needs
+  `uv`).

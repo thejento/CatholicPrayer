@@ -10,20 +10,27 @@ one clip instead of a whole language.
   python tool/tts/render.py --check            # list stale languages, render nothing
   python tool/tts/render.py --langs en,es      # render stale clips of en and es
   python tool/tts/render.py                    # render every stale clip
+  python tool/tts/render.py --get-kokoro       # download the Kokoro files and check them
 
-Engines are imported lazily: Kokoro needs `kokoro-onnx`, Kyutai needs
-`moshi` (PyTorch). Both need `lameenc`, `numpy` and `soundfile`.
+The engines' downloads are pinned in tool/tts/models.json (ADR-041): the Kokoro
+files by SHA-256, the Kyutai weights and voice by Hugging Face commit.
+
+Engines are imported lazily. The packages are pinned with hashes in
+tool/tts/requirements/: base.txt for every run, kokoro.txt for Kokoro,
+torch.txt then kyutai.txt for Kyutai.
 """
 import argparse
 import hashlib
 import json
 import os
 import sys
+import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 TEXTS = ROOT / "build/tts/texts.json"
 VOICES = ROOT / "tool/tts/voices.json"
+MODELS = ROOT / "tool/tts/models.json"
 AUDIO = ROOT / "assets/audio"
 MANIFEST = AUDIO / "manifest.json"
 
@@ -52,6 +59,34 @@ def stale_clips(lang, texts, voice, manifest):
     ]
 
 
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as f:
+        for block in iter(lambda: f.read(1 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def kokoro_files(models_dir: str, download: bool = False):
+    """Paths of the Kokoro files, each checked against its pinned SHA-256.
+    With [download], a missing or wrong file is fetched again first."""
+    pinned = load_json(MODELS, {})["kokoro"]
+    paths = []
+    for name, expected in pinned["files"].items():
+        path = Path(models_dir) / name
+        if download and (not path.exists() or file_sha256(path) != expected):
+            path.parent.mkdir(parents=True, exist_ok=True)
+            print(f"Downloading {name}", flush=True)
+            urllib.request.urlretrieve(pinned["url"] + name, path)
+        if not path.exists():
+            sys.exit(f"{path} is missing: run `python tool/tts/render.py --get-kokoro`")
+        actual = file_sha256(path)
+        if actual != expected:
+            sys.exit(f"{path} has SHA-256 {actual}, expected {expected} (tool/tts/models.json)")
+        paths.append(str(path))
+    return paths
+
+
 class Kokoro:
     def __init__(self, models_dir: str):
         import espeakng_loader
@@ -62,9 +97,10 @@ class Kokoro:
         # override (a symlink) when the venv path is long.
         data = os.environ.get("ESPEAK_DATA_DIR", espeakng_loader.get_data_path())
         os.environ["ESPEAK_DATA_PATH"] = data
+        model, voices = kokoro_files(models_dir)
         self.engine = Engine(
-            f"{models_dir}/kokoro-v1.0.onnx",
-            f"{models_dir}/voices-v1.0.bin",
+            model,
+            voices,
             espeak_config=EspeakConfig(lib_path=espeakng_loader.get_library_path(), data_path=data),
         )
 
@@ -104,17 +140,26 @@ class Kyutai:
         from moshi.models.loaders import CheckpointInfo
         from moshi.models.tts import TTSModel
 
+        pinned = load_json(MODELS, {})["kyutai"]
+        self.voices = pinned["voices"]
         torch.set_num_threads(os.cpu_count() or 4)
         self.model = TTSModel.from_checkpoint_info(
-            CheckpointInfo.from_hf_repo("kyutai/tts-1.6b-en_fr"), n_q=32, temp=0.6,
-            device="cpu", dtype=torch.float32)
+            CheckpointInfo.from_hf_repo(pinned["model"]["repo"], revision=pinned["model"]["revision"]),
+            voice_repo=self.voices["repo"], n_q=32, temp=0.6, device="cpu", dtype=torch.float32)
+
+    def _voice_path(self, name):
+        """The speaker embedding, at the pinned commit of the voice repository."""
+        from huggingface_hub import hf_hub_download
+
+        return Path(hf_hub_download(self.voices["repo"], name + self.model.voice_suffix,
+                                    revision=self.voices["revision"]))
 
     def _take(self, text, voice):
         import numpy as np
         import torch
 
         model = self.model
-        cond = model.make_condition_attributes([model.get_voice_path(voice["voice"])], cfg_coef=2.0)
+        cond = model.make_condition_attributes([self._voice_path(voice["voice"])], cfg_coef=2.0)
         result = model.generate([model.prepare_script([text], padding_between=1)], [cond])
         with model.mimi.streaming(1), torch.no_grad():
             frames = [model.mimi.decode(f[:, 1:, :]).cpu().numpy()[0, 0] for f in result.frames[model.delay_steps :]]
@@ -152,7 +197,11 @@ def main():
     parser.add_argument("--check", action="store_true", help="print stale languages as JSON and exit")
     parser.add_argument("--langs", default="", help="comma-separated languages (default: all)")
     parser.add_argument("--models", default=os.environ.get("KOKORO_MODELS", "build/tts/models"))
+    parser.add_argument("--get-kokoro", action="store_true", help="download and check the Kokoro files, then exit")
     args = parser.parse_args()
+    if args.get_kokoro:
+        kokoro_files(args.models, download=True)
+        return
 
     texts = load_json(TEXTS, None)
     if texts is None:

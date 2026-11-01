@@ -6,7 +6,7 @@ tablets, Android TV (D-pad) and the web, from one codebase. Offline, no account,
 App id `com.catholicrosarycompanion.crc`, package name `crc`, version in `pubspec.yaml`.
 
 - Web app (deployed from `main`): https://thejento.github.io/CatholicPrayer/
-- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…040) · History: `BACKLOG.md`
+- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…041) · History: `BACKLOG.md`
 - **Open work: GitHub Issues**, see "Backlog and issues" below.
 
 ## How the owner works
@@ -130,18 +130,21 @@ that whole language):
    (outside 8–32 characters per second: cut short, skipped words, or babble).
 5. A freshness test in CI (`test/data/audio_manifest_test.dart`) fails when a clip is stale. **`render-audio.yml`** does the rendering
    on any branch push that changes spoken text (`assets/data/**`, ARB files, `clips.dart`,
-   `tool/tts/**`). It installs only the engines needed (Kokoro model files cached from the
-   kokoro-onnx GitHub release; `pip install moshi` with CPU-only PyTorch from
-   `download.pytorch.org/whl/cpu`, HF cache for weights). A separate job that runs none of the
+   `tool/tts/**`). It installs only the engines needed, all pinned (ADR-041): packages with
+   hashes from `tool/tts/requirements/` (torch only from the PyTorch CPU index), Kokoro files
+   checked by SHA-256 and Kyutai weights at fixed Hugging Face commits (`tool/tts/models.json`). A separate job that runs none of the
    branch's code commits the clips to the branch; the owner approves the held CI run
    (ADR-040). Kokoro takes minutes; **French (Kyutai) takes about an hour**, so expect the
    PR's first CI run to fail on the freshness check until the bot's commit lands.
 
-**Running locally:** use a venv in the scratchpad: `pip install kokoro-onnx soundfile lameenc
-numpy` (Kokoro models in `build/tts/models/` or `$KOKORO_MODELS`); for French also `pip
-install moshi --extra-index-url https://download.pytorch.org/whl/cpu`. espeak-ng keeps its data
-path in a 160-byte buffer: if the venv path is long, symlink the data dir and set
-`ESPEAK_DATA_DIR`. Prefer letting CI render French.
+**Running locally:** use a Python 3.11+ venv in the scratchpad and install like CI:
+`pip install --require-hashes --no-deps -r tool/tts/requirements/base.txt` then `kokoro.txt`
+(for French: `torch.txt` with `--index-url https://download.pytorch.org/whl/cpu`, then
+`kyutai.txt`). `python tool/tts/render.py --get-kokoro` fetches and checks the Kokoro models
+(`build/tts/models/` or `$KOKORO_MODELS`). To update a package, run
+`tool/tts/requirements/lock.sh` (needs `uv`); to change a model, update its hash or commit in
+`tool/tts/models.json`. espeak-ng keeps its data path in a 160-byte buffer: if the venv path is
+long, symlink the data dir and set `ESPEAK_DATA_DIR`. Prefer letting CI render French.
 
 **Choosing or checking a voice:** Claude can't listen. For each candidate, render the Hail
 Mary, a short guidance line (where glitches showed) and the Creed (long text). Transcribe them
