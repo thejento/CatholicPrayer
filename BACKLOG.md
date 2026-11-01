@@ -5,7 +5,7 @@
 
 Each issue title starts with a stable ID: **F** = feature, **T** = TV, **W** = web,
 **Q** = quality, **O** = ops/CI/CD, **C** = content, **I** = idea (not committed).
-A new item takes the next free number of its prefix (next: F-34, T-05, W-03, Q-06, O-16, C-05, I-04).
+A new item takes the next free number of its prefix (next: F-34, T-05, W-03, Q-06, O-18, C-05, I-04).
 Iterations are milestones; labels give the type, `owner` for the owner's own tasks,
 `on hold` when blocked. Close the issue from the PR that does it (`Closes #NN`).
 Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/DECISIONS.md)
@@ -81,3 +81,6 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] r-12 Reminders dated per day for 12 weeks, so Sundays name the season's mysteries (ADR-038)
 - [x] r-13 Startup errors show a message; storage failure falls back to memory
 - [x] r-14 Saved step bounded; Home and the Rosary agree on the step number
+- [x] r-02 Actions pinned to commit SHAs (checked in CI); checkouts don't keep the token (ADR-040)
+- [x] r-03 Render audio: read-only render, a separate job checks and commits, no self-approved CI
+- [x] r-07 Least rights per job: Pages rights only in deploy

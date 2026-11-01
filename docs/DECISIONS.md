@@ -469,3 +469,25 @@ Template:
   mysteries, renewed at every start. Well under Android's 500-alarm limit.
 - Consequences: Someone who doesn't open the app for 12 weeks stops getting reminders. Old
   weekly repeats are cancelled at the first reschedule after the update.
+
+## ADR-040: Workflows with pinned actions, least rights per job, no self-approved CI
+- Date: 2026-11-01 · Status: Accepted · Changes the CI approval part of ADR-020
+- Context: The security review found actions referenced by movable tags (`@v7`), the
+  checkout's write token left in `.git/config` while third-party code ran (r-02), the
+  Pages rights given to the build job too (r-07), and `render-audio.yml` running the
+  branch's code with write rights, putting step outputs straight into shell and approving
+  its own CI runs (r-03).
+- Options considered: for the actions, tags or full commit SHAs. For render-audio, keep the
+  self-approval; a GitHub App token or personal token so the bot's push starts CI normally;
+  or let the owner approve the held run.
+- Decision: Every action is pinned to a full commit SHA with its version as a comment;
+  Dependabot updates both, and a CI step fails on an unpinned `uses:`. Checkouts don't keep
+  the token (`persist-credentials: false`), except the one job that pushes. Write rights
+  are given per job: only `deploy` in `deploy-web.yml` can write to Pages.
+  `render-audio.yml` is split in two. `render` has read-only rights, passes values through
+  `env:` and accepts only plain language codes. `commit` runs none of the branch's code: it
+  checks that the files are only clips and the manifest, then commits them. The workflow no
+  longer approves CI runs: the owner clicks **Approve workflows to run** once on the PR.
+  An App token can replace the click later, if it becomes a burden.
+- Consequences: One click per content PR whose clips were rendered. A new action goes in
+  with its SHA and version comment, or CI fails.
