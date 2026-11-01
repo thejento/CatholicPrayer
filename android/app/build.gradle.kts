@@ -7,7 +7,9 @@ plugins {
 }
 
 // Release signing (ADR-012): CI writes android/key.properties from GitHub
-// secrets. Without it, release builds fall back to the debug key.
+// secrets. Without it, release builds fall back to the debug key, except
+// when REQUIRE_RELEASE_SIGNING=true (the release workflow): then the build
+// fails rather than produce a debug-signed "release" (r-08).
 val keystoreProperties = Properties().apply {
     val file = rootProject.file("key.properties")
     if (file.exists()) file.inputStream().use { load(it) }
@@ -52,7 +54,11 @@ android {
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
+            val release = signingConfigs.findByName("release")
+            if (release == null && System.getenv("REQUIRE_RELEASE_SIGNING") == "true") {
+                throw GradleException("Release signing is required but android/key.properties is missing")
+            }
+            signingConfig = release ?: signingConfigs.getByName("debug")
         }
     }
 }

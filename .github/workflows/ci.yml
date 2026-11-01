@@ -89,6 +89,10 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
+      # The Gradle wrapper jar must be an official one (r-08).
+      - uses: gradle/actions/wrapper-validation@v6
+        with:
+          min-wrapper-count: 1
       - uses: actions/setup-java@v6
         with:
           distribution: temurin

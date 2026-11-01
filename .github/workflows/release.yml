@@ -1,12 +1,19 @@
 # Tag-driven release (DESIGN §7): push a tag like v1.2.0 to publish a
 # GitHub Release with a signed Android App Bundle, an APK and a web zip.
 #
-# Signing secrets (ADR-012), all optional:
+# Safeguards (r-01, r-08, ADR-039):
+# - verify: the tag must be a version on a commit of main, and the tests
+#   must pass, before any secret is touched.
+# - build: runs in the `release` environment, which the owner approves;
+#   the signing secrets live there. Without them it fails: no debug-signed
+#   release is ever published.
+# - publish: the only job with write access, and it never sees the secrets.
+#
+# Signing secrets (ADR-012), in the `release` environment:
 #   ANDROID_KEYSTORE_BASE64   base64 of the upload keystore (.jks)
 #   ANDROID_KEYSTORE_PASSWORD
 #   ANDROID_KEY_ALIAS
 #   ANDROID_KEY_PASSWORD
-# Without them the build is debug-signed and the release is a pre-release.
 name: Release
 
 on:
@@ -14,14 +21,55 @@ on:
     tags: ['v*.*.*']
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  release:
+  verify:
+    name: Verify the tag
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: The tag is a version on main
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          if ! [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::$TAG is not a version like v1.2.3"
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::$TAG points at $GITHUB_SHA, which is not on main"
+            exit 1
+          fi
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version-file: pubspec.yaml
+          cache: true
+      - run: flutter pub get
+      - run: flutter test
+
+  build:
+    name: Build and sign
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    # Waits for the owner's approval; the signing secrets are only here.
+    environment: release
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: gradle/actions/wrapper-validation@v6
+        with:
+          min-wrapper-count: 1
 
       - uses: actions/setup-java@v6
         with:
@@ -36,21 +84,20 @@ jobs:
           cache: true
 
       - run: flutter pub get
-      - run: flutter test
 
       - name: Configure release signing
-        id: signing
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
-          if [ -z "$KEYSTORE_BASE64" ]; then
-            echo "::warning::No signing secrets; building a debug-signed pre-release."
-            echo "signed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
+          for name in KEYSTORE_BASE64 KEYSTORE_PASSWORD KEY_ALIAS KEY_PASSWORD; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Signing secret $name is missing; no release without signing."
+              exit 1
+            fi
+          done
           echo "$KEYSTORE_BASE64" | base64 --decode > android/app/upload-keystore.jks
           cat > android/key.properties <<PROPS
           storeFile=app/upload-keystore.jks
@@ -58,29 +105,58 @@ jobs:
           keyAlias=$KEY_ALIAS
           keyPassword=$KEY_PASSWORD
           PROPS
-          echo "signed=true" >> "$GITHUB_OUTPUT"
 
       - name: Build
+        env:
+          # Gradle fails instead of falling back to the debug key (r-08).
+          REQUIRE_RELEASE_SIGNING: 'true'
+          TAG: ${{ github.ref_name }}
+          RUN_NUMBER: ${{ github.run_number }}
+          REPO_NAME: ${{ github.event.repository.name }}
         run: |
-          version="${GITHUB_REF_NAME#v}"
-          flutter build appbundle --release --build-name="$version" --build-number=${{ github.run_number }} --dart-define=APP_VERSION="$version"
-          flutter build apk --release --build-name="$version" --build-number=${{ github.run_number }} --dart-define=APP_VERSION="$version"
-          flutter build web --release --base-href /${{ github.event.repository.name }}/ --dart-define=APP_VERSION="$version"
+          version="${TAG#v}"
+          flutter build appbundle --release --build-name="$version" --build-number="$RUN_NUMBER" --dart-define=APP_VERSION="$version"
+          flutter build apk --release --build-name="$version" --build-number="$RUN_NUMBER" --dart-define=APP_VERSION="$version"
+          flutter build web --release --base-href "/$REPO_NAME/" --dart-define=APP_VERSION="$version"
           mkdir -p dist
           cp build/app/outputs/bundle/release/app-release.aab "dist/rosary-companion-$version.aab"
           cp build/app/outputs/flutter-apk/app-release.apk "dist/rosary-companion-$version.apk"
           (cd build/web && zip -qr "../../dist/rosary-companion-web-$version.zip" .)
 
+      - name: Check the APK is not debug-signed
+        run: |
+          apksigner=$(ls "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -1)
+          if "$apksigner" verify --print-certs dist/*.apk | grep -q "CN=Android Debug"; then
+            echo "::error::The APK is signed with the debug key"
+            exit 1
+          fi
+
       - name: Remove signing material
         if: always()
         run: rm -f android/key.properties android/app/upload-keystore.jks
 
-      - name: Publish GitHub Release
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-files
+          path: dist/
+          retention-days: 7
+
+  publish:
+    name: Publish the GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: release-files
+          path: dist
+
+      - name: Publish
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          flags="--generate-notes --verify-tag"
-          if [ "${{ steps.signing.outputs.signed }}" != "true" ]; then
-            flags="$flags --prerelease"
-          fi
-          gh release create "$GITHUB_REF_NAME" dist/* --title "$GITHUB_REF_NAME" $flags
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: gh release create "$TAG" dist/* --title "$TAG" --generate-notes --verify-tag
