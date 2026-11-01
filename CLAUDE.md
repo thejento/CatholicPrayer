@@ -6,7 +6,7 @@ tablets, Android TV (D-pad) and the web, from one codebase. Offline, no account,
 App id `com.catholicrosarycompanion.crc`, package name `crc`, version in `pubspec.yaml`.
 
 - Web app (deployed from `main`): https://thejento.github.io/CatholicPrayer/
-- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…038) · History: `BACKLOG.md`
+- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…039) · History: `BACKLOG.md`
 - **Open work: GitHub Issues**, see "Backlog and issues" below.
 
 ## How the owner works
@@ -172,9 +172,10 @@ displayed text) and let the pipeline re-render just that clip.
 | `ci.yml` | PR, push to `main` | checks: "Format · Analyze · Test", "Build web", "Build Android APK" |
 | `deploy-web.yml` | push to `main` | GitHub Pages, with `APP_BUILD` = short commit |
 | `render-audio.yml` | branch push touching spoken text | renders stale clips and commits them |
-| `release.yml` | tag `vX.Y.Z` | signed AAB + APK + web zip on a GitHub Release (`APP_VERSION` = tag) |
+| `release.yml` | tag `vX.Y.Z` (owner only, on `main`) | verify → build (owner approves, environment `release`) → publish: signed AAB + APK + web zip on a GitHub Release (`APP_VERSION` = tag); never debug-signed (ADR-039) |
 
-The signing secrets are set. Play Store publishing is issues O-10/O-11; when the listing is
+The signing secrets belong in the `release` environment. Updating Gradle also means updating
+`distributionSha256Sum` in `android/gradle/wrapper/gradle-wrapper.properties`. Play Store publishing is issues O-10/O-11; when the listing is
 live, set `playStoreListed = true`.
 
 ## Backlog and issues

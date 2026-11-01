@@ -692,8 +692,10 @@ lib/
  push main ──► deploy-web.yml ─► flutter build web --base-href /CatholicPrayer/
                                 ─► GitHub Pages
 
- tag vX.Y.Z ─► release.yml ─► signed AAB + APK (keystore from secrets)
-                             ─► GitHub Release with assets
+ tag vX.Y.Z ─► release.yml ─► verify: version tag on main, tests pass
+   (owner only)              ─► build: owner approves (environment `release`),
+                                 signed AAB + APK + web zip, never debug-signed
+                             ─► publish: GitHub Release with assets
                              ─► (backlog) Google Play internal track
 ```
 
@@ -703,10 +705,17 @@ lib/
 * **Branching:** trunk-based. `main` is protected and changes arrive through short-lived PRs.
 * **Versioning:** SemVer tags `vX.Y.Z`. The Android `versionCode` comes from
   `github.run_number` during releases.
-* **Secrets** (repository → Settings → Secrets → Actions):
+* **Secrets** (environment `release` → Settings → Environments):
   `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`,
-  `ANDROID_KEY_PASSWORD`. Without them, a release falls back to debug signing
-  and the release is labelled *pre-release*.
+  `ANDROID_KEY_PASSWORD`. Without them the release fails: Gradle refuses to sign a release
+  with the debug key when `REQUIRE_RELEASE_SIGNING=true`, and the workflow checks the APK's
+  certificate. PR builds in `ci.yml` stay debug-signed (ADR-012).
+* **Release safeguards** (r-01, ADR-039): only the owner can create `v*` tags (a tag
+  ruleset); the tagged commit must be on `main`; the signing job waits for the owner's
+  approval; only the final publish job can write to the repository, and it never sees the
+  secrets.
+* **Gradle:** the wrapper jar is checked against Gradle's official checksums in CI and
+  release, and the distribution zip has a pinned `distributionSha256Sum` (r-08).
 * **Dependencies:** Dependabot opens weekly PRs for pub, Gradle and Actions.
 
 ## 8. Brand assets

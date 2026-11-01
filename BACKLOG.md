@@ -81,3 +81,5 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] r-12 Reminders dated per day for 12 weeks, so Sundays name the season's mysteries (ADR-038)
 - [x] r-13 Startup errors show a message; storage failure falls back to memory
 - [x] r-14 Saved step bounded; Home and the Rosary agree on the step number
+- [x] r-01 Releases only from a tag on main, approved by the owner; owner-only `v*` tags (ADR-039)
+- [x] r-08 No debug-signed releases; Gradle wrapper validated and its distribution hash pinned
