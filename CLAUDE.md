@@ -134,8 +134,8 @@ that whole language):
    kokoro-onnx GitHub release; `pip install moshi` with CPU-only PyTorch from
    `download.pytorch.org/whl/cpu`, HF cache for weights). A separate job that runs none of the
    branch's code commits the clips to the branch; the owner approves the held CI run
-   (ADR-040). Kokoro takes minutes; **French (Kyutai) takes about an hour**, so expect the PR's first CI run to fail on the freshness check until the bot's
-   commit lands.
+   (ADR-040). Kokoro takes minutes; **French (Kyutai) takes about an hour**, so expect the
+   PR's first CI run to fail on the freshness check until the bot's commit lands.
 
 **Running locally:** use a venv in the scratchpad: `pip install kokoro-onnx soundfile lameenc
 numpy` (Kokoro models in `build/tts/models/` or `$KOKORO_MODELS`); for French also `pip
