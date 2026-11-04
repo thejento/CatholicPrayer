@@ -84,7 +84,14 @@ jobs:
           flutter-version-file: pubspec.yaml
           cache: true
       - run: flutter pub get
-      - run: flutter build web --release --base-href /CatholicPrayer/
+      # --no-web-resources-cdn: CanvasKit is served with the app, not by Google (r-06).
+      - run: flutter build web --release --no-web-resources-cdn --base-href /CatholicPrayer/
+      - name: The web app loads nothing from other sites (ADR-043)
+        run: |
+          mkdir -p "$RUNNER_TEMP/site" && ln -s "$PWD/build/web" "$RUNNER_TEMP/site/CatholicPrayer"
+          (cd "$RUNNER_TEMP/site" && python3 -m http.server 8765 --bind 127.0.0.1 &)
+          sleep 2
+          node tool/web/check_requests.mjs http://127.0.0.1:8765/CatholicPrayer/ google-chrome
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: web-build

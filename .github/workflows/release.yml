@@ -114,7 +114,7 @@ jobs:
           version="${TAG#v}"
           flutter build appbundle --release --build-name="$version" --build-number="$RUN_NUMBER" --dart-define=APP_VERSION="$version"
           flutter build apk --release --build-name="$version" --build-number="$RUN_NUMBER" --dart-define=APP_VERSION="$version"
-          flutter build web --release --base-href "/$REPO_NAME/" --dart-define=APP_VERSION="$version"
+          flutter build web --release --no-web-resources-cdn --base-href "/$REPO_NAME/" --dart-define=APP_VERSION="$version"
           mkdir -p dist
           cp build/app/outputs/bundle/release/app-release.aab "dist/rosary-companion-$version.aab"
           cp build/app/outputs/flutter-apk/app-release.apk "dist/rosary-companion-$version.apk"
