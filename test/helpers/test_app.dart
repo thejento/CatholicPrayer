@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -74,7 +76,7 @@ class TestApp {
       available: DeviceProfile(isTelevision: isTelevision, isAndroid: isAndroid).supportsReminders,
       clock: Clock.fixed(_now),
     );
-    if (locale != null) settings.setLocale(locale);
+    if (locale != null) unawaited(settings.setLocale(locale));
   }
 
   final PreferencesStore store;
