@@ -1,13 +1,78 @@
 import 'package:crc/src/data/preferences_store.dart';
 import 'package:crc/src/domain/liturgical_calendar.dart';
+import 'package:crc/src/domain/mysteries.dart';
 import 'package:crc/src/domain/rosary_sequence.dart';
+import 'package:crc/src/providers/journal_controller.dart';
+import 'package:crc/src/providers/saved_session_controller.dart';
 import 'package:crc/src/providers/settings_controller.dart';
 import 'package:crc/src/providers/theme_manager.dart';
 import 'package:crc/src/theme/app_theme.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+/// Reads work; every write fails, as when storage is full.
+class _FailingWrites extends InMemoryPreferencesStore {
+  int failures = 0;
+
+  Future<void> _fail() {
+    failures++;
+    return Future.error(StateError('disk full'));
+  }
+
+  @override
+  Future<void> setString(String key, String value) => _fail();
+
+  @override
+  Future<void> setBool(String key, bool value) => _fail();
+
+  @override
+  Future<void> remove(String key) => _fail();
+}
+
 void main() {
+  group('SafePreferencesStore (r-15)', () {
+    test('a failed write is logged, not thrown, and the new value is kept', () async {
+      final failing = _FailingWrites();
+      final store = SafePreferencesStore(failing);
+      final logs = <String>[];
+      final previous = debugPrint;
+      debugPrint = (message, {wrapWidth}) => logs.add(message ?? '');
+      addTearDown(() => debugPrint = previous);
+
+      final settings = SettingsController(store);
+      await settings.setAutoAdvance(true);
+      await settings.setVoiceSpeed(SettingsController.maxSpeed);
+      expect(settings.autoAdvance, isTrue);
+      expect(settings.voiceSpeed, SettingsController.maxSpeed);
+
+      final saved = SavedSessionController(store);
+      const session = SavedSession(mysterySet: MysterySet.glorious, index: 12);
+      await saved.save(session);
+      expect(saved.saved, session);
+      await saved.clear();
+      expect(saved.saved, isNull);
+
+      final journal = JournalController(store);
+      final entry = JournalEntry(prayedAt: DateTime(2026, 11, 4), mysterySet: MysterySet.glorious);
+      expect(await journal.record(entry), entry);
+      expect(journal.entries, [entry]);
+
+      expect(failing.failures, 5);
+      expect(logs, hasLength(5));
+      expect(logs.first, contains('failed'));
+    });
+
+    test('reads go to the wrapped store', () async {
+      final store = SafePreferencesStore(InMemoryPreferencesStore({'a': 'b', 'c': true}));
+      expect(await store.getString('a'), 'b');
+      expect(await store.getBool('c'), isTrue);
+      await store.setString('a', 'z');
+      await store.remove('c');
+      expect(await store.getString('a'), 'z');
+      expect(await store.getBool('c'), isNull);
+    });
+  });
+
   group('ThemeManager', () {
     test('defaults to classic and persists changes', () async {
       final store = InMemoryPreferencesStore();
