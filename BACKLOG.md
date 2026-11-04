@@ -87,3 +87,4 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] r-03 Render audio: read-only render, a separate job checks and commits, no self-approved CI
 - [x] r-07 Least rights per job: Pages rights only in deploy
 - [x] r-04 Build downloads pinned: hashed Python locks, Kokoro by SHA-256, Kyutai by commit, Bible and paintings checked (ADR-041)
+- [x] r-16 Security scanning in CI: OSV-Scanner, gitleaks, zizmor, CodeQL, Semgrep Dart rules, Ruff, mobsfscan, MobSF, Scorecard; known vulnerabilities fixed by overrides (ADR-042)

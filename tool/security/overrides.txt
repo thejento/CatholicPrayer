@@ -1,0 +1,12 @@
+# Versions forced past semgrep's own pins, to get security fixes (ADR-042).
+# semgrep 1.172 (pinned by mobsfscan) asks for older ones. The scanners only read
+# this repository's files in CI: semgrep's MCP server, login (JWT) and telemetry
+# are never used (--metrics=off). Checked: Semgrep's rule tests and both scans run.
+# Drop an override once semgrep allows the fixed version itself.
+mcp>=1.30.0,<2
+pyjwt>=2.15.0
+opentelemetry-api>=1.45.1
+opentelemetry-sdk>=1.45.1
+opentelemetry-exporter-otlp-proto-http>=1.45.1
+opentelemetry-instrumentation-requests>=0.66b0
+opentelemetry-instrumentation-threading>=0.66b0

@@ -31,7 +31,9 @@ jobs:
           cache: true
       - run: flutter pub get
       - run: flutter test
-      - run: flutter build web --release --base-href /${{ github.event.repository.name }}/ --dart-define=APP_BUILD=${GITHUB_SHA::7}
+      - run: flutter build web --release --base-href "/$REPO_NAME/" --dart-define=APP_BUILD=${GITHUB_SHA::7}
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:

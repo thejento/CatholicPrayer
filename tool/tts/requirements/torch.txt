@@ -9,8 +9,8 @@ torch==2.9.1 ; sys_platform == 'darwin' \
     --hash=sha256:bf1e68cfb935ae2046374ff02a7aa73dda70351b46342846f557055b3a540bf0 \
     --hash=sha256:defadbeb055cfcf5def58f70937145aecbd7a4bc295238ded1d0e85ae2cf0e1d
     # via
-    #   -c /tmp/tmp.GabaTR6ExO/constraints.txt
-    #   tts-tools (/tmp/tmp.GabaTR6ExO/kyutai/pyproject.toml)
+    #   -c /tmp/tmp.ksL4byaU07/constraints.txt
+    #   tts-tools (/tmp/tmp.ksL4byaU07/kyutai/pyproject.toml)
     #   moshi
 torch==2.9.1+cpu ; sys_platform != 'darwin' \
     --hash=sha256:01b1884f724977a20c7da2f640f1c7b37f4a2c117a7f4a6c1c0424d14cb86322 \
@@ -38,7 +38,7 @@ torch==2.9.1+cpu ; sys_platform != 'darwin' \
     --hash=sha256:e586ab1363e3f86aa4cc133b7fdcf98deb1d2c13d43a7a6e5a6a18e9c5364893 \
     --hash=sha256:f60e2565f261542efac07e25208fb3fc55c6fe82314a5a9cbee971edb5f27713
     # via
-    #   -c /tmp/tmp.GabaTR6ExO/constraints.txt
-    #   tts-tools (/tmp/tmp.GabaTR6ExO/kyutai/pyproject.toml)
+    #   -c /tmp/tmp.ksL4byaU07/constraints.txt
+    #   tts-tools (/tmp/tmp.ksL4byaU07/kyutai/pyproject.toml)
     #   bitsandbytes
     #   moshi

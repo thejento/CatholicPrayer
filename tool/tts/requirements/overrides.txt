@@ -1,0 +1,13 @@
+# Versions forced past a package's own limit, to get security fixes (ADR-042).
+# OSV-Scanner (security.yml) reads these lock files. Each override says why it is
+# safe, and is dropped once the package allows the fixed version itself.
+
+# moshi asks for aiohttp<3.12; aiohttp is only used by moshi's web server,
+# which render.py never starts. 3.14.5 fixes the HTTP parser advisories.
+aiohttp>=3.14.5
+
+# torch stays at moshi's limit (<2.10): an override would also drop the PyTorch
+# CPU index. Its advisories are accepted in osv-scanner.toml, with the reason.
+
+# Fix for GHSA-xmj3-9gf7-h52w.
+setuptools>=84.1.0
