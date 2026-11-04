@@ -25,6 +25,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   registerVoiceLicenses();
   registerScriptureLicenses();
+  registerFontLicenses();
   runApp(await startApp(_load));
 }
 

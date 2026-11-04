@@ -89,3 +89,4 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] r-04 Build downloads pinned: hashed Python locks, Kokoro by SHA-256, Kyutai by commit, Bible and paintings checked (ADR-041)
 - [x] r-16 Security scanning in CI: OSV-Scanner, gitleaks, zizmor, CodeQL, Semgrep Dart rules, Ruff, mobsfscan, MobSF, Scorecard; known vulnerabilities fixed by overrides (ADR-042)
 - [x] r-15 Async-safety lints (`discarded_futures`, `cancel_subscriptions`, `close_sinks`); a failed settings save is logged, not lost
+- [x] r-06 The web app loads nothing from other sites: CanvasKit and Roboto bundled, CSP, checked in a headless browser (ADR-043)

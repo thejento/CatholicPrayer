@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
 /// Credits for the Bible translations, shown on the licence page (ADR-024).
 /// The néo-Crampon Libre is CC BY-SA 4.0, which requires attribution.
@@ -26,5 +27,14 @@ Spanish Bible passages: La Sagrada Biblia, translated by Félix Torres Amat (183
 Public domain. Text from the Spanish Wikisource transcription
 (https://es.wikisource.org/wiki/La_Sagrada_Biblia_(XIII)), with modernized spelling.''',
     );
+  });
+}
+
+/// The bundled Roboto font is under the SIL Open Font License (r-06).
+void registerFontLicenses() {
+  LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks(const [
+      'Roboto font',
+    ], await rootBundle.loadString('assets/fonts/OFL.txt'));
   });
 }

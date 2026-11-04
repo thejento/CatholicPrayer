@@ -825,3 +825,22 @@ Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
 * All of this is enforced by `test/ui/accessibility_test.dart` (ADR-022).
 * "No network calls" is checked in CI by the Semgrep rules of §7.1. Vulnerabilities can be
   reported privately: see `SECURITY.md`.
+* **The web app loads nothing from other sites** (r-06, ADR-043). Flutter's defaults would
+  fetch CanvasKit from `www.gstatic.com` and Roboto (plus Noto for missing characters) from
+  `fonts.gstatic.com` on every visit, which tells Google who opens a prayer app. Instead:
+  * every web build uses `--no-web-resources-cdn`, so CanvasKit is served with the app;
+  * Roboto is an app font (`assets/fonts/`, 400–800 and italic, about 400 KB), so the engine
+    doesn't download it. `tool/fonts/build_fonts.py` makes it from Google's variable Roboto
+    at a pinned commit, cut to the Latin characters of the three languages. It also maps the
+    narrow no-break space that French uses before `; : ! ?` to Roboto's thin space.
+    `test/data/font_coverage_test.dart` fails when a text uses a character the font lacks;
+  * `web/flutter_bootstrap.js` points the engine's fallback-font URL at this site, so even
+    a missing character never reaches Google;
+  * `web/index.html` sets a Content Security Policy (only this site; `wasm-unsafe-eval` for
+    CanvasKit; inline styles; `blob:` for audio and images) and `no-referrer`;
+  * CI builds the site and loads 11 screens in headless Chrome in each language
+    (`tool/web/check_requests.mjs`). It fails on any request outside the site, any CSP
+    violation and any fallback-font request.
+* On Android the themes keep the system fonts (`serif` for classic, `sans-serif` for
+  kid-friendly). On the web those generic names fall back to the bundled Roboto, as they
+  did before with the downloaded one.

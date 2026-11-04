@@ -558,3 +558,24 @@ Template:
   Dependabot can't update the overridden scanner lock, so the owner or Claude runs
   `lock.sh`. Accepted findings are looked at again when they expire or their reason stops
   holding.
+
+## ADR-043: The web app loads nothing from other sites
+- Date: 2026-11-04 · Status: Accepted
+- Context: The app promises no network calls and no tracking, but the web build loaded
+  CanvasKit from `www.gstatic.com` and Roboto from `fonts.gstatic.com` on every visit (review
+  r-06). Every visitor's address went to Google with the fact that they opened a prayer app,
+  which is sensitive data under the GDPR (religious belief). The page also had no Content
+  Security Policy.
+- Options considered: keep the CDN for speed; self-host the engine but keep downloading
+  fonts; self-host everything and enforce it.
+- Decision: Self-host everything, and check it. Web builds use `--no-web-resources-cdn`.
+  Roboto is bundled as an app font, built from Google's source at a pinned commit and cut to
+  the characters the texts use. The engine's fallback-font URL points at the app's own site.
+  `index.html` sets a strict CSP and `no-referrer`. CI checks the build in a headless browser
+  (no request outside the site, no CSP violation, no fallback font), and a test checks the
+  font has every character of the texts.
+- Consequences: The site is about 7 MB bigger, and the first visit loads CanvasKit from
+  GitHub Pages rather than Google's cache. The APK grows by about 400 KB of fonts. A new
+  character in a text, or a new language, needs its range added to `build_fonts.py`; the
+  test says which one. A new kind of resource (another site, a web worker) must be added to
+  the CSP on purpose.
