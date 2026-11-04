@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -112,7 +114,7 @@ class _RosaryScreenState extends State<RosaryScreen> {
   void _toggleVoice() {
     final voice = _voice!;
     voice.toggle();
-    _settings.setVoiceEnabled(voice.enabled);
+    unawaited(_settings.setVoiceEnabled(voice.enabled));
   }
 
   /// Remembers progress so the Rosary can be resumed later (F-06).
@@ -121,10 +123,12 @@ class _RosaryScreenState extends State<RosaryScreen> {
     // Only the Rosary is resumed; a chaplet is short and leaves it alone.
     if (set == null) return;
     if (_session.isFinished) {
-      _saved.clear();
-      _record(set);
+      unawaited(_saved.clear());
+      unawaited(_record(set));
     } else {
-      _saved.save(SavedSession(mysterySet: set, index: _session.index, mode: widget.mode));
+      unawaited(
+        _saved.save(SavedSession(mysterySet: set, index: _session.index, mode: widget.mode)),
+      );
     }
   }
 
@@ -564,7 +568,7 @@ class _VoiceBar extends StatelessWidget {
     final i = speeds.indexWhere((s) => s >= voice.speed - 0.001).clamp(0, speeds.length - 1);
     void setSpeed(double s) {
       voice.setSpeed(s);
-      settings.setVoiceSpeed(s);
+      unawaited(settings.setVoiceSpeed(s));
     }
 
     final speedText = '${NumberFormat('0.0#', contentLanguage(context)).format(voice.speed)}×';
@@ -602,7 +606,7 @@ class _VoiceBar extends StatelessWidget {
               selected: voice.autoAdvance,
               onSelected: (v) {
                 voice.setAutoAdvance(v);
-                settings.setAutoAdvance(v);
+                unawaited(settings.setAutoAdvance(v));
               },
             ),
           if (voice.waitsHere)

@@ -6,11 +6,12 @@ import 'l10n/generated/app_localizations.dart';
 
 /// [preferred], or an in-memory store when it doesn't work (storage turned
 /// off in a private browser window, for instance): the app still opens,
-/// it just doesn't remember settings (r-13).
+/// it just doesn't remember settings (r-13). A write that fails later is
+/// logged, not thrown (r-15).
 Future<PreferencesStore> openPreferences(PreferencesStore preferred) async {
   try {
     await preferred.getBool('probe');
-    return preferred;
+    return SafePreferencesStore(preferred);
   } catch (error) {
     debugPrint('Preferences unavailable ($error); settings will not be kept');
     return InMemoryPreferencesStore();

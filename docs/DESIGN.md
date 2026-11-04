@@ -670,7 +670,13 @@ lib/
 * **State management** uses `provider` with `ChangeNotifier`. The domain layer has no
   dependency on Flutter, so its logic is tested in plain unit tests.
 * **Persistence** uses `shared_preferences` (`SharedPreferencesAsync`) behind a
-  `PreferencesStore` interface. It works on Android and web with no account.
+  `PreferencesStore` interface. It works on Android and web with no account. A value is
+  applied in memory first and the screens don't wait for the save; `SafePreferencesStore`
+  logs a failed write instead of throwing, so the app keeps the new value until it closes
+  (r-15).
+* **Async safety:** the lints `unawaited_futures` and `discarded_futures` catch a future
+  whose error would be lost; one started on purpose without waiting is wrapped in
+  `unawaited(...)`. `cancel_subscriptions` and `close_sinks` are on too.
 * **Dependency injection** goes through constructor parameters. Tests pass fakes, such as an
   in-memory preferences store and an injected clock (`DateTime Function()`).
 

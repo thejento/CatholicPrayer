@@ -43,7 +43,9 @@ void main() {
   test('storage that fails is replaced by memory, so the app still opens', () async {
     expect(await openPreferences(_FailingStore()), isA<InMemoryPreferencesStore>());
     final working = InMemoryPreferencesStore();
-    expect(await openPreferences(working), same(working));
+    final opened = await openPreferences(working);
+    expect(opened, isA<SafePreferencesStore>());
+    expect((opened as SafePreferencesStore).inner, same(working));
   });
 
   test('an unknown saint id gives the id instead of failing', () {
