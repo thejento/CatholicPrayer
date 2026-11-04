@@ -6,7 +6,7 @@ tablets, Android TV (D-pad) and the web, from one codebase. Offline, no account,
 App id `com.catholicrosarycompanion.crc`, package name `crc`, version in `pubspec.yaml`.
 
 - Web app (deployed from `main`): https://thejento.github.io/CatholicPrayer/
-- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…041) · History: `BACKLOG.md`
+- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…042) · History: `BACKLOG.md`
 - **Open work: GitHub Issues**, see "Backlog and issues" below.
 
 ## How the owner works
@@ -175,7 +175,17 @@ displayed text) and let the pipeline re-render just that clip.
 | `ci.yml` | PR, push to `main` | checks: "Format · Analyze · Test", "Build web", "Build Android APK" |
 | `deploy-web.yml` | push to `main` | GitHub Pages, with `APP_BUILD` = short commit |
 | `render-audio.yml` | branch push touching spoken text | renders stale clips (read-only), a second job checks and commits them |
+| `security.yml` | PR, push to `main`, weekly | OSV-Scanner, gitleaks, zizmor, Semgrep (Dart rules), Ruff, mobsfscan; Gradle dependency graph on `main` |
+| `codeql.yml` | PR, push to `main`, weekly | CodeQL for the workflows and the Python tools (no Dart support) |
+| `scorecard.yml` | push to `main`, weekly | OpenSSF Scorecard |
+| `mobsf.yml` | weekly, tag, manual | MobSF scan of the release APK; fails on new high findings |
 | `release.yml` | tag `vX.Y.Z` (owner only, on `main`) | verify → build (owner approves, environment `release`) → publish: signed AAB + APK + web zip on a GitHub Release (`APP_VERSION` = tag); never debug-signed (ADR-039) |
+
+Security scanning is DESIGN §7.1 / ADR-042; results are under Security → Code scanning. Fix a
+finding first. If it can't be fixed, accept it in its config (`tool/security/`, `tool/ruff.toml`,
+`.gitleaks.toml`, an `osv-scanner.toml`) with the reason next to it; never just turn a rule
+off. A vulnerable package held back by another goes in `overrides.txt` next to its lock, and
+the tool is run to check it. Scanners: `tool/security/lock.sh`.
 
 Actions are pinned to a commit SHA with a `# vX.Y.Z` comment; CI fails on a tag (ADR-040).
 Checkouts use `persist-credentials: false` and write rights go on the job, not the workflow.

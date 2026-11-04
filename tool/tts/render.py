@@ -71,6 +71,8 @@ def kokoro_files(models_dir: str, download: bool = False):
     """Paths of the Kokoro files, each checked against its pinned SHA-256.
     With [download], a missing or wrong file is fetched again first."""
     pinned = load_json(MODELS, {})["kokoro"]
+    if not pinned["url"].startswith("https://"):
+        sys.exit(f"Kokoro URL must be https: {pinned['url']}")
     paths = []
     for name, expected in pinned["files"].items():
         path = Path(models_dir) / name

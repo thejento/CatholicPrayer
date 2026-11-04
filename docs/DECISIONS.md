@@ -529,3 +529,32 @@ Template:
 - Consequences: An upstream change stops the build with the old and new hash. Someone looks
   at the new file, then updates the pin. Updating packages means running `lock.sh` (it needs
   `uv`).
+
+## ADR-042: Security scanning with free, pinned tools; fix before accepting
+- Date: 2026-11-04 · Status: Accepted
+- Context: The security review (r-16) found that CI had no SAST and no vulnerability or
+  secret scanning. The repository is public on a personal account, so GitHub's code
+  scanning is free, and the owner wanted no running cost. A first version of this work
+  (branch `ops/security-scanning`, 2026-10-27) waited for r-02, r-03, r-07 and r-09.
+- Options considered: CodeQL default setup only (one click, but no Dart, Android or workflow
+  depth); paid platforms (Snyk, Semgrep AppSec Platform, Socket); open-source scanners in
+  CI, reporting to GitHub code scanning. For a vulnerable package held back by another:
+  accept the advisory, or force the fixed version.
+- Decision: Open-source scanners in CI, each uploading SARIF to code scanning. On every PR:
+  OSV-Scanner (pub and every Python lock), gitleaks, zizmor, Semgrep with project Dart
+  rules, Ruff `S` rules and mobsfscan. CodeQL advanced setup covers Actions and Python,
+  Scorecard runs on `main`, and MobSF scans the APK weekly and on tags, with a reviewed
+  list of accepted high findings. The scanners are hash-locked (`tool/security/lock.sh`)
+  and the actions pinned by SHA, so the security jobs don't add the supply-chain risk they
+  look for. A known vulnerability is fixed first: `overrides.txt` forces the fixed version
+  past a package's own pin, with the reason, and the tool is run to check it. Only when that
+  isn't possible is the advisory accepted in `osv-scanner.toml`, with the reason and an
+  expiry date. Today: semgrep's `mcp`, `pyjwt` and OpenTelemetry, and moshi's `aiohttp`,
+  are overridden. torch's advisories are accepted, because they need a malicious checkpoint
+  and an override would lose the PyTorch CPU index.
+- Consequences: No cost while the repository stays public. If it goes private, code and
+  secret scanning become paid GitHub add-ons. Dart has no CodeQL support and no public
+  Semgrep rules, so Dart coverage is the project's own rules plus `flutter analyze`.
+  Dependabot can't update the overridden scanner lock, so the owner or Claude runs
+  `lock.sh`. Accepted findings are looked at again when they expire or their reason stops
+  holding.

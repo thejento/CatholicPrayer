@@ -19,6 +19,8 @@ analyzer:
     - macos/**
     - linux/**
     - lib/src/l10n/generated/**
+    # Semgrep rule test cases (deliberately bad code), not app code.
+    - tool/security/**
 
 linter:
   # The lint rules applied to this project can be customized in the

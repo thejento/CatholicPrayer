@@ -7,11 +7,13 @@
 # are used (default: two weeks ago), for Python 3.11+ on every platform. One
 # resolution of all the packages is the constraint for each group, so the
 # groups always agree. torch comes only from the PyTorch CPU index.
+# overrides.txt forces security fixes past a package's own limits (ADR-042).
 set -euo pipefail
 cd "$(dirname "$0")"
 before=${1:-$(date -d '14 days ago' +%F)}
 tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
-opts=(--universal --python-version 3.11 --generate-hashes --exclude-newer "$before" -q --no-header)
+opts=(--universal --python-version 3.11 --generate-hashes --exclude-newer "$before" -q --no-header
+      --override "$PWD/overrides.txt")
 
 project() {  # project <dir> <dependencies...>
   mkdir -p "$1"; local deps; deps=$(printf '"%s", ' "${@:2}")
