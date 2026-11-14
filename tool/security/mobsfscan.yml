@@ -1,0 +1,25 @@
+---
+# mobsfscan settings (ADR-042). Each ignored rule says why.
+# Used as: mobsfscan --config tool/security/mobsfscan.yml android/
+- ignore-paths:
+    - android/build
+    - android/.gradle
+  ignore-rules:
+    # Flutter sets targetSdk >= 35 and the activity has taskAffinity="",
+    # which is the fix this rule asks for; it can't read flutter.targetSdkVersion.
+    - android_task_hijacking2
+    # allowBackup="true" is ADR-034: cloud backup is excluded by the backup
+    # rules, transfer to a new phone is kept. adb backup needs the unlocked
+    # phone with USB debugging, and Android 12+ refuses it for release apps.
+    - android_manifest_allow_backup
+    # Hardening for apps that talk to a server or hold secrets. This app has
+    # no network calls, no account and no secrets on the device (DESIGN §9).
+    - android_certificate_transparency
+    - android_certificate_pinning
+    - android_ssl_pinning
+    - android_root_detection
+    - android_safetynet
+    - android_safetynet_api
+    - android_prevent_screenshot
+    - android_tapjacking
+    - android_detect_tapjacking

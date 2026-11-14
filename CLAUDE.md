@@ -6,7 +6,7 @@ tablets, Android TV (D-pad) and the web, from one codebase. Offline, no account,
 App id `com.catholicrosarycompanion.crc`, package name `crc`, version in `pubspec.yaml`.
 
 - Web app (deployed from `main`): https://thejento.github.io/CatholicPrayer/
-- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…039) · History: `BACKLOG.md`
+- Design: `docs/DESIGN.md` · Decisions: `docs/DECISIONS.md` (ADR-001…043) · History: `BACKLOG.md`
 - **Open work: GitHub Issues**, see "Backlog and issues" below.
 
 ## How the owner works
@@ -78,7 +78,12 @@ flutter drive --driver=test_driver/integration_test.dart \
   (`AppTheme.themeFor(mode, season:)`, switch `ThemeManager.followSeason`); kid-friendly keeps
   its own colours. Paintings appear only in classic.
 - Assets: `assets/data/` (prayers, prayer_notes, learn (teaching pages), mysteries, scripture, saints, art.json), `assets/audio/<lang>/`
-  (pre-rendered voice), `assets/art/` (WebP paintings).
+  (pre-rendered voice), `assets/art/` (WebP paintings), `assets/fonts/` (bundled Roboto,
+  built by `tool/fonts/build_fonts.py`).
+- **The web app loads nothing from other sites** (ADR-043): build with
+  `--no-web-resources-cdn`, keep the CSP in `web/index.html`, and don't add a CDN, web font or
+  remote URL. CI runs `tool/web/check_requests.mjs` on the build. A new character in a text may
+  need its range added to `build_fonts.py` (`font_coverage_test` says).
 
 ## Tests and quality gates (CI, all required)
 
@@ -130,18 +135,21 @@ that whole language):
    (outside 8–32 characters per second: cut short, skipped words, or babble).
 5. A freshness test in CI (`test/data/audio_manifest_test.dart`) fails when a clip is stale. **`render-audio.yml`** does the rendering
    on any branch push that changes spoken text (`assets/data/**`, ARB files, `clips.dart`,
-   `tool/tts/**`). It installs only the engines needed (Kokoro model files cached from the
-   kokoro-onnx GitHub release; `pip install moshi` with CPU-only PyTorch from
-   `download.pytorch.org/whl/cpu`, HF cache for weights). It commits the clips to the branch
-   and approves the bot-triggered CI run. Kokoro takes minutes; **French (Kyutai) takes about
-   an hour**, so expect the PR's first CI run to fail on the freshness check until the bot's
-   commit lands.
+   `tool/tts/**`). It installs only the engines needed, all pinned (ADR-041): packages with
+   hashes from `tool/tts/requirements/` (torch only from the PyTorch CPU index), Kokoro files
+   checked by SHA-256 and Kyutai weights at fixed Hugging Face commits (`tool/tts/models.json`). A separate job that runs none of the
+   branch's code commits the clips to the branch; the owner approves the held CI run
+   (ADR-040). Kokoro takes minutes; **French (Kyutai) takes about an hour**, so expect the
+   PR's first CI run to fail on the freshness check until the bot's commit lands.
 
-**Running locally:** use a venv in the scratchpad: `pip install kokoro-onnx soundfile lameenc
-numpy` (Kokoro models in `build/tts/models/` or `$KOKORO_MODELS`); for French also `pip
-install moshi --extra-index-url https://download.pytorch.org/whl/cpu`. espeak-ng keeps its data
-path in a 160-byte buffer: if the venv path is long, symlink the data dir and set
-`ESPEAK_DATA_DIR`. Prefer letting CI render French.
+**Running locally:** use a Python 3.11+ venv in the scratchpad and install like CI:
+`pip install --require-hashes --no-deps -r tool/tts/requirements/base.txt` then `kokoro.txt`
+(for French: `torch.txt` with `--index-url https://download.pytorch.org/whl/cpu`, then
+`kyutai.txt`). `python tool/tts/render.py --get-kokoro` fetches and checks the Kokoro models
+(`build/tts/models/` or `$KOKORO_MODELS`). To update a package, run
+`tool/tts/requirements/lock.sh` (needs `uv`); to change a model, update its hash or commit in
+`tool/tts/models.json`. espeak-ng keeps its data path in a 160-byte buffer: if the venv path is
+long, symlink the data dir and set `ESPEAK_DATA_DIR`. Prefer letting CI render French.
 
 **Choosing or checking a voice:** Claude can't listen. For each candidate, render the Hail
 Mary, a short guidance line (where glitches showed) and the Creed (long text). Transcribe them
@@ -171,8 +179,21 @@ displayed text) and let the pipeline re-render just that clip.
 |---|---|---|
 | `ci.yml` | PR, push to `main` | checks: "Format · Analyze · Test", "Build web", "Build Android APK" |
 | `deploy-web.yml` | push to `main` | GitHub Pages, with `APP_BUILD` = short commit |
-| `render-audio.yml` | branch push touching spoken text | renders stale clips and commits them |
+| `render-audio.yml` | branch push touching spoken text | renders stale clips (read-only), a second job checks and commits them |
+| `security.yml` | PR, push to `main`, weekly | OSV-Scanner, gitleaks, zizmor, Semgrep (Dart rules), Ruff, mobsfscan; Gradle dependency graph on `main` |
+| `codeql.yml` | PR, push to `main`, weekly | CodeQL for the workflows and the Python tools (no Dart support) |
+| `scorecard.yml` | push to `main`, weekly | OpenSSF Scorecard |
+| `mobsf.yml` | weekly, tag, manual | MobSF scan of the release APK; fails on new high findings |
 | `release.yml` | tag `vX.Y.Z` (owner only, on `main`) | verify → build (owner approves, environment `release`) → publish: signed AAB + APK + web zip on a GitHub Release (`APP_VERSION` = tag); never debug-signed (ADR-039) |
+
+Security scanning is DESIGN §7.1 / ADR-042; results are under Security → Code scanning. Fix a
+finding first. If it can't be fixed, accept it in its config (`tool/security/`, `tool/ruff.toml`,
+`.gitleaks.toml`, an `osv-scanner.toml`) with the reason next to it; never just turn a rule
+off. A vulnerable package held back by another goes in `overrides.txt` next to its lock, and
+the tool is run to check it. Scanners: `tool/security/lock.sh`.
+
+Actions are pinned to a commit SHA with a `# vX.Y.Z` comment; CI fails on a tag (ADR-040).
+Checkouts use `persist-credentials: false` and write rights go on the job, not the workflow.
 
 The signing secrets belong in the `release` environment. Updating Gradle also means updating
 `distributionSha256Sum` in `android/gradle/wrapper/gradle-wrapper.properties`. Play Store publishing is issues O-10/O-11; when the listing is

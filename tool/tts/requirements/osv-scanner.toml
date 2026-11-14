@@ -1,0 +1,32 @@
+# Advisories accepted for the voice tools' locks (ADR-042). OSV-Scanner reads
+# this file for the lock files next to it. Each entry says why it doesn't apply,
+# and expires so it is looked at again.
+
+# torch 2.9.1 is moshi's limit (torch<2.10). These advisories need a malicious
+# .pth or pt2 checkpoint, or lstm_cell / jit.script on crafted input. render.py
+# only loads Kyutai's .safetensors files, at the pinned Hugging Face commits of
+# tool/tts/models.json, and runs only in CI or on the owner's machine.
+[[IgnoredVulns]]
+id = "PYSEC-2026-139"
+ignoreUntil = 2027-05-01
+reason = "pt2 checkpoint deserialization; only pinned safetensors are loaded"
+
+[[IgnoredVulns]]
+id = "PYSEC-2026-2286"
+ignoreUntil = 2027-05-01
+reason = "weights_only unpickler on a crafted .pth; only pinned safetensors are loaded"
+
+[[IgnoredVulns]]
+id = "GHSA-63cw-57p8-fm3p"
+ignoreUntil = 2027-05-01
+reason = "same advisory as PYSEC-2026-2286"
+
+[[IgnoredVulns]]
+id = "GHSA-qfhq-4f3w-5fph"
+ignoreUntil = 2027-05-01
+reason = "torch.lstm_cell memory corruption on crafted input; Kyutai inference on our own texts"
+
+[[IgnoredVulns]]
+id = "GHSA-rrmf-rvhw-rf47"
+ignoreUntil = 2027-05-01
+reason = "torch.jit.script memory corruption on crafted code; not used on untrusted input"

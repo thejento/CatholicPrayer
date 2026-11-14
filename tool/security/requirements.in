@@ -1,0 +1,7 @@
+# Scanners run by .github/workflows/security.yml (ADR-042).
+# requirements.txt is generated from this file by tool/security/lock.sh.
+zizmor
+ruff
+semgrep
+# mobsfscan pins semgrep exactly, so it decides the semgrep version.
+mobsfscan==1.0.1

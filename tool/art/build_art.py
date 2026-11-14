@@ -5,8 +5,14 @@
 Every image comes from a museum that releases it as CC0 or public domain; the
 owner chose one painting per mystery from a shortlist. Images are resized to
 at most 1200 px and encoded as WebP.
+
+Each download is checked against its SHA-256 before it is decoded (ADR-041). A
+museum that changes an image stops the build: look at the new image, then update
+SHA256.
 """
+import hashlib
 import io
+import sys
 import json
 import urllib.request
 from collections import namedtuple
@@ -105,11 +111,38 @@ ART = {
 }
 
 
+SHA256 = {
+    'joyful_1': '470f6827f46e1c5debaeccb9d63bf4ac81f9f0218ea9ffb5574bd2ceaeafbc7a',
+    'joyful_2': 'df04c2a50da34f3db5ed2fb63743b4adbba92a888b97b951cf997741c16f4d3b',
+    'joyful_3': '38dffb952cc80c1e12b0cde8950d88c2accc3ab55607fa3c2d139856c98648bc',
+    'joyful_4': '5719a34d5bdbcc3c3a4f4a55695b6520c30ba84ed2f0f7e2ca67f58e39f14aa9',
+    'joyful_5': 'e6fba8b500a2fae4f2646e102ea7c5c7ffc5a8a7d9f90a25d5bfa3074ef453a4',
+    'luminous_1': '3ec7f722c11141337c98a884cd34c87cf09ed4f22e648603136bca0239ba046e',
+    'luminous_2': 'f748dad5962d0210b227ab54c91e63e884e662e6c5ef64cdcafa74572393d5a4',
+    'luminous_3': 'ba50708f2341bfc730a208f9845369e409ece7ac1f8b8cd3b485615df21b10d9',
+    'luminous_4': 'de27083c28ab52c03459dd6c6ddba3374b6dc76a7c2e3906a65a9c3dd5219389',
+    'luminous_5': '545be7205928b6afc90ecb6bd9423de40eb8c10d781e2d6a157ab2f6f7e26f26',
+    'sorrowful_1': 'c9b3ae64c3892de0a645ca221954454d1f12fa044a42575072c3a6f5a229bb91',
+    'sorrowful_2': '2da65650cc387aedd04b97845d000b62018bed5b3e5fce268bbea8ebc2d00152',
+    'sorrowful_3': '42b03795f044029b7620e1c45ef74d44db10955e2c4bef14001904f948e7b338',
+    'sorrowful_4': '2611fa1a7c06fa82c42619e9bb9b2854dfdd1c4e398ad8a1aaef1eba3ccd56c9',
+    'sorrowful_5': '90c986e166f476ebcdee174e0560a7d795f708004095e2eb13393dfeb02ad78e',
+    'glorious_1': 'f213c24c55e83432752c310ab3e6bf7c533c4627f22ceefc4481b7eee17af6e5',
+    'glorious_2': 'bfe7e9ee0874cddba664c075c7585394295c24bcefe81cc685272e73b1aeecdb',
+    'glorious_3': 'ca0de5b5bdfef76e6f4ff482a33817bdb7082baa5280c4756e6841ffc6a1caac',
+    'glorious_4': '5915a6a7e7f97f4ab03ad08e0fc79628c96cdc041f198c3f1f176dbcd6e16598',
+    'glorious_5': 'be59cc5a69d781dd8bda26bd1f46383f5cc8ac334f59c6328da687f7695b1c67',
+}
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     credits = {}
     for key, art in ART.items():
         data = urllib.request.urlopen(urllib.request.Request(art.url, headers=UA), timeout=120).read()
+        actual = hashlib.sha256(data).hexdigest()
+        if actual != SHA256[key]:
+            sys.exit(f"{key}: {art.url} has changed: SHA-256 {actual}, expected {SHA256[key]}")
         image = Image.open(io.BytesIO(data)).convert("RGB")
         image.thumbnail((MAX_SIDE, MAX_SIDE))
         image.save(OUT / f"{key}.webp", "WEBP", quality=80, method=6)

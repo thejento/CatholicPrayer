@@ -19,6 +19,8 @@ analyzer:
     - macos/**
     - linux/**
     - lib/src/l10n/generated/**
+    # Semgrep rule test cases (deliberately bad code), not app code.
+    - tool/security/**
 
 linter:
   # The lint rules applied to this project can be customized in the
@@ -38,6 +40,10 @@ linter:
     - prefer_final_locals
     - prefer_single_quotes
     - unawaited_futures
+    # Futures dropped in non-async code lose their errors (r-10, r-11, r-15).
+    - discarded_futures
+    - cancel_subscriptions
+    - close_sinks
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

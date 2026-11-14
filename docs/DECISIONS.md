@@ -486,3 +486,96 @@ Template:
   wrapper is validated and its distribution hash pinned.
 - Consequences: Every release waits for a click in the Actions tab. PR builds keep the debug
   fallback. Updating Gradle means updating `distributionSha256Sum` too.
+## ADR-040: Workflows with pinned actions, least rights per job, no self-approved CI
+- Date: 2026-11-01 · Status: Accepted · Changes the CI approval part of ADR-020
+- Context: The security review found actions referenced by movable tags (`@v7`), the
+  checkout's write token left in `.git/config` while third-party code ran (r-02), the
+  Pages rights given to the build job too (r-07), and `render-audio.yml` running the
+  branch's code with write rights, putting step outputs straight into shell and approving
+  its own CI runs (r-03).
+- Options considered: for the actions, tags or full commit SHAs. For render-audio, keep the
+  self-approval; a GitHub App token or personal token so the bot's push starts CI normally;
+  or let the owner approve the held run.
+- Decision: Every action is pinned to a full commit SHA with its version as a comment;
+  Dependabot updates both, and a CI step fails on an unpinned `uses:`. Checkouts don't keep
+  the token (`persist-credentials: false`), except the one job that pushes. Write rights
+  are given per job: only `deploy` in `deploy-web.yml` can write to Pages.
+  `render-audio.yml` is split in two. `render` has read-only rights, passes values through
+  `env:` and accepts only plain language codes. `commit` runs none of the branch's code: it
+  checks that the files are only clips and the manifest, then commits them. The workflow no
+  longer approves CI runs: the owner clicks **Approve workflows to run** once on the PR.
+  An App token can replace the click later, if it becomes a burden.
+- Consequences: One click per content PR whose clips were rendered. A new action goes in
+  with its SHA and version comment, or CI fails.
+
+## ADR-041: Every build download pinned by hash or fixed revision
+- Date: 2026-11-01 · Status: Accepted
+- Context: The voice, Bible and painting tools download what ends up in the app, and none of
+  it was checked (review r-04). The Kokoro files had no checksum and a fixed cache key.
+  Python packages had no versions. `--extra-index-url` let pip take a package from either
+  index, the way the 2022 `torchtriton` attack worked. Kyutai loaded whatever Hugging Face
+  served that day, and the museum images were decoded unchecked.
+- Options considered: for packages, version pins only, or versions with hashes; for the
+  web sources, hashes, or fixed revisions where the content is generated on each request.
+- Decision: Python packages are locked with hashes in `tool/tts/requirements/` and installed
+  with `--require-hashes --no-deps`. `lock.sh` resolves all of them together, so the groups
+  agree, and takes only versions at least two weeks old. torch comes only from the PyTorch
+  index, everything else only from PyPI. `tool/tts/models.json` holds the Kokoro files'
+  SHA-256 and the Kyutai model and voice commits, and the cache keys include them. The eBible
+  archives and the paintings are checked by SHA-256. The Wikisource pages are read at fixed
+  revisions, because the API's HTML carries a timestamp. Each pin was taken from a download
+  that rebuilt the committed files: the Bible texts and paintings came out identical, and
+  the Kokoro clips the same length.
+- Consequences: An upstream change stops the build with the old and new hash. Someone looks
+  at the new file, then updates the pin. Updating packages means running `lock.sh` (it needs
+  `uv`).
+
+## ADR-042: Security scanning with free, pinned tools; fix before accepting
+- Date: 2026-11-04 · Status: Accepted
+- Context: The security review (r-16) found that CI had no SAST and no vulnerability or
+  secret scanning. The repository is public on a personal account, so GitHub's code
+  scanning is free, and the owner wanted no running cost. A first version of this work
+  (branch `ops/security-scanning`, 2026-10-27) waited for r-02, r-03, r-07 and r-09.
+- Options considered: CodeQL default setup only (one click, but no Dart, Android or workflow
+  depth); paid platforms (Snyk, Semgrep AppSec Platform, Socket); open-source scanners in
+  CI, reporting to GitHub code scanning. For a vulnerable package held back by another:
+  accept the advisory, or force the fixed version.
+- Decision: Open-source scanners in CI, each uploading SARIF to code scanning. On every PR:
+  OSV-Scanner (pub and every Python lock), gitleaks, zizmor, Semgrep with project Dart
+  rules, Ruff `S` rules and mobsfscan. CodeQL advanced setup covers Actions and Python,
+  Scorecard runs on `main`, and MobSF scans the APK weekly and on tags, with a reviewed
+  list of accepted high findings. The scanners are hash-locked (`tool/security/lock.sh`)
+  and the actions pinned by SHA, so the security jobs don't add the supply-chain risk they
+  look for. A known vulnerability is fixed first: `overrides.txt` forces the fixed version
+  past a package's own pin, with the reason, and the tool is run to check it. Only when that
+  isn't possible is the advisory accepted in `osv-scanner.toml`, with the reason and an
+  expiry date. Today: semgrep's `mcp`, `pyjwt` and OpenTelemetry, and moshi's `aiohttp`,
+  are overridden. torch's advisories are accepted, because they need a malicious checkpoint
+  and an override would lose the PyTorch CPU index.
+- Consequences: No cost while the repository stays public. If it goes private, code and
+  secret scanning become paid GitHub add-ons. Dart has no CodeQL support and no public
+  Semgrep rules, so Dart coverage is the project's own rules plus `flutter analyze`.
+  Dependabot can't update the overridden scanner lock, so the owner or Claude runs
+  `lock.sh`. Accepted findings are looked at again when they expire or their reason stops
+  holding.
+
+## ADR-043: The web app loads nothing from other sites
+- Date: 2026-11-04 · Status: Accepted
+- Context: The app promises no network calls and no tracking, but the web build loaded
+  CanvasKit from `www.gstatic.com` and Roboto from `fonts.gstatic.com` on every visit (review
+  r-06). Every visitor's address went to Google with the fact that they opened a prayer app,
+  which is sensitive data under the GDPR (religious belief). The page also had no Content
+  Security Policy.
+- Options considered: keep the CDN for speed; self-host the engine but keep downloading
+  fonts; self-host everything and enforce it.
+- Decision: Self-host everything, and check it. Web builds use `--no-web-resources-cdn`.
+  Roboto is bundled as an app font, built from Google's source at a pinned commit and cut to
+  the characters the texts use. The engine's fallback-font URL points at the app's own site.
+  `index.html` sets a strict CSP and `no-referrer`. CI checks the build in a headless browser
+  (no request outside the site, no CSP violation, no fallback font), and a test checks the
+  font has every character of the texts.
+- Consequences: The site is about 7 MB bigger, and the first visit loads CanvasKit from
+  GitHub Pages rather than Google's cache. The APK grows by about 400 KB of fonts. A new
+  character in a text, or a new language, needs its range added to `build_fonts.py`; the
+  test says which one. A new kind of resource (another site, a web worker) must be added to
+  the CSP on purpose.

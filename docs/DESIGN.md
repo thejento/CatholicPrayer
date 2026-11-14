@@ -191,9 +191,15 @@ build/tts/texts.json ──► tool/tts/render.py ──► assets/audio/<lang>/
   matches the current text. So the audio can never silently drift from the words on screen.
 * `render-audio.yml` runs on any branch push that changes spoken text. It renders only
   the stale clips, installs only the engines needed (Kokoro takes minutes; Kyutai
-  takes about an hour for French on CPU) and commits them to the branch. GitHub holds CI runs
-  triggered by a bot push for approval, and branch protection only counts PR-event runs,
-  so the job approves that held run through the API.
+  takes about an hour for French on CPU) with read-only rights. A second job, which runs none
+  of the branch's code, checks that only clips and the manifest changed and commits them to
+  the branch. GitHub holds the PR's CI run for that bot commit until the owner approves it
+  (ADR-040).
+* Every download is pinned (ADR-041). Python packages come from hash-locked files in
+  `tool/tts/requirements/` (`lock.sh` regenerates them from versions at least two weeks
+  old), torch only from the PyTorch CPU index. `render.py` checks the Kokoro files' SHA-256
+  before loading them and loads Kyutai's weights and voice at fixed Hugging Face commits
+  (`tool/tts/models.json`). The cache keys include those pins.
 * Kokoro (EN/ES) can also be rendered locally in about 2 minutes.
 
 **Playback** (`just_audio`, MIT, Android + web)
@@ -270,7 +276,8 @@ and the translation's credit at the bottom, so the person can read it before med
 * The Assumption is not narrated in Scripture; like the Coronation it shows Revelation 12:1,
   the passage Tradition reads for it.
 * `tool/scripture/build.py` downloads the sources and writes `assets/data/scripture/<lang>.json`
-  (20 passages, 178 verses). The Spanish spelling update (accents, j/g, modern names such as
+  (20 passages, 178 verses). The eBible archives are checked by SHA-256 and the Wikisource
+  pages are read at fixed revisions, so a changed source stops the build (ADR-041). The Spanish spelling update (accents, j/g, modern names such as
   Jerusalén and Belén) is an explicit list in `tool/scripture/modern_es.py`; the wording is unchanged.
 * On TV the D-pad moves from verse to verse, scrolling as it goes.
 * Read aloud: not yet (backlog F-18).
@@ -371,8 +378,8 @@ never shows paintings, and the prayer steps stay plain so the text is always eas
 * Only images their museums release as **CC0 or public domain**: National Gallery of Art
   (Washington), Cleveland Museum of Art, Statens Museum for Kunst (Copenhagen). Credits are also
   on the licence page.
-* `tool/art/build_art.py` downloads them, resizes to 1200 px and writes WebP (3.1 MB in all) plus
-  `assets/data/art.json`.
+* `tool/art/build_art.py` downloads them, checks each one's SHA-256 before decoding it
+  (ADR-041), resizes to 1200 px and writes WebP (3.1 MB in all) plus `assets/data/art.json`.
 * The painting keeps to about a quarter of the screen height (160–360 px) so the title stays in
   view; it has a screen-reader label ("Painting: The Annunciation, by Masolino da Panicale").
 * Artwork titles are the museums' English titles in every language.
@@ -663,7 +670,13 @@ lib/
 * **State management** uses `provider` with `ChangeNotifier`. The domain layer has no
   dependency on Flutter, so its logic is tested in plain unit tests.
 * **Persistence** uses `shared_preferences` (`SharedPreferencesAsync`) behind a
-  `PreferencesStore` interface. It works on Android and web with no account.
+  `PreferencesStore` interface. It works on Android and web with no account. A value is
+  applied in memory first and the screens don't wait for the save; `SafePreferencesStore`
+  logs a failed write instead of throwing, so the app keeps the new value until it closes
+  (r-15).
+* **Async safety:** the lints `unawaited_futures` and `discarded_futures` catch a future
+  whose error would be lost; one started on purpose without waiting is wrapped in
+  `unawaited(...)`. `cancel_subscriptions` and `close_sinks` are on too.
 * **Dependency injection** goes through constructor parameters. Tests pass fakes, such as an
   in-memory preferences store and an injected clock (`DateTime Function()`).
 
@@ -681,6 +694,8 @@ lib/
 | Golden screenshots (2 themes × phone/tablet/TV) | `matchesGoldenFile`, 0.5 % tolerance | required |
 | Accessibility (every screen, both themes; 200 % text on phone, sideways phone, TV) | `meetsGuideline` tap-target, label, contrast; overflow check | required |
 | Device/integration | `integration_test` on an emulator | backlog |
+| Security: dependencies, secrets, workflows, code (§7.1) | OSV-Scanner, gitleaks, zizmor, CodeQL, Semgrep, Ruff, mobsfscan | `security.yml`, `codeql.yml`; required once the owner adds them (§7.1) |
+| Security: built APK (§7.1) | MobSF | weekly and on release tags (`mobsf.yml`) |
 
 ## 7. Delivery pipeline (CI/CD)
 
@@ -697,6 +712,14 @@ lib/
                                  signed AAB + APK + web zip, never debug-signed
                              ─► publish: GitHub Release with assets
                              ─► (backlog) Google Play internal track
+
+ PR / push main / weekly ─► security.yml ─┬─ OSV-Scanner (pubspec.lock, Python requirements)
+                                          ├─ gitleaks (secrets in commits)
+                                          ├─ zizmor · Semgrep (Dart) · Ruff · mobsfscan
+                                          └─ Android dependency graph (main only)
+                         ─► codeql.yml ─── CodeQL: Actions workflows, Python tools
+ push main / weekly ─────► scorecard.yml ─ OpenSSF Scorecard
+ weekly / tag / manual ──► mobsf.yml ───── MobSF scan of the release APK
 ```
 
 * **Toolchain pin:** the Flutter version is pinned in `pubspec.yaml`
@@ -716,7 +739,59 @@ lib/
   secrets.
 * **Gradle:** the wrapper jar is checked against Gradle's official checksums in CI and
   release, and the distribution zip has a pinned `distributionSha256Sum` (r-08).
-* **Dependencies:** Dependabot opens weekly PRs for pub, Gradle and Actions.
+* **Dependencies:** Dependabot opens weekly PRs for pub, Gradle and Actions. The Python locks
+  (voice tools, scanners) are regenerated by their `lock.sh`.
+* **Workflow safety** (ADR-040): every action is pinned to a commit SHA with its version as a
+  comment, and CI fails on one that isn't. Checkouts don't keep the token, except where the
+  job pushes. Each job gets only the rights it needs: the Pages rights only in `deploy`, the
+  push right only in render-audio's `commit` job, which runs none of the branch's code.
+
+### 7.1 Security scanning, see ADR-042
+
+Free tools only: the repository is public and on a personal account, so GitHub's code
+scanning, secret scanning and Dependabot alerts cost nothing, and the scanners are open source.
+
+| What | Tool | Where | Fails when |
+|---|---|---|---|
+| Known vulnerabilities in dependencies | OSV-Scanner | `security.yml` | a lockfile has a known advisory |
+| Same, as alerts with fix PRs | Dependabot alerts and security updates | repo settings; Gradle tree sent by `security.yml` | (alerts, not a check) |
+| Secrets committed to git | gitleaks; GitHub secret scanning and push protection | `security.yml`; repo settings | a secret is found; push protection blocks the push |
+| Workflow security (pinning, injection, permissions) | zizmor; CodeQL `actions` | `security.yml`; `codeql.yml` | any zizmor finding; CodeQL alerts |
+| Dart code | Semgrep with the project's own rules, `tool/security/semgrep-dart.yml` | `security.yml` | the app gains a network client or WebView, opens a link without `LinkOpener`, uses `http://`, or builds a link from data |
+| Python tools | Ruff security rules (`S`, from bandit); CodeQL `python` | `security.yml`; `codeql.yml` | a finding |
+| Android sources | mobsfscan, `tool/security/mobsfscan.yml` | `security.yml` | a warning or error |
+| Built APK | MobSF | `mobsf.yml` | a high finding not listed in `tool/security/mobsf-accepted.txt` |
+| Project practices | OpenSSF Scorecard | `scorecard.yml` | (score and advice, not a check) |
+
+* Results appear under **Security → Code scanning**, one category per tool. SARIF upload is
+  skipped on pull requests from forks, which don't get a write token.
+* The scanners are installed from `tool/security/requirements.txt`, pinned and
+  hash-checked (`pip install --require-hashes --no-deps`), and every action is pinned to a
+  commit SHA. `tool/security/lock.sh` regenerates the file; Dependabot can't, because of the
+  overrides below.
+* OSV-Scanner reads `pubspec.lock`, the scanners' lock and the voice tools' locks
+  (`tool/tts/requirements/`, ADR-041).
+* **A known vulnerability is fixed, not hidden, wherever possible.** When a package holds a
+  dependency back (semgrep, pinned by mobsfscan; moshi), `overrides.txt` next to the lock
+  forces the fixed version, with the reason, and the tool is run to check it still works.
+  Only when that isn't possible is the advisory accepted in an `osv-scanner.toml` next to
+  the lock, with the reason and an `ignoreUntil` date (torch, held at 2.9 by moshi: its
+  advisories need a malicious checkpoint, and only pinned safetensors are loaded).
+* Semgrep has no public Dart rules, so the project writes its own. They encode §9's promise
+  that the app never goes online by itself. Test cases are in `tool/security/semgrep-dart.dart`
+  and are run first. CodeQL has no Dart support.
+* An accepted finding is excluded where it is configured, with the reason on the line above:
+  the `ignore-rules` of `mobsfscan.yml`, `mobsf-accepted.txt`, `per-file-ignores` in
+  `tool/ruff.toml`, a `paths: exclude` in the Semgrep rule, `.gitleaks.toml`, or an
+  `osv-scanner.toml`.
+* **Owner settings** (one-time, Settings → Code security and Branches):
+  1. Turn on Dependabot alerts, Dependabot security updates, secret scanning, push protection
+     and private vulnerability reporting.
+  2. Leave CodeQL "default setup" off: `codeql.yml` is the advanced setup, and the two can't
+     run together.
+  3. After the first green run, add these as required checks on `main`: "Dependency
+     vulnerabilities (OSV-Scanner)", "Secrets (gitleaks)", "Static analysis (zizmor · Semgrep
+     · Ruff · mobsfscan)", "CodeQL (actions)", "CodeQL (python)".
 
 ## 8. Brand assets
 
@@ -748,3 +823,24 @@ Regenerate with `flutter test tool/render_icons_test.dart` (ADR-017).
 * The app respects the system text scale with no cap; layouts are checked at 200 %.
   Every tap target is at least 48 dp, and text meets WCAG AA contrast in both themes.
 * All of this is enforced by `test/ui/accessibility_test.dart` (ADR-022).
+* "No network calls" is checked in CI by the Semgrep rules of §7.1. Vulnerabilities can be
+  reported privately: see `SECURITY.md`.
+* **The web app loads nothing from other sites** (r-06, ADR-043). Flutter's defaults would
+  fetch CanvasKit from `www.gstatic.com` and Roboto (plus Noto for missing characters) from
+  `fonts.gstatic.com` on every visit, which tells Google who opens a prayer app. Instead:
+  * every web build uses `--no-web-resources-cdn`, so CanvasKit is served with the app;
+  * Roboto is an app font (`assets/fonts/`, 400–800 and italic, about 400 KB), so the engine
+    doesn't download it. `tool/fonts/build_fonts.py` makes it from Google's variable Roboto
+    at a pinned commit, cut to the Latin characters of the three languages. It also maps the
+    narrow no-break space that French uses before `; : ! ?` to Roboto's thin space.
+    `test/data/font_coverage_test.dart` fails when a text uses a character the font lacks;
+  * `web/flutter_bootstrap.js` points the engine's fallback-font URL at this site, so even
+    a missing character never reaches Google;
+  * `web/index.html` sets a Content Security Policy (only this site; `wasm-unsafe-eval` for
+    CanvasKit; inline styles; `blob:` for audio and images) and `no-referrer`;
+  * CI builds the site and loads 11 screens in headless Chrome in each language
+    (`tool/web/check_requests.mjs`). It fails on any request outside the site, any CSP
+    violation and any fallback-font request.
+* On Android the themes keep the system fonts (`serif` for classic, `sans-serif` for
+  kid-friendly). On the web those generic names fall back to the bundled Roboto, as they
+  did before with the downloaded one.

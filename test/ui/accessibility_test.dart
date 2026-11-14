@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:crc/src/domain/mysteries.dart';
 import 'package:crc/src/providers/saved_session_controller.dart';
 import 'package:crc/src/theme/app_theme.dart';
@@ -102,7 +104,7 @@ final Map<String, Visit> screens = {
 
 TestApp appFor(AppThemeMode mode) {
   final app = TestApp();
-  app.themeManager.setMode(mode);
+  unawaited(app.themeManager.setMode(mode));
   return app;
 }
 
