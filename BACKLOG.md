@@ -90,3 +90,4 @@ Design: [docs/DESIGN.md](docs/DESIGN.md) · Decisions: [docs/DECISIONS.md](docs/
 - [x] r-16 Security scanning in CI: OSV-Scanner, gitleaks, zizmor, CodeQL, Semgrep Dart rules, Ruff, mobsfscan, MobSF, Scorecard; known vulnerabilities fixed by overrides (ADR-042)
 - [x] r-15 Async-safety lints (`discarded_futures`, `cancel_subscriptions`, `close_sinks`); a failed settings save is logged, not lost
 - [x] r-06 The web app loads nothing from other sites: CanvasKit and Roboto bundled, CSP, checked in a headless browser (ADR-043)
+- [x] Scanner dependency: OpenTelemetry 1.45.2 (GHSA-mf5v-w3w3-f6cg, published 2026-11-13) via overrides.txt (ADR-042); unblocks the OSV check
